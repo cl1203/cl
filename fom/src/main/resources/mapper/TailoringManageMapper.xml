@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.dao.TailoringManageMapper">
+  <resultMap id="BaseResultMap" type="com.cl.entity.TailoringManageEntity">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="tailoring_group" jdbcType="VARCHAR" property="tailoringGroup" />
+    <result column="answer_cut_quantity" jdbcType="INTEGER" property="answerCutQuantity" />
+    <result column="actual_cut_quantity" jdbcType="INTEGER" property="actualCutQuantity" />
+    <result column="monovalent" jdbcType="DECIMAL" property="monovalent" />
+    <result column="consuming_time" jdbcType="DECIMAL" property="consumingTime" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="last_update_user" jdbcType="VARCHAR" property="lastUpdateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, order_id, tailoring_group, answer_cut_quantity, actual_cut_quantity, monovalent, 
+    consuming_time, remarks, create_time, create_user, last_update_time, last_update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.cl.entity.TailoringManageEntityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tailoring_manage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tailoring_manage
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tailoring_manage
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cl.entity.TailoringManageEntityExample">
+    delete from tailoring_manage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.TailoringManageEntity" useGeneratedKeys="true">
+    insert into tailoring_manage (order_id, tailoring_group, answer_cut_quantity, 
+      actual_cut_quantity, monovalent, consuming_time, 
+      remarks, create_time, create_user, 
+      last_update_time, last_update_user)
+    values (#{orderId,jdbcType=BIGINT}, #{tailoringGroup,jdbcType=VARCHAR}, #{answerCutQuantity,jdbcType=INTEGER}, 
+      #{actualCutQuantity,jdbcType=INTEGER}, #{monovalent,jdbcType=DECIMAL}, #{consumingTime,jdbcType=DECIMAL}, 
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.TailoringManageEntity" useGeneratedKeys="true">
+    insert into tailoring_manage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="tailoringGroup != null">
+        tailoring_group,
+      </if>
+      <if test="answerCutQuantity != null">
+        answer_cut_quantity,
+      </if>
+      <if test="actualCutQuantity != null">
+        actual_cut_quantity,
+      </if>
+      <if test="monovalent != null">
+        monovalent,
+      </if>
+      <if test="consumingTime != null">
+        consuming_time,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time,
+      </if>
+      <if test="lastUpdateUser != null">
+        last_update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="tailoringGroup != null">
+        #{tailoringGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="answerCutQuantity != null">
+        #{answerCutQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="actualCutQuantity != null">
+        #{actualCutQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="monovalent != null">
+        #{monovalent,jdbcType=DECIMAL},
+      </if>
+      <if test="consumingTime != null">
+        #{consumingTime,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null">
+        #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cl.entity.TailoringManageEntityExample" resultType="java.lang.Long">
+    select count(*) from tailoring_manage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tailoring_manage
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.tailoringGroup != null">
+        tailoring_group = #{record.tailoringGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.answerCutQuantity != null">
+        answer_cut_quantity = #{record.answerCutQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.actualCutQuantity != null">
+        actual_cut_quantity = #{record.actualCutQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.monovalent != null">
+        monovalent = #{record.monovalent,jdbcType=DECIMAL},
+      </if>
+      <if test="record.consumingTime != null">
+        consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateTime != null">
+        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateUser != null">
+        last_update_user = #{record.lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tailoring_manage
+    set id = #{record.id,jdbcType=BIGINT},
+      order_id = #{record.orderId,jdbcType=BIGINT},
+      tailoring_group = #{record.tailoringGroup,jdbcType=VARCHAR},
+      answer_cut_quantity = #{record.answerCutQuantity,jdbcType=INTEGER},
+      actual_cut_quantity = #{record.actualCutQuantity,jdbcType=INTEGER},
+      monovalent = #{record.monovalent,jdbcType=DECIMAL},
+      consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      last_update_user = #{record.lastUpdateUser,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.TailoringManageEntity">
+    update tailoring_manage
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="tailoringGroup != null">
+        tailoring_group = #{tailoringGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="answerCutQuantity != null">
+        answer_cut_quantity = #{answerCutQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="actualCutQuantity != null">
+        actual_cut_quantity = #{actualCutQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="monovalent != null">
+        monovalent = #{monovalent,jdbcType=DECIMAL},
+      </if>
+      <if test="consumingTime != null">
+        consuming_time = #{consumingTime,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null">
+        last_update_user = #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cl.entity.TailoringManageEntity">
+    update tailoring_manage
+    set order_id = #{orderId,jdbcType=BIGINT},
+      tailoring_group = #{tailoringGroup,jdbcType=VARCHAR},
+      answer_cut_quantity = #{answerCutQuantity,jdbcType=INTEGER},
+      actual_cut_quantity = #{actualCutQuantity,jdbcType=INTEGER},
+      monovalent = #{monovalent,jdbcType=DECIMAL},
+      consuming_time = #{consumingTime,jdbcType=DECIMAL},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      last_update_user = #{lastUpdateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

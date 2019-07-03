@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.dao.OrderManageMapper">
+  <resultMap id="BaseResultMap" type="com.cl.entity.OrderManageEntity">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="order_status" jdbcType="TINYINT" property="orderStatus" />
+    <result column="order_quantity" jdbcType="INTEGER" property="orderQuantity" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="sku" jdbcType="VARCHAR" property="sku" />
+    <result column="producer" jdbcType="VARCHAR" property="producer" />
+    <result column="secondary_process" jdbcType="VARCHAR" property="secondaryProcess" />
+    <result column="materiel_name" jdbcType="VARCHAR" property="materielName" />
+    <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
+    <result column="answer_pick_quantity" jdbcType="INTEGER" property="answerPickQuantity" />
+    <result column="answer_pick_monovalent" jdbcType="DECIMAL" property="answerPickMonovalent" />
+    <result column="answer_pick_total" jdbcType="DECIMAL" property="answerPickTotal" />
+    <result column="surplus_time" jdbcType="VARCHAR" property="surplusTime" />
+    <result column="purchase_time" jdbcType="INTEGER" property="purchaseTime" />
+    <result column="tailoring_time" jdbcType="INTEGER" property="tailoringTime" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="last_update_user" jdbcType="VARCHAR" property="lastUpdateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, order_number, order_status, order_quantity, order_time, sku, producer, secondary_process, 
+    materiel_name, supplier_name, answer_pick_quantity, answer_pick_monovalent, answer_pick_total, 
+    surplus_time, purchase_time, tailoring_time, remarks, create_time, create_user, last_update_time, 
+    last_update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.cl.entity.OrderManageEntityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order_manage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_manage
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from order_manage
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cl.entity.OrderManageEntityExample">
+    delete from order_manage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.OrderManageEntity" useGeneratedKeys="true">
+    insert into order_manage (order_number, order_status, order_quantity, 
+      order_time, sku, producer, 
+      secondary_process, materiel_name, supplier_name, 
+      answer_pick_quantity, answer_pick_monovalent, 
+      answer_pick_total, surplus_time, purchase_time, 
+      tailoring_time, remarks, create_time, 
+      create_user, last_update_time, last_update_user
+      )
+    values (#{orderNumber,jdbcType=VARCHAR}, #{orderStatus,jdbcType=TINYINT}, #{orderQuantity,jdbcType=INTEGER}, 
+      #{orderTime,jdbcType=TIMESTAMP}, #{sku,jdbcType=VARCHAR}, #{producer,jdbcType=VARCHAR}, 
+      #{secondaryProcess,jdbcType=VARCHAR}, #{materielName,jdbcType=VARCHAR}, #{supplierName,jdbcType=VARCHAR}, 
+      #{answerPickQuantity,jdbcType=INTEGER}, #{answerPickMonovalent,jdbcType=DECIMAL}, 
+      #{answerPickTotal,jdbcType=DECIMAL}, #{surplusTime,jdbcType=VARCHAR}, #{purchaseTime,jdbcType=INTEGER}, 
+      #{tailoringTime,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.OrderManageEntity" useGeneratedKeys="true">
+    insert into order_manage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderNumber != null">
+        order_number,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="orderQuantity != null">
+        order_quantity,
+      </if>
+      <if test="orderTime != null">
+        order_time,
+      </if>
+      <if test="sku != null">
+        sku,
+      </if>
+      <if test="producer != null">
+        producer,
+      </if>
+      <if test="secondaryProcess != null">
+        secondary_process,
+      </if>
+      <if test="materielName != null">
+        materiel_name,
+      </if>
+      <if test="supplierName != null">
+        supplier_name,
+      </if>
+      <if test="answerPickQuantity != null">
+        answer_pick_quantity,
+      </if>
+      <if test="answerPickMonovalent != null">
+        answer_pick_monovalent,
+      </if>
+      <if test="answerPickTotal != null">
+        answer_pick_total,
+      </if>
+      <if test="surplusTime != null">
+        surplus_time,
+      </if>
+      <if test="purchaseTime != null">
+        purchase_time,
+      </if>
+      <if test="tailoringTime != null">
+        tailoring_time,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time,
+      </if>
+      <if test="lastUpdateUser != null">
+        last_update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=TINYINT},
+      </if>
+      <if test="orderQuantity != null">
+        #{orderQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="orderTime != null">
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sku != null">
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="producer != null">
+        #{producer,jdbcType=VARCHAR},
+      </if>
+      <if test="secondaryProcess != null">
+        #{secondaryProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="materielName != null">
+        #{materielName,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierName != null">
+        #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="answerPickQuantity != null">
+        #{answerPickQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="answerPickMonovalent != null">
+        #{answerPickMonovalent,jdbcType=DECIMAL},
+      </if>
+      <if test="answerPickTotal != null">
+        #{answerPickTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="surplusTime != null">
+        #{surplusTime,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseTime != null">
+        #{purchaseTime,jdbcType=INTEGER},
+      </if>
+      <if test="tailoringTime != null">
+        #{tailoringTime,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null">
+        #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cl.entity.OrderManageEntityExample" resultType="java.lang.Long">
+    select count(*) from order_manage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update order_manage
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderNumber != null">
+        order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatus != null">
+        order_status = #{record.orderStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.orderQuantity != null">
+        order_quantity = #{record.orderQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderTime != null">
+        order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sku != null">
+        sku = #{record.sku,jdbcType=VARCHAR},
+      </if>
+      <if test="record.producer != null">
+        producer = #{record.producer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secondaryProcess != null">
+        secondary_process = #{record.secondaryProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materielName != null">
+        materiel_name = #{record.materielName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierName != null">
+        supplier_name = #{record.supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.answerPickQuantity != null">
+        answer_pick_quantity = #{record.answerPickQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.answerPickMonovalent != null">
+        answer_pick_monovalent = #{record.answerPickMonovalent,jdbcType=DECIMAL},
+      </if>
+      <if test="record.answerPickTotal != null">
+        answer_pick_total = #{record.answerPickTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.surplusTime != null">
+        surplus_time = #{record.surplusTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaseTime != null">
+        purchase_time = #{record.purchaseTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.tailoringTime != null">
+        tailoring_time = #{record.tailoringTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateTime != null">
+        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateUser != null">
+        last_update_user = #{record.lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update order_manage
+    set id = #{record.id,jdbcType=BIGINT},
+      order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      order_status = #{record.orderStatus,jdbcType=TINYINT},
+      order_quantity = #{record.orderQuantity,jdbcType=INTEGER},
+      order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      sku = #{record.sku,jdbcType=VARCHAR},
+      producer = #{record.producer,jdbcType=VARCHAR},
+      secondary_process = #{record.secondaryProcess,jdbcType=VARCHAR},
+      materiel_name = #{record.materielName,jdbcType=VARCHAR},
+      supplier_name = #{record.supplierName,jdbcType=VARCHAR},
+      answer_pick_quantity = #{record.answerPickQuantity,jdbcType=INTEGER},
+      answer_pick_monovalent = #{record.answerPickMonovalent,jdbcType=DECIMAL},
+      answer_pick_total = #{record.answerPickTotal,jdbcType=DECIMAL},
+      surplus_time = #{record.surplusTime,jdbcType=VARCHAR},
+      purchase_time = #{record.purchaseTime,jdbcType=INTEGER},
+      tailoring_time = #{record.tailoringTime,jdbcType=INTEGER},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      last_update_user = #{record.lastUpdateUser,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.OrderManageEntity">
+    update order_manage
+    <set>
+      <if test="orderNumber != null">
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=TINYINT},
+      </if>
+      <if test="orderQuantity != null">
+        order_quantity = #{orderQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="orderTime != null">
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sku != null">
+        sku = #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="producer != null">
+        producer = #{producer,jdbcType=VARCHAR},
+      </if>
+      <if test="secondaryProcess != null">
+        secondary_process = #{secondaryProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="materielName != null">
+        materiel_name = #{materielName,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierName != null">
+        supplier_name = #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="answerPickQuantity != null">
+        answer_pick_quantity = #{answerPickQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="answerPickMonovalent != null">
+        answer_pick_monovalent = #{answerPickMonovalent,jdbcType=DECIMAL},
+      </if>
+      <if test="answerPickTotal != null">
+        answer_pick_total = #{answerPickTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="surplusTime != null">
+        surplus_time = #{surplusTime,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseTime != null">
+        purchase_time = #{purchaseTime,jdbcType=INTEGER},
+      </if>
+      <if test="tailoringTime != null">
+        tailoring_time = #{tailoringTime,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null">
+        last_update_user = #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cl.entity.OrderManageEntity">
+    update order_manage
+    set order_number = #{orderNumber,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=TINYINT},
+      order_quantity = #{orderQuantity,jdbcType=INTEGER},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      sku = #{sku,jdbcType=VARCHAR},
+      producer = #{producer,jdbcType=VARCHAR},
+      secondary_process = #{secondaryProcess,jdbcType=VARCHAR},
+      materiel_name = #{materielName,jdbcType=VARCHAR},
+      supplier_name = #{supplierName,jdbcType=VARCHAR},
+      answer_pick_quantity = #{answerPickQuantity,jdbcType=INTEGER},
+      answer_pick_monovalent = #{answerPickMonovalent,jdbcType=DECIMAL},
+      answer_pick_total = #{answerPickTotal,jdbcType=DECIMAL},
+      surplus_time = #{surplusTime,jdbcType=VARCHAR},
+      purchase_time = #{purchaseTime,jdbcType=INTEGER},
+      tailoring_time = #{tailoringTime,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      last_update_user = #{lastUpdateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
