@@ -17,7 +17,6 @@ import java.util.List;
  */
 @Repository
 public interface StudentMapper extends MyBatisBaseDao<StudentEntity, Long, StudentEntityExample> {
-
     default PageInfo<StudentEntity> selectStudentEntityPage(RequestBeanModel<StudentReqBean> requestBeanModel){
         StudentReqBean studentReqBean =requestBeanModel.getReqData();
         Page<StudentEntity> page = PageHelper.startPage(studentReqBean.getPageNum() ,studentReqBean.getPageSize() ,"id");

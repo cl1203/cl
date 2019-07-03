@@ -5,10 +5,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * order_manage
+ * order
  * @author 
  */
-public class OrderManageEntity implements Serializable {
+public class OrderEntity implements Serializable {
     /**
      * 主键ID
      */
@@ -295,7 +295,7 @@ public class OrderManageEntity implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        OrderManageEntity other = (OrderManageEntity) that;
+        OrderEntity other = (OrderEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getOrderNumber() == null ? other.getOrderNumber() == null : this.getOrderNumber().equals(other.getOrderNumber()))
             && (this.getOrderStatus() == null ? other.getOrderStatus() == null : this.getOrderStatus().equals(other.getOrderStatus()))

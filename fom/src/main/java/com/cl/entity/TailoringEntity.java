@@ -5,10 +5,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * purchase_manage
+ * tailoring
  * @author 
  */
-public class PurchaseManageEntity implements Serializable {
+public class TailoringEntity implements Serializable {
     /**
      * 主键ID
      */
@@ -20,32 +20,27 @@ public class PurchaseManageEntity implements Serializable {
     private Long orderId;
 
     /**
-     * 采购单号
+     * 裁剪小组
      */
-    private String purchaseNumber;
+    private String tailoringGroup;
 
     /**
-     * 采购日期 (录入实采时期)
+     * 应裁数量
      */
-    private Date purchaseTime;
+    private Integer answerCutQuantity;
 
     /**
-     * 实采数量
+     * 实裁数量
      */
-    private Integer actualPickQuantity;
+    private Integer actualCutQuantity;
 
     /**
-     * 应采单价
+     * 单价
      */
-    private BigDecimal actualPickMonovalent;
+    private BigDecimal monovalent;
 
     /**
-     * 实采总额
-     */
-    private BigDecimal actualPickTotal;
-
-    /**
-     * 采购耗时
+     * 裁剪耗时
      */
     private BigDecimal consumingTime;
 
@@ -92,44 +87,36 @@ public class PurchaseManageEntity implements Serializable {
         this.orderId = orderId;
     }
 
-    public String getPurchaseNumber() {
-        return purchaseNumber;
+    public String getTailoringGroup() {
+        return tailoringGroup;
     }
 
-    public void setPurchaseNumber(String purchaseNumber) {
-        this.purchaseNumber = purchaseNumber;
+    public void setTailoringGroup(String tailoringGroup) {
+        this.tailoringGroup = tailoringGroup;
     }
 
-    public Date getPurchaseTime() {
-        return purchaseTime;
+    public Integer getAnswerCutQuantity() {
+        return answerCutQuantity;
     }
 
-    public void setPurchaseTime(Date purchaseTime) {
-        this.purchaseTime = purchaseTime;
+    public void setAnswerCutQuantity(Integer answerCutQuantity) {
+        this.answerCutQuantity = answerCutQuantity;
     }
 
-    public Integer getActualPickQuantity() {
-        return actualPickQuantity;
+    public Integer getActualCutQuantity() {
+        return actualCutQuantity;
     }
 
-    public void setActualPickQuantity(Integer actualPickQuantity) {
-        this.actualPickQuantity = actualPickQuantity;
+    public void setActualCutQuantity(Integer actualCutQuantity) {
+        this.actualCutQuantity = actualCutQuantity;
     }
 
-    public BigDecimal getActualPickMonovalent() {
-        return actualPickMonovalent;
+    public BigDecimal getMonovalent() {
+        return monovalent;
     }
 
-    public void setActualPickMonovalent(BigDecimal actualPickMonovalent) {
-        this.actualPickMonovalent = actualPickMonovalent;
-    }
-
-    public BigDecimal getActualPickTotal() {
-        return actualPickTotal;
-    }
-
-    public void setActualPickTotal(BigDecimal actualPickTotal) {
-        this.actualPickTotal = actualPickTotal;
+    public void setMonovalent(BigDecimal monovalent) {
+        this.monovalent = monovalent;
     }
 
     public BigDecimal getConsumingTime() {
@@ -191,14 +178,13 @@ public class PurchaseManageEntity implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        PurchaseManageEntity other = (PurchaseManageEntity) that;
+        TailoringEntity other = (TailoringEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
-            && (this.getPurchaseNumber() == null ? other.getPurchaseNumber() == null : this.getPurchaseNumber().equals(other.getPurchaseNumber()))
-            && (this.getPurchaseTime() == null ? other.getPurchaseTime() == null : this.getPurchaseTime().equals(other.getPurchaseTime()))
-            && (this.getActualPickQuantity() == null ? other.getActualPickQuantity() == null : this.getActualPickQuantity().equals(other.getActualPickQuantity()))
-            && (this.getActualPickMonovalent() == null ? other.getActualPickMonovalent() == null : this.getActualPickMonovalent().equals(other.getActualPickMonovalent()))
-            && (this.getActualPickTotal() == null ? other.getActualPickTotal() == null : this.getActualPickTotal().equals(other.getActualPickTotal()))
+            && (this.getTailoringGroup() == null ? other.getTailoringGroup() == null : this.getTailoringGroup().equals(other.getTailoringGroup()))
+            && (this.getAnswerCutQuantity() == null ? other.getAnswerCutQuantity() == null : this.getAnswerCutQuantity().equals(other.getAnswerCutQuantity()))
+            && (this.getActualCutQuantity() == null ? other.getActualCutQuantity() == null : this.getActualCutQuantity().equals(other.getActualCutQuantity()))
+            && (this.getMonovalent() == null ? other.getMonovalent() == null : this.getMonovalent().equals(other.getMonovalent()))
             && (this.getConsumingTime() == null ? other.getConsumingTime() == null : this.getConsumingTime().equals(other.getConsumingTime()))
             && (this.getRemarks() == null ? other.getRemarks() == null : this.getRemarks().equals(other.getRemarks()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -213,11 +199,10 @@ public class PurchaseManageEntity implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getOrderId() == null) ? 0 : getOrderId().hashCode());
-        result = prime * result + ((getPurchaseNumber() == null) ? 0 : getPurchaseNumber().hashCode());
-        result = prime * result + ((getPurchaseTime() == null) ? 0 : getPurchaseTime().hashCode());
-        result = prime * result + ((getActualPickQuantity() == null) ? 0 : getActualPickQuantity().hashCode());
-        result = prime * result + ((getActualPickMonovalent() == null) ? 0 : getActualPickMonovalent().hashCode());
-        result = prime * result + ((getActualPickTotal() == null) ? 0 : getActualPickTotal().hashCode());
+        result = prime * result + ((getTailoringGroup() == null) ? 0 : getTailoringGroup().hashCode());
+        result = prime * result + ((getAnswerCutQuantity() == null) ? 0 : getAnswerCutQuantity().hashCode());
+        result = prime * result + ((getActualCutQuantity() == null) ? 0 : getActualCutQuantity().hashCode());
+        result = prime * result + ((getMonovalent() == null) ? 0 : getMonovalent().hashCode());
         result = prime * result + ((getConsumingTime() == null) ? 0 : getConsumingTime().hashCode());
         result = prime * result + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -235,11 +220,10 @@ public class PurchaseManageEntity implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", orderId=").append(orderId);
-        sb.append(", purchaseNumber=").append(purchaseNumber);
-        sb.append(", purchaseTime=").append(purchaseTime);
-        sb.append(", actualPickQuantity=").append(actualPickQuantity);
-        sb.append(", actualPickMonovalent=").append(actualPickMonovalent);
-        sb.append(", actualPickTotal=").append(actualPickTotal);
+        sb.append(", tailoringGroup=").append(tailoringGroup);
+        sb.append(", answerCutQuantity=").append(answerCutQuantity);
+        sb.append(", actualCutQuantity=").append(actualCutQuantity);
+        sb.append(", monovalent=").append(monovalent);
         sb.append(", consumingTime=").append(consumingTime);
         sb.append(", remarks=").append(remarks);
         sb.append(", createTime=").append(createTime);

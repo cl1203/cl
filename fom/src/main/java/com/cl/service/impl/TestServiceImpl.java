@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @ClassName TestServiceImpl
@@ -58,7 +56,7 @@ public class TestServiceImpl implements ITestService {
      * student转换器
      */
     @Resource
-    private IObjectTransformer<StudentEntity , StudentResBean> studentTransform;
+    private IObjectTransformer<StudentEntity, StudentResBean> studentTransform;
 
 
     @Override

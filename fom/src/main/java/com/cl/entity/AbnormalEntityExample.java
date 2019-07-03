@@ -1,11 +1,10 @@
 package com.cl.entity;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PurchaseManageEntityExample {
+public class AbnormalEntityExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -16,7 +15,7 @@ public class PurchaseManageEntityExample {
 
     private Long offset;
 
-    public PurchaseManageEntityExample() {
+    public AbnormalEntityExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -246,443 +245,193 @@ public class PurchaseManageEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseNumberIsNull() {
-            addCriterion("purchase_number is null");
+        public Criteria andAbnormalTypeIsNull() {
+            addCriterion("abnormal_type is null");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseNumberIsNotNull() {
-            addCriterion("purchase_number is not null");
+        public Criteria andAbnormalTypeIsNotNull() {
+            addCriterion("abnormal_type is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseNumberEqualTo(String value) {
-            addCriterion("purchase_number =", value, "purchaseNumber");
+        public Criteria andAbnormalTypeEqualTo(Byte value) {
+            addCriterion("abnormal_type =", value, "abnormalType");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseNumberNotEqualTo(String value) {
-            addCriterion("purchase_number <>", value, "purchaseNumber");
+        public Criteria andAbnormalTypeNotEqualTo(Byte value) {
+            addCriterion("abnormal_type <>", value, "abnormalType");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseNumberGreaterThan(String value) {
-            addCriterion("purchase_number >", value, "purchaseNumber");
+        public Criteria andAbnormalTypeGreaterThan(Byte value) {
+            addCriterion("abnormal_type >", value, "abnormalType");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseNumberGreaterThanOrEqualTo(String value) {
-            addCriterion("purchase_number >=", value, "purchaseNumber");
+        public Criteria andAbnormalTypeGreaterThanOrEqualTo(Byte value) {
+            addCriterion("abnormal_type >=", value, "abnormalType");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseNumberLessThan(String value) {
-            addCriterion("purchase_number <", value, "purchaseNumber");
+        public Criteria andAbnormalTypeLessThan(Byte value) {
+            addCriterion("abnormal_type <", value, "abnormalType");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseNumberLessThanOrEqualTo(String value) {
-            addCriterion("purchase_number <=", value, "purchaseNumber");
+        public Criteria andAbnormalTypeLessThanOrEqualTo(Byte value) {
+            addCriterion("abnormal_type <=", value, "abnormalType");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseNumberLike(String value) {
-            addCriterion("purchase_number like", value, "purchaseNumber");
+        public Criteria andAbnormalTypeIn(List<Byte> values) {
+            addCriterion("abnormal_type in", values, "abnormalType");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseNumberNotLike(String value) {
-            addCriterion("purchase_number not like", value, "purchaseNumber");
+        public Criteria andAbnormalTypeNotIn(List<Byte> values) {
+            addCriterion("abnormal_type not in", values, "abnormalType");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseNumberIn(List<String> values) {
-            addCriterion("purchase_number in", values, "purchaseNumber");
+        public Criteria andAbnormalTypeBetween(Byte value1, Byte value2) {
+            addCriterion("abnormal_type between", value1, value2, "abnormalType");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseNumberNotIn(List<String> values) {
-            addCriterion("purchase_number not in", values, "purchaseNumber");
+        public Criteria andAbnormalTypeNotBetween(Byte value1, Byte value2) {
+            addCriterion("abnormal_type not between", value1, value2, "abnormalType");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseNumberBetween(String value1, String value2) {
-            addCriterion("purchase_number between", value1, value2, "purchaseNumber");
+        public Criteria andIsApprovalIsNull() {
+            addCriterion("is_approval is null");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseNumberNotBetween(String value1, String value2) {
-            addCriterion("purchase_number not between", value1, value2, "purchaseNumber");
+        public Criteria andIsApprovalIsNotNull() {
+            addCriterion("is_approval is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseTimeIsNull() {
-            addCriterion("purchase_time is null");
+        public Criteria andIsApprovalEqualTo(Byte value) {
+            addCriterion("is_approval =", value, "isApproval");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseTimeIsNotNull() {
-            addCriterion("purchase_time is not null");
+        public Criteria andIsApprovalNotEqualTo(Byte value) {
+            addCriterion("is_approval <>", value, "isApproval");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseTimeEqualTo(Date value) {
-            addCriterion("purchase_time =", value, "purchaseTime");
+        public Criteria andIsApprovalGreaterThan(Byte value) {
+            addCriterion("is_approval >", value, "isApproval");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseTimeNotEqualTo(Date value) {
-            addCriterion("purchase_time <>", value, "purchaseTime");
+        public Criteria andIsApprovalGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_approval >=", value, "isApproval");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseTimeGreaterThan(Date value) {
-            addCriterion("purchase_time >", value, "purchaseTime");
+        public Criteria andIsApprovalLessThan(Byte value) {
+            addCriterion("is_approval <", value, "isApproval");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("purchase_time >=", value, "purchaseTime");
+        public Criteria andIsApprovalLessThanOrEqualTo(Byte value) {
+            addCriterion("is_approval <=", value, "isApproval");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseTimeLessThan(Date value) {
-            addCriterion("purchase_time <", value, "purchaseTime");
+        public Criteria andIsApprovalIn(List<Byte> values) {
+            addCriterion("is_approval in", values, "isApproval");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseTimeLessThanOrEqualTo(Date value) {
-            addCriterion("purchase_time <=", value, "purchaseTime");
+        public Criteria andIsApprovalNotIn(List<Byte> values) {
+            addCriterion("is_approval not in", values, "isApproval");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseTimeIn(List<Date> values) {
-            addCriterion("purchase_time in", values, "purchaseTime");
+        public Criteria andIsApprovalBetween(Byte value1, Byte value2) {
+            addCriterion("is_approval between", value1, value2, "isApproval");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseTimeNotIn(List<Date> values) {
-            addCriterion("purchase_time not in", values, "purchaseTime");
+        public Criteria andIsApprovalNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_approval not between", value1, value2, "isApproval");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseTimeBetween(Date value1, Date value2) {
-            addCriterion("purchase_time between", value1, value2, "purchaseTime");
+        public Criteria andAbnormalRemarksIsNull() {
+            addCriterion("abnormal_remarks is null");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseTimeNotBetween(Date value1, Date value2) {
-            addCriterion("purchase_time not between", value1, value2, "purchaseTime");
+        public Criteria andAbnormalRemarksIsNotNull() {
+            addCriterion("abnormal_remarks is not null");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityIsNull() {
-            addCriterion("actual_pick_quantity is null");
+        public Criteria andAbnormalRemarksEqualTo(String value) {
+            addCriterion("abnormal_remarks =", value, "abnormalRemarks");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityIsNotNull() {
-            addCriterion("actual_pick_quantity is not null");
+        public Criteria andAbnormalRemarksNotEqualTo(String value) {
+            addCriterion("abnormal_remarks <>", value, "abnormalRemarks");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityEqualTo(Integer value) {
-            addCriterion("actual_pick_quantity =", value, "actualPickQuantity");
+        public Criteria andAbnormalRemarksGreaterThan(String value) {
+            addCriterion("abnormal_remarks >", value, "abnormalRemarks");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityNotEqualTo(Integer value) {
-            addCriterion("actual_pick_quantity <>", value, "actualPickQuantity");
+        public Criteria andAbnormalRemarksGreaterThanOrEqualTo(String value) {
+            addCriterion("abnormal_remarks >=", value, "abnormalRemarks");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityGreaterThan(Integer value) {
-            addCriterion("actual_pick_quantity >", value, "actualPickQuantity");
+        public Criteria andAbnormalRemarksLessThan(String value) {
+            addCriterion("abnormal_remarks <", value, "abnormalRemarks");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityGreaterThanOrEqualTo(Integer value) {
-            addCriterion("actual_pick_quantity >=", value, "actualPickQuantity");
+        public Criteria andAbnormalRemarksLessThanOrEqualTo(String value) {
+            addCriterion("abnormal_remarks <=", value, "abnormalRemarks");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityLessThan(Integer value) {
-            addCriterion("actual_pick_quantity <", value, "actualPickQuantity");
+        public Criteria andAbnormalRemarksLike(String value) {
+            addCriterion("abnormal_remarks like", value, "abnormalRemarks");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityLessThanOrEqualTo(Integer value) {
-            addCriterion("actual_pick_quantity <=", value, "actualPickQuantity");
+        public Criteria andAbnormalRemarksNotLike(String value) {
+            addCriterion("abnormal_remarks not like", value, "abnormalRemarks");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityIn(List<Integer> values) {
-            addCriterion("actual_pick_quantity in", values, "actualPickQuantity");
+        public Criteria andAbnormalRemarksIn(List<String> values) {
+            addCriterion("abnormal_remarks in", values, "abnormalRemarks");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityNotIn(List<Integer> values) {
-            addCriterion("actual_pick_quantity not in", values, "actualPickQuantity");
+        public Criteria andAbnormalRemarksNotIn(List<String> values) {
+            addCriterion("abnormal_remarks not in", values, "abnormalRemarks");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityBetween(Integer value1, Integer value2) {
-            addCriterion("actual_pick_quantity between", value1, value2, "actualPickQuantity");
+        public Criteria andAbnormalRemarksBetween(String value1, String value2) {
+            addCriterion("abnormal_remarks between", value1, value2, "abnormalRemarks");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityNotBetween(Integer value1, Integer value2) {
-            addCriterion("actual_pick_quantity not between", value1, value2, "actualPickQuantity");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickMonovalentIsNull() {
-            addCriterion("actual_pick_monovalent is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickMonovalentIsNotNull() {
-            addCriterion("actual_pick_monovalent is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickMonovalentEqualTo(BigDecimal value) {
-            addCriterion("actual_pick_monovalent =", value, "actualPickMonovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickMonovalentNotEqualTo(BigDecimal value) {
-            addCriterion("actual_pick_monovalent <>", value, "actualPickMonovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickMonovalentGreaterThan(BigDecimal value) {
-            addCriterion("actual_pick_monovalent >", value, "actualPickMonovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickMonovalentGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("actual_pick_monovalent >=", value, "actualPickMonovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickMonovalentLessThan(BigDecimal value) {
-            addCriterion("actual_pick_monovalent <", value, "actualPickMonovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickMonovalentLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("actual_pick_monovalent <=", value, "actualPickMonovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickMonovalentIn(List<BigDecimal> values) {
-            addCriterion("actual_pick_monovalent in", values, "actualPickMonovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickMonovalentNotIn(List<BigDecimal> values) {
-            addCriterion("actual_pick_monovalent not in", values, "actualPickMonovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickMonovalentBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("actual_pick_monovalent between", value1, value2, "actualPickMonovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickMonovalentNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("actual_pick_monovalent not between", value1, value2, "actualPickMonovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickTotalIsNull() {
-            addCriterion("actual_pick_total is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickTotalIsNotNull() {
-            addCriterion("actual_pick_total is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickTotalEqualTo(BigDecimal value) {
-            addCriterion("actual_pick_total =", value, "actualPickTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickTotalNotEqualTo(BigDecimal value) {
-            addCriterion("actual_pick_total <>", value, "actualPickTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickTotalGreaterThan(BigDecimal value) {
-            addCriterion("actual_pick_total >", value, "actualPickTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickTotalGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("actual_pick_total >=", value, "actualPickTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickTotalLessThan(BigDecimal value) {
-            addCriterion("actual_pick_total <", value, "actualPickTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickTotalLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("actual_pick_total <=", value, "actualPickTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickTotalIn(List<BigDecimal> values) {
-            addCriterion("actual_pick_total in", values, "actualPickTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickTotalNotIn(List<BigDecimal> values) {
-            addCriterion("actual_pick_total not in", values, "actualPickTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickTotalBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("actual_pick_total between", value1, value2, "actualPickTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andActualPickTotalNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("actual_pick_total not between", value1, value2, "actualPickTotal");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeIsNull() {
-            addCriterion("consuming_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeIsNotNull() {
-            addCriterion("consuming_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeEqualTo(BigDecimal value) {
-            addCriterion("consuming_time =", value, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeNotEqualTo(BigDecimal value) {
-            addCriterion("consuming_time <>", value, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeGreaterThan(BigDecimal value) {
-            addCriterion("consuming_time >", value, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("consuming_time >=", value, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeLessThan(BigDecimal value) {
-            addCriterion("consuming_time <", value, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("consuming_time <=", value, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeIn(List<BigDecimal> values) {
-            addCriterion("consuming_time in", values, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeNotIn(List<BigDecimal> values) {
-            addCriterion("consuming_time not in", values, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("consuming_time between", value1, value2, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("consuming_time not between", value1, value2, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarksIsNull() {
-            addCriterion("remarks is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarksIsNotNull() {
-            addCriterion("remarks is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarksEqualTo(String value) {
-            addCriterion("remarks =", value, "remarks");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarksNotEqualTo(String value) {
-            addCriterion("remarks <>", value, "remarks");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarksGreaterThan(String value) {
-            addCriterion("remarks >", value, "remarks");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarksGreaterThanOrEqualTo(String value) {
-            addCriterion("remarks >=", value, "remarks");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarksLessThan(String value) {
-            addCriterion("remarks <", value, "remarks");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarksLessThanOrEqualTo(String value) {
-            addCriterion("remarks <=", value, "remarks");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarksLike(String value) {
-            addCriterion("remarks like", value, "remarks");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarksNotLike(String value) {
-            addCriterion("remarks not like", value, "remarks");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarksIn(List<String> values) {
-            addCriterion("remarks in", values, "remarks");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarksNotIn(List<String> values) {
-            addCriterion("remarks not in", values, "remarks");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarksBetween(String value1, String value2) {
-            addCriterion("remarks between", value1, value2, "remarks");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarksNotBetween(String value1, String value2) {
-            addCriterion("remarks not between", value1, value2, "remarks");
+        public Criteria andAbnormalRemarksNotBetween(String value1, String value2) {
+            addCriterion("abnormal_remarks not between", value1, value2, "abnormalRemarks");
             return (Criteria) this;
         }
 

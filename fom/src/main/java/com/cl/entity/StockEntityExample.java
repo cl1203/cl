@@ -1,11 +1,10 @@
 package com.cl.entity;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class TailoringManageEntityExample {
+public class StockEntityExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -16,7 +15,7 @@ public class TailoringManageEntityExample {
 
     private Long offset;
 
-    public TailoringManageEntityExample() {
+    public StockEntityExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -186,373 +185,273 @@ public class TailoringManageEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdIsNull() {
-            addCriterion("order_id is null");
+        public Criteria andSkuIsNull() {
+            addCriterion("sku is null");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdIsNotNull() {
-            addCriterion("order_id is not null");
+        public Criteria andSkuIsNotNull() {
+            addCriterion("sku is not null");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdEqualTo(Long value) {
-            addCriterion("order_id =", value, "orderId");
+        public Criteria andSkuEqualTo(String value) {
+            addCriterion("sku =", value, "sku");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdNotEqualTo(Long value) {
-            addCriterion("order_id <>", value, "orderId");
+        public Criteria andSkuNotEqualTo(String value) {
+            addCriterion("sku <>", value, "sku");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdGreaterThan(Long value) {
-            addCriterion("order_id >", value, "orderId");
+        public Criteria andSkuGreaterThan(String value) {
+            addCriterion("sku >", value, "sku");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("order_id >=", value, "orderId");
+        public Criteria andSkuGreaterThanOrEqualTo(String value) {
+            addCriterion("sku >=", value, "sku");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdLessThan(Long value) {
-            addCriterion("order_id <", value, "orderId");
+        public Criteria andSkuLessThan(String value) {
+            addCriterion("sku <", value, "sku");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdLessThanOrEqualTo(Long value) {
-            addCriterion("order_id <=", value, "orderId");
+        public Criteria andSkuLessThanOrEqualTo(String value) {
+            addCriterion("sku <=", value, "sku");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdIn(List<Long> values) {
-            addCriterion("order_id in", values, "orderId");
+        public Criteria andSkuLike(String value) {
+            addCriterion("sku like", value, "sku");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdNotIn(List<Long> values) {
-            addCriterion("order_id not in", values, "orderId");
+        public Criteria andSkuNotLike(String value) {
+            addCriterion("sku not like", value, "sku");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdBetween(Long value1, Long value2) {
-            addCriterion("order_id between", value1, value2, "orderId");
+        public Criteria andSkuIn(List<String> values) {
+            addCriterion("sku in", values, "sku");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdNotBetween(Long value1, Long value2) {
-            addCriterion("order_id not between", value1, value2, "orderId");
+        public Criteria andSkuNotIn(List<String> values) {
+            addCriterion("sku not in", values, "sku");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupIsNull() {
-            addCriterion("tailoring_group is null");
+        public Criteria andSkuBetween(String value1, String value2) {
+            addCriterion("sku between", value1, value2, "sku");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupIsNotNull() {
-            addCriterion("tailoring_group is not null");
+        public Criteria andSkuNotBetween(String value1, String value2) {
+            addCriterion("sku not between", value1, value2, "sku");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupEqualTo(String value) {
-            addCriterion("tailoring_group =", value, "tailoringGroup");
+        public Criteria andSupplierNameIsNull() {
+            addCriterion("supplier_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupNotEqualTo(String value) {
-            addCriterion("tailoring_group <>", value, "tailoringGroup");
+        public Criteria andSupplierNameIsNotNull() {
+            addCriterion("supplier_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupGreaterThan(String value) {
-            addCriterion("tailoring_group >", value, "tailoringGroup");
+        public Criteria andSupplierNameEqualTo(String value) {
+            addCriterion("supplier_name =", value, "supplierName");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupGreaterThanOrEqualTo(String value) {
-            addCriterion("tailoring_group >=", value, "tailoringGroup");
+        public Criteria andSupplierNameNotEqualTo(String value) {
+            addCriterion("supplier_name <>", value, "supplierName");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupLessThan(String value) {
-            addCriterion("tailoring_group <", value, "tailoringGroup");
+        public Criteria andSupplierNameGreaterThan(String value) {
+            addCriterion("supplier_name >", value, "supplierName");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupLessThanOrEqualTo(String value) {
-            addCriterion("tailoring_group <=", value, "tailoringGroup");
+        public Criteria andSupplierNameGreaterThanOrEqualTo(String value) {
+            addCriterion("supplier_name >=", value, "supplierName");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupLike(String value) {
-            addCriterion("tailoring_group like", value, "tailoringGroup");
+        public Criteria andSupplierNameLessThan(String value) {
+            addCriterion("supplier_name <", value, "supplierName");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupNotLike(String value) {
-            addCriterion("tailoring_group not like", value, "tailoringGroup");
+        public Criteria andSupplierNameLessThanOrEqualTo(String value) {
+            addCriterion("supplier_name <=", value, "supplierName");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupIn(List<String> values) {
-            addCriterion("tailoring_group in", values, "tailoringGroup");
+        public Criteria andSupplierNameLike(String value) {
+            addCriterion("supplier_name like", value, "supplierName");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupNotIn(List<String> values) {
-            addCriterion("tailoring_group not in", values, "tailoringGroup");
+        public Criteria andSupplierNameNotLike(String value) {
+            addCriterion("supplier_name not like", value, "supplierName");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupBetween(String value1, String value2) {
-            addCriterion("tailoring_group between", value1, value2, "tailoringGroup");
+        public Criteria andSupplierNameIn(List<String> values) {
+            addCriterion("supplier_name in", values, "supplierName");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupNotBetween(String value1, String value2) {
-            addCriterion("tailoring_group not between", value1, value2, "tailoringGroup");
+        public Criteria andSupplierNameNotIn(List<String> values) {
+            addCriterion("supplier_name not in", values, "supplierName");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerCutQuantityIsNull() {
-            addCriterion("answer_cut_quantity is null");
+        public Criteria andSupplierNameBetween(String value1, String value2) {
+            addCriterion("supplier_name between", value1, value2, "supplierName");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerCutQuantityIsNotNull() {
-            addCriterion("answer_cut_quantity is not null");
+        public Criteria andSupplierNameNotBetween(String value1, String value2) {
+            addCriterion("supplier_name not between", value1, value2, "supplierName");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerCutQuantityEqualTo(Integer value) {
-            addCriterion("answer_cut_quantity =", value, "answerCutQuantity");
+        public Criteria andQuantityIsNull() {
+            addCriterion("quantity is null");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerCutQuantityNotEqualTo(Integer value) {
-            addCriterion("answer_cut_quantity <>", value, "answerCutQuantity");
+        public Criteria andQuantityIsNotNull() {
+            addCriterion("quantity is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerCutQuantityGreaterThan(Integer value) {
-            addCriterion("answer_cut_quantity >", value, "answerCutQuantity");
+        public Criteria andQuantityEqualTo(Integer value) {
+            addCriterion("quantity =", value, "quantity");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerCutQuantityGreaterThanOrEqualTo(Integer value) {
-            addCriterion("answer_cut_quantity >=", value, "answerCutQuantity");
+        public Criteria andQuantityNotEqualTo(Integer value) {
+            addCriterion("quantity <>", value, "quantity");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerCutQuantityLessThan(Integer value) {
-            addCriterion("answer_cut_quantity <", value, "answerCutQuantity");
+        public Criteria andQuantityGreaterThan(Integer value) {
+            addCriterion("quantity >", value, "quantity");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerCutQuantityLessThanOrEqualTo(Integer value) {
-            addCriterion("answer_cut_quantity <=", value, "answerCutQuantity");
+        public Criteria andQuantityGreaterThanOrEqualTo(Integer value) {
+            addCriterion("quantity >=", value, "quantity");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerCutQuantityIn(List<Integer> values) {
-            addCriterion("answer_cut_quantity in", values, "answerCutQuantity");
+        public Criteria andQuantityLessThan(Integer value) {
+            addCriterion("quantity <", value, "quantity");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerCutQuantityNotIn(List<Integer> values) {
-            addCriterion("answer_cut_quantity not in", values, "answerCutQuantity");
+        public Criteria andQuantityLessThanOrEqualTo(Integer value) {
+            addCriterion("quantity <=", value, "quantity");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerCutQuantityBetween(Integer value1, Integer value2) {
-            addCriterion("answer_cut_quantity between", value1, value2, "answerCutQuantity");
+        public Criteria andQuantityIn(List<Integer> values) {
+            addCriterion("quantity in", values, "quantity");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerCutQuantityNotBetween(Integer value1, Integer value2) {
-            addCriterion("answer_cut_quantity not between", value1, value2, "answerCutQuantity");
+        public Criteria andQuantityNotIn(List<Integer> values) {
+            addCriterion("quantity not in", values, "quantity");
             return (Criteria) this;
         }
 
-        public Criteria andActualCutQuantityIsNull() {
-            addCriterion("actual_cut_quantity is null");
+        public Criteria andQuantityBetween(Integer value1, Integer value2) {
+            addCriterion("quantity between", value1, value2, "quantity");
             return (Criteria) this;
         }
 
-        public Criteria andActualCutQuantityIsNotNull() {
-            addCriterion("actual_cut_quantity is not null");
+        public Criteria andQuantityNotBetween(Integer value1, Integer value2) {
+            addCriterion("quantity not between", value1, value2, "quantity");
             return (Criteria) this;
         }
 
-        public Criteria andActualCutQuantityEqualTo(Integer value) {
-            addCriterion("actual_cut_quantity =", value, "actualCutQuantity");
+        public Criteria andCompanyIsNull() {
+            addCriterion("company is null");
             return (Criteria) this;
         }
 
-        public Criteria andActualCutQuantityNotEqualTo(Integer value) {
-            addCriterion("actual_cut_quantity <>", value, "actualCutQuantity");
+        public Criteria andCompanyIsNotNull() {
+            addCriterion("company is not null");
             return (Criteria) this;
         }
 
-        public Criteria andActualCutQuantityGreaterThan(Integer value) {
-            addCriterion("actual_cut_quantity >", value, "actualCutQuantity");
+        public Criteria andCompanyEqualTo(String value) {
+            addCriterion("company =", value, "company");
             return (Criteria) this;
         }
 
-        public Criteria andActualCutQuantityGreaterThanOrEqualTo(Integer value) {
-            addCriterion("actual_cut_quantity >=", value, "actualCutQuantity");
+        public Criteria andCompanyNotEqualTo(String value) {
+            addCriterion("company <>", value, "company");
             return (Criteria) this;
         }
 
-        public Criteria andActualCutQuantityLessThan(Integer value) {
-            addCriterion("actual_cut_quantity <", value, "actualCutQuantity");
+        public Criteria andCompanyGreaterThan(String value) {
+            addCriterion("company >", value, "company");
             return (Criteria) this;
         }
 
-        public Criteria andActualCutQuantityLessThanOrEqualTo(Integer value) {
-            addCriterion("actual_cut_quantity <=", value, "actualCutQuantity");
+        public Criteria andCompanyGreaterThanOrEqualTo(String value) {
+            addCriterion("company >=", value, "company");
             return (Criteria) this;
         }
 
-        public Criteria andActualCutQuantityIn(List<Integer> values) {
-            addCriterion("actual_cut_quantity in", values, "actualCutQuantity");
+        public Criteria andCompanyLessThan(String value) {
+            addCriterion("company <", value, "company");
             return (Criteria) this;
         }
 
-        public Criteria andActualCutQuantityNotIn(List<Integer> values) {
-            addCriterion("actual_cut_quantity not in", values, "actualCutQuantity");
+        public Criteria andCompanyLessThanOrEqualTo(String value) {
+            addCriterion("company <=", value, "company");
             return (Criteria) this;
         }
 
-        public Criteria andActualCutQuantityBetween(Integer value1, Integer value2) {
-            addCriterion("actual_cut_quantity between", value1, value2, "actualCutQuantity");
+        public Criteria andCompanyLike(String value) {
+            addCriterion("company like", value, "company");
             return (Criteria) this;
         }
 
-        public Criteria andActualCutQuantityNotBetween(Integer value1, Integer value2) {
-            addCriterion("actual_cut_quantity not between", value1, value2, "actualCutQuantity");
+        public Criteria andCompanyNotLike(String value) {
+            addCriterion("company not like", value, "company");
             return (Criteria) this;
         }
 
-        public Criteria andMonovalentIsNull() {
-            addCriterion("monovalent is null");
+        public Criteria andCompanyIn(List<String> values) {
+            addCriterion("company in", values, "company");
             return (Criteria) this;
         }
 
-        public Criteria andMonovalentIsNotNull() {
-            addCriterion("monovalent is not null");
+        public Criteria andCompanyNotIn(List<String> values) {
+            addCriterion("company not in", values, "company");
             return (Criteria) this;
         }
 
-        public Criteria andMonovalentEqualTo(BigDecimal value) {
-            addCriterion("monovalent =", value, "monovalent");
+        public Criteria andCompanyBetween(String value1, String value2) {
+            addCriterion("company between", value1, value2, "company");
             return (Criteria) this;
         }
 
-        public Criteria andMonovalentNotEqualTo(BigDecimal value) {
-            addCriterion("monovalent <>", value, "monovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andMonovalentGreaterThan(BigDecimal value) {
-            addCriterion("monovalent >", value, "monovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andMonovalentGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("monovalent >=", value, "monovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andMonovalentLessThan(BigDecimal value) {
-            addCriterion("monovalent <", value, "monovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andMonovalentLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("monovalent <=", value, "monovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andMonovalentIn(List<BigDecimal> values) {
-            addCriterion("monovalent in", values, "monovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andMonovalentNotIn(List<BigDecimal> values) {
-            addCriterion("monovalent not in", values, "monovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andMonovalentBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("monovalent between", value1, value2, "monovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andMonovalentNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("monovalent not between", value1, value2, "monovalent");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeIsNull() {
-            addCriterion("consuming_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeIsNotNull() {
-            addCriterion("consuming_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeEqualTo(BigDecimal value) {
-            addCriterion("consuming_time =", value, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeNotEqualTo(BigDecimal value) {
-            addCriterion("consuming_time <>", value, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeGreaterThan(BigDecimal value) {
-            addCriterion("consuming_time >", value, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("consuming_time >=", value, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeLessThan(BigDecimal value) {
-            addCriterion("consuming_time <", value, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("consuming_time <=", value, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeIn(List<BigDecimal> values) {
-            addCriterion("consuming_time in", values, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeNotIn(List<BigDecimal> values) {
-            addCriterion("consuming_time not in", values, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("consuming_time between", value1, value2, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("consuming_time not between", value1, value2, "consumingTime");
+        public Criteria andCompanyNotBetween(String value1, String value2) {
+            addCriterion("company not between", value1, value2, "company");
             return (Criteria) this;
         }
 

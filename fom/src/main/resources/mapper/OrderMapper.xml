@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cl.dao.OrderManageMapper">
-  <resultMap id="BaseResultMap" type="com.cl.entity.OrderManageEntity">
+<mapper namespace="com.cl.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.cl.entity.OrderEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="order_number" jdbcType="VARCHAR" property="orderNumber" />
     <result column="order_status" jdbcType="TINYINT" property="orderStatus" />
@@ -88,13 +88,13 @@
     surplus_time, purchase_time, tailoring_time, remarks, create_time, create_user, last_update_time, 
     last_update_user
   </sql>
-  <select id="selectByExample" parameterType="com.cl.entity.OrderManageEntityExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cl.entity.OrderEntityExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from order_manage
+    from order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -113,21 +113,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from order_manage
+    from order
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from order_manage
+    delete from order
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cl.entity.OrderManageEntityExample">
-    delete from order_manage
+  <delete id="deleteByExample" parameterType="com.cl.entity.OrderEntityExample">
+    delete from order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.OrderManageEntity" useGeneratedKeys="true">
-    insert into order_manage (order_number, order_status, order_quantity, 
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.OrderEntity" useGeneratedKeys="true">
+    insert into order (order_number, order_status, order_quantity, 
       order_time, sku, producer, 
       secondary_process, materiel_name, supplier_name, 
       answer_pick_quantity, answer_pick_monovalent, 
@@ -144,8 +144,8 @@
       #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.OrderManageEntity" useGeneratedKeys="true">
-    insert into order_manage
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.OrderEntity" useGeneratedKeys="true">
+    insert into order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="orderNumber != null">
         order_number,
@@ -271,14 +271,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cl.entity.OrderManageEntityExample" resultType="java.lang.Long">
-    select count(*) from order_manage
+  <select id="countByExample" parameterType="com.cl.entity.OrderEntityExample" resultType="java.lang.Long">
+    select count(*) from order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update order_manage
+    update order
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
@@ -349,7 +349,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update order_manage
+    update order
     set id = #{record.id,jdbcType=BIGINT},
       order_number = #{record.orderNumber,jdbcType=VARCHAR},
       order_status = #{record.orderStatus,jdbcType=TINYINT},
@@ -375,8 +375,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.OrderManageEntity">
-    update order_manage
+  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.OrderEntity">
+    update order
     <set>
       <if test="orderNumber != null">
         order_number = #{orderNumber,jdbcType=VARCHAR},
@@ -441,8 +441,8 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cl.entity.OrderManageEntity">
-    update order_manage
+  <update id="updateByPrimaryKey" parameterType="com.cl.entity.OrderEntity">
+    update order
     set order_number = #{orderNumber,jdbcType=VARCHAR},
       order_status = #{orderStatus,jdbcType=TINYINT},
       order_quantity = #{orderQuantity,jdbcType=INTEGER},
