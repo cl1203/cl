@@ -14,14 +14,16 @@ spring:
     max-wait: 10000
     min-idle: 5
     initial-size: 5
-
+  jackson:
+      time-zone: GMT+8
+      date-format: yyyy-MM-dd HH:mm:ss
 #mybatis:
 #  dao-locations: classpath:mapper/*.xml
 #  type-aliases-package: com.cl.entity
 #showSql
 #logging:
 #  level:
-#      com.anji.om.dao: debug
+#    com.cl.dao: debug
 
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
