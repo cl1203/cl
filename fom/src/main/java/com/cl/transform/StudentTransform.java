@@ -1,6 +1,6 @@
 package com.cl.transform;
 
-import com.cl.bean.StudentResBean;
+import com.cl.bean.res.StudentResBean;
 import com.cl.comm.transformer.AbstractObjectTransformer;
 import com.cl.entity.StudentEntity;
 import com.cl.util.DateUtils;

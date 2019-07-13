@@ -30,12 +30,57 @@ public class PurchaseEntity implements Serializable {
     private Date purchaseTime;
 
     /**
+     * 供应商名称
+     */
+    private String supplierName;
+
+    /**
+     * 供应商编号
+     */
+    private String supplierCode;
+
+    /**
+     * 供应商色号
+     */
+    private String supplierColorNumber;
+
+    /**
+     * 物料分类
+     */
+    private String materielType;
+
+    /**
+     * 物料名称
+     */
+    private String materielName;
+
+    /**
+     * 物料颜色
+     */
+    private String materielColor;
+
+    /**
+     * 应采数量
+     */
+    private Integer answerPickQuantity;
+
+    /**
+     * 应采单价
+     */
+    private BigDecimal answerPickMonovalent;
+
+    /**
+     * 应采总额
+     */
+    private BigDecimal answerPickTotal;
+
+    /**
      * 实采数量
      */
     private Integer actualPickQuantity;
 
     /**
-     * 应采单价
+     * 实采单价
      */
     private BigDecimal actualPickMonovalent;
 
@@ -45,9 +90,19 @@ public class PurchaseEntity implements Serializable {
     private BigDecimal actualPickTotal;
 
     /**
+     * 二次工艺
+     */
+    private String secondaryProcess;
+
+    /**
      * 采购耗时
      */
     private BigDecimal consumingTime;
+
+    /**
+     * 状态 0:禁用 1:可用 2:删除
+     */
+    private Byte status;
 
     /**
      * 备注
@@ -108,6 +163,78 @@ public class PurchaseEntity implements Serializable {
         this.purchaseTime = purchaseTime;
     }
 
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
+
+    public String getSupplierCode() {
+        return supplierCode;
+    }
+
+    public void setSupplierCode(String supplierCode) {
+        this.supplierCode = supplierCode;
+    }
+
+    public String getSupplierColorNumber() {
+        return supplierColorNumber;
+    }
+
+    public void setSupplierColorNumber(String supplierColorNumber) {
+        this.supplierColorNumber = supplierColorNumber;
+    }
+
+    public String getMaterielType() {
+        return materielType;
+    }
+
+    public void setMaterielType(String materielType) {
+        this.materielType = materielType;
+    }
+
+    public String getMaterielName() {
+        return materielName;
+    }
+
+    public void setMaterielName(String materielName) {
+        this.materielName = materielName;
+    }
+
+    public String getMaterielColor() {
+        return materielColor;
+    }
+
+    public void setMaterielColor(String materielColor) {
+        this.materielColor = materielColor;
+    }
+
+    public Integer getAnswerPickQuantity() {
+        return answerPickQuantity;
+    }
+
+    public void setAnswerPickQuantity(Integer answerPickQuantity) {
+        this.answerPickQuantity = answerPickQuantity;
+    }
+
+    public BigDecimal getAnswerPickMonovalent() {
+        return answerPickMonovalent;
+    }
+
+    public void setAnswerPickMonovalent(BigDecimal answerPickMonovalent) {
+        this.answerPickMonovalent = answerPickMonovalent;
+    }
+
+    public BigDecimal getAnswerPickTotal() {
+        return answerPickTotal;
+    }
+
+    public void setAnswerPickTotal(BigDecimal answerPickTotal) {
+        this.answerPickTotal = answerPickTotal;
+    }
+
     public Integer getActualPickQuantity() {
         return actualPickQuantity;
     }
@@ -132,12 +259,28 @@ public class PurchaseEntity implements Serializable {
         this.actualPickTotal = actualPickTotal;
     }
 
+    public String getSecondaryProcess() {
+        return secondaryProcess;
+    }
+
+    public void setSecondaryProcess(String secondaryProcess) {
+        this.secondaryProcess = secondaryProcess;
+    }
+
     public BigDecimal getConsumingTime() {
         return consumingTime;
     }
 
     public void setConsumingTime(BigDecimal consumingTime) {
         this.consumingTime = consumingTime;
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 
     public String getRemarks() {
@@ -196,10 +339,21 @@ public class PurchaseEntity implements Serializable {
             && (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
             && (this.getPurchaseNumber() == null ? other.getPurchaseNumber() == null : this.getPurchaseNumber().equals(other.getPurchaseNumber()))
             && (this.getPurchaseTime() == null ? other.getPurchaseTime() == null : this.getPurchaseTime().equals(other.getPurchaseTime()))
+            && (this.getSupplierName() == null ? other.getSupplierName() == null : this.getSupplierName().equals(other.getSupplierName()))
+            && (this.getSupplierCode() == null ? other.getSupplierCode() == null : this.getSupplierCode().equals(other.getSupplierCode()))
+            && (this.getSupplierColorNumber() == null ? other.getSupplierColorNumber() == null : this.getSupplierColorNumber().equals(other.getSupplierColorNumber()))
+            && (this.getMaterielType() == null ? other.getMaterielType() == null : this.getMaterielType().equals(other.getMaterielType()))
+            && (this.getMaterielName() == null ? other.getMaterielName() == null : this.getMaterielName().equals(other.getMaterielName()))
+            && (this.getMaterielColor() == null ? other.getMaterielColor() == null : this.getMaterielColor().equals(other.getMaterielColor()))
+            && (this.getAnswerPickQuantity() == null ? other.getAnswerPickQuantity() == null : this.getAnswerPickQuantity().equals(other.getAnswerPickQuantity()))
+            && (this.getAnswerPickMonovalent() == null ? other.getAnswerPickMonovalent() == null : this.getAnswerPickMonovalent().equals(other.getAnswerPickMonovalent()))
+            && (this.getAnswerPickTotal() == null ? other.getAnswerPickTotal() == null : this.getAnswerPickTotal().equals(other.getAnswerPickTotal()))
             && (this.getActualPickQuantity() == null ? other.getActualPickQuantity() == null : this.getActualPickQuantity().equals(other.getActualPickQuantity()))
             && (this.getActualPickMonovalent() == null ? other.getActualPickMonovalent() == null : this.getActualPickMonovalent().equals(other.getActualPickMonovalent()))
             && (this.getActualPickTotal() == null ? other.getActualPickTotal() == null : this.getActualPickTotal().equals(other.getActualPickTotal()))
+            && (this.getSecondaryProcess() == null ? other.getSecondaryProcess() == null : this.getSecondaryProcess().equals(other.getSecondaryProcess()))
             && (this.getConsumingTime() == null ? other.getConsumingTime() == null : this.getConsumingTime().equals(other.getConsumingTime()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getRemarks() == null ? other.getRemarks() == null : this.getRemarks().equals(other.getRemarks()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
@@ -215,10 +369,21 @@ public class PurchaseEntity implements Serializable {
         result = prime * result + ((getOrderId() == null) ? 0 : getOrderId().hashCode());
         result = prime * result + ((getPurchaseNumber() == null) ? 0 : getPurchaseNumber().hashCode());
         result = prime * result + ((getPurchaseTime() == null) ? 0 : getPurchaseTime().hashCode());
+        result = prime * result + ((getSupplierName() == null) ? 0 : getSupplierName().hashCode());
+        result = prime * result + ((getSupplierCode() == null) ? 0 : getSupplierCode().hashCode());
+        result = prime * result + ((getSupplierColorNumber() == null) ? 0 : getSupplierColorNumber().hashCode());
+        result = prime * result + ((getMaterielType() == null) ? 0 : getMaterielType().hashCode());
+        result = prime * result + ((getMaterielName() == null) ? 0 : getMaterielName().hashCode());
+        result = prime * result + ((getMaterielColor() == null) ? 0 : getMaterielColor().hashCode());
+        result = prime * result + ((getAnswerPickQuantity() == null) ? 0 : getAnswerPickQuantity().hashCode());
+        result = prime * result + ((getAnswerPickMonovalent() == null) ? 0 : getAnswerPickMonovalent().hashCode());
+        result = prime * result + ((getAnswerPickTotal() == null) ? 0 : getAnswerPickTotal().hashCode());
         result = prime * result + ((getActualPickQuantity() == null) ? 0 : getActualPickQuantity().hashCode());
         result = prime * result + ((getActualPickMonovalent() == null) ? 0 : getActualPickMonovalent().hashCode());
         result = prime * result + ((getActualPickTotal() == null) ? 0 : getActualPickTotal().hashCode());
+        result = prime * result + ((getSecondaryProcess() == null) ? 0 : getSecondaryProcess().hashCode());
         result = prime * result + ((getConsumingTime() == null) ? 0 : getConsumingTime().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
@@ -237,10 +402,21 @@ public class PurchaseEntity implements Serializable {
         sb.append(", orderId=").append(orderId);
         sb.append(", purchaseNumber=").append(purchaseNumber);
         sb.append(", purchaseTime=").append(purchaseTime);
+        sb.append(", supplierName=").append(supplierName);
+        sb.append(", supplierCode=").append(supplierCode);
+        sb.append(", supplierColorNumber=").append(supplierColorNumber);
+        sb.append(", materielType=").append(materielType);
+        sb.append(", materielName=").append(materielName);
+        sb.append(", materielColor=").append(materielColor);
+        sb.append(", answerPickQuantity=").append(answerPickQuantity);
+        sb.append(", answerPickMonovalent=").append(answerPickMonovalent);
+        sb.append(", answerPickTotal=").append(answerPickTotal);
         sb.append(", actualPickQuantity=").append(actualPickQuantity);
         sb.append(", actualPickMonovalent=").append(actualPickMonovalent);
         sb.append(", actualPickTotal=").append(actualPickTotal);
+        sb.append(", secondaryProcess=").append(secondaryProcess);
         sb.append(", consumingTime=").append(consumingTime);
+        sb.append(", status=").append(status);
         sb.append(", remarks=").append(remarks);
         sb.append(", createTime=").append(createTime);
         sb.append(", createUser=").append(createUser);

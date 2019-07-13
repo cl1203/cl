@@ -1,6 +1,6 @@
 package com.cl.dao;
 
-import com.cl.bean.StudentReqBean;
+import com.cl.bean.req.StudentReqBean;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.entity.StudentEntity;
 import com.cl.entity.StudentEntityExample;

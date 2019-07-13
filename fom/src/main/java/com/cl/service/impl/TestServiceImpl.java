@@ -1,8 +1,8 @@
 package com.cl.service.impl;
 
 import static java.util.stream.Collectors.groupingBy;
-import com.cl.bean.StudentReqBean;
-import com.cl.bean.StudentResBean;
+import com.cl.bean.req.StudentReqBean;
+import com.cl.bean.res.StudentResBean;
 import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.transformer.IObjectTransformer;

@@ -45,6 +45,11 @@ public class TailoringEntity implements Serializable {
     private BigDecimal consumingTime;
 
     /**
+     * 状态 0:禁用 1:可用 2:删除
+     */
+    private Byte status;
+
+    /**
      * 备注
      */
     private String remarks;
@@ -127,6 +132,14 @@ public class TailoringEntity implements Serializable {
         this.consumingTime = consumingTime;
     }
 
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
+    }
+
     public String getRemarks() {
         return remarks;
     }
@@ -186,6 +199,7 @@ public class TailoringEntity implements Serializable {
             && (this.getActualCutQuantity() == null ? other.getActualCutQuantity() == null : this.getActualCutQuantity().equals(other.getActualCutQuantity()))
             && (this.getMonovalent() == null ? other.getMonovalent() == null : this.getMonovalent().equals(other.getMonovalent()))
             && (this.getConsumingTime() == null ? other.getConsumingTime() == null : this.getConsumingTime().equals(other.getConsumingTime()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getRemarks() == null ? other.getRemarks() == null : this.getRemarks().equals(other.getRemarks()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
@@ -204,6 +218,7 @@ public class TailoringEntity implements Serializable {
         result = prime * result + ((getActualCutQuantity() == null) ? 0 : getActualCutQuantity().hashCode());
         result = prime * result + ((getMonovalent() == null) ? 0 : getMonovalent().hashCode());
         result = prime * result + ((getConsumingTime() == null) ? 0 : getConsumingTime().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
@@ -225,6 +240,7 @@ public class TailoringEntity implements Serializable {
         sb.append(", actualCutQuantity=").append(actualCutQuantity);
         sb.append(", monovalent=").append(monovalent);
         sb.append(", consumingTime=").append(consumingTime);
+        sb.append(", status=").append(status);
         sb.append(", remarks=").append(remarks);
         sb.append(", createTime=").append(createTime);
         sb.append(", createUser=").append(createUser);

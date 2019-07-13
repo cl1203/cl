@@ -1,7 +1,7 @@
 package com.cl.service;
 
-import com.cl.bean.StudentReqBean;
-import com.cl.bean.StudentResBean;
+import com.cl.bean.req.StudentReqBean;
+import com.cl.bean.res.StudentResBean;
 import com.cl.comm.model.RequestBeanModel;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.multipart.MultipartFile;

@@ -14,9 +14,9 @@ public class StockEntity implements Serializable {
     private Long id;
 
     /**
-     * SKU
+     * 订单表ID
      */
-    private String sku;
+    private Long orderId;
 
     /**
      * 供应商名称
@@ -32,6 +32,11 @@ public class StockEntity implements Serializable {
      * 数量单位
      */
     private String company;
+
+    /**
+     * 状态 0:禁用 1:可用 2:删除
+     */
+    private Byte status;
 
     /**
      * 备注
@@ -68,12 +73,12 @@ public class StockEntity implements Serializable {
         this.id = id;
     }
 
-    public String getSku() {
-        return sku;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setSku(String sku) {
-        this.sku = sku;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public String getSupplierName() {
@@ -98,6 +103,14 @@ public class StockEntity implements Serializable {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 
     public String getRemarks() {
@@ -153,10 +166,11 @@ public class StockEntity implements Serializable {
         }
         StockEntity other = (StockEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getSku() == null ? other.getSku() == null : this.getSku().equals(other.getSku()))
+            && (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
             && (this.getSupplierName() == null ? other.getSupplierName() == null : this.getSupplierName().equals(other.getSupplierName()))
             && (this.getQuantity() == null ? other.getQuantity() == null : this.getQuantity().equals(other.getQuantity()))
             && (this.getCompany() == null ? other.getCompany() == null : this.getCompany().equals(other.getCompany()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getRemarks() == null ? other.getRemarks() == null : this.getRemarks().equals(other.getRemarks()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
@@ -169,10 +183,11 @@ public class StockEntity implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getSku() == null) ? 0 : getSku().hashCode());
+        result = prime * result + ((getOrderId() == null) ? 0 : getOrderId().hashCode());
         result = prime * result + ((getSupplierName() == null) ? 0 : getSupplierName().hashCode());
         result = prime * result + ((getQuantity() == null) ? 0 : getQuantity().hashCode());
         result = prime * result + ((getCompany() == null) ? 0 : getCompany().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
@@ -188,10 +203,11 @@ public class StockEntity implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", sku=").append(sku);
+        sb.append(", orderId=").append(orderId);
         sb.append(", supplierName=").append(supplierName);
         sb.append(", quantity=").append(quantity);
         sb.append(", company=").append(company);
+        sb.append(", status=").append(status);
         sb.append(", remarks=").append(remarks);
         sb.append(", createTime=").append(createTime);
         sb.append(", createUser=").append(createUser);
