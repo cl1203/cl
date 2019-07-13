@@ -24,6 +24,11 @@ public class SysOrgEntity implements Serializable {
     private Long parentId;
 
     /**
+     * 是否是一级组织  0: 否 1: 是(非一级组织父ID不能为空)
+     */
+    private Byte isOne;
+
+    /**
      * 状态 0:禁用 1:可用 2:删除
      */
     private Byte status;
@@ -77,6 +82,14 @@ public class SysOrgEntity implements Serializable {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public Byte getIsOne() {
+        return isOne;
+    }
+
+    public void setIsOne(Byte isOne) {
+        this.isOne = isOne;
     }
 
     public Byte getStatus() {
@@ -142,6 +155,7 @@ public class SysOrgEntity implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
+            && (this.getIsOne() == null ? other.getIsOne() == null : this.getIsOne().equals(other.getIsOne()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getRemarks() == null ? other.getRemarks() == null : this.getRemarks().equals(other.getRemarks()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -157,6 +171,7 @@ public class SysOrgEntity implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getParentId() == null) ? 0 : getParentId().hashCode());
+        result = prime * result + ((getIsOne() == null) ? 0 : getIsOne().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -175,6 +190,7 @@ public class SysOrgEntity implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", parentId=").append(parentId);
+        sb.append(", isOne=").append(isOne);
         sb.append(", status=").append(status);
         sb.append(", remarks=").append(remarks);
         sb.append(", createTime=").append(createTime);

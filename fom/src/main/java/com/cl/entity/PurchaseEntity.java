@@ -45,6 +45,11 @@ public class PurchaseEntity implements Serializable {
     private String supplierColorNumber;
 
     /**
+     * 物料sku
+     */
+    private String materielSku;
+
+    /**
      * 物料分类
      */
     private String materielType;
@@ -185,6 +190,14 @@ public class PurchaseEntity implements Serializable {
 
     public void setSupplierColorNumber(String supplierColorNumber) {
         this.supplierColorNumber = supplierColorNumber;
+    }
+
+    public String getMaterielSku() {
+        return materielSku;
+    }
+
+    public void setMaterielSku(String materielSku) {
+        this.materielSku = materielSku;
     }
 
     public String getMaterielType() {
@@ -342,6 +355,7 @@ public class PurchaseEntity implements Serializable {
             && (this.getSupplierName() == null ? other.getSupplierName() == null : this.getSupplierName().equals(other.getSupplierName()))
             && (this.getSupplierCode() == null ? other.getSupplierCode() == null : this.getSupplierCode().equals(other.getSupplierCode()))
             && (this.getSupplierColorNumber() == null ? other.getSupplierColorNumber() == null : this.getSupplierColorNumber().equals(other.getSupplierColorNumber()))
+            && (this.getMaterielSku() == null ? other.getMaterielSku() == null : this.getMaterielSku().equals(other.getMaterielSku()))
             && (this.getMaterielType() == null ? other.getMaterielType() == null : this.getMaterielType().equals(other.getMaterielType()))
             && (this.getMaterielName() == null ? other.getMaterielName() == null : this.getMaterielName().equals(other.getMaterielName()))
             && (this.getMaterielColor() == null ? other.getMaterielColor() == null : this.getMaterielColor().equals(other.getMaterielColor()))
@@ -372,6 +386,7 @@ public class PurchaseEntity implements Serializable {
         result = prime * result + ((getSupplierName() == null) ? 0 : getSupplierName().hashCode());
         result = prime * result + ((getSupplierCode() == null) ? 0 : getSupplierCode().hashCode());
         result = prime * result + ((getSupplierColorNumber() == null) ? 0 : getSupplierColorNumber().hashCode());
+        result = prime * result + ((getMaterielSku() == null) ? 0 : getMaterielSku().hashCode());
         result = prime * result + ((getMaterielType() == null) ? 0 : getMaterielType().hashCode());
         result = prime * result + ((getMaterielName() == null) ? 0 : getMaterielName().hashCode());
         result = prime * result + ((getMaterielColor() == null) ? 0 : getMaterielColor().hashCode());
@@ -405,6 +420,7 @@ public class PurchaseEntity implements Serializable {
         sb.append(", supplierName=").append(supplierName);
         sb.append(", supplierCode=").append(supplierCode);
         sb.append(", supplierColorNumber=").append(supplierColorNumber);
+        sb.append(", materielSku=").append(materielSku);
         sb.append(", materielType=").append(materielType);
         sb.append(", materielName=").append(materielName);
         sb.append(", materielColor=").append(materielColor);

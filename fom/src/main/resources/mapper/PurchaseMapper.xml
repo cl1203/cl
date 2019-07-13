@@ -9,6 +9,7 @@
     <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
     <result column="supplier_code" jdbcType="VARCHAR" property="supplierCode" />
     <result column="supplier_color_number" jdbcType="VARCHAR" property="supplierColorNumber" />
+    <result column="materiel_sku" jdbcType="VARCHAR" property="materielSku" />
     <result column="materiel_type" jdbcType="VARCHAR" property="materielType" />
     <result column="materiel_name" jdbcType="VARCHAR" property="materielName" />
     <result column="materiel_color" jdbcType="VARCHAR" property="materielColor" />
@@ -87,10 +88,10 @@
   </sql>
   <sql id="Base_Column_List">
     id, order_id, purchase_number, purchase_time, supplier_name, supplier_code, supplier_color_number, 
-    materiel_type, materiel_name, materiel_color, answer_pick_quantity, answer_pick_monovalent, 
-    answer_pick_total, actual_pick_quantity, actual_pick_monovalent, actual_pick_total, 
-    secondary_process, consuming_time, `status`, remarks, create_time, create_user, last_update_time, 
-    last_update_user
+    materiel_sku, materiel_type, materiel_name, materiel_color, answer_pick_quantity, 
+    answer_pick_monovalent, answer_pick_total, actual_pick_quantity, actual_pick_monovalent, 
+    actual_pick_total, secondary_process, consuming_time, `status`, remarks, create_time, 
+    create_user, last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.PurchaseEntityExample" resultMap="BaseResultMap">
     select
@@ -133,8 +134,8 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.PurchaseEntity" useGeneratedKeys="true">
     insert into purchase (order_id, purchase_number, purchase_time, 
       supplier_name, supplier_code, supplier_color_number, 
-      materiel_type, materiel_name, materiel_color, 
-      answer_pick_quantity, answer_pick_monovalent, 
+      materiel_sku, materiel_type, materiel_name, 
+      materiel_color, answer_pick_quantity, answer_pick_monovalent, 
       answer_pick_total, actual_pick_quantity, actual_pick_monovalent, 
       actual_pick_total, secondary_process, consuming_time, 
       `status`, remarks, create_time, 
@@ -142,8 +143,8 @@
       )
     values (#{orderId,jdbcType=BIGINT}, #{purchaseNumber,jdbcType=VARCHAR}, #{purchaseTime,jdbcType=TIMESTAMP}, 
       #{supplierName,jdbcType=VARCHAR}, #{supplierCode,jdbcType=VARCHAR}, #{supplierColorNumber,jdbcType=VARCHAR}, 
-      #{materielType,jdbcType=VARCHAR}, #{materielName,jdbcType=VARCHAR}, #{materielColor,jdbcType=VARCHAR}, 
-      #{answerPickQuantity,jdbcType=INTEGER}, #{answerPickMonovalent,jdbcType=DECIMAL}, 
+      #{materielSku,jdbcType=VARCHAR}, #{materielType,jdbcType=VARCHAR}, #{materielName,jdbcType=VARCHAR}, 
+      #{materielColor,jdbcType=VARCHAR}, #{answerPickQuantity,jdbcType=INTEGER}, #{answerPickMonovalent,jdbcType=DECIMAL}, 
       #{answerPickTotal,jdbcType=DECIMAL}, #{actualPickQuantity,jdbcType=INTEGER}, #{actualPickMonovalent,jdbcType=DECIMAL}, 
       #{actualPickTotal,jdbcType=DECIMAL}, #{secondaryProcess,jdbcType=VARCHAR}, #{consumingTime,jdbcType=DECIMAL}, 
       #{status,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
@@ -170,6 +171,9 @@
       </if>
       <if test="supplierColorNumber != null">
         supplier_color_number,
+      </if>
+      <if test="materielSku != null">
+        materiel_sku,
       </if>
       <if test="materielType != null">
         materiel_type,
@@ -241,6 +245,9 @@
       </if>
       <if test="supplierColorNumber != null">
         #{supplierColorNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="materielSku != null">
+        #{materielSku,jdbcType=VARCHAR},
       </if>
       <if test="materielType != null">
         #{materielType,jdbcType=VARCHAR},
@@ -325,6 +332,9 @@
       <if test="record.supplierColorNumber != null">
         supplier_color_number = #{record.supplierColorNumber,jdbcType=VARCHAR},
       </if>
+      <if test="record.materielSku != null">
+        materiel_sku = #{record.materielSku,jdbcType=VARCHAR},
+      </if>
       <if test="record.materielType != null">
         materiel_type = #{record.materielType,jdbcType=VARCHAR},
       </if>
@@ -390,6 +400,7 @@
       supplier_name = #{record.supplierName,jdbcType=VARCHAR},
       supplier_code = #{record.supplierCode,jdbcType=VARCHAR},
       supplier_color_number = #{record.supplierColorNumber,jdbcType=VARCHAR},
+      materiel_sku = #{record.materielSku,jdbcType=VARCHAR},
       materiel_type = #{record.materielType,jdbcType=VARCHAR},
       materiel_name = #{record.materielName,jdbcType=VARCHAR},
       materiel_color = #{record.materielColor,jdbcType=VARCHAR},
@@ -431,6 +442,9 @@
       </if>
       <if test="supplierColorNumber != null">
         supplier_color_number = #{supplierColorNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="materielSku != null">
+        materiel_sku = #{materielSku,jdbcType=VARCHAR},
       </if>
       <if test="materielType != null">
         materiel_type = #{materielType,jdbcType=VARCHAR},
@@ -494,6 +508,7 @@
       supplier_name = #{supplierName,jdbcType=VARCHAR},
       supplier_code = #{supplierCode,jdbcType=VARCHAR},
       supplier_color_number = #{supplierColorNumber,jdbcType=VARCHAR},
+      materiel_sku = #{materielSku,jdbcType=VARCHAR},
       materiel_type = #{materielType,jdbcType=VARCHAR},
       materiel_name = #{materielName,jdbcType=VARCHAR},
       materiel_color = #{materielColor,jdbcType=VARCHAR},

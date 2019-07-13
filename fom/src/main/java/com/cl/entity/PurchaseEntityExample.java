@@ -586,6 +586,76 @@ public class PurchaseEntityExample {
             return (Criteria) this;
         }
 
+        public Criteria andMaterielSkuIsNull() {
+            addCriterion("materiel_sku is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterielSkuIsNotNull() {
+            addCriterion("materiel_sku is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterielSkuEqualTo(String value) {
+            addCriterion("materiel_sku =", value, "materielSku");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterielSkuNotEqualTo(String value) {
+            addCriterion("materiel_sku <>", value, "materielSku");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterielSkuGreaterThan(String value) {
+            addCriterion("materiel_sku >", value, "materielSku");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterielSkuGreaterThanOrEqualTo(String value) {
+            addCriterion("materiel_sku >=", value, "materielSku");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterielSkuLessThan(String value) {
+            addCriterion("materiel_sku <", value, "materielSku");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterielSkuLessThanOrEqualTo(String value) {
+            addCriterion("materiel_sku <=", value, "materielSku");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterielSkuLike(String value) {
+            addCriterion("materiel_sku like", value, "materielSku");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterielSkuNotLike(String value) {
+            addCriterion("materiel_sku not like", value, "materielSku");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterielSkuIn(List<String> values) {
+            addCriterion("materiel_sku in", values, "materielSku");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterielSkuNotIn(List<String> values) {
+            addCriterion("materiel_sku not in", values, "materielSku");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterielSkuBetween(String value1, String value2) {
+            addCriterion("materiel_sku between", value1, value2, "materielSku");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterielSkuNotBetween(String value1, String value2) {
+            addCriterion("materiel_sku not between", value1, value2, "materielSku");
+            return (Criteria) this;
+        }
+
         public Criteria andMaterielTypeIsNull() {
             addCriterion("materiel_type is null");
             return (Criteria) this;

@@ -315,6 +315,66 @@ public class SysOrgEntityExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsOneIsNull() {
+            addCriterion("is_one is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOneIsNotNull() {
+            addCriterion("is_one is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOneEqualTo(Byte value) {
+            addCriterion("is_one =", value, "isOne");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOneNotEqualTo(Byte value) {
+            addCriterion("is_one <>", value, "isOne");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOneGreaterThan(Byte value) {
+            addCriterion("is_one >", value, "isOne");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOneGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_one >=", value, "isOne");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOneLessThan(Byte value) {
+            addCriterion("is_one <", value, "isOne");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOneLessThanOrEqualTo(Byte value) {
+            addCriterion("is_one <=", value, "isOne");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOneIn(List<Byte> values) {
+            addCriterion("is_one in", values, "isOne");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOneNotIn(List<Byte> values) {
+            addCriterion("is_one not in", values, "isOne");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOneBetween(Byte value1, Byte value2) {
+            addCriterion("is_one between", value1, value2, "isOne");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOneNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_one not between", value1, value2, "isOne");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("`status` is null");
             return (Criteria) this;
