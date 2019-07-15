@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class OrderEntityExample {
+public class OrderManageEntityExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -15,7 +15,7 @@ public class OrderEntityExample {
 
     private Long offset;
 
-    public OrderEntityExample() {
+    public OrderManageEntityExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

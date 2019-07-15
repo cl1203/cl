@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * order
+ * order_manage
  * @author 
  */
-public class OrderEntity implements Serializable {
+public class OrderManageEntity implements Serializable {
     /**
      * 主键ID
      */
@@ -255,7 +255,7 @@ public class OrderEntity implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        OrderEntity other = (OrderEntity) that;
+        OrderManageEntity other = (OrderManageEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getOrderNumber() == null ? other.getOrderNumber() == null : this.getOrderNumber().equals(other.getOrderNumber()))
             && (this.getOrderStatus() == null ? other.getOrderStatus() == null : this.getOrderStatus().equals(other.getOrderStatus()))

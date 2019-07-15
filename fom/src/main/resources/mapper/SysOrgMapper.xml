@@ -5,7 +5,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
-    <result column="is_one" jdbcType="TINYINT" property="isOne" />
+    <result column="level" jdbcType="TINYINT" property="level" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -72,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, `name`, parent_id, is_one, `status`, remarks, create_time, create_user, last_update_time, 
+    id, `name`, parent_id, `level`, `status`, remarks, create_time, create_user, last_update_time, 
     last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.SysOrgEntityExample" resultMap="BaseResultMap">
@@ -114,11 +114,11 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysOrgEntity" useGeneratedKeys="true">
-    insert into sys_org (`name`, parent_id, is_one, 
+    insert into sys_org (`name`, parent_id, `level`, 
       `status`, remarks, create_time, 
       create_user, last_update_time, last_update_user
       )
-    values (#{name,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{isOne,jdbcType=TINYINT}, 
+    values (#{name,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{level,jdbcType=TINYINT}, 
       #{status,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
       )
@@ -132,8 +132,8 @@
       <if test="parentId != null">
         parent_id,
       </if>
-      <if test="isOne != null">
-        is_one,
+      <if test="level != null">
+        `level`,
       </if>
       <if test="status != null">
         `status`,
@@ -161,8 +161,8 @@
       <if test="parentId != null">
         #{parentId,jdbcType=BIGINT},
       </if>
-      <if test="isOne != null">
-        #{isOne,jdbcType=TINYINT},
+      <if test="level != null">
+        #{level,jdbcType=TINYINT},
       </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
@@ -202,8 +202,8 @@
       <if test="record.parentId != null">
         parent_id = #{record.parentId,jdbcType=BIGINT},
       </if>
-      <if test="record.isOne != null">
-        is_one = #{record.isOne,jdbcType=TINYINT},
+      <if test="record.level != null">
+        `level` = #{record.level,jdbcType=TINYINT},
       </if>
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=TINYINT},
@@ -233,7 +233,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       `name` = #{record.name,jdbcType=VARCHAR},
       parent_id = #{record.parentId,jdbcType=BIGINT},
-      is_one = #{record.isOne,jdbcType=TINYINT},
+      `level` = #{record.level,jdbcType=TINYINT},
       `status` = #{record.status,jdbcType=TINYINT},
       remarks = #{record.remarks,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -253,8 +253,8 @@
       <if test="parentId != null">
         parent_id = #{parentId,jdbcType=BIGINT},
       </if>
-      <if test="isOne != null">
-        is_one = #{isOne,jdbcType=TINYINT},
+      <if test="level != null">
+        `level` = #{level,jdbcType=TINYINT},
       </if>
       <if test="status != null">
         `status` = #{status,jdbcType=TINYINT},
@@ -281,7 +281,7 @@
     update sys_org
     set `name` = #{name,jdbcType=VARCHAR},
       parent_id = #{parentId,jdbcType=BIGINT},
-      is_one = #{isOne,jdbcType=TINYINT},
+      `level` = #{level,jdbcType=TINYINT},
       `status` = #{status,jdbcType=TINYINT},
       remarks = #{remarks,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

@@ -315,63 +315,63 @@ public class SysOrgEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsOneIsNull() {
-            addCriterion("is_one is null");
+        public Criteria andLevelIsNull() {
+            addCriterion("`level` is null");
             return (Criteria) this;
         }
 
-        public Criteria andIsOneIsNotNull() {
-            addCriterion("is_one is not null");
+        public Criteria andLevelIsNotNull() {
+            addCriterion("`level` is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIsOneEqualTo(Byte value) {
-            addCriterion("is_one =", value, "isOne");
+        public Criteria andLevelEqualTo(Byte value) {
+            addCriterion("`level` =", value, "level");
             return (Criteria) this;
         }
 
-        public Criteria andIsOneNotEqualTo(Byte value) {
-            addCriterion("is_one <>", value, "isOne");
+        public Criteria andLevelNotEqualTo(Byte value) {
+            addCriterion("`level` <>", value, "level");
             return (Criteria) this;
         }
 
-        public Criteria andIsOneGreaterThan(Byte value) {
-            addCriterion("is_one >", value, "isOne");
+        public Criteria andLevelGreaterThan(Byte value) {
+            addCriterion("`level` >", value, "level");
             return (Criteria) this;
         }
 
-        public Criteria andIsOneGreaterThanOrEqualTo(Byte value) {
-            addCriterion("is_one >=", value, "isOne");
+        public Criteria andLevelGreaterThanOrEqualTo(Byte value) {
+            addCriterion("`level` >=", value, "level");
             return (Criteria) this;
         }
 
-        public Criteria andIsOneLessThan(Byte value) {
-            addCriterion("is_one <", value, "isOne");
+        public Criteria andLevelLessThan(Byte value) {
+            addCriterion("`level` <", value, "level");
             return (Criteria) this;
         }
 
-        public Criteria andIsOneLessThanOrEqualTo(Byte value) {
-            addCriterion("is_one <=", value, "isOne");
+        public Criteria andLevelLessThanOrEqualTo(Byte value) {
+            addCriterion("`level` <=", value, "level");
             return (Criteria) this;
         }
 
-        public Criteria andIsOneIn(List<Byte> values) {
-            addCriterion("is_one in", values, "isOne");
+        public Criteria andLevelIn(List<Byte> values) {
+            addCriterion("`level` in", values, "level");
             return (Criteria) this;
         }
 
-        public Criteria andIsOneNotIn(List<Byte> values) {
-            addCriterion("is_one not in", values, "isOne");
+        public Criteria andLevelNotIn(List<Byte> values) {
+            addCriterion("`level` not in", values, "level");
             return (Criteria) this;
         }
 
-        public Criteria andIsOneBetween(Byte value1, Byte value2) {
-            addCriterion("is_one between", value1, value2, "isOne");
+        public Criteria andLevelBetween(Byte value1, Byte value2) {
+            addCriterion("`level` between", value1, value2, "level");
             return (Criteria) this;
         }
 
-        public Criteria andIsOneNotBetween(Byte value1, Byte value2) {
-            addCriterion("is_one not between", value1, value2, "isOne");
+        public Criteria andLevelNotBetween(Byte value1, Byte value2) {
+            addCriterion("`level` not between", value1, value2, "level");
             return (Criteria) this;
         }
 
