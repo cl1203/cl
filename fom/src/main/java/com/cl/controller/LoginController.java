@@ -20,4 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(description = "登录,修改密码等接口")
 public class LoginController {
 
+    /**
+     * 日志
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);
 }

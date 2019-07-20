@@ -1,5 +1,7 @@
 package com.cl.bean.req;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,8 +17,13 @@ public class DistributionOrderReqBean implements Serializable {
 	/**
 	 * 订单ID list
 	 */
+	@NotEmpty(message = "请最少选择一条订单数据!")
 	private List<Long> orderIdList;
 
+	/**
+	 * 组织ID
+	 */
+	@NotNull(message = "请选择一个生产方!")
 	private Long orgId;
 
 	public List<Long> getOrderIdList() {

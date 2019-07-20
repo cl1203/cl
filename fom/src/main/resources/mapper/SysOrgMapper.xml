@@ -4,8 +4,7 @@
   <resultMap id="BaseResultMap" type="com.cl.entity.SysOrgEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
-    <result column="level" jdbcType="TINYINT" property="level" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -72,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, `name`, parent_id, `level`, `status`, remarks, create_time, create_user, last_update_time, 
+    id, `name`, code, `status`, remarks, create_time, create_user, last_update_time, 
     last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.SysOrgEntityExample" resultMap="BaseResultMap">
@@ -114,14 +113,12 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysOrgEntity" useGeneratedKeys="true">
-    insert into sys_org (`name`, parent_id, `level`, 
-      `status`, remarks, create_time, 
-      create_user, last_update_time, last_update_user
-      )
-    values (#{name,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{level,jdbcType=TINYINT}, 
-      #{status,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
-      )
+    insert into sys_org (`name`, code, `status`, 
+      remarks, create_time, create_user, 
+      last_update_time, last_update_user)
+    values (#{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysOrgEntity" useGeneratedKeys="true">
     insert into sys_org
@@ -129,11 +126,8 @@
       <if test="name != null">
         `name`,
       </if>
-      <if test="parentId != null">
-        parent_id,
-      </if>
-      <if test="level != null">
-        `level`,
+      <if test="code != null">
+        code,
       </if>
       <if test="status != null">
         `status`,
@@ -158,11 +152,8 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="level != null">
-        #{level,jdbcType=TINYINT},
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
@@ -199,11 +190,8 @@
       <if test="record.name != null">
         `name` = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.parentId != null">
-        parent_id = #{record.parentId,jdbcType=BIGINT},
-      </if>
-      <if test="record.level != null">
-        `level` = #{record.level,jdbcType=TINYINT},
+      <if test="record.code != null">
+        code = #{record.code,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=TINYINT},
@@ -232,8 +220,7 @@
     update sys_org
     set id = #{record.id,jdbcType=BIGINT},
       `name` = #{record.name,jdbcType=VARCHAR},
-      parent_id = #{record.parentId,jdbcType=BIGINT},
-      `level` = #{record.level,jdbcType=TINYINT},
+      code = #{record.code,jdbcType=VARCHAR},
       `status` = #{record.status,jdbcType=TINYINT},
       remarks = #{record.remarks,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -250,11 +237,8 @@
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="level != null">
-        `level` = #{level,jdbcType=TINYINT},
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         `status` = #{status,jdbcType=TINYINT},
@@ -280,8 +264,7 @@
   <update id="updateByPrimaryKey" parameterType="com.cl.entity.SysOrgEntity">
     update sys_org
     set `name` = #{name,jdbcType=VARCHAR},
-      parent_id = #{parentId,jdbcType=BIGINT},
-      `level` = #{level,jdbcType=TINYINT},
+      code = #{code,jdbcType=VARCHAR},
       `status` = #{status,jdbcType=TINYINT},
       remarks = #{remarks,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

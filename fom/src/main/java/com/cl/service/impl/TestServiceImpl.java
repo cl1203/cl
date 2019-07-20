@@ -68,7 +68,7 @@ public class TestServiceImpl implements ITestService {
         PageInfo<StudentEntity> studentEntityPageInfo = this.studentMapper.selectStudentEntityPage(requestBeanModel);
         //entity转bean
         PageInfo<StudentResBean> studentResBeanPageInfo = this.studentTransform.transform(studentEntityPageInfo);
-        String a = null;
+        //String a = null;
         /*if(1==1){
             Integer i = Integer.valueOf(a); //测试空指针异常
             if(2==2){

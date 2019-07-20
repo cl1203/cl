@@ -19,14 +19,9 @@ public class SysOrgEntity implements Serializable {
     private String name;
 
     /**
-     * 父ID
+     * 组织编码
      */
-    private Long parentId;
-
-    /**
-     * 组织的等级
-     */
-    private Byte level;
+    private String code;
 
     /**
      * 状态 0:禁用 1:可用 2:删除
@@ -76,20 +71,12 @@ public class SysOrgEntity implements Serializable {
         this.name = name;
     }
 
-    public Long getParentId() {
-        return parentId;
+    public String getCode() {
+        return code;
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
-    public Byte getLevel() {
-        return level;
-    }
-
-    public void setLevel(Byte level) {
-        this.level = level;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Byte getStatus() {
@@ -154,8 +141,7 @@ public class SysOrgEntity implements Serializable {
         SysOrgEntity other = (SysOrgEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
-            && (this.getLevel() == null ? other.getLevel() == null : this.getLevel().equals(other.getLevel()))
+            && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getRemarks() == null ? other.getRemarks() == null : this.getRemarks().equals(other.getRemarks()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -170,8 +156,7 @@ public class SysOrgEntity implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getParentId() == null) ? 0 : getParentId().hashCode());
-        result = prime * result + ((getLevel() == null) ? 0 : getLevel().hashCode());
+        result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -189,8 +174,7 @@ public class SysOrgEntity implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
-        sb.append(", parentId=").append(parentId);
-        sb.append(", level=").append(level);
+        sb.append(", code=").append(code);
         sb.append(", status=").append(status);
         sb.append(", remarks=").append(remarks);
         sb.append(", createTime=").append(createTime);

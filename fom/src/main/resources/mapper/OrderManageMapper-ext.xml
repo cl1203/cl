@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.dao.OrderManageMapper">
+  <select id="selectProducer" parameterType="long" resultType="com.cl.entity.OrderManageEntity">
+    SELECT
+      *
+    FROM
+    order_manage
+    WHERE
+    sku = (
+    SELECT
+    sku
+    FROM
+    order_manage
+    WHERE
+    id = #{orderId}
+    )
+    AND id != #{orderId}
+    AND order_time &lt; (
+    SELECT
+    order_time
+    FROM
+    order_manage
+    WHERE
+    id = #{orderId}
+    )
+    ORDER BY
+    order_time DESC
+    LIMIT 1
+  </select>
+</mapper>

@@ -62,15 +62,6 @@ public class OrderManageResBean implements Serializable {
      */
     private String secondaryProcess;
 
-    /**
-     * 应裁数量
-     */
-    private Integer answerCutQuantity;
-
-    /**
-     * 实裁数量
-     */
-    private Integer actualCutQuantity;
 
 	public Long getId() {
 		return id;
@@ -151,22 +142,5 @@ public class OrderManageResBean implements Serializable {
 	public void setSecondaryProcess(String secondaryProcess) {
 		this.secondaryProcess = secondaryProcess;
 	}
-
-	public Integer getAnswerCutQuantity() {
-		return answerCutQuantity;
-	}
-
-	public void setAnswerCutQuantity(Integer answerCutQuantity) {
-		this.answerCutQuantity = answerCutQuantity;
-	}
-
-	public Integer getActualCutQuantity() {
-		return actualCutQuantity;
-	}
-
-	public void setActualCutQuantity(Integer actualCutQuantity) {
-		this.actualCutQuantity = actualCutQuantity;
-	}
-    
 	
 }

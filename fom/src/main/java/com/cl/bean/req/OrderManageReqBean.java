@@ -1,5 +1,7 @@
 package com.cl.bean.req;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -32,6 +34,18 @@ public class OrderManageReqBean implements Serializable{
      */
     private String sku;
 
+	/**
+	 * 每页数量
+	 */
+	@NotNull(message = "每页查询数量大小不能为空!")
+	private Integer pageSize;
+
+	/**
+	 * 页码
+	 */
+	@NotNull(message = "页码大小不能为空!")
+	private Integer pageNum;
+
 	public String getOrderNumber() {
 		return orderNumber;
 	}
@@ -63,6 +77,20 @@ public class OrderManageReqBean implements Serializable{
 	public void setSku(String sku) {
 		this.sku = sku;
 	}
-    
-    
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public Integer getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(Integer pageNum) {
+		this.pageNum = pageNum;
+	}
 }
