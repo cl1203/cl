@@ -575,6 +575,66 @@ public class OrderManageEntityExample {
             return (Criteria) this;
         }
 
+        public Criteria andProducerOrgIdIsNull() {
+            addCriterion("producer_org_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProducerOrgIdIsNotNull() {
+            addCriterion("producer_org_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProducerOrgIdEqualTo(Long value) {
+            addCriterion("producer_org_id =", value, "producerOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProducerOrgIdNotEqualTo(Long value) {
+            addCriterion("producer_org_id <>", value, "producerOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProducerOrgIdGreaterThan(Long value) {
+            addCriterion("producer_org_id >", value, "producerOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProducerOrgIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("producer_org_id >=", value, "producerOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProducerOrgIdLessThan(Long value) {
+            addCriterion("producer_org_id <", value, "producerOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProducerOrgIdLessThanOrEqualTo(Long value) {
+            addCriterion("producer_org_id <=", value, "producerOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProducerOrgIdIn(List<Long> values) {
+            addCriterion("producer_org_id in", values, "producerOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProducerOrgIdNotIn(List<Long> values) {
+            addCriterion("producer_org_id not in", values, "producerOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProducerOrgIdBetween(Long value1, Long value2) {
+            addCriterion("producer_org_id between", value1, value2, "producerOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProducerOrgIdNotBetween(Long value1, Long value2) {
+            addCriterion("producer_org_id not between", value1, value2, "producerOrgId");
+            return (Criteria) this;
+        }
+
         public Criteria andProducerIsNull() {
             addCriterion("producer is null");
             return (Criteria) this;

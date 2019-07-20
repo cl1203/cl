@@ -26,7 +26,7 @@ public class StudentEntity implements Serializable {
     private String sex;
 
     /**
-     * 状态（0-删除，1-启用，2-禁用）
+     * 状态 0:禁用 1:可用 2:删除
      */
     private Byte status;
 

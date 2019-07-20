@@ -44,6 +44,11 @@ public class OrderManageEntity implements Serializable {
     private String sku;
 
     /**
+     * 指定生产方组织ID(不为空时以此生产方为准)
+     */
+    private Long producerOrgId;
+
+    /**
      * 生产方
      */
     private String producer;
@@ -156,6 +161,14 @@ public class OrderManageEntity implements Serializable {
         this.sku = sku;
     }
 
+    public Long getProducerOrgId() {
+        return producerOrgId;
+    }
+
+    public void setProducerOrgId(Long producerOrgId) {
+        this.producerOrgId = producerOrgId;
+    }
+
     public String getProducer() {
         return producer;
     }
@@ -263,6 +276,7 @@ public class OrderManageEntity implements Serializable {
             && (this.getOrderTime() == null ? other.getOrderTime() == null : this.getOrderTime().equals(other.getOrderTime()))
             && (this.getOrderImgUrl() == null ? other.getOrderImgUrl() == null : this.getOrderImgUrl().equals(other.getOrderImgUrl()))
             && (this.getSku() == null ? other.getSku() == null : this.getSku().equals(other.getSku()))
+            && (this.getProducerOrgId() == null ? other.getProducerOrgId() == null : this.getProducerOrgId().equals(other.getProducerOrgId()))
             && (this.getProducer() == null ? other.getProducer() == null : this.getProducer().equals(other.getProducer()))
             && (this.getSurplusTime() == null ? other.getSurplusTime() == null : this.getSurplusTime().equals(other.getSurplusTime()))
             && (this.getPurchaseTime() == null ? other.getPurchaseTime() == null : this.getPurchaseTime().equals(other.getPurchaseTime()))
@@ -287,6 +301,7 @@ public class OrderManageEntity implements Serializable {
         result = prime * result + ((getOrderTime() == null) ? 0 : getOrderTime().hashCode());
         result = prime * result + ((getOrderImgUrl() == null) ? 0 : getOrderImgUrl().hashCode());
         result = prime * result + ((getSku() == null) ? 0 : getSku().hashCode());
+        result = prime * result + ((getProducerOrgId() == null) ? 0 : getProducerOrgId().hashCode());
         result = prime * result + ((getProducer() == null) ? 0 : getProducer().hashCode());
         result = prime * result + ((getSurplusTime() == null) ? 0 : getSurplusTime().hashCode());
         result = prime * result + ((getPurchaseTime() == null) ? 0 : getPurchaseTime().hashCode());
@@ -314,6 +329,7 @@ public class OrderManageEntity implements Serializable {
         sb.append(", orderTime=").append(orderTime);
         sb.append(", orderImgUrl=").append(orderImgUrl);
         sb.append(", sku=").append(sku);
+        sb.append(", producerOrgId=").append(producerOrgId);
         sb.append(", producer=").append(producer);
         sb.append(", surplusTime=").append(surplusTime);
         sb.append(", purchaseTime=").append(purchaseTime);
