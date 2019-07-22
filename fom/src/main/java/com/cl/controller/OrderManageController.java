@@ -32,7 +32,7 @@ public class OrderManageController {
 	/**
      * 日志
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderManageController.class);
 
     @Resource
     private IOrderManageService orderManageService;

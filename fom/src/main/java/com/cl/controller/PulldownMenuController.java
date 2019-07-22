@@ -30,7 +30,7 @@ public class PulldownMenuController {
     /**
      * 日志
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PulldownMenuController.class);
 
     @Resource
     private IPulldownMenuService pulldownMenuService;

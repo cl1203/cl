@@ -23,5 +23,5 @@ public class LoginController {
     /**
      * 日志
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 }
