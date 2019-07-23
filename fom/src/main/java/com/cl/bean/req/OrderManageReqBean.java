@@ -22,12 +22,12 @@ public class OrderManageReqBean implements Serializable{
     /**
      * 订单状态1:待采购 2:采购中 3:待裁剪 4:已裁剪
      */
-    private Byte orderStatus;
+    private String orderStatus;
     
     /**
      * 下单时间
      */
-    private Date orderTime;
+    private String orderTime;
     
     /**
      * SKU
@@ -54,19 +54,19 @@ public class OrderManageReqBean implements Serializable{
 		this.orderNumber = orderNumber;
 	}
 
-	public Byte getOrderStatus() {
+	public String getOrderStatus() {
 		return orderStatus;
 	}
 
-	public void setOrderStatus(Byte orderStatus) {
+	public void setOrderStatus(String orderStatus) {
 		this.orderStatus = orderStatus;
 	}
 
-	public Date getOrderTime() {
+	public String getOrderTime() {
 		return orderTime;
 	}
 
-	public void setOrderTime(Date orderTime) {
+	public void setOrderTime(String orderTime) {
 		this.orderTime = orderTime;
 	}
 

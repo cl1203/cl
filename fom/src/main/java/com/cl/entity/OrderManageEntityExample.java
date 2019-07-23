@@ -575,6 +575,66 @@ public class OrderManageEntityExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsfirstIsNull() {
+            addCriterion("isFirst is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfirstIsNotNull() {
+            addCriterion("isFirst is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfirstEqualTo(Byte value) {
+            addCriterion("isFirst =", value, "isfirst");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfirstNotEqualTo(Byte value) {
+            addCriterion("isFirst <>", value, "isfirst");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfirstGreaterThan(Byte value) {
+            addCriterion("isFirst >", value, "isfirst");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfirstGreaterThanOrEqualTo(Byte value) {
+            addCriterion("isFirst >=", value, "isfirst");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfirstLessThan(Byte value) {
+            addCriterion("isFirst <", value, "isfirst");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfirstLessThanOrEqualTo(Byte value) {
+            addCriterion("isFirst <=", value, "isfirst");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfirstIn(List<Byte> values) {
+            addCriterion("isFirst in", values, "isfirst");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfirstNotIn(List<Byte> values) {
+            addCriterion("isFirst not in", values, "isfirst");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfirstBetween(Byte value1, Byte value2) {
+            addCriterion("isFirst between", value1, value2, "isfirst");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfirstNotBetween(Byte value1, Byte value2) {
+            addCriterion("isFirst not between", value1, value2, "isfirst");
+            return (Criteria) this;
+        }
+
         public Criteria andProducerOrgIdIsNull() {
             addCriterion("producer_org_id is null");
             return (Criteria) this;

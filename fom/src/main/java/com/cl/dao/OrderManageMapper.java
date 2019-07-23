@@ -6,6 +6,7 @@ import com.cl.comm.model.RequestBeanModel;
 import com.cl.entity.OrderManageEntity;
 import com.cl.entity.OrderManageEntityExample;
 import com.cl.entity.SysOrgEntity;
+import com.cl.util.DateUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -38,11 +39,11 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
         if(StringUtils.isNotBlank(orderManageReqBean.getSku())){
             criteria.andSkuEqualTo(orderManageReqBean.getSku());
         }
-        if(null != orderManageReqBean.getOrderStatus()){
-            criteria.andOrderStatusEqualTo(orderManageReqBean.getOrderStatus());
+        if(StringUtils.isNotBlank(orderManageReqBean.getOrderStatus())){
+            criteria.andOrderStatusEqualTo(Byte.valueOf(orderManageReqBean.getOrderStatus()));
         }
-        if(null != orderManageReqBean.getOrderTime()){
-            criteria.andOrderTimeEqualTo(orderManageReqBean.getOrderTime());
+        if(StringUtils.isNotBlank(orderManageReqBean.getOrderTime())){
+            criteria.andOrderTimeEqualTo(DateUtils.getDateToString(orderManageReqBean.getOrderTime() , DateUtils.DATESHOWFORMAT));
         }
         List<OrderManageEntity> orderManageEntityList = this.selectByExample(orderManageEntityExample);
         PageInfo<OrderManageEntity> orderManageEntityPageInfo = new PageInfo<>(page);

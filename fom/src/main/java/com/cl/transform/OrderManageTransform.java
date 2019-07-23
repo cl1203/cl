@@ -5,6 +5,7 @@ import com.cl.comm.transformer.AbstractObjectTransformer;
 import com.cl.dao.SysOrgMapper;
 import com.cl.entity.OrderManageEntity;
 import com.cl.entity.SysOrgEntity;
+import com.cl.util.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -31,13 +32,27 @@ public class OrderManageTransform extends AbstractObjectTransformer<OrderManageE
         OrderManageResBean orderManageResBean = new OrderManageResBean();
         orderManageResBean.setOrderNumber(orderManageEntity.getOrderNumber());
         if(null != orderManageEntity.getOrderTime()){
-            orderManageResBean.setOrderTime(orderManageEntity.getOrderTime());
+            orderManageResBean.setOrderTime(DateUtils.getDateString(orderManageEntity.getOrderTime() , DateUtils.DATESHOWFORMAT));
         }
         orderManageResBean.setSurplusTime(orderManageEntity.getSurplusTime());
-        orderManageResBean.setOrderStatus(orderManageEntity.getOrderStatus());
+        switch(orderManageEntity.getOrderStatus()){
+            case 1:
+                orderManageResBean.setOrderStatus("待采购");
+                break;
+            case 2:
+                orderManageResBean.setOrderStatus("采购中");
+                break;
+            case 3:
+                orderManageResBean.setOrderStatus("待裁剪");
+                break;
+            case 4:
+                orderManageResBean.setOrderStatus("已裁剪");
+                break;
+        }
+
         orderManageResBean.setSku(orderManageEntity.getSku());
         if(null != orderManageEntity.getOrderQuantity()){
-            orderManageResBean.setOrderQuantity(orderManageEntity.getOrderQuantity());
+            orderManageResBean.setOrderQuantity(String.valueOf(orderManageEntity.getOrderQuantity()));
         }
         orderManageResBean.setSecondaryProcess(orderManageEntity.getSecondaryProcess());
         if(null != orderManageEntity.getProducerOrgId()){

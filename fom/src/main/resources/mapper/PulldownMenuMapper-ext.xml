@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.dao.PulldownMenuMapper">
+    <resultMap id="BaseResultMap" type="com.cl.bean.res.PulldownMenuResBean">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+    </resultMap>
+
+    <select id="queryOrgPulldownMenu" resultMap="BaseResultMap">
+        SELECT
+          id ,
+          name ,
+          code
+        FROM
+          sys_org
+        WHERE
+          status = 1
+    </select>
+
+    <select id="queryInputByOrderNumer" resultType="string">
+        SELECT
+          order_number
+        FROM
+        order_manage
+        WHERE
+        status = 1
+        order by
+        last_update_time
+        desc
+    </select>
+
+    <select id="queryInputBySku" resultType="string">
+        SELECT
+         sku
+        FROM
+        order_manage
+        WHERE
+        status = 1
+        GROUP BY sku
+    </select>
+
+    <select id="queryInputByPurchaseNumber" resultType="string">
+        SELECT
+          purchase_number
+        FROM
+        purchase
+        WHERE
+        status = 1
+        order by
+        last_update_time
+        desc
+    </select>
+
+    <select id="queryInputSupplierName" resultType="string">
+        SELECT
+        supplier_name
+        FROM
+        purchase
+        WHERE
+        status = 1
+        GROUP BY supplier_name
+    </select>
+</mapper>

@@ -25,17 +25,17 @@ public class OrderManageResBean implements Serializable {
     /**
      * 订单状态1:待采购 2:采购中 3:待裁剪 4:已裁剪
      */
-    private Byte orderStatus;
+    private String orderStatus;
 
     /**
      * 订单件数
      */
-    private Integer orderQuantity;
+    private String orderQuantity;
 
     /**
      * 下单时间
      */
-    private Date orderTime;
+    private String orderTime;
 
     /**
      * 订单图片URL
@@ -62,7 +62,6 @@ public class OrderManageResBean implements Serializable {
      */
     private String secondaryProcess;
 
-
 	public Long getId() {
 		return id;
 	}
@@ -79,27 +78,27 @@ public class OrderManageResBean implements Serializable {
 		this.orderNumber = orderNumber;
 	}
 
-	public Byte getOrderStatus() {
+	public String getOrderStatus() {
 		return orderStatus;
 	}
 
-	public void setOrderStatus(Byte orderStatus) {
+	public void setOrderStatus(String orderStatus) {
 		this.orderStatus = orderStatus;
 	}
 
-	public Integer getOrderQuantity() {
+	public String getOrderQuantity() {
 		return orderQuantity;
 	}
 
-	public void setOrderQuantity(Integer orderQuantity) {
+	public void setOrderQuantity(String orderQuantity) {
 		this.orderQuantity = orderQuantity;
 	}
 
-	public Date getOrderTime() {
+	public String getOrderTime() {
 		return orderTime;
 	}
 
-	public void setOrderTime(Date orderTime) {
+	public void setOrderTime(String orderTime) {
 		this.orderTime = orderTime;
 	}
 
@@ -142,5 +141,4 @@ public class OrderManageResBean implements Serializable {
 	public void setSecondaryProcess(String secondaryProcess) {
 		this.secondaryProcess = secondaryProcess;
 	}
-	
 }

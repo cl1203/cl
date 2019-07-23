@@ -9,6 +9,7 @@
     <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
     <result column="order_img_url" jdbcType="VARCHAR" property="orderImgUrl" />
     <result column="sku" jdbcType="VARCHAR" property="sku" />
+    <result column="isFirst" jdbcType="TINYINT" property="isfirst" />
     <result column="producer_org_id" jdbcType="BIGINT" property="producerOrgId" />
     <result column="producer" jdbcType="VARCHAR" property="producer" />
     <result column="surplus_time" jdbcType="VARCHAR" property="surplusTime" />
@@ -81,9 +82,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_number, order_status, order_quantity, order_time, order_img_url, sku, producer_org_id, 
-    producer, surplus_time, purchase_time, tailoring_time, secondary_process, `status`, 
-    remarks, create_time, create_user, last_update_time, last_update_user
+    id, order_number, order_status, order_quantity, order_time, order_img_url, sku, isFirst, 
+    producer_org_id, producer, surplus_time, purchase_time, tailoring_time, secondary_process, 
+    `status`, remarks, create_time, create_user, last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.OrderManageEntityExample" resultMap="BaseResultMap">
     select
@@ -126,18 +127,18 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.OrderManageEntity" useGeneratedKeys="true">
     insert into order_manage (order_number, order_status, order_quantity, 
       order_time, order_img_url, sku, 
-      producer_org_id, producer, surplus_time, 
-      purchase_time, tailoring_time, secondary_process, 
-      `status`, remarks, create_time, 
-      create_user, last_update_time, last_update_user
-      )
+      isFirst, producer_org_id, producer, 
+      surplus_time, purchase_time, tailoring_time, 
+      secondary_process, `status`, remarks, 
+      create_time, create_user, last_update_time, 
+      last_update_user)
     values (#{orderNumber,jdbcType=VARCHAR}, #{orderStatus,jdbcType=TINYINT}, #{orderQuantity,jdbcType=INTEGER}, 
       #{orderTime,jdbcType=TIMESTAMP}, #{orderImgUrl,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, 
-      #{producerOrgId,jdbcType=BIGINT}, #{producer,jdbcType=VARCHAR}, #{surplusTime,jdbcType=VARCHAR}, 
-      #{purchaseTime,jdbcType=INTEGER}, #{tailoringTime,jdbcType=INTEGER}, #{secondaryProcess,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
-      )
+      #{isfirst,jdbcType=TINYINT}, #{producerOrgId,jdbcType=BIGINT}, #{producer,jdbcType=VARCHAR}, 
+      #{surplusTime,jdbcType=VARCHAR}, #{purchaseTime,jdbcType=INTEGER}, #{tailoringTime,jdbcType=INTEGER}, 
+      #{secondaryProcess,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateUser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.OrderManageEntity" useGeneratedKeys="true">
     insert into order_manage
@@ -159,6 +160,9 @@
       </if>
       <if test="sku != null">
         sku,
+      </if>
+      <if test="isfirst != null">
+        isFirst,
       </if>
       <if test="producerOrgId != null">
         producer_org_id,
@@ -215,6 +219,9 @@
       </if>
       <if test="sku != null">
         #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="isfirst != null">
+        #{isfirst,jdbcType=TINYINT},
       </if>
       <if test="producerOrgId != null">
         #{producerOrgId,jdbcType=BIGINT},
@@ -284,6 +291,9 @@
       <if test="record.sku != null">
         sku = #{record.sku,jdbcType=VARCHAR},
       </if>
+      <if test="record.isfirst != null">
+        isFirst = #{record.isfirst,jdbcType=TINYINT},
+      </if>
       <if test="record.producerOrgId != null">
         producer_org_id = #{record.producerOrgId,jdbcType=BIGINT},
       </if>
@@ -334,6 +344,7 @@
       order_time = #{record.orderTime,jdbcType=TIMESTAMP},
       order_img_url = #{record.orderImgUrl,jdbcType=VARCHAR},
       sku = #{record.sku,jdbcType=VARCHAR},
+      isFirst = #{record.isfirst,jdbcType=TINYINT},
       producer_org_id = #{record.producerOrgId,jdbcType=BIGINT},
       producer = #{record.producer,jdbcType=VARCHAR},
       surplus_time = #{record.surplusTime,jdbcType=VARCHAR},
@@ -370,6 +381,9 @@
       </if>
       <if test="sku != null">
         sku = #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="isfirst != null">
+        isFirst = #{isfirst,jdbcType=TINYINT},
       </if>
       <if test="producerOrgId != null">
         producer_org_id = #{producerOrgId,jdbcType=BIGINT},
@@ -418,6 +432,7 @@
       order_time = #{orderTime,jdbcType=TIMESTAMP},
       order_img_url = #{orderImgUrl,jdbcType=VARCHAR},
       sku = #{sku,jdbcType=VARCHAR},
+      isFirst = #{isfirst,jdbcType=TINYINT},
       producer_org_id = #{producerOrgId,jdbcType=BIGINT},
       producer = #{producer,jdbcType=VARCHAR},
       surplus_time = #{surplusTime,jdbcType=VARCHAR},
