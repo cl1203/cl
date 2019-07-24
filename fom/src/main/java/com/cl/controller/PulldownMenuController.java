@@ -1,6 +1,8 @@
 package com.cl.controller;
 
+import com.cl.bean.res.DictItem;
 import com.cl.bean.res.PulldownMenuResBean;
+import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.ResponseBeanModel;
 import com.cl.service.IPulldownMenuService;
 import io.swagger.annotations.Api;
@@ -114,4 +116,19 @@ public class PulldownMenuController {
     }
 
 
+    /**
+     * @Author 陈龙
+     * @Description 查询字典表数据
+     * @Date 12:10 2019/7/22
+     * @Param [supplierName]
+     * @return java.util.List<java.lang.String>
+     **/
+    @PostMapping("/queryDictItemList")
+    @ApiOperation(value = "查询字典表数据" , notes = "查询字典表数据")
+    public ResponseBeanModel<List<DictItem>> queryDictItemList(RequestBeanModel<DictItem> requestBeanModel){
+        LOGGER.info("PulldownMenuController------queryDictItemList  start......" );
+        List<DictItem> dictItemList = this.pulldownMenuService.queryDictItemList(requestBeanModel);
+        LOGGER.info("PulldownMenuController------queryDictItemList  end......" );
+        return new ResponseBeanModel<>(dictItemList);
+    }
 }

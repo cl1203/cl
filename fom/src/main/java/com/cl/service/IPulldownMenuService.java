@@ -1,6 +1,9 @@
 package com.cl.service;
 
+import com.cl.bean.res.DictItem;
 import com.cl.bean.res.PulldownMenuResBean;
+import com.cl.comm.model.RequestBeanModel;
+import com.cl.comm.model.SingleParam;
 
 import java.util.List;
 
@@ -57,4 +60,13 @@ public interface IPulldownMenuService {
      * @return java.util.List<java.lang.String>
      **/
     List<String> queryInputSupplierName();
+
+    /**
+     * @Author 陈龙
+     * @Description 字典表数据查询
+     * @Date 15:56 2019/7/24
+     * @Param []
+     * @return java.util.List<java.lang.String>
+     **/
+    List<DictItem> queryDictItemList(RequestBeanModel<DictItem> requestBeanModel);
 }

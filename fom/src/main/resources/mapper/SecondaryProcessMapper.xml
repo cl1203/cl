@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cl.dao.TailoringMapper">
-  <resultMap id="BaseResultMap" type="com.cl.entity.TailoringEntity">
+<mapper namespace="com.cl.dao.SecondaryProcessMapper">
+  <resultMap id="BaseResultMap" type="com.cl.entity.SecondaryProcessEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
-    <result column="tailoring_group" jdbcType="VARCHAR" property="tailoringGroup" />
-    <result column="answer_cut_quantity" jdbcType="INTEGER" property="answerCutQuantity" />
-    <result column="actual_cut_quantity" jdbcType="INTEGER" property="actualCutQuantity" />
-    <result column="monovalent" jdbcType="DECIMAL" property="monovalent" />
-    <result column="consuming_time" jdbcType="DECIMAL" property="consumingTime" />
-    <result column="tailoring_status" jdbcType="TINYINT" property="tailoringStatus" />
-    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="process_name" jdbcType="VARCHAR" property="processName" />
+    <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="simple_use" jdbcType="VARCHAR" property="simpleUse" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
     <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
@@ -75,17 +72,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_no, tailoring_group, answer_cut_quantity, actual_cut_quantity, monovalent, 
-    consuming_time, tailoring_status, remarks, create_time, create_user, last_update_time, 
-    last_update_user
+    id, order_no, process_name, supplier_name, unit_price, simple_use, create_time, create_user, 
+    last_update_time, last_update_user
   </sql>
-  <select id="selectByExample" parameterType="com.cl.entity.TailoringEntityExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cl.entity.SecondaryProcessEntityExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tailoring
+    from secondary_process
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -104,57 +100,46 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tailoring
+    from secondary_process
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from tailoring
+    delete from secondary_process
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cl.entity.TailoringEntityExample">
-    delete from tailoring
+  <delete id="deleteByExample" parameterType="com.cl.entity.SecondaryProcessEntityExample">
+    delete from secondary_process
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.TailoringEntity" useGeneratedKeys="true">
-    insert into tailoring (order_no, tailoring_group, answer_cut_quantity, 
-      actual_cut_quantity, monovalent, consuming_time, 
-      tailoring_status, remarks, create_time, 
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SecondaryProcessEntity" useGeneratedKeys="true">
+    insert into secondary_process (order_no, process_name, supplier_name, 
+      unit_price, simple_use, create_time, 
       create_user, last_update_time, last_update_user
       )
-    values (#{orderNo,jdbcType=VARCHAR}, #{tailoringGroup,jdbcType=VARCHAR}, #{answerCutQuantity,jdbcType=INTEGER}, 
-      #{actualCutQuantity,jdbcType=INTEGER}, #{monovalent,jdbcType=DECIMAL}, #{consumingTime,jdbcType=DECIMAL}, 
-      #{tailoringStatus,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+    values (#{orderNo,jdbcType=VARCHAR}, #{processName,jdbcType=VARCHAR}, #{supplierName,jdbcType=VARCHAR}, 
+      #{unitPrice,jdbcType=DECIMAL}, #{simpleUse,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.TailoringEntity" useGeneratedKeys="true">
-    insert into tailoring
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SecondaryProcessEntity" useGeneratedKeys="true">
+    insert into secondary_process
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="orderNo != null">
         order_no,
       </if>
-      <if test="tailoringGroup != null">
-        tailoring_group,
+      <if test="processName != null">
+        process_name,
       </if>
-      <if test="answerCutQuantity != null">
-        answer_cut_quantity,
+      <if test="supplierName != null">
+        supplier_name,
       </if>
-      <if test="actualCutQuantity != null">
-        actual_cut_quantity,
+      <if test="unitPrice != null">
+        unit_price,
       </if>
-      <if test="monovalent != null">
-        monovalent,
-      </if>
-      <if test="consumingTime != null">
-        consuming_time,
-      </if>
-      <if test="tailoringStatus != null">
-        tailoring_status,
-      </if>
-      <if test="remarks != null">
-        remarks,
+      <if test="simpleUse != null">
+        simple_use,
       </if>
       <if test="createTime != null">
         create_time,
@@ -173,26 +158,17 @@
       <if test="orderNo != null">
         #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="tailoringGroup != null">
-        #{tailoringGroup,jdbcType=VARCHAR},
+      <if test="processName != null">
+        #{processName,jdbcType=VARCHAR},
       </if>
-      <if test="answerCutQuantity != null">
-        #{answerCutQuantity,jdbcType=INTEGER},
+      <if test="supplierName != null">
+        #{supplierName,jdbcType=VARCHAR},
       </if>
-      <if test="actualCutQuantity != null">
-        #{actualCutQuantity,jdbcType=INTEGER},
+      <if test="unitPrice != null">
+        #{unitPrice,jdbcType=DECIMAL},
       </if>
-      <if test="monovalent != null">
-        #{monovalent,jdbcType=DECIMAL},
-      </if>
-      <if test="consumingTime != null">
-        #{consumingTime,jdbcType=DECIMAL},
-      </if>
-      <if test="tailoringStatus != null">
-        #{tailoringStatus,jdbcType=TINYINT},
-      </if>
-      <if test="remarks != null">
-        #{remarks,jdbcType=VARCHAR},
+      <if test="simpleUse != null">
+        #{simpleUse,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -208,14 +184,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cl.entity.TailoringEntityExample" resultType="java.lang.Long">
-    select count(*) from tailoring
+  <select id="countByExample" parameterType="com.cl.entity.SecondaryProcessEntityExample" resultType="java.lang.Long">
+    select count(*) from secondary_process
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update tailoring
+    update secondary_process
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
@@ -223,26 +199,17 @@
       <if test="record.orderNo != null">
         order_no = #{record.orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.tailoringGroup != null">
-        tailoring_group = #{record.tailoringGroup,jdbcType=VARCHAR},
+      <if test="record.processName != null">
+        process_name = #{record.processName,jdbcType=VARCHAR},
       </if>
-      <if test="record.answerCutQuantity != null">
-        answer_cut_quantity = #{record.answerCutQuantity,jdbcType=INTEGER},
+      <if test="record.supplierName != null">
+        supplier_name = #{record.supplierName,jdbcType=VARCHAR},
       </if>
-      <if test="record.actualCutQuantity != null">
-        actual_cut_quantity = #{record.actualCutQuantity,jdbcType=INTEGER},
+      <if test="record.unitPrice != null">
+        unit_price = #{record.unitPrice,jdbcType=DECIMAL},
       </if>
-      <if test="record.monovalent != null">
-        monovalent = #{record.monovalent,jdbcType=DECIMAL},
-      </if>
-      <if test="record.consumingTime != null">
-        consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
-      </if>
-      <if test="record.tailoringStatus != null">
-        tailoring_status = #{record.tailoringStatus,jdbcType=TINYINT},
-      </if>
-      <if test="record.remarks != null">
-        remarks = #{record.remarks,jdbcType=VARCHAR},
+      <if test="record.simpleUse != null">
+        simple_use = #{record.simpleUse,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -262,16 +229,13 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update tailoring
+    update secondary_process
     set id = #{record.id,jdbcType=BIGINT},
       order_no = #{record.orderNo,jdbcType=VARCHAR},
-      tailoring_group = #{record.tailoringGroup,jdbcType=VARCHAR},
-      answer_cut_quantity = #{record.answerCutQuantity,jdbcType=INTEGER},
-      actual_cut_quantity = #{record.actualCutQuantity,jdbcType=INTEGER},
-      monovalent = #{record.monovalent,jdbcType=DECIMAL},
-      consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
-      tailoring_status = #{record.tailoringStatus,jdbcType=TINYINT},
-      remarks = #{record.remarks,jdbcType=VARCHAR},
+      process_name = #{record.processName,jdbcType=VARCHAR},
+      supplier_name = #{record.supplierName,jdbcType=VARCHAR},
+      unit_price = #{record.unitPrice,jdbcType=DECIMAL},
+      simple_use = #{record.simpleUse,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_user = #{record.createUser,jdbcType=VARCHAR},
       last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
@@ -280,32 +244,23 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.TailoringEntity">
-    update tailoring
+  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.SecondaryProcessEntity">
+    update secondary_process
     <set>
       <if test="orderNo != null">
         order_no = #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="tailoringGroup != null">
-        tailoring_group = #{tailoringGroup,jdbcType=VARCHAR},
+      <if test="processName != null">
+        process_name = #{processName,jdbcType=VARCHAR},
       </if>
-      <if test="answerCutQuantity != null">
-        answer_cut_quantity = #{answerCutQuantity,jdbcType=INTEGER},
+      <if test="supplierName != null">
+        supplier_name = #{supplierName,jdbcType=VARCHAR},
       </if>
-      <if test="actualCutQuantity != null">
-        actual_cut_quantity = #{actualCutQuantity,jdbcType=INTEGER},
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice,jdbcType=DECIMAL},
       </if>
-      <if test="monovalent != null">
-        monovalent = #{monovalent,jdbcType=DECIMAL},
-      </if>
-      <if test="consumingTime != null">
-        consuming_time = #{consumingTime,jdbcType=DECIMAL},
-      </if>
-      <if test="tailoringStatus != null">
-        tailoring_status = #{tailoringStatus,jdbcType=TINYINT},
-      </if>
-      <if test="remarks != null">
-        remarks = #{remarks,jdbcType=VARCHAR},
+      <if test="simpleUse != null">
+        simple_use = #{simpleUse,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -322,16 +277,13 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cl.entity.TailoringEntity">
-    update tailoring
+  <update id="updateByPrimaryKey" parameterType="com.cl.entity.SecondaryProcessEntity">
+    update secondary_process
     set order_no = #{orderNo,jdbcType=VARCHAR},
-      tailoring_group = #{tailoringGroup,jdbcType=VARCHAR},
-      answer_cut_quantity = #{answerCutQuantity,jdbcType=INTEGER},
-      actual_cut_quantity = #{actualCutQuantity,jdbcType=INTEGER},
-      monovalent = #{monovalent,jdbcType=DECIMAL},
-      consuming_time = #{consumingTime,jdbcType=DECIMAL},
-      tailoring_status = #{tailoringStatus,jdbcType=TINYINT},
-      remarks = #{remarks,jdbcType=VARCHAR},
+      process_name = #{processName,jdbcType=VARCHAR},
+      supplier_name = #{supplierName,jdbcType=VARCHAR},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      simple_use = #{simpleUse,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=VARCHAR},
       last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},

@@ -17,7 +17,7 @@ public class OrderManageReqBean implements Serializable{
 	 /**
      * 订单编号
      */
-    private String orderNumber;
+    private String orderNo;
 
     /**
      * 订单状态1:待采购 2:采购中 3:待裁剪 4:已裁剪
@@ -46,12 +46,12 @@ public class OrderManageReqBean implements Serializable{
 	@NotNull(message = "页码大小不能为空!")
 	private Integer pageNum;
 
-	public String getOrderNumber() {
-		return orderNumber;
+	public String getOrderNo() {
+		return orderNo;
 	}
 
-	public void setOrderNumber(String orderNumber) {
-		this.orderNumber = orderNumber;
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
 
 	public String getOrderStatus() {

@@ -15,14 +15,14 @@ public class PurchaseEntity implements Serializable {
     private Long id;
 
     /**
-     * 订单表ID
+     * 订单编号
      */
-    private Long orderId;
+    private String orderNo;
 
     /**
      * 采购单号
      */
-    private String purchaseNumber;
+    private String purchaseNo;
 
     /**
      * 采购日期 (录入实采时期)
@@ -43,6 +43,11 @@ public class PurchaseEntity implements Serializable {
      * 供应商色号
      */
     private String supplierColorNumber;
+
+    /**
+     * 采购状态0:已删除 1: 待采购 2: 采购中  3: 已完成 
+     */
+    private Byte purchaseStatus;
 
     /**
      * 物料sku
@@ -95,19 +100,9 @@ public class PurchaseEntity implements Serializable {
     private BigDecimal actualPickTotal;
 
     /**
-     * 二次工艺
-     */
-    private String secondaryProcess;
-
-    /**
      * 采购耗时
      */
-    private BigDecimal consumingTime;
-
-    /**
-     * 状态 0:禁用 1:可用 2:删除
-     */
-    private Byte status;
+    private String consumingTime;
 
     /**
      * 备注
@@ -144,20 +139,20 @@ public class PurchaseEntity implements Serializable {
         this.id = id;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public String getOrderNo() {
+        return orderNo;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 
-    public String getPurchaseNumber() {
-        return purchaseNumber;
+    public String getPurchaseNo() {
+        return purchaseNo;
     }
 
-    public void setPurchaseNumber(String purchaseNumber) {
-        this.purchaseNumber = purchaseNumber;
+    public void setPurchaseNo(String purchaseNo) {
+        this.purchaseNo = purchaseNo;
     }
 
     public Date getPurchaseTime() {
@@ -190,6 +185,14 @@ public class PurchaseEntity implements Serializable {
 
     public void setSupplierColorNumber(String supplierColorNumber) {
         this.supplierColorNumber = supplierColorNumber;
+    }
+
+    public Byte getPurchaseStatus() {
+        return purchaseStatus;
+    }
+
+    public void setPurchaseStatus(Byte purchaseStatus) {
+        this.purchaseStatus = purchaseStatus;
     }
 
     public String getMaterielSku() {
@@ -272,28 +275,12 @@ public class PurchaseEntity implements Serializable {
         this.actualPickTotal = actualPickTotal;
     }
 
-    public String getSecondaryProcess() {
-        return secondaryProcess;
-    }
-
-    public void setSecondaryProcess(String secondaryProcess) {
-        this.secondaryProcess = secondaryProcess;
-    }
-
-    public BigDecimal getConsumingTime() {
+    public String getConsumingTime() {
         return consumingTime;
     }
 
-    public void setConsumingTime(BigDecimal consumingTime) {
+    public void setConsumingTime(String consumingTime) {
         this.consumingTime = consumingTime;
-    }
-
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
-        this.status = status;
     }
 
     public String getRemarks() {
@@ -349,12 +336,13 @@ public class PurchaseEntity implements Serializable {
         }
         PurchaseEntity other = (PurchaseEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
-            && (this.getPurchaseNumber() == null ? other.getPurchaseNumber() == null : this.getPurchaseNumber().equals(other.getPurchaseNumber()))
+            && (this.getOrderNo() == null ? other.getOrderNo() == null : this.getOrderNo().equals(other.getOrderNo()))
+            && (this.getPurchaseNo() == null ? other.getPurchaseNo() == null : this.getPurchaseNo().equals(other.getPurchaseNo()))
             && (this.getPurchaseTime() == null ? other.getPurchaseTime() == null : this.getPurchaseTime().equals(other.getPurchaseTime()))
             && (this.getSupplierName() == null ? other.getSupplierName() == null : this.getSupplierName().equals(other.getSupplierName()))
             && (this.getSupplierCode() == null ? other.getSupplierCode() == null : this.getSupplierCode().equals(other.getSupplierCode()))
             && (this.getSupplierColorNumber() == null ? other.getSupplierColorNumber() == null : this.getSupplierColorNumber().equals(other.getSupplierColorNumber()))
+            && (this.getPurchaseStatus() == null ? other.getPurchaseStatus() == null : this.getPurchaseStatus().equals(other.getPurchaseStatus()))
             && (this.getMaterielSku() == null ? other.getMaterielSku() == null : this.getMaterielSku().equals(other.getMaterielSku()))
             && (this.getMaterielType() == null ? other.getMaterielType() == null : this.getMaterielType().equals(other.getMaterielType()))
             && (this.getMaterielName() == null ? other.getMaterielName() == null : this.getMaterielName().equals(other.getMaterielName()))
@@ -365,9 +353,7 @@ public class PurchaseEntity implements Serializable {
             && (this.getActualPickQuantity() == null ? other.getActualPickQuantity() == null : this.getActualPickQuantity().equals(other.getActualPickQuantity()))
             && (this.getActualPickMonovalent() == null ? other.getActualPickMonovalent() == null : this.getActualPickMonovalent().equals(other.getActualPickMonovalent()))
             && (this.getActualPickTotal() == null ? other.getActualPickTotal() == null : this.getActualPickTotal().equals(other.getActualPickTotal()))
-            && (this.getSecondaryProcess() == null ? other.getSecondaryProcess() == null : this.getSecondaryProcess().equals(other.getSecondaryProcess()))
             && (this.getConsumingTime() == null ? other.getConsumingTime() == null : this.getConsumingTime().equals(other.getConsumingTime()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getRemarks() == null ? other.getRemarks() == null : this.getRemarks().equals(other.getRemarks()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
@@ -380,12 +366,13 @@ public class PurchaseEntity implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getOrderId() == null) ? 0 : getOrderId().hashCode());
-        result = prime * result + ((getPurchaseNumber() == null) ? 0 : getPurchaseNumber().hashCode());
+        result = prime * result + ((getOrderNo() == null) ? 0 : getOrderNo().hashCode());
+        result = prime * result + ((getPurchaseNo() == null) ? 0 : getPurchaseNo().hashCode());
         result = prime * result + ((getPurchaseTime() == null) ? 0 : getPurchaseTime().hashCode());
         result = prime * result + ((getSupplierName() == null) ? 0 : getSupplierName().hashCode());
         result = prime * result + ((getSupplierCode() == null) ? 0 : getSupplierCode().hashCode());
         result = prime * result + ((getSupplierColorNumber() == null) ? 0 : getSupplierColorNumber().hashCode());
+        result = prime * result + ((getPurchaseStatus() == null) ? 0 : getPurchaseStatus().hashCode());
         result = prime * result + ((getMaterielSku() == null) ? 0 : getMaterielSku().hashCode());
         result = prime * result + ((getMaterielType() == null) ? 0 : getMaterielType().hashCode());
         result = prime * result + ((getMaterielName() == null) ? 0 : getMaterielName().hashCode());
@@ -396,9 +383,7 @@ public class PurchaseEntity implements Serializable {
         result = prime * result + ((getActualPickQuantity() == null) ? 0 : getActualPickQuantity().hashCode());
         result = prime * result + ((getActualPickMonovalent() == null) ? 0 : getActualPickMonovalent().hashCode());
         result = prime * result + ((getActualPickTotal() == null) ? 0 : getActualPickTotal().hashCode());
-        result = prime * result + ((getSecondaryProcess() == null) ? 0 : getSecondaryProcess().hashCode());
         result = prime * result + ((getConsumingTime() == null) ? 0 : getConsumingTime().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
@@ -414,12 +399,13 @@ public class PurchaseEntity implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", orderId=").append(orderId);
-        sb.append(", purchaseNumber=").append(purchaseNumber);
+        sb.append(", orderNo=").append(orderNo);
+        sb.append(", purchaseNo=").append(purchaseNo);
         sb.append(", purchaseTime=").append(purchaseTime);
         sb.append(", supplierName=").append(supplierName);
         sb.append(", supplierCode=").append(supplierCode);
         sb.append(", supplierColorNumber=").append(supplierColorNumber);
+        sb.append(", purchaseStatus=").append(purchaseStatus);
         sb.append(", materielSku=").append(materielSku);
         sb.append(", materielType=").append(materielType);
         sb.append(", materielName=").append(materielName);
@@ -430,9 +416,7 @@ public class PurchaseEntity implements Serializable {
         sb.append(", actualPickQuantity=").append(actualPickQuantity);
         sb.append(", actualPickMonovalent=").append(actualPickMonovalent);
         sb.append(", actualPickTotal=").append(actualPickTotal);
-        sb.append(", secondaryProcess=").append(secondaryProcess);
         sb.append(", consumingTime=").append(consumingTime);
-        sb.append(", status=").append(status);
         sb.append(", remarks=").append(remarks);
         sb.append(", createTime=").append(createTime);
         sb.append(", createUser=").append(createUser);

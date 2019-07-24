@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cl.dao.StockMapper">
-  <resultMap id="BaseResultMap" type="com.cl.entity.StockEntity">
+<mapper namespace="com.cl.dao.SysCodeDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cl.entity.SysCodeDetailEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
-    <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
-    <result column="quantity" jdbcType="INTEGER" property="quantity" />
-    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="sys_code_id" jdbcType="BIGINT" property="sysCodeId" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
     <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="last_update_user" jdbcType="VARCHAR" property="lastUpdateUser" />
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,16 +71,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_no, supplier_name, quantity, company, `status`, remarks, create_time, create_user, 
-    last_update_time, last_update_user
+    id, sys_code_id, code, `value`, `status`, create_user, create_time, last_update_user, 
+    last_update_time
   </sql>
-  <select id="selectByExample" parameterType="com.cl.entity.StockEntityExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cl.entity.SysCodeDetailEntityExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from stock
+    from sys_code_detail
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -101,137 +99,117 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from stock
+    from sys_code_detail
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from stock
+    delete from sys_code_detail
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cl.entity.StockEntityExample">
-    delete from stock
+  <delete id="deleteByExample" parameterType="com.cl.entity.SysCodeDetailEntityExample">
+    delete from sys_code_detail
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.StockEntity" useGeneratedKeys="true">
-    insert into stock (order_no, supplier_name, quantity, 
-      company, `status`, remarks, 
-      create_time, create_user, last_update_time, 
-      last_update_user)
-    values (#{orderNo,jdbcType=VARCHAR}, #{supplierName,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, 
-      #{company,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
-      #{lastUpdateUser,jdbcType=VARCHAR})
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysCodeDetailEntity" useGeneratedKeys="true">
+    insert into sys_code_detail (sys_code_id, code, `value`, 
+      `status`, create_user, create_time, 
+      last_update_user, last_update_time)
+    values (#{sysCodeId,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.StockEntity" useGeneratedKeys="true">
-    insert into stock
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysCodeDetailEntity" useGeneratedKeys="true">
+    insert into sys_code_detail
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="orderNo != null">
-        order_no,
+      <if test="sysCodeId != null">
+        sys_code_id,
       </if>
-      <if test="supplierName != null">
-        supplier_name,
+      <if test="code != null">
+        code,
       </if>
-      <if test="quantity != null">
-        quantity,
-      </if>
-      <if test="company != null">
-        company,
+      <if test="value != null">
+        `value`,
       </if>
       <if test="status != null">
         `status`,
       </if>
-      <if test="remarks != null">
-        remarks,
+      <if test="createUser != null">
+        create_user,
       </if>
       <if test="createTime != null">
         create_time,
       </if>
-      <if test="createUser != null">
-        create_user,
+      <if test="lastUpdateUser != null">
+        last_update_user,
       </if>
       <if test="lastUpdateTime != null">
         last_update_time,
       </if>
-      <if test="lastUpdateUser != null">
-        last_update_user,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="orderNo != null">
-        #{orderNo,jdbcType=VARCHAR},
+      <if test="sysCodeId != null">
+        #{sysCodeId,jdbcType=BIGINT},
       </if>
-      <if test="supplierName != null">
-        #{supplierName,jdbcType=VARCHAR},
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
       </if>
-      <if test="quantity != null">
-        #{quantity,jdbcType=INTEGER},
-      </if>
-      <if test="company != null">
-        #{company,jdbcType=VARCHAR},
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
       </if>
-      <if test="remarks != null">
-        #{remarks,jdbcType=VARCHAR},
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="createUser != null">
-        #{createUser,jdbcType=VARCHAR},
+      <if test="lastUpdateUser != null">
+        #{lastUpdateUser,jdbcType=VARCHAR},
       </if>
       <if test="lastUpdateTime != null">
         #{lastUpdateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="lastUpdateUser != null">
-        #{lastUpdateUser,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cl.entity.StockEntityExample" resultType="java.lang.Long">
-    select count(*) from stock
+  <select id="countByExample" parameterType="com.cl.entity.SysCodeDetailEntityExample" resultType="java.lang.Long">
+    select count(*) from sys_code_detail
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update stock
+    update sys_code_detail
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.orderNo != null">
-        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      <if test="record.sysCodeId != null">
+        sys_code_id = #{record.sysCodeId,jdbcType=BIGINT},
       </if>
-      <if test="record.supplierName != null">
-        supplier_name = #{record.supplierName,jdbcType=VARCHAR},
+      <if test="record.code != null">
+        code = #{record.code,jdbcType=VARCHAR},
       </if>
-      <if test="record.quantity != null">
-        quantity = #{record.quantity,jdbcType=INTEGER},
-      </if>
-      <if test="record.company != null">
-        company = #{record.company,jdbcType=VARCHAR},
+      <if test="record.value != null">
+        `value` = #{record.value,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=TINYINT},
       </if>
-      <if test="record.remarks != null">
-        remarks = #{record.remarks,jdbcType=VARCHAR},
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.createUser != null">
-        create_user = #{record.createUser,jdbcType=VARCHAR},
+      <if test="record.lastUpdateUser != null">
+        last_update_user = #{record.lastUpdateUser,jdbcType=VARCHAR},
       </if>
       <if test="record.lastUpdateTime != null">
         last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.lastUpdateUser != null">
-        last_update_user = #{record.lastUpdateUser,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -239,70 +217,60 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update stock
+    update sys_code_detail
     set id = #{record.id,jdbcType=BIGINT},
-      order_no = #{record.orderNo,jdbcType=VARCHAR},
-      supplier_name = #{record.supplierName,jdbcType=VARCHAR},
-      quantity = #{record.quantity,jdbcType=INTEGER},
-      company = #{record.company,jdbcType=VARCHAR},
+      sys_code_id = #{record.sysCodeId,jdbcType=BIGINT},
+      code = #{record.code,jdbcType=VARCHAR},
+      `value` = #{record.value,jdbcType=VARCHAR},
       `status` = #{record.status,jdbcType=TINYINT},
-      remarks = #{record.remarks,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_user = #{record.createUser,jdbcType=VARCHAR},
-      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
-      last_update_user = #{record.lastUpdateUser,jdbcType=VARCHAR}
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      last_update_user = #{record.lastUpdateUser,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.StockEntity">
-    update stock
+  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.SysCodeDetailEntity">
+    update sys_code_detail
     <set>
-      <if test="orderNo != null">
-        order_no = #{orderNo,jdbcType=VARCHAR},
+      <if test="sysCodeId != null">
+        sys_code_id = #{sysCodeId,jdbcType=BIGINT},
       </if>
-      <if test="supplierName != null">
-        supplier_name = #{supplierName,jdbcType=VARCHAR},
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
       </if>
-      <if test="quantity != null">
-        quantity = #{quantity,jdbcType=INTEGER},
-      </if>
-      <if test="company != null">
-        company = #{company,jdbcType=VARCHAR},
+      <if test="value != null">
+        `value` = #{value,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         `status` = #{status,jdbcType=TINYINT},
       </if>
-      <if test="remarks != null">
-        remarks = #{remarks,jdbcType=VARCHAR},
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="createUser != null">
-        create_user = #{createUser,jdbcType=VARCHAR},
+      <if test="lastUpdateUser != null">
+        last_update_user = #{lastUpdateUser,jdbcType=VARCHAR},
       </if>
       <if test="lastUpdateTime != null">
         last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="lastUpdateUser != null">
-        last_update_user = #{lastUpdateUser,jdbcType=VARCHAR},
-      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cl.entity.StockEntity">
-    update stock
-    set order_no = #{orderNo,jdbcType=VARCHAR},
-      supplier_name = #{supplierName,jdbcType=VARCHAR},
-      quantity = #{quantity,jdbcType=INTEGER},
-      company = #{company,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.cl.entity.SysCodeDetailEntity">
+    update sys_code_detail
+    set sys_code_id = #{sysCodeId,jdbcType=BIGINT},
+      code = #{code,jdbcType=VARCHAR},
+      `value` = #{value,jdbcType=VARCHAR},
       `status` = #{status,jdbcType=TINYINT},
-      remarks = #{remarks,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=VARCHAR},
-      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
-      last_update_user = #{lastUpdateUser,jdbcType=VARCHAR}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_update_user = #{lastUpdateUser,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

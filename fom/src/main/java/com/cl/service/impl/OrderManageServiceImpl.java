@@ -3,14 +3,21 @@ package com.cl.service.impl;
 import com.cl.bean.req.DistributionOrderReqBean;
 import com.cl.bean.req.OrderManageReqBean;
 import com.cl.bean.res.OrderManageResBean;
+import com.cl.bean.res.OrderQuantityResBean;
+import com.cl.bean.res.SecondaryProcessResBean;
+import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.SingleParam;
 import com.cl.comm.transformer.IObjectTransformer;
 import com.cl.dao.OrderManageMapper;
 import com.cl.dao.SysOrgMapper;
 import com.cl.entity.OrderManageEntity;
+import com.cl.entity.OrderQuantityEntity;
+import com.cl.entity.SecondaryProcessEntity;
 import com.cl.entity.SysOrgEntity;
 import com.cl.service.IOrderManageService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,10 +48,25 @@ public class OrderManageServiceImpl implements IOrderManageService {
 
     @Override
     public PageInfo<OrderManageResBean> queryOrderList(RequestBeanModel<OrderManageReqBean> reqBeanModel) {
+        OrderManageReqBean orderManageReqBean = reqBeanModel.getReqData();
+        if(orderManageReqBean.getPageNum() < 1 || orderManageReqBean.getPageSize() < 1){
+            throw new BusinessException("页码信息错误,请填入大于0的整数!");
+        }
+
         //分页查询
-        PageInfo<OrderManageEntity> orderManageEntityPageInfo = this.orderManageMapper.selectOrderManagePageInfo(reqBeanModel);
-        //entity转bean
+        PageInfo<OrderManageEntity> orderManageEntityPageInfo = this.orderManageMapper.selectOrderManagePageInfo(orderManageReqBean);
+        //entity转resBean
         PageInfo<OrderManageResBean> orderManageResBeanPageInfo = this.orderManageTransformer.transform(orderManageEntityPageInfo);
+        List<OrderManageResBean> orderManageResBeanList = orderManageResBeanPageInfo.getList();
+        orderManageResBeanList.forEach(orderManageResBean -> {
+            //根据订单号查询下单数量信息
+            List<OrderQuantityResBean> orderQuantityResBeanList = this.orderManageMapper.selectOrderQuantityByOrderNo(orderManageResBean.getOrderNo());
+            orderManageResBean.setOrderQuantityResBeanList(orderQuantityResBeanList);
+            //根据订单号查询二次工艺信息
+            List<SecondaryProcessResBean> secondaryProcessResBeanList = this.orderManageMapper.selectSecondaryProcessByOrderNo(orderManageResBean.getOrderNo());
+            orderManageResBean.setSecondaryProcessResBeanList(secondaryProcessResBeanList);
+        });
+        orderManageResBeanPageInfo.setList(orderManageResBeanList);
         return orderManageResBeanPageInfo;
     }
 

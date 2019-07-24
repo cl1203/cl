@@ -61,4 +61,24 @@
         status = 1
         GROUP BY supplier_name
     </select>
+
+    <select id="queryDictItemList" resultType="com.cl.bean.res.DictItem" parameterType="com.cl.bean.res.DictItem">
+        SELECT
+          scd.code ,
+          scd.value
+        FROM
+          sys_code sc
+        LEFT JOIN
+          sys_code_detail scd
+        ON sc.id = scd.sys_code_id
+        WHERE sc.type = #{type}
+        <if test="code != null and code !='' ">
+            scd.code = #{code}
+        </if>
+        <if test="value != null and value !='' ">
+            scd.value = #{value}
+        </if>
+        AND sc.status = 1
+        AND sc.status = 1
+    </select>
 </mapper>

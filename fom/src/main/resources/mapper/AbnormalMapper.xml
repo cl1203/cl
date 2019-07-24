@@ -3,7 +3,7 @@
 <mapper namespace="com.cl.dao.AbnormalMapper">
   <resultMap id="BaseResultMap" type="com.cl.entity.AbnormalEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
     <result column="abnormal_type" jdbcType="TINYINT" property="abnormalType" />
     <result column="is_approval" jdbcType="TINYINT" property="isApproval" />
     <result column="abnormal_remarks" jdbcType="VARCHAR" property="abnormalRemarks" />
@@ -72,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_id, abnormal_type, is_approval, abnormal_remarks, `status`, create_time, 
+    id, order_no, abnormal_type, is_approval, abnormal_remarks, `status`, create_time, 
     create_user, last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.AbnormalEntityExample" resultMap="BaseResultMap">
@@ -114,11 +114,11 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.AbnormalEntity" useGeneratedKeys="true">
-    insert into abnormal (order_id, abnormal_type, is_approval, 
+    insert into abnormal (order_no, abnormal_type, is_approval, 
       abnormal_remarks, `status`, create_time, 
       create_user, last_update_time, last_update_user
       )
-    values (#{orderId,jdbcType=BIGINT}, #{abnormalType,jdbcType=TINYINT}, #{isApproval,jdbcType=TINYINT}, 
+    values (#{orderNo,jdbcType=VARCHAR}, #{abnormalType,jdbcType=TINYINT}, #{isApproval,jdbcType=TINYINT}, 
       #{abnormalRemarks,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
       )
@@ -126,8 +126,8 @@
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.AbnormalEntity" useGeneratedKeys="true">
     insert into abnormal
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="orderId != null">
-        order_id,
+      <if test="orderNo != null">
+        order_no,
       </if>
       <if test="abnormalType != null">
         abnormal_type,
@@ -155,8 +155,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="orderId != null">
-        #{orderId,jdbcType=BIGINT},
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
       </if>
       <if test="abnormalType != null">
         #{abnormalType,jdbcType=TINYINT},
@@ -196,8 +196,8 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.orderId != null">
-        order_id = #{record.orderId,jdbcType=BIGINT},
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
       </if>
       <if test="record.abnormalType != null">
         abnormal_type = #{record.abnormalType,jdbcType=TINYINT},
@@ -231,7 +231,7 @@
   <update id="updateByExample" parameterType="map">
     update abnormal
     set id = #{record.id,jdbcType=BIGINT},
-      order_id = #{record.orderId,jdbcType=BIGINT},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
       abnormal_type = #{record.abnormalType,jdbcType=TINYINT},
       is_approval = #{record.isApproval,jdbcType=TINYINT},
       abnormal_remarks = #{record.abnormalRemarks,jdbcType=VARCHAR},
@@ -247,8 +247,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.AbnormalEntity">
     update abnormal
     <set>
-      <if test="orderId != null">
-        order_id = #{orderId,jdbcType=BIGINT},
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
       </if>
       <if test="abnormalType != null">
         abnormal_type = #{abnormalType,jdbcType=TINYINT},
@@ -279,7 +279,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cl.entity.AbnormalEntity">
     update abnormal
-    set order_id = #{orderId,jdbcType=BIGINT},
+    set order_no = #{orderNo,jdbcType=VARCHAR},
       abnormal_type = #{abnormalType,jdbcType=TINYINT},
       is_approval = #{isApproval,jdbcType=TINYINT},
       abnormal_remarks = #{abnormalRemarks,jdbcType=VARCHAR},

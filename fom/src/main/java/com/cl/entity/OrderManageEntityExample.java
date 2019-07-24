@@ -185,73 +185,73 @@ public class OrderManageEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumberIsNull() {
-            addCriterion("order_number is null");
+        public Criteria andOrderNoIsNull() {
+            addCriterion("order_no is null");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumberIsNotNull() {
-            addCriterion("order_number is not null");
+        public Criteria andOrderNoIsNotNull() {
+            addCriterion("order_no is not null");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumberEqualTo(String value) {
-            addCriterion("order_number =", value, "orderNumber");
+        public Criteria andOrderNoEqualTo(String value) {
+            addCriterion("order_no =", value, "orderNo");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumberNotEqualTo(String value) {
-            addCriterion("order_number <>", value, "orderNumber");
+        public Criteria andOrderNoNotEqualTo(String value) {
+            addCriterion("order_no <>", value, "orderNo");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumberGreaterThan(String value) {
-            addCriterion("order_number >", value, "orderNumber");
+        public Criteria andOrderNoGreaterThan(String value) {
+            addCriterion("order_no >", value, "orderNo");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumberGreaterThanOrEqualTo(String value) {
-            addCriterion("order_number >=", value, "orderNumber");
+        public Criteria andOrderNoGreaterThanOrEqualTo(String value) {
+            addCriterion("order_no >=", value, "orderNo");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumberLessThan(String value) {
-            addCriterion("order_number <", value, "orderNumber");
+        public Criteria andOrderNoLessThan(String value) {
+            addCriterion("order_no <", value, "orderNo");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumberLessThanOrEqualTo(String value) {
-            addCriterion("order_number <=", value, "orderNumber");
+        public Criteria andOrderNoLessThanOrEqualTo(String value) {
+            addCriterion("order_no <=", value, "orderNo");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumberLike(String value) {
-            addCriterion("order_number like", value, "orderNumber");
+        public Criteria andOrderNoLike(String value) {
+            addCriterion("order_no like", value, "orderNo");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumberNotLike(String value) {
-            addCriterion("order_number not like", value, "orderNumber");
+        public Criteria andOrderNoNotLike(String value) {
+            addCriterion("order_no not like", value, "orderNo");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumberIn(List<String> values) {
-            addCriterion("order_number in", values, "orderNumber");
+        public Criteria andOrderNoIn(List<String> values) {
+            addCriterion("order_no in", values, "orderNo");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumberNotIn(List<String> values) {
-            addCriterion("order_number not in", values, "orderNumber");
+        public Criteria andOrderNoNotIn(List<String> values) {
+            addCriterion("order_no not in", values, "orderNo");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumberBetween(String value1, String value2) {
-            addCriterion("order_number between", value1, value2, "orderNumber");
+        public Criteria andOrderNoBetween(String value1, String value2) {
+            addCriterion("order_no between", value1, value2, "orderNo");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNumberNotBetween(String value1, String value2) {
-            addCriterion("order_number not between", value1, value2, "orderNumber");
+        public Criteria andOrderNoNotBetween(String value1, String value2) {
+            addCriterion("order_no not between", value1, value2, "orderNo");
             return (Criteria) this;
         }
 
@@ -575,63 +575,63 @@ public class OrderManageEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsfirstIsNull() {
-            addCriterion("isFirst is null");
+        public Criteria andIsFirstIsNull() {
+            addCriterion("is_first is null");
             return (Criteria) this;
         }
 
-        public Criteria andIsfirstIsNotNull() {
-            addCriterion("isFirst is not null");
+        public Criteria andIsFirstIsNotNull() {
+            addCriterion("is_first is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIsfirstEqualTo(Byte value) {
-            addCriterion("isFirst =", value, "isfirst");
+        public Criteria andIsFirstEqualTo(Byte value) {
+            addCriterion("is_first =", value, "isFirst");
             return (Criteria) this;
         }
 
-        public Criteria andIsfirstNotEqualTo(Byte value) {
-            addCriterion("isFirst <>", value, "isfirst");
+        public Criteria andIsFirstNotEqualTo(Byte value) {
+            addCriterion("is_first <>", value, "isFirst");
             return (Criteria) this;
         }
 
-        public Criteria andIsfirstGreaterThan(Byte value) {
-            addCriterion("isFirst >", value, "isfirst");
+        public Criteria andIsFirstGreaterThan(Byte value) {
+            addCriterion("is_first >", value, "isFirst");
             return (Criteria) this;
         }
 
-        public Criteria andIsfirstGreaterThanOrEqualTo(Byte value) {
-            addCriterion("isFirst >=", value, "isfirst");
+        public Criteria andIsFirstGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_first >=", value, "isFirst");
             return (Criteria) this;
         }
 
-        public Criteria andIsfirstLessThan(Byte value) {
-            addCriterion("isFirst <", value, "isfirst");
+        public Criteria andIsFirstLessThan(Byte value) {
+            addCriterion("is_first <", value, "isFirst");
             return (Criteria) this;
         }
 
-        public Criteria andIsfirstLessThanOrEqualTo(Byte value) {
-            addCriterion("isFirst <=", value, "isfirst");
+        public Criteria andIsFirstLessThanOrEqualTo(Byte value) {
+            addCriterion("is_first <=", value, "isFirst");
             return (Criteria) this;
         }
 
-        public Criteria andIsfirstIn(List<Byte> values) {
-            addCriterion("isFirst in", values, "isfirst");
+        public Criteria andIsFirstIn(List<Byte> values) {
+            addCriterion("is_first in", values, "isFirst");
             return (Criteria) this;
         }
 
-        public Criteria andIsfirstNotIn(List<Byte> values) {
-            addCriterion("isFirst not in", values, "isfirst");
+        public Criteria andIsFirstNotIn(List<Byte> values) {
+            addCriterion("is_first not in", values, "isFirst");
             return (Criteria) this;
         }
 
-        public Criteria andIsfirstBetween(Byte value1, Byte value2) {
-            addCriterion("isFirst between", value1, value2, "isfirst");
+        public Criteria andIsFirstBetween(Byte value1, Byte value2) {
+            addCriterion("is_first between", value1, value2, "isFirst");
             return (Criteria) this;
         }
 
-        public Criteria andIsfirstNotBetween(Byte value1, Byte value2) {
-            addCriterion("isFirst not between", value1, value2, "isfirst");
+        public Criteria andIsFirstNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_first not between", value1, value2, "isFirst");
             return (Criteria) this;
         }
 
@@ -952,136 +952,6 @@ public class OrderManageEntityExample {
 
         public Criteria andTailoringTimeNotBetween(Integer value1, Integer value2) {
             addCriterion("tailoring_time not between", value1, value2, "tailoringTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSecondaryProcessIsNull() {
-            addCriterion("secondary_process is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSecondaryProcessIsNotNull() {
-            addCriterion("secondary_process is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSecondaryProcessEqualTo(String value) {
-            addCriterion("secondary_process =", value, "secondaryProcess");
-            return (Criteria) this;
-        }
-
-        public Criteria andSecondaryProcessNotEqualTo(String value) {
-            addCriterion("secondary_process <>", value, "secondaryProcess");
-            return (Criteria) this;
-        }
-
-        public Criteria andSecondaryProcessGreaterThan(String value) {
-            addCriterion("secondary_process >", value, "secondaryProcess");
-            return (Criteria) this;
-        }
-
-        public Criteria andSecondaryProcessGreaterThanOrEqualTo(String value) {
-            addCriterion("secondary_process >=", value, "secondaryProcess");
-            return (Criteria) this;
-        }
-
-        public Criteria andSecondaryProcessLessThan(String value) {
-            addCriterion("secondary_process <", value, "secondaryProcess");
-            return (Criteria) this;
-        }
-
-        public Criteria andSecondaryProcessLessThanOrEqualTo(String value) {
-            addCriterion("secondary_process <=", value, "secondaryProcess");
-            return (Criteria) this;
-        }
-
-        public Criteria andSecondaryProcessLike(String value) {
-            addCriterion("secondary_process like", value, "secondaryProcess");
-            return (Criteria) this;
-        }
-
-        public Criteria andSecondaryProcessNotLike(String value) {
-            addCriterion("secondary_process not like", value, "secondaryProcess");
-            return (Criteria) this;
-        }
-
-        public Criteria andSecondaryProcessIn(List<String> values) {
-            addCriterion("secondary_process in", values, "secondaryProcess");
-            return (Criteria) this;
-        }
-
-        public Criteria andSecondaryProcessNotIn(List<String> values) {
-            addCriterion("secondary_process not in", values, "secondaryProcess");
-            return (Criteria) this;
-        }
-
-        public Criteria andSecondaryProcessBetween(String value1, String value2) {
-            addCriterion("secondary_process between", value1, value2, "secondaryProcess");
-            return (Criteria) this;
-        }
-
-        public Criteria andSecondaryProcessNotBetween(String value1, String value2) {
-            addCriterion("secondary_process not between", value1, value2, "secondaryProcess");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIsNull() {
-            addCriterion("`status` is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIsNotNull() {
-            addCriterion("`status` is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusEqualTo(Byte value) {
-            addCriterion("`status` =", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotEqualTo(Byte value) {
-            addCriterion("`status` <>", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusGreaterThan(Byte value) {
-            addCriterion("`status` >", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusGreaterThanOrEqualTo(Byte value) {
-            addCriterion("`status` >=", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusLessThan(Byte value) {
-            addCriterion("`status` <", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusLessThanOrEqualTo(Byte value) {
-            addCriterion("`status` <=", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIn(List<Byte> values) {
-            addCriterion("`status` in", values, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotIn(List<Byte> values) {
-            addCriterion("`status` not in", values, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusBetween(Byte value1, Byte value2) {
-            addCriterion("`status` between", value1, value2, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotBetween(Byte value1, Byte value2) {
-            addCriterion("`status` not between", value1, value2, "status");
             return (Criteria) this;
         }
 

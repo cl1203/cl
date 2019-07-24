@@ -2,9 +2,12 @@ package com.cl.dao;
 
 import com.cl.bean.req.OrderManageReqBean;
 import com.cl.bean.res.OrderManageResBean;
+import com.cl.bean.res.OrderQuantityResBean;
+import com.cl.bean.res.SecondaryProcessResBean;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.entity.OrderManageEntity;
 import com.cl.entity.OrderManageEntityExample;
+import com.cl.entity.OrderQuantityEntity;
 import com.cl.entity.SysOrgEntity;
 import com.cl.util.DateUtils;
 import com.github.pagehelper.Page;
@@ -28,13 +31,12 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
      * @Param [reqBeanModel]
      * @return com.github.pagehelper.PageInfo<com.cl.entity.OrderManageEntity>
      **/
-    default PageInfo<OrderManageEntity> selectOrderManagePageInfo(RequestBeanModel<OrderManageReqBean> reqBeanModel){
-        OrderManageReqBean orderManageReqBean = reqBeanModel.getReqData();
-        Page<OrderManageEntity> page = PageHelper.startPage(orderManageReqBean.getPageNum() , orderManageReqBean.getPageSize() , "last_update_time");
+    default PageInfo<OrderManageEntity> selectOrderManagePageInfo(OrderManageReqBean orderManageReqBean){
+        Page<OrderManageEntity> page = PageHelper.startPage(orderManageReqBean.getPageNum() , orderManageReqBean.getPageSize() , "last_update_time DESC");
         OrderManageEntityExample orderManageEntityExample = new OrderManageEntityExample();
         OrderManageEntityExample.Criteria criteria = orderManageEntityExample.createCriteria();
-        if(StringUtils.isNotBlank(orderManageReqBean.getOrderNumber())){
-            criteria.andOrderNumberEqualTo(orderManageReqBean.getOrderNumber());
+        if(StringUtils.isNotBlank(orderManageReqBean.getOrderNo())){
+            criteria.andOrderNoEqualTo(orderManageReqBean.getOrderNo());
         }
         if(StringUtils.isNotBlank(orderManageReqBean.getSku())){
             criteria.andSkuEqualTo(orderManageReqBean.getSku());
@@ -59,5 +61,23 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
      * @return com.cl.entity.SysOrgEntity
      **/
     OrderManageEntity selectProducer(Long orderId);
+
+    /**
+     * @Author 陈龙
+     * @Description 根据订单号查询下单数量信息
+     * @Date 16:49 2019/7/24
+     * @Param [orderNo]
+     * @return java.util.List<com.cl.bean.res.OrderQuantityResBean>
+     **/
+    List<OrderQuantityResBean> selectOrderQuantityByOrderNo(String orderNo);
+
+    /**
+     * @Author 陈龙
+     * @Description 根据订单号查询二次工艺信息
+     * @Date 16:50 2019/7/24
+     * @Param [orderNo]
+     * @return java.util.List<com.cl.bean.res.SecondaryProcessResBean>
+     **/
+    List<SecondaryProcessResBean> selectSecondaryProcessByOrderNo(String orderNo);
 
 }

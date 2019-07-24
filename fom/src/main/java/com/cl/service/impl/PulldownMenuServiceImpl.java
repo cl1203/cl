@@ -1,10 +1,14 @@
 package com.cl.service.impl;
 
+import com.cl.bean.res.DictItem;
 import com.cl.bean.res.PulldownMenuResBean;
+import com.cl.comm.model.RequestBeanModel;
+import com.cl.comm.model.SingleParam;
 import com.cl.dao.PulldownMenuMapper;
 import com.cl.service.IPulldownMenuService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -51,5 +55,12 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     public List<String> queryInputSupplierName() {
         List<String> supplierNameList = this.pulldownMenuMapper.queryInputSupplierName();
         return supplierNameList;
+    }
+
+    @Override
+    public List<DictItem> queryDictItemList(RequestBeanModel<DictItem> requestBeanModel) {
+        DictItem dictItem = requestBeanModel.getReqData();
+        List<DictItem> dictItemList = this.pulldownMenuMapper.queryDictItemList(dictItem);
+        return dictItemList;
     }
 }

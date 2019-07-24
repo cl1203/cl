@@ -21,24 +21,24 @@ public class PurchaseResBean implements Serializable {
     private Long id;
 
     /**
-     * 订单表ID
-     */
-    private Long orderId;
-
-    /**
      * 采购单号
      */
-    private String purchaseNumber;
+    private String purchaseNo;
 
     /**
      * 订单编号
      */
-    private String orderNumber;
+    private String orderNo;
 
     /**
-     * 订单状态1:待采购 2:采购中 3:待裁剪 4:已裁剪
+     * 采购单状态1:待采购 2:采购中 0:已删除
      */
-    private Byte orderStatus;
+    private Byte purchaseStatus;
+
+    /**
+     * 订单状态名称
+     */
+    private String purchaseStatusName;
 
     /**
      * 物料名称
@@ -80,15 +80,6 @@ public class PurchaseResBean implements Serializable {
      */
     private BigDecimal actualPickTotal;
 
-    /**
-     * SKU
-     */
-    private String sku;
-
-    /**
-     * 二次工艺
-     */
-    private String secondaryProcess;
 
     /**
      * 供应商名称
@@ -98,7 +89,24 @@ public class PurchaseResBean implements Serializable {
     /**
      * 采购耗时
      */
-    private BigDecimal consumingTime;
+    private String consumingTime;
+
+
+    public Byte getPurchaseStatus() {
+        return purchaseStatus;
+    }
+
+    public void setPurchaseStatus(Byte purchaseStatus) {
+        this.purchaseStatus = purchaseStatus;
+    }
+
+    public String getPurchaseStatusName() {
+        return purchaseStatusName;
+    }
+
+    public void setPurchaseStatusName(String purchaseStatusName) {
+        this.purchaseStatusName = purchaseStatusName;
+    }
 
     public Long getId() {
         return id;
@@ -108,37 +116,22 @@ public class PurchaseResBean implements Serializable {
         this.id = id;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public String getPurchaseNo() {
+        return purchaseNo;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setPurchaseNo(String purchaseNo) {
+        this.purchaseNo = purchaseNo;
     }
 
-    public String getPurchaseNumber() {
-        return purchaseNumber;
+    public String getOrderNo() {
+        return orderNo;
     }
 
-    public void setPurchaseNumber(String purchaseNumber) {
-        this.purchaseNumber = purchaseNumber;
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
-    public Byte getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(Byte orderStatus) {
-        this.orderStatus = orderStatus;
-    }
 
     public String getMaterielName() {
         return materielName;
@@ -204,21 +197,6 @@ public class PurchaseResBean implements Serializable {
         this.actualPickTotal = actualPickTotal;
     }
 
-    public String getSku() {
-        return sku;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
-
-    public String getSecondaryProcess() {
-        return secondaryProcess;
-    }
-
-    public void setSecondaryProcess(String secondaryProcess) {
-        this.secondaryProcess = secondaryProcess;
-    }
 
     public String getSupplierName() {
         return supplierName;
@@ -228,11 +206,11 @@ public class PurchaseResBean implements Serializable {
         this.supplierName = supplierName;
     }
 
-    public BigDecimal getConsumingTime() {
+    public String getConsumingTime() {
         return consumingTime;
     }
 
-    public void setConsumingTime(BigDecimal consumingTime) {
+    public void setConsumingTime(String consumingTime) {
         this.consumingTime = consumingTime;
     }
 }

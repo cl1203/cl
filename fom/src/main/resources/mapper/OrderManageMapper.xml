@@ -3,20 +3,18 @@
 <mapper namespace="com.cl.dao.OrderManageMapper">
   <resultMap id="BaseResultMap" type="com.cl.entity.OrderManageEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
     <result column="order_status" jdbcType="TINYINT" property="orderStatus" />
     <result column="order_quantity" jdbcType="INTEGER" property="orderQuantity" />
     <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
     <result column="order_img_url" jdbcType="VARCHAR" property="orderImgUrl" />
     <result column="sku" jdbcType="VARCHAR" property="sku" />
-    <result column="isFirst" jdbcType="TINYINT" property="isfirst" />
+    <result column="is_first" jdbcType="TINYINT" property="isFirst" />
     <result column="producer_org_id" jdbcType="BIGINT" property="producerOrgId" />
     <result column="producer" jdbcType="VARCHAR" property="producer" />
     <result column="surplus_time" jdbcType="VARCHAR" property="surplusTime" />
     <result column="purchase_time" jdbcType="INTEGER" property="purchaseTime" />
     <result column="tailoring_time" jdbcType="INTEGER" property="tailoringTime" />
-    <result column="secondary_process" jdbcType="VARCHAR" property="secondaryProcess" />
-    <result column="status" jdbcType="TINYINT" property="status" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
@@ -82,9 +80,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_number, order_status, order_quantity, order_time, order_img_url, sku, isFirst, 
-    producer_org_id, producer, surplus_time, purchase_time, tailoring_time, secondary_process, 
-    `status`, remarks, create_time, create_user, last_update_time, last_update_user
+    id, order_no, order_status, order_quantity, order_time, order_img_url, sku, is_first, 
+    producer_org_id, producer, surplus_time, purchase_time, tailoring_time, remarks, 
+    create_time, create_user, last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.OrderManageEntityExample" resultMap="BaseResultMap">
     select
@@ -125,26 +123,24 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.OrderManageEntity" useGeneratedKeys="true">
-    insert into order_manage (order_number, order_status, order_quantity, 
+    insert into order_manage (order_no, order_status, order_quantity, 
       order_time, order_img_url, sku, 
-      isFirst, producer_org_id, producer, 
+      is_first, producer_org_id, producer, 
       surplus_time, purchase_time, tailoring_time, 
-      secondary_process, `status`, remarks, 
-      create_time, create_user, last_update_time, 
-      last_update_user)
-    values (#{orderNumber,jdbcType=VARCHAR}, #{orderStatus,jdbcType=TINYINT}, #{orderQuantity,jdbcType=INTEGER}, 
+      remarks, create_time, create_user, 
+      last_update_time, last_update_user)
+    values (#{orderNo,jdbcType=VARCHAR}, #{orderStatus,jdbcType=TINYINT}, #{orderQuantity,jdbcType=INTEGER}, 
       #{orderTime,jdbcType=TIMESTAMP}, #{orderImgUrl,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, 
-      #{isfirst,jdbcType=TINYINT}, #{producerOrgId,jdbcType=BIGINT}, #{producer,jdbcType=VARCHAR}, 
+      #{isFirst,jdbcType=TINYINT}, #{producerOrgId,jdbcType=BIGINT}, #{producer,jdbcType=VARCHAR}, 
       #{surplusTime,jdbcType=VARCHAR}, #{purchaseTime,jdbcType=INTEGER}, #{tailoringTime,jdbcType=INTEGER}, 
-      #{secondaryProcess,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
-      #{lastUpdateUser,jdbcType=VARCHAR})
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.OrderManageEntity" useGeneratedKeys="true">
     insert into order_manage
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="orderNumber != null">
-        order_number,
+      <if test="orderNo != null">
+        order_no,
       </if>
       <if test="orderStatus != null">
         order_status,
@@ -161,8 +157,8 @@
       <if test="sku != null">
         sku,
       </if>
-      <if test="isfirst != null">
-        isFirst,
+      <if test="isFirst != null">
+        is_first,
       </if>
       <if test="producerOrgId != null">
         producer_org_id,
@@ -178,12 +174,6 @@
       </if>
       <if test="tailoringTime != null">
         tailoring_time,
-      </if>
-      <if test="secondaryProcess != null">
-        secondary_process,
-      </if>
-      <if test="status != null">
-        `status`,
       </if>
       <if test="remarks != null">
         remarks,
@@ -202,8 +192,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="orderNumber != null">
-        #{orderNumber,jdbcType=VARCHAR},
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
       </if>
       <if test="orderStatus != null">
         #{orderStatus,jdbcType=TINYINT},
@@ -220,8 +210,8 @@
       <if test="sku != null">
         #{sku,jdbcType=VARCHAR},
       </if>
-      <if test="isfirst != null">
-        #{isfirst,jdbcType=TINYINT},
+      <if test="isFirst != null">
+        #{isFirst,jdbcType=TINYINT},
       </if>
       <if test="producerOrgId != null">
         #{producerOrgId,jdbcType=BIGINT},
@@ -237,12 +227,6 @@
       </if>
       <if test="tailoringTime != null">
         #{tailoringTime,jdbcType=INTEGER},
-      </if>
-      <if test="secondaryProcess != null">
-        #{secondaryProcess,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
       </if>
       <if test="remarks != null">
         #{remarks,jdbcType=VARCHAR},
@@ -273,8 +257,8 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.orderNumber != null">
-        order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
       </if>
       <if test="record.orderStatus != null">
         order_status = #{record.orderStatus,jdbcType=TINYINT},
@@ -291,8 +275,8 @@
       <if test="record.sku != null">
         sku = #{record.sku,jdbcType=VARCHAR},
       </if>
-      <if test="record.isfirst != null">
-        isFirst = #{record.isfirst,jdbcType=TINYINT},
+      <if test="record.isFirst != null">
+        is_first = #{record.isFirst,jdbcType=TINYINT},
       </if>
       <if test="record.producerOrgId != null">
         producer_org_id = #{record.producerOrgId,jdbcType=BIGINT},
@@ -308,12 +292,6 @@
       </if>
       <if test="record.tailoringTime != null">
         tailoring_time = #{record.tailoringTime,jdbcType=INTEGER},
-      </if>
-      <if test="record.secondaryProcess != null">
-        secondary_process = #{record.secondaryProcess,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null">
-        `status` = #{record.status,jdbcType=TINYINT},
       </if>
       <if test="record.remarks != null">
         remarks = #{record.remarks,jdbcType=VARCHAR},
@@ -338,20 +316,18 @@
   <update id="updateByExample" parameterType="map">
     update order_manage
     set id = #{record.id,jdbcType=BIGINT},
-      order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
       order_status = #{record.orderStatus,jdbcType=TINYINT},
       order_quantity = #{record.orderQuantity,jdbcType=INTEGER},
       order_time = #{record.orderTime,jdbcType=TIMESTAMP},
       order_img_url = #{record.orderImgUrl,jdbcType=VARCHAR},
       sku = #{record.sku,jdbcType=VARCHAR},
-      isFirst = #{record.isfirst,jdbcType=TINYINT},
+      is_first = #{record.isFirst,jdbcType=TINYINT},
       producer_org_id = #{record.producerOrgId,jdbcType=BIGINT},
       producer = #{record.producer,jdbcType=VARCHAR},
       surplus_time = #{record.surplusTime,jdbcType=VARCHAR},
       purchase_time = #{record.purchaseTime,jdbcType=INTEGER},
       tailoring_time = #{record.tailoringTime,jdbcType=INTEGER},
-      secondary_process = #{record.secondaryProcess,jdbcType=VARCHAR},
-      `status` = #{record.status,jdbcType=TINYINT},
       remarks = #{record.remarks,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_user = #{record.createUser,jdbcType=VARCHAR},
@@ -364,8 +340,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.OrderManageEntity">
     update order_manage
     <set>
-      <if test="orderNumber != null">
-        order_number = #{orderNumber,jdbcType=VARCHAR},
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
       </if>
       <if test="orderStatus != null">
         order_status = #{orderStatus,jdbcType=TINYINT},
@@ -382,8 +358,8 @@
       <if test="sku != null">
         sku = #{sku,jdbcType=VARCHAR},
       </if>
-      <if test="isfirst != null">
-        isFirst = #{isfirst,jdbcType=TINYINT},
+      <if test="isFirst != null">
+        is_first = #{isFirst,jdbcType=TINYINT},
       </if>
       <if test="producerOrgId != null">
         producer_org_id = #{producerOrgId,jdbcType=BIGINT},
@@ -399,12 +375,6 @@
       </if>
       <if test="tailoringTime != null">
         tailoring_time = #{tailoringTime,jdbcType=INTEGER},
-      </if>
-      <if test="secondaryProcess != null">
-        secondary_process = #{secondaryProcess,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        `status` = #{status,jdbcType=TINYINT},
       </if>
       <if test="remarks != null">
         remarks = #{remarks,jdbcType=VARCHAR},
@@ -426,20 +396,18 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cl.entity.OrderManageEntity">
     update order_manage
-    set order_number = #{orderNumber,jdbcType=VARCHAR},
+    set order_no = #{orderNo,jdbcType=VARCHAR},
       order_status = #{orderStatus,jdbcType=TINYINT},
       order_quantity = #{orderQuantity,jdbcType=INTEGER},
       order_time = #{orderTime,jdbcType=TIMESTAMP},
       order_img_url = #{orderImgUrl,jdbcType=VARCHAR},
       sku = #{sku,jdbcType=VARCHAR},
-      isFirst = #{isfirst,jdbcType=TINYINT},
+      is_first = #{isFirst,jdbcType=TINYINT},
       producer_org_id = #{producerOrgId,jdbcType=BIGINT},
       producer = #{producer,jdbcType=VARCHAR},
       surplus_time = #{surplusTime,jdbcType=VARCHAR},
       purchase_time = #{purchaseTime,jdbcType=INTEGER},
       tailoring_time = #{tailoringTime,jdbcType=INTEGER},
-      secondary_process = #{secondaryProcess,jdbcType=VARCHAR},
-      `status` = #{status,jdbcType=TINYINT},
       remarks = #{remarks,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=VARCHAR},

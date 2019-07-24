@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * stock
+ * order_quantity
  * @author 
  */
-public class StockEntity implements Serializable {
+public class OrderQuantityEntity implements Serializable {
     /**
      * 主键ID
      */
@@ -19,29 +19,14 @@ public class StockEntity implements Serializable {
     private String orderNo;
 
     /**
-     * 供应商名称
+     * 尺寸
      */
-    private String supplierName;
+    private String sizeName;
 
     /**
      * 数量
      */
     private Integer quantity;
-
-    /**
-     * 数量单位
-     */
-    private String company;
-
-    /**
-     * 状态 0:禁用 1:可用 2:删除
-     */
-    private Byte status;
-
-    /**
-     * 备注
-     */
-    private String remarks;
 
     /**
      * 创建时间
@@ -81,12 +66,12 @@ public class StockEntity implements Serializable {
         this.orderNo = orderNo;
     }
 
-    public String getSupplierName() {
-        return supplierName;
+    public String getSizeName() {
+        return sizeName;
     }
 
-    public void setSupplierName(String supplierName) {
-        this.supplierName = supplierName;
+    public void setSizeName(String sizeName) {
+        this.sizeName = sizeName;
     }
 
     public Integer getQuantity() {
@@ -95,30 +80,6 @@ public class StockEntity implements Serializable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
-        this.status = status;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
     }
 
     public Date getCreateTime() {
@@ -164,14 +125,11 @@ public class StockEntity implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        StockEntity other = (StockEntity) that;
+        OrderQuantityEntity other = (OrderQuantityEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getOrderNo() == null ? other.getOrderNo() == null : this.getOrderNo().equals(other.getOrderNo()))
-            && (this.getSupplierName() == null ? other.getSupplierName() == null : this.getSupplierName().equals(other.getSupplierName()))
+            && (this.getSizeName() == null ? other.getSizeName() == null : this.getSizeName().equals(other.getSizeName()))
             && (this.getQuantity() == null ? other.getQuantity() == null : this.getQuantity().equals(other.getQuantity()))
-            && (this.getCompany() == null ? other.getCompany() == null : this.getCompany().equals(other.getCompany()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getRemarks() == null ? other.getRemarks() == null : this.getRemarks().equals(other.getRemarks()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
             && (this.getLastUpdateTime() == null ? other.getLastUpdateTime() == null : this.getLastUpdateTime().equals(other.getLastUpdateTime()))
@@ -184,11 +142,8 @@ public class StockEntity implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getOrderNo() == null) ? 0 : getOrderNo().hashCode());
-        result = prime * result + ((getSupplierName() == null) ? 0 : getSupplierName().hashCode());
+        result = prime * result + ((getSizeName() == null) ? 0 : getSizeName().hashCode());
         result = prime * result + ((getQuantity() == null) ? 0 : getQuantity().hashCode());
-        result = prime * result + ((getCompany() == null) ? 0 : getCompany().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
-        result = prime * result + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getLastUpdateTime() == null) ? 0 : getLastUpdateTime().hashCode());
@@ -204,11 +159,8 @@ public class StockEntity implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", orderNo=").append(orderNo);
-        sb.append(", supplierName=").append(supplierName);
+        sb.append(", sizeName=").append(sizeName);
         sb.append(", quantity=").append(quantity);
-        sb.append(", company=").append(company);
-        sb.append(", status=").append(status);
-        sb.append(", remarks=").append(remarks);
         sb.append(", createTime=").append(createTime);
         sb.append(", createUser=").append(createUser);
         sb.append(", lastUpdateTime=").append(lastUpdateTime);

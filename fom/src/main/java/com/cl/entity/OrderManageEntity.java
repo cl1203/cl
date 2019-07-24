@@ -16,10 +16,10 @@ public class OrderManageEntity implements Serializable {
     /**
      * 订单编号
      */
-    private String orderNumber;
+    private String orderNo;
 
     /**
-     * 订单状态1:待采购 2:采购中 3:待裁剪 4:已裁剪
+     * 订单状态0: 已删除1:待采购 2:采购中 3:待裁剪 4:已裁剪
      */
     private Byte orderStatus;
 
@@ -46,7 +46,7 @@ public class OrderManageEntity implements Serializable {
     /**
      * 是否首单: 0 :不是 1:是
      */
-    private Byte isfirst;
+    private Byte isFirst;
 
     /**
      * 指定生产方组织ID(不为空时以此生产方为准)
@@ -72,16 +72,6 @@ public class OrderManageEntity implements Serializable {
      * 裁剪时间
      */
     private Integer tailoringTime;
-
-    /**
-     * 二次工艺
-     */
-    private String secondaryProcess;
-
-    /**
-     * 状态 0:禁用 1:可用 2:删除
-     */
-    private Byte status;
 
     /**
      * 备注
@@ -118,12 +108,12 @@ public class OrderManageEntity implements Serializable {
         this.id = id;
     }
 
-    public String getOrderNumber() {
-        return orderNumber;
+    public String getOrderNo() {
+        return orderNo;
     }
 
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 
     public Byte getOrderStatus() {
@@ -166,12 +156,12 @@ public class OrderManageEntity implements Serializable {
         this.sku = sku;
     }
 
-    public Byte getIsfirst() {
-        return isfirst;
+    public Byte getIsFirst() {
+        return isFirst;
     }
 
-    public void setIsfirst(Byte isfirst) {
-        this.isfirst = isfirst;
+    public void setIsFirst(Byte isFirst) {
+        this.isFirst = isFirst;
     }
 
     public Long getProducerOrgId() {
@@ -212,22 +202,6 @@ public class OrderManageEntity implements Serializable {
 
     public void setTailoringTime(Integer tailoringTime) {
         this.tailoringTime = tailoringTime;
-    }
-
-    public String getSecondaryProcess() {
-        return secondaryProcess;
-    }
-
-    public void setSecondaryProcess(String secondaryProcess) {
-        this.secondaryProcess = secondaryProcess;
-    }
-
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
-        this.status = status;
     }
 
     public String getRemarks() {
@@ -283,20 +257,18 @@ public class OrderManageEntity implements Serializable {
         }
         OrderManageEntity other = (OrderManageEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getOrderNumber() == null ? other.getOrderNumber() == null : this.getOrderNumber().equals(other.getOrderNumber()))
+            && (this.getOrderNo() == null ? other.getOrderNo() == null : this.getOrderNo().equals(other.getOrderNo()))
             && (this.getOrderStatus() == null ? other.getOrderStatus() == null : this.getOrderStatus().equals(other.getOrderStatus()))
             && (this.getOrderQuantity() == null ? other.getOrderQuantity() == null : this.getOrderQuantity().equals(other.getOrderQuantity()))
             && (this.getOrderTime() == null ? other.getOrderTime() == null : this.getOrderTime().equals(other.getOrderTime()))
             && (this.getOrderImgUrl() == null ? other.getOrderImgUrl() == null : this.getOrderImgUrl().equals(other.getOrderImgUrl()))
             && (this.getSku() == null ? other.getSku() == null : this.getSku().equals(other.getSku()))
-            && (this.getIsfirst() == null ? other.getIsfirst() == null : this.getIsfirst().equals(other.getIsfirst()))
+            && (this.getIsFirst() == null ? other.getIsFirst() == null : this.getIsFirst().equals(other.getIsFirst()))
             && (this.getProducerOrgId() == null ? other.getProducerOrgId() == null : this.getProducerOrgId().equals(other.getProducerOrgId()))
             && (this.getProducer() == null ? other.getProducer() == null : this.getProducer().equals(other.getProducer()))
             && (this.getSurplusTime() == null ? other.getSurplusTime() == null : this.getSurplusTime().equals(other.getSurplusTime()))
             && (this.getPurchaseTime() == null ? other.getPurchaseTime() == null : this.getPurchaseTime().equals(other.getPurchaseTime()))
             && (this.getTailoringTime() == null ? other.getTailoringTime() == null : this.getTailoringTime().equals(other.getTailoringTime()))
-            && (this.getSecondaryProcess() == null ? other.getSecondaryProcess() == null : this.getSecondaryProcess().equals(other.getSecondaryProcess()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getRemarks() == null ? other.getRemarks() == null : this.getRemarks().equals(other.getRemarks()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
@@ -309,20 +281,18 @@ public class OrderManageEntity implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getOrderNumber() == null) ? 0 : getOrderNumber().hashCode());
+        result = prime * result + ((getOrderNo() == null) ? 0 : getOrderNo().hashCode());
         result = prime * result + ((getOrderStatus() == null) ? 0 : getOrderStatus().hashCode());
         result = prime * result + ((getOrderQuantity() == null) ? 0 : getOrderQuantity().hashCode());
         result = prime * result + ((getOrderTime() == null) ? 0 : getOrderTime().hashCode());
         result = prime * result + ((getOrderImgUrl() == null) ? 0 : getOrderImgUrl().hashCode());
         result = prime * result + ((getSku() == null) ? 0 : getSku().hashCode());
-        result = prime * result + ((getIsfirst() == null) ? 0 : getIsfirst().hashCode());
+        result = prime * result + ((getIsFirst() == null) ? 0 : getIsFirst().hashCode());
         result = prime * result + ((getProducerOrgId() == null) ? 0 : getProducerOrgId().hashCode());
         result = prime * result + ((getProducer() == null) ? 0 : getProducer().hashCode());
         result = prime * result + ((getSurplusTime() == null) ? 0 : getSurplusTime().hashCode());
         result = prime * result + ((getPurchaseTime() == null) ? 0 : getPurchaseTime().hashCode());
         result = prime * result + ((getTailoringTime() == null) ? 0 : getTailoringTime().hashCode());
-        result = prime * result + ((getSecondaryProcess() == null) ? 0 : getSecondaryProcess().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
@@ -338,20 +308,18 @@ public class OrderManageEntity implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", orderNumber=").append(orderNumber);
+        sb.append(", orderNo=").append(orderNo);
         sb.append(", orderStatus=").append(orderStatus);
         sb.append(", orderQuantity=").append(orderQuantity);
         sb.append(", orderTime=").append(orderTime);
         sb.append(", orderImgUrl=").append(orderImgUrl);
         sb.append(", sku=").append(sku);
-        sb.append(", isfirst=").append(isfirst);
+        sb.append(", isFirst=").append(isFirst);
         sb.append(", producerOrgId=").append(producerOrgId);
         sb.append(", producer=").append(producer);
         sb.append(", surplusTime=").append(surplusTime);
         sb.append(", purchaseTime=").append(purchaseTime);
         sb.append(", tailoringTime=").append(tailoringTime);
-        sb.append(", secondaryProcess=").append(secondaryProcess);
-        sb.append(", status=").append(status);
         sb.append(", remarks=").append(remarks);
         sb.append(", createTime=").append(createTime);
         sb.append(", createUser=").append(createUser);

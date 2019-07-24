@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cl.dao.TailoringMapper">
-  <resultMap id="BaseResultMap" type="com.cl.entity.TailoringEntity">
+<mapper namespace="com.cl.dao.OrderQuantityMapper">
+  <resultMap id="BaseResultMap" type="com.cl.entity.OrderQuantityEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
-    <result column="tailoring_group" jdbcType="VARCHAR" property="tailoringGroup" />
-    <result column="answer_cut_quantity" jdbcType="INTEGER" property="answerCutQuantity" />
-    <result column="actual_cut_quantity" jdbcType="INTEGER" property="actualCutQuantity" />
-    <result column="monovalent" jdbcType="DECIMAL" property="monovalent" />
-    <result column="consuming_time" jdbcType="DECIMAL" property="consumingTime" />
-    <result column="tailoring_status" jdbcType="TINYINT" property="tailoringStatus" />
-    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="size_name" jdbcType="VARCHAR" property="sizeName" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
     <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
@@ -75,17 +70,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_no, tailoring_group, answer_cut_quantity, actual_cut_quantity, monovalent, 
-    consuming_time, tailoring_status, remarks, create_time, create_user, last_update_time, 
-    last_update_user
+    id, order_no, size_name, quantity, create_time, create_user, last_update_time, last_update_user
   </sql>
-  <select id="selectByExample" parameterType="com.cl.entity.TailoringEntityExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cl.entity.OrderQuantityEntityExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tailoring
+    from order_quantity
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -104,57 +97,38 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tailoring
+    from order_quantity
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from tailoring
+    delete from order_quantity
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cl.entity.TailoringEntityExample">
-    delete from tailoring
+  <delete id="deleteByExample" parameterType="com.cl.entity.OrderQuantityEntityExample">
+    delete from order_quantity
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.TailoringEntity" useGeneratedKeys="true">
-    insert into tailoring (order_no, tailoring_group, answer_cut_quantity, 
-      actual_cut_quantity, monovalent, consuming_time, 
-      tailoring_status, remarks, create_time, 
-      create_user, last_update_time, last_update_user
-      )
-    values (#{orderNo,jdbcType=VARCHAR}, #{tailoringGroup,jdbcType=VARCHAR}, #{answerCutQuantity,jdbcType=INTEGER}, 
-      #{actualCutQuantity,jdbcType=INTEGER}, #{monovalent,jdbcType=DECIMAL}, #{consumingTime,jdbcType=DECIMAL}, 
-      #{tailoringStatus,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
-      )
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.OrderQuantityEntity" useGeneratedKeys="true">
+    insert into order_quantity (order_no, size_name, quantity, 
+      create_time, create_user, last_update_time, 
+      last_update_user)
+    values (#{orderNo,jdbcType=VARCHAR}, #{sizeName,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateUser,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.TailoringEntity" useGeneratedKeys="true">
-    insert into tailoring
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.OrderQuantityEntity" useGeneratedKeys="true">
+    insert into order_quantity
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="orderNo != null">
         order_no,
       </if>
-      <if test="tailoringGroup != null">
-        tailoring_group,
+      <if test="sizeName != null">
+        size_name,
       </if>
-      <if test="answerCutQuantity != null">
-        answer_cut_quantity,
-      </if>
-      <if test="actualCutQuantity != null">
-        actual_cut_quantity,
-      </if>
-      <if test="monovalent != null">
-        monovalent,
-      </if>
-      <if test="consumingTime != null">
-        consuming_time,
-      </if>
-      <if test="tailoringStatus != null">
-        tailoring_status,
-      </if>
-      <if test="remarks != null">
-        remarks,
+      <if test="quantity != null">
+        quantity,
       </if>
       <if test="createTime != null">
         create_time,
@@ -173,26 +147,11 @@
       <if test="orderNo != null">
         #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="tailoringGroup != null">
-        #{tailoringGroup,jdbcType=VARCHAR},
+      <if test="sizeName != null">
+        #{sizeName,jdbcType=VARCHAR},
       </if>
-      <if test="answerCutQuantity != null">
-        #{answerCutQuantity,jdbcType=INTEGER},
-      </if>
-      <if test="actualCutQuantity != null">
-        #{actualCutQuantity,jdbcType=INTEGER},
-      </if>
-      <if test="monovalent != null">
-        #{monovalent,jdbcType=DECIMAL},
-      </if>
-      <if test="consumingTime != null">
-        #{consumingTime,jdbcType=DECIMAL},
-      </if>
-      <if test="tailoringStatus != null">
-        #{tailoringStatus,jdbcType=TINYINT},
-      </if>
-      <if test="remarks != null">
-        #{remarks,jdbcType=VARCHAR},
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -208,14 +167,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cl.entity.TailoringEntityExample" resultType="java.lang.Long">
-    select count(*) from tailoring
+  <select id="countByExample" parameterType="com.cl.entity.OrderQuantityEntityExample" resultType="java.lang.Long">
+    select count(*) from order_quantity
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update tailoring
+    update order_quantity
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
@@ -223,26 +182,11 @@
       <if test="record.orderNo != null">
         order_no = #{record.orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.tailoringGroup != null">
-        tailoring_group = #{record.tailoringGroup,jdbcType=VARCHAR},
+      <if test="record.sizeName != null">
+        size_name = #{record.sizeName,jdbcType=VARCHAR},
       </if>
-      <if test="record.answerCutQuantity != null">
-        answer_cut_quantity = #{record.answerCutQuantity,jdbcType=INTEGER},
-      </if>
-      <if test="record.actualCutQuantity != null">
-        actual_cut_quantity = #{record.actualCutQuantity,jdbcType=INTEGER},
-      </if>
-      <if test="record.monovalent != null">
-        monovalent = #{record.monovalent,jdbcType=DECIMAL},
-      </if>
-      <if test="record.consumingTime != null">
-        consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
-      </if>
-      <if test="record.tailoringStatus != null">
-        tailoring_status = #{record.tailoringStatus,jdbcType=TINYINT},
-      </if>
-      <if test="record.remarks != null">
-        remarks = #{record.remarks,jdbcType=VARCHAR},
+      <if test="record.quantity != null">
+        quantity = #{record.quantity,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -262,16 +206,11 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update tailoring
+    update order_quantity
     set id = #{record.id,jdbcType=BIGINT},
       order_no = #{record.orderNo,jdbcType=VARCHAR},
-      tailoring_group = #{record.tailoringGroup,jdbcType=VARCHAR},
-      answer_cut_quantity = #{record.answerCutQuantity,jdbcType=INTEGER},
-      actual_cut_quantity = #{record.actualCutQuantity,jdbcType=INTEGER},
-      monovalent = #{record.monovalent,jdbcType=DECIMAL},
-      consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
-      tailoring_status = #{record.tailoringStatus,jdbcType=TINYINT},
-      remarks = #{record.remarks,jdbcType=VARCHAR},
+      size_name = #{record.sizeName,jdbcType=VARCHAR},
+      quantity = #{record.quantity,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_user = #{record.createUser,jdbcType=VARCHAR},
       last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
@@ -280,32 +219,17 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.TailoringEntity">
-    update tailoring
+  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.OrderQuantityEntity">
+    update order_quantity
     <set>
       <if test="orderNo != null">
         order_no = #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="tailoringGroup != null">
-        tailoring_group = #{tailoringGroup,jdbcType=VARCHAR},
+      <if test="sizeName != null">
+        size_name = #{sizeName,jdbcType=VARCHAR},
       </if>
-      <if test="answerCutQuantity != null">
-        answer_cut_quantity = #{answerCutQuantity,jdbcType=INTEGER},
-      </if>
-      <if test="actualCutQuantity != null">
-        actual_cut_quantity = #{actualCutQuantity,jdbcType=INTEGER},
-      </if>
-      <if test="monovalent != null">
-        monovalent = #{monovalent,jdbcType=DECIMAL},
-      </if>
-      <if test="consumingTime != null">
-        consuming_time = #{consumingTime,jdbcType=DECIMAL},
-      </if>
-      <if test="tailoringStatus != null">
-        tailoring_status = #{tailoringStatus,jdbcType=TINYINT},
-      </if>
-      <if test="remarks != null">
-        remarks = #{remarks,jdbcType=VARCHAR},
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -322,16 +246,11 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cl.entity.TailoringEntity">
-    update tailoring
+  <update id="updateByPrimaryKey" parameterType="com.cl.entity.OrderQuantityEntity">
+    update order_quantity
     set order_no = #{orderNo,jdbcType=VARCHAR},
-      tailoring_group = #{tailoringGroup,jdbcType=VARCHAR},
-      answer_cut_quantity = #{answerCutQuantity,jdbcType=INTEGER},
-      actual_cut_quantity = #{actualCutQuantity,jdbcType=INTEGER},
-      monovalent = #{monovalent,jdbcType=DECIMAL},
-      consuming_time = #{consumingTime,jdbcType=DECIMAL},
-      tailoring_status = #{tailoringStatus,jdbcType=TINYINT},
-      remarks = #{remarks,jdbcType=VARCHAR},
+      size_name = #{sizeName,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=VARCHAR},
       last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},

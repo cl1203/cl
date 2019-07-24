@@ -1,5 +1,6 @@
 package com.cl.dao;
 
+import com.cl.bean.res.DictItem;
 import com.cl.bean.res.PulldownMenuResBean;
 import org.springframework.stereotype.Repository;
 
@@ -59,4 +60,13 @@ public interface PulldownMenuMapper {
      * @return java.util.List<java.lang.String>
      **/
     List<String> queryInputSupplierName();
+
+    /**
+     * @Author 陈龙
+     * @Description 字典数据查询
+     * @Date 14:20 2019/7/22
+     * @Param [supplierName]
+     * @return java.util.List<java.lang.String>
+     **/
+    List<DictItem> queryDictItemList(DictItem dictItem);
 }

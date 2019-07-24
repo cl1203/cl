@@ -3,12 +3,13 @@
 <mapper namespace="com.cl.dao.PurchaseMapper">
   <resultMap id="BaseResultMap" type="com.cl.entity.PurchaseEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="order_id" jdbcType="BIGINT" property="orderId" />
-    <result column="purchase_number" jdbcType="VARCHAR" property="purchaseNumber" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="purchase_no" jdbcType="VARCHAR" property="purchaseNo" />
     <result column="purchase_time" jdbcType="TIMESTAMP" property="purchaseTime" />
     <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
     <result column="supplier_code" jdbcType="VARCHAR" property="supplierCode" />
     <result column="supplier_color_number" jdbcType="VARCHAR" property="supplierColorNumber" />
+    <result column="purchase_status" jdbcType="TINYINT" property="purchaseStatus" />
     <result column="materiel_sku" jdbcType="VARCHAR" property="materielSku" />
     <result column="materiel_type" jdbcType="VARCHAR" property="materielType" />
     <result column="materiel_name" jdbcType="VARCHAR" property="materielName" />
@@ -19,9 +20,7 @@
     <result column="actual_pick_quantity" jdbcType="INTEGER" property="actualPickQuantity" />
     <result column="actual_pick_monovalent" jdbcType="DECIMAL" property="actualPickMonovalent" />
     <result column="actual_pick_total" jdbcType="DECIMAL" property="actualPickTotal" />
-    <result column="secondary_process" jdbcType="VARCHAR" property="secondaryProcess" />
-    <result column="consuming_time" jdbcType="DECIMAL" property="consumingTime" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="consuming_time" jdbcType="VARCHAR" property="consumingTime" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
@@ -87,11 +86,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_id, purchase_number, purchase_time, supplier_name, supplier_code, supplier_color_number, 
-    materiel_sku, materiel_type, materiel_name, materiel_color, answer_pick_quantity, 
+    id, order_no, purchase_no, purchase_time, supplier_name, supplier_code, supplier_color_number, 
+    purchase_status, materiel_sku, materiel_type, materiel_name, materiel_color, answer_pick_quantity, 
     answer_pick_monovalent, answer_pick_total, actual_pick_quantity, actual_pick_monovalent, 
-    actual_pick_total, secondary_process, consuming_time, `status`, remarks, create_time, 
-    create_user, last_update_time, last_update_user
+    actual_pick_total, consuming_time, remarks, create_time, create_user, last_update_time, 
+    last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.PurchaseEntityExample" resultMap="BaseResultMap">
     select
@@ -132,33 +131,33 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.PurchaseEntity" useGeneratedKeys="true">
-    insert into purchase (order_id, purchase_number, purchase_time, 
+    insert into purchase (order_no, purchase_no, purchase_time, 
       supplier_name, supplier_code, supplier_color_number, 
-      materiel_sku, materiel_type, materiel_name, 
-      materiel_color, answer_pick_quantity, answer_pick_monovalent, 
-      answer_pick_total, actual_pick_quantity, actual_pick_monovalent, 
-      actual_pick_total, secondary_process, consuming_time, 
-      `status`, remarks, create_time, 
-      create_user, last_update_time, last_update_user
-      )
-    values (#{orderId,jdbcType=BIGINT}, #{purchaseNumber,jdbcType=VARCHAR}, #{purchaseTime,jdbcType=TIMESTAMP}, 
+      purchase_status, materiel_sku, materiel_type, 
+      materiel_name, materiel_color, answer_pick_quantity, 
+      answer_pick_monovalent, answer_pick_total, 
+      actual_pick_quantity, actual_pick_monovalent, 
+      actual_pick_total, consuming_time, remarks, 
+      create_time, create_user, last_update_time, 
+      last_update_user)
+    values (#{orderNo,jdbcType=VARCHAR}, #{purchaseNo,jdbcType=VARCHAR}, #{purchaseTime,jdbcType=TIMESTAMP}, 
       #{supplierName,jdbcType=VARCHAR}, #{supplierCode,jdbcType=VARCHAR}, #{supplierColorNumber,jdbcType=VARCHAR}, 
-      #{materielSku,jdbcType=VARCHAR}, #{materielType,jdbcType=VARCHAR}, #{materielName,jdbcType=VARCHAR}, 
-      #{materielColor,jdbcType=VARCHAR}, #{answerPickQuantity,jdbcType=INTEGER}, #{answerPickMonovalent,jdbcType=DECIMAL}, 
-      #{answerPickTotal,jdbcType=DECIMAL}, #{actualPickQuantity,jdbcType=INTEGER}, #{actualPickMonovalent,jdbcType=DECIMAL}, 
-      #{actualPickTotal,jdbcType=DECIMAL}, #{secondaryProcess,jdbcType=VARCHAR}, #{consumingTime,jdbcType=DECIMAL}, 
-      #{status,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
-      )
+      #{purchaseStatus,jdbcType=TINYINT}, #{materielSku,jdbcType=VARCHAR}, #{materielType,jdbcType=VARCHAR}, 
+      #{materielName,jdbcType=VARCHAR}, #{materielColor,jdbcType=VARCHAR}, #{answerPickQuantity,jdbcType=INTEGER}, 
+      #{answerPickMonovalent,jdbcType=DECIMAL}, #{answerPickTotal,jdbcType=DECIMAL}, 
+      #{actualPickQuantity,jdbcType=INTEGER}, #{actualPickMonovalent,jdbcType=DECIMAL}, 
+      #{actualPickTotal,jdbcType=DECIMAL}, #{consumingTime,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateUser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.PurchaseEntity" useGeneratedKeys="true">
     insert into purchase
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="orderId != null">
-        order_id,
+      <if test="orderNo != null">
+        order_no,
       </if>
-      <if test="purchaseNumber != null">
-        purchase_number,
+      <if test="purchaseNo != null">
+        purchase_no,
       </if>
       <if test="purchaseTime != null">
         purchase_time,
@@ -171,6 +170,9 @@
       </if>
       <if test="supplierColorNumber != null">
         supplier_color_number,
+      </if>
+      <if test="purchaseStatus != null">
+        purchase_status,
       </if>
       <if test="materielSku != null">
         materiel_sku,
@@ -202,14 +204,8 @@
       <if test="actualPickTotal != null">
         actual_pick_total,
       </if>
-      <if test="secondaryProcess != null">
-        secondary_process,
-      </if>
       <if test="consumingTime != null">
         consuming_time,
-      </if>
-      <if test="status != null">
-        `status`,
       </if>
       <if test="remarks != null">
         remarks,
@@ -228,11 +224,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="orderId != null">
-        #{orderId,jdbcType=BIGINT},
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="purchaseNumber != null">
-        #{purchaseNumber,jdbcType=VARCHAR},
+      <if test="purchaseNo != null">
+        #{purchaseNo,jdbcType=VARCHAR},
       </if>
       <if test="purchaseTime != null">
         #{purchaseTime,jdbcType=TIMESTAMP},
@@ -245,6 +241,9 @@
       </if>
       <if test="supplierColorNumber != null">
         #{supplierColorNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseStatus != null">
+        #{purchaseStatus,jdbcType=TINYINT},
       </if>
       <if test="materielSku != null">
         #{materielSku,jdbcType=VARCHAR},
@@ -276,14 +275,8 @@
       <if test="actualPickTotal != null">
         #{actualPickTotal,jdbcType=DECIMAL},
       </if>
-      <if test="secondaryProcess != null">
-        #{secondaryProcess,jdbcType=VARCHAR},
-      </if>
       <if test="consumingTime != null">
-        #{consumingTime,jdbcType=DECIMAL},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
+        #{consumingTime,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null">
         #{remarks,jdbcType=VARCHAR},
@@ -314,11 +307,11 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.orderId != null">
-        order_id = #{record.orderId,jdbcType=BIGINT},
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.purchaseNumber != null">
-        purchase_number = #{record.purchaseNumber,jdbcType=VARCHAR},
+      <if test="record.purchaseNo != null">
+        purchase_no = #{record.purchaseNo,jdbcType=VARCHAR},
       </if>
       <if test="record.purchaseTime != null">
         purchase_time = #{record.purchaseTime,jdbcType=TIMESTAMP},
@@ -331,6 +324,9 @@
       </if>
       <if test="record.supplierColorNumber != null">
         supplier_color_number = #{record.supplierColorNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaseStatus != null">
+        purchase_status = #{record.purchaseStatus,jdbcType=TINYINT},
       </if>
       <if test="record.materielSku != null">
         materiel_sku = #{record.materielSku,jdbcType=VARCHAR},
@@ -362,14 +358,8 @@
       <if test="record.actualPickTotal != null">
         actual_pick_total = #{record.actualPickTotal,jdbcType=DECIMAL},
       </if>
-      <if test="record.secondaryProcess != null">
-        secondary_process = #{record.secondaryProcess,jdbcType=VARCHAR},
-      </if>
       <if test="record.consumingTime != null">
-        consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
-      </if>
-      <if test="record.status != null">
-        `status` = #{record.status,jdbcType=TINYINT},
+        consuming_time = #{record.consumingTime,jdbcType=VARCHAR},
       </if>
       <if test="record.remarks != null">
         remarks = #{record.remarks,jdbcType=VARCHAR},
@@ -394,12 +384,13 @@
   <update id="updateByExample" parameterType="map">
     update purchase
     set id = #{record.id,jdbcType=BIGINT},
-      order_id = #{record.orderId,jdbcType=BIGINT},
-      purchase_number = #{record.purchaseNumber,jdbcType=VARCHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      purchase_no = #{record.purchaseNo,jdbcType=VARCHAR},
       purchase_time = #{record.purchaseTime,jdbcType=TIMESTAMP},
       supplier_name = #{record.supplierName,jdbcType=VARCHAR},
       supplier_code = #{record.supplierCode,jdbcType=VARCHAR},
       supplier_color_number = #{record.supplierColorNumber,jdbcType=VARCHAR},
+      purchase_status = #{record.purchaseStatus,jdbcType=TINYINT},
       materiel_sku = #{record.materielSku,jdbcType=VARCHAR},
       materiel_type = #{record.materielType,jdbcType=VARCHAR},
       materiel_name = #{record.materielName,jdbcType=VARCHAR},
@@ -410,9 +401,7 @@
       actual_pick_quantity = #{record.actualPickQuantity,jdbcType=INTEGER},
       actual_pick_monovalent = #{record.actualPickMonovalent,jdbcType=DECIMAL},
       actual_pick_total = #{record.actualPickTotal,jdbcType=DECIMAL},
-      secondary_process = #{record.secondaryProcess,jdbcType=VARCHAR},
-      consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
-      `status` = #{record.status,jdbcType=TINYINT},
+      consuming_time = #{record.consumingTime,jdbcType=VARCHAR},
       remarks = #{record.remarks,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_user = #{record.createUser,jdbcType=VARCHAR},
@@ -425,11 +414,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.PurchaseEntity">
     update purchase
     <set>
-      <if test="orderId != null">
-        order_id = #{orderId,jdbcType=BIGINT},
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="purchaseNumber != null">
-        purchase_number = #{purchaseNumber,jdbcType=VARCHAR},
+      <if test="purchaseNo != null">
+        purchase_no = #{purchaseNo,jdbcType=VARCHAR},
       </if>
       <if test="purchaseTime != null">
         purchase_time = #{purchaseTime,jdbcType=TIMESTAMP},
@@ -442,6 +431,9 @@
       </if>
       <if test="supplierColorNumber != null">
         supplier_color_number = #{supplierColorNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseStatus != null">
+        purchase_status = #{purchaseStatus,jdbcType=TINYINT},
       </if>
       <if test="materielSku != null">
         materiel_sku = #{materielSku,jdbcType=VARCHAR},
@@ -473,14 +465,8 @@
       <if test="actualPickTotal != null">
         actual_pick_total = #{actualPickTotal,jdbcType=DECIMAL},
       </if>
-      <if test="secondaryProcess != null">
-        secondary_process = #{secondaryProcess,jdbcType=VARCHAR},
-      </if>
       <if test="consumingTime != null">
-        consuming_time = #{consumingTime,jdbcType=DECIMAL},
-      </if>
-      <if test="status != null">
-        `status` = #{status,jdbcType=TINYINT},
+        consuming_time = #{consumingTime,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null">
         remarks = #{remarks,jdbcType=VARCHAR},
@@ -502,12 +488,13 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cl.entity.PurchaseEntity">
     update purchase
-    set order_id = #{orderId,jdbcType=BIGINT},
-      purchase_number = #{purchaseNumber,jdbcType=VARCHAR},
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      purchase_no = #{purchaseNo,jdbcType=VARCHAR},
       purchase_time = #{purchaseTime,jdbcType=TIMESTAMP},
       supplier_name = #{supplierName,jdbcType=VARCHAR},
       supplier_code = #{supplierCode,jdbcType=VARCHAR},
       supplier_color_number = #{supplierColorNumber,jdbcType=VARCHAR},
+      purchase_status = #{purchaseStatus,jdbcType=TINYINT},
       materiel_sku = #{materielSku,jdbcType=VARCHAR},
       materiel_type = #{materielType,jdbcType=VARCHAR},
       materiel_name = #{materielName,jdbcType=VARCHAR},
@@ -518,9 +505,7 @@
       actual_pick_quantity = #{actualPickQuantity,jdbcType=INTEGER},
       actual_pick_monovalent = #{actualPickMonovalent,jdbcType=DECIMAL},
       actual_pick_total = #{actualPickTotal,jdbcType=DECIMAL},
-      secondary_process = #{secondaryProcess,jdbcType=VARCHAR},
-      consuming_time = #{consumingTime,jdbcType=DECIMAL},
-      `status` = #{status,jdbcType=TINYINT},
+      consuming_time = #{consumingTime,jdbcType=VARCHAR},
       remarks = #{remarks,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=VARCHAR},

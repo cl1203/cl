@@ -1,15 +1,16 @@
 package com.cl.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * stock
+ * secondary_process
  * @author 
  */
-public class StockEntity implements Serializable {
+public class SecondaryProcessEntity implements Serializable {
     /**
-     * 主键ID
+     * ID
      */
     private Long id;
 
@@ -19,29 +20,24 @@ public class StockEntity implements Serializable {
     private String orderNo;
 
     /**
+     * 工艺名称
+     */
+    private String processName;
+
+    /**
      * 供应商名称
      */
     private String supplierName;
 
     /**
-     * 数量
+     * 价格
      */
-    private Integer quantity;
+    private BigDecimal unitPrice;
 
     /**
-     * 数量单位
+     * 单位用量
      */
-    private String company;
-
-    /**
-     * 状态 0:禁用 1:可用 2:删除
-     */
-    private Byte status;
-
-    /**
-     * 备注
-     */
-    private String remarks;
+    private String simpleUse;
 
     /**
      * 创建时间
@@ -81,6 +77,14 @@ public class StockEntity implements Serializable {
         this.orderNo = orderNo;
     }
 
+    public String getProcessName() {
+        return processName;
+    }
+
+    public void setProcessName(String processName) {
+        this.processName = processName;
+    }
+
     public String getSupplierName() {
         return supplierName;
     }
@@ -89,36 +93,20 @@ public class StockEntity implements Serializable {
         this.supplierName = supplierName;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
-    public String getCompany() {
-        return company;
+    public String getSimpleUse() {
+        return simpleUse;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
-        this.status = status;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
+    public void setSimpleUse(String simpleUse) {
+        this.simpleUse = simpleUse;
     }
 
     public Date getCreateTime() {
@@ -164,14 +152,13 @@ public class StockEntity implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        StockEntity other = (StockEntity) that;
+        SecondaryProcessEntity other = (SecondaryProcessEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getOrderNo() == null ? other.getOrderNo() == null : this.getOrderNo().equals(other.getOrderNo()))
+            && (this.getProcessName() == null ? other.getProcessName() == null : this.getProcessName().equals(other.getProcessName()))
             && (this.getSupplierName() == null ? other.getSupplierName() == null : this.getSupplierName().equals(other.getSupplierName()))
-            && (this.getQuantity() == null ? other.getQuantity() == null : this.getQuantity().equals(other.getQuantity()))
-            && (this.getCompany() == null ? other.getCompany() == null : this.getCompany().equals(other.getCompany()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getRemarks() == null ? other.getRemarks() == null : this.getRemarks().equals(other.getRemarks()))
+            && (this.getUnitPrice() == null ? other.getUnitPrice() == null : this.getUnitPrice().equals(other.getUnitPrice()))
+            && (this.getSimpleUse() == null ? other.getSimpleUse() == null : this.getSimpleUse().equals(other.getSimpleUse()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
             && (this.getLastUpdateTime() == null ? other.getLastUpdateTime() == null : this.getLastUpdateTime().equals(other.getLastUpdateTime()))
@@ -184,11 +171,10 @@ public class StockEntity implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getOrderNo() == null) ? 0 : getOrderNo().hashCode());
+        result = prime * result + ((getProcessName() == null) ? 0 : getProcessName().hashCode());
         result = prime * result + ((getSupplierName() == null) ? 0 : getSupplierName().hashCode());
-        result = prime * result + ((getQuantity() == null) ? 0 : getQuantity().hashCode());
-        result = prime * result + ((getCompany() == null) ? 0 : getCompany().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
-        result = prime * result + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
+        result = prime * result + ((getUnitPrice() == null) ? 0 : getUnitPrice().hashCode());
+        result = prime * result + ((getSimpleUse() == null) ? 0 : getSimpleUse().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getLastUpdateTime() == null) ? 0 : getLastUpdateTime().hashCode());
@@ -204,11 +190,10 @@ public class StockEntity implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", orderNo=").append(orderNo);
+        sb.append(", processName=").append(processName);
         sb.append(", supplierName=").append(supplierName);
-        sb.append(", quantity=").append(quantity);
-        sb.append(", company=").append(company);
-        sb.append(", status=").append(status);
-        sb.append(", remarks=").append(remarks);
+        sb.append(", unitPrice=").append(unitPrice);
+        sb.append(", simpleUse=").append(simpleUse);
         sb.append(", createTime=").append(createTime);
         sb.append(", createUser=").append(createUser);
         sb.append(", lastUpdateTime=").append(lastUpdateTime);
