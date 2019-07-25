@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.dao.PurchaseMapper">
+  <select id="selectPurchaseNumByOrderNo" resultType="java.lang.Integer">
+    SELECT
+      count(1)
+    FROM
+      purchase
+    WHERE
+      order_no = #{orderNo}
+    <if test="isAll == 1">
+      AND purchase_status in ( 1 , 2)
+    </if>
+    <if test="isAll == 0">
+      AND purchase_status = 2
+    </if>
+  </select>
+
+  <!--<select id="selectPurchaseNumByOrderNoIng" resultType="java.lang.Integer" parameterType="string">
+    SELECT
+    count(1)
+    FROM
+    purchase
+    WHERE
+    order_no = #{orderNo}
+    AND purchase_status = 2
+  </select>-->
+
+  <update id="updatePurchaseStatusByOrderNo" parameterType="string">
+    UPDATE purchase
+    SET purchase_status = 3
+    WHERE order_no = #{orderNo}
+    AND purchase_status = 2
+  </update>
+</mapper>

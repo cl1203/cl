@@ -8,8 +8,10 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,11 +24,16 @@ public interface PurchaseMapper extends MyBatisBaseDao<PurchaseEntity, Long, Pur
         Page<PurchaseEntity> page = PageHelper.startPage(purchaseReqBean.getPageNum() , purchaseReqBean.getPageSize() , "last_update_time DESC");
         PurchaseEntityExample purchaseEntityExample = new PurchaseEntityExample();
         PurchaseEntityExample.Criteria criteria = purchaseEntityExample.createCriteria();
+        List<Byte> statusList = new ArrayList<>();
+        statusList.add((byte) 1);
+        statusList.add((byte) 2);
         if(StringUtils.isNotBlank(purchaseReqBean.getPurchaseNo())){
             criteria.andPurchaseNoEqualTo(purchaseReqBean.getPurchaseNo());
         }
         if(StringUtils.isNotBlank(purchaseReqBean.getPurchaseStatus())){
             criteria.andPurchaseStatusEqualTo(Byte.valueOf(purchaseReqBean.getPurchaseStatus()));
+        }else{
+            criteria.andPurchaseStatusIn(statusList);
         }
         if(StringUtils.isNotBlank(purchaseReqBean.getPurchaseTime())){
             criteria.andPurchaseTimeEqualTo(DateUtils.getDateToString(purchaseReqBean.getPurchaseTime() , DateUtils.DATESHOWFORMAT));
@@ -42,4 +49,25 @@ public interface PurchaseMapper extends MyBatisBaseDao<PurchaseEntity, Long, Pur
         pageInfo.setList(purchaseEntityList);
         return pageInfo;
     }
+
+    /**
+     * 查询不同状态的采购单数量
+     * @param orderNo
+     * @return
+     */
+    Integer selectPurchaseNumByOrderNo(@Param("orderNo") String orderNo ,@Param("isAll") Byte isAll );
+
+    /**
+     * 查询不同状态的采购单数量
+     * @param orderNo
+     * @return
+     */
+    Integer selectPurchaseNumByOrderNoIng(@Param("orderNo") String orderNo);
+
+    /**
+     * 修改订单对应的所有采购单状态
+     * @param orderNo
+     * @return
+     */
+    Integer updatePurchaseStatusByOrderNo(String orderNo);
 }

@@ -1,8 +1,8 @@
 package com.cl.bean.req;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 /**
  * @ClassName PurchaseReqBean
@@ -43,8 +43,12 @@ public class PurchaseReqBean implements Serializable {
     /**
      * ID
      */
-    @NotNull(message = "请选择一条数据进行修改!")
     private Long id;
+
+    /**
+     * 订单编号
+     */
+    private String orderNo;
 
     /**
      * 实采数量
@@ -77,6 +81,14 @@ public class PurchaseReqBean implements Serializable {
      */
     @NotNull(message = "页码大小不能为空!")
     private Integer pageNum;
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
 
     public Integer getPageSize() {
         return pageSize;

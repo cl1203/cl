@@ -3,6 +3,7 @@ package com.cl.transform;
 import com.cl.bean.res.PurchaseResBean;
 import com.cl.comm.transformer.AbstractObjectTransformer;
 import com.cl.entity.PurchaseEntity;
+import org.springframework.stereotype.Service;
 
 /**
  * @ClassName PurchaseTransform
@@ -11,6 +12,7 @@ import com.cl.entity.PurchaseEntity;
  * @Date 2019/7/24 17:11
  * @Version 1.0
  **/
+@Service
 public class PurchaseTransform extends AbstractObjectTransformer<PurchaseEntity , PurchaseResBean> {
 
     @Override

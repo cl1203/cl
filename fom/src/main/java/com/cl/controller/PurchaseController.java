@@ -42,7 +42,7 @@ public class PurchaseController {
      **/
     @PostMapping("/queryPurchaseList")
     @ApiOperation(value = "查询采购列表" , notes = "查询采购列表")
-    public ResponseBeanModel<PageInfo<PurchaseResBean>> queryPurchaseList(@RequestBody RequestBeanModel<PurchaseReqBean> reqBeanModel){
+    public ResponseBeanModel<PageInfo<PurchaseResBean>> queryPurchaseList(@RequestBody @Valid RequestBeanModel<PurchaseReqBean> reqBeanModel){
         LOGGER.info("PurchaseController------queryPurchaseList  start......" );
         PageInfo<PurchaseResBean> purchaseResBeanPageInfo = this.iPurchaseService.queryPurchaseList(reqBeanModel);
         LOGGER.info("PurchaseController------queryPurchaseList  end......" );
@@ -58,7 +58,7 @@ public class PurchaseController {
      **/
     @PostMapping("/updatePurchase")
     @ApiOperation(value = "修改采购单" , notes = "修改采购单")
-    public ResponseBeanModel<Void> updatePurchase(@RequestBody @Valid RequestBeanModel<PurchaseReqBean> reqBeanModel){
+    public ResponseBeanModel<Void> updatePurchase(@RequestBody RequestBeanModel<PurchaseReqBean> reqBeanModel){
         LOGGER.info("PurchaseController------updatePurchase  start......" );
         this.iPurchaseService.updatePurchase(reqBeanModel);
         LOGGER.info("PurchaseController------updatePurchase  end......" );
