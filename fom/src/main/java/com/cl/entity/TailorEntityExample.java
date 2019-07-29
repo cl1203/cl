@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class TailoringEntityExample {
+public class TailorEntityExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -16,7 +16,7 @@ public class TailoringEntityExample {
 
     private Long offset;
 
-    public TailoringEntityExample() {
+    public TailorEntityExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

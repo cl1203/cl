@@ -5,10 +5,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * tailoring
+ * tailor
  * @author 
  */
-public class TailoringEntity implements Serializable {
+public class TailorEntity implements Serializable {
     /**
      * 主键ID
      */
@@ -191,7 +191,7 @@ public class TailoringEntity implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        TailoringEntity other = (TailoringEntity) that;
+        TailorEntity other = (TailorEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getOrderNo() == null ? other.getOrderNo() == null : this.getOrderNo().equals(other.getOrderNo()))
             && (this.getTailoringGroup() == null ? other.getTailoringGroup() == null : this.getTailoringGroup().equals(other.getTailoringGroup()))

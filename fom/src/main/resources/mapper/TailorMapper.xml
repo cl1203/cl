@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cl.dao.TailoringMapper">
-  <resultMap id="BaseResultMap" type="com.cl.entity.TailoringEntity">
+<mapper namespace="com.cl.dao.TailorMapper">
+  <resultMap id="BaseResultMap" type="com.cl.entity.TailorEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
     <result column="tailoring_group" jdbcType="VARCHAR" property="tailoringGroup" />
@@ -79,13 +79,13 @@
     consuming_time, tailoring_status, remarks, create_time, create_user, last_update_time, 
     last_update_user
   </sql>
-  <select id="selectByExample" parameterType="com.cl.entity.TailoringEntityExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cl.entity.TailorEntityExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tailoring
+    from tailor
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -104,21 +104,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tailoring
+    from tailor
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from tailoring
+    delete from tailor
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cl.entity.TailoringEntityExample">
-    delete from tailoring
+  <delete id="deleteByExample" parameterType="com.cl.entity.TailorEntityExample">
+    delete from tailor
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.TailoringEntity" useGeneratedKeys="true">
-    insert into tailoring (order_no, tailoring_group, answer_cut_quantity, 
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.TailorEntity" useGeneratedKeys="true">
+    insert into tailor (order_no, tailoring_group, answer_cut_quantity, 
       actual_cut_quantity, monovalent, consuming_time, 
       tailoring_status, remarks, create_time, 
       create_user, last_update_time, last_update_user
@@ -129,8 +129,8 @@
       #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.TailoringEntity" useGeneratedKeys="true">
-    insert into tailoring
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.TailorEntity" useGeneratedKeys="true">
+    insert into tailor
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="orderNo != null">
         order_no,
@@ -208,14 +208,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cl.entity.TailoringEntityExample" resultType="java.lang.Long">
-    select count(*) from tailoring
+  <select id="countByExample" parameterType="com.cl.entity.TailorEntityExample" resultType="java.lang.Long">
+    select count(*) from tailor
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update tailoring
+    update tailor
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
@@ -262,7 +262,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update tailoring
+    update tailor
     set id = #{record.id,jdbcType=BIGINT},
       order_no = #{record.orderNo,jdbcType=VARCHAR},
       tailoring_group = #{record.tailoringGroup,jdbcType=VARCHAR},
@@ -280,8 +280,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.TailoringEntity">
-    update tailoring
+  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.TailorEntity">
+    update tailor
     <set>
       <if test="orderNo != null">
         order_no = #{orderNo,jdbcType=VARCHAR},
@@ -322,8 +322,8 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cl.entity.TailoringEntity">
-    update tailoring
+  <update id="updateByPrimaryKey" parameterType="com.cl.entity.TailorEntity">
+    update tailor
     set order_no = #{orderNo,jdbcType=VARCHAR},
       tailoring_group = #{tailoringGroup,jdbcType=VARCHAR},
       answer_cut_quantity = #{answerCutQuantity,jdbcType=INTEGER},
