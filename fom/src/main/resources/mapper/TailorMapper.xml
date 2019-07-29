@@ -4,12 +4,12 @@
   <resultMap id="BaseResultMap" type="com.cl.entity.TailorEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
-    <result column="tailoring_group" jdbcType="VARCHAR" property="tailoringGroup" />
+    <result column="tailor_user_id" jdbcType="BIGINT" property="tailorUserId" />
     <result column="answer_cut_quantity" jdbcType="INTEGER" property="answerCutQuantity" />
     <result column="actual_cut_quantity" jdbcType="INTEGER" property="actualCutQuantity" />
     <result column="monovalent" jdbcType="DECIMAL" property="monovalent" />
     <result column="consuming_time" jdbcType="DECIMAL" property="consumingTime" />
-    <result column="tailoring_status" jdbcType="TINYINT" property="tailoringStatus" />
+    <result column="tailo_status" jdbcType="TINYINT" property="tailoStatus" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
@@ -75,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_no, tailoring_group, answer_cut_quantity, actual_cut_quantity, monovalent, 
-    consuming_time, tailoring_status, remarks, create_time, create_user, last_update_time, 
+    id, order_no, tailor_user_id, answer_cut_quantity, actual_cut_quantity, monovalent, 
+    consuming_time, tailo_status, remarks, create_time, create_user, last_update_time, 
     last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.TailorEntityExample" resultMap="BaseResultMap">
@@ -118,14 +118,14 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.TailorEntity" useGeneratedKeys="true">
-    insert into tailor (order_no, tailoring_group, answer_cut_quantity, 
+    insert into tailor (order_no, tailor_user_id, answer_cut_quantity, 
       actual_cut_quantity, monovalent, consuming_time, 
-      tailoring_status, remarks, create_time, 
+      tailo_status, remarks, create_time, 
       create_user, last_update_time, last_update_user
       )
-    values (#{orderNo,jdbcType=VARCHAR}, #{tailoringGroup,jdbcType=VARCHAR}, #{answerCutQuantity,jdbcType=INTEGER}, 
+    values (#{orderNo,jdbcType=VARCHAR}, #{tailorUserId,jdbcType=BIGINT}, #{answerCutQuantity,jdbcType=INTEGER}, 
       #{actualCutQuantity,jdbcType=INTEGER}, #{monovalent,jdbcType=DECIMAL}, #{consumingTime,jdbcType=DECIMAL}, 
-      #{tailoringStatus,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{tailoStatus,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
       )
   </insert>
@@ -135,8 +135,8 @@
       <if test="orderNo != null">
         order_no,
       </if>
-      <if test="tailoringGroup != null">
-        tailoring_group,
+      <if test="tailorUserId != null">
+        tailor_user_id,
       </if>
       <if test="answerCutQuantity != null">
         answer_cut_quantity,
@@ -150,8 +150,8 @@
       <if test="consumingTime != null">
         consuming_time,
       </if>
-      <if test="tailoringStatus != null">
-        tailoring_status,
+      <if test="tailoStatus != null">
+        tailo_status,
       </if>
       <if test="remarks != null">
         remarks,
@@ -173,8 +173,8 @@
       <if test="orderNo != null">
         #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="tailoringGroup != null">
-        #{tailoringGroup,jdbcType=VARCHAR},
+      <if test="tailorUserId != null">
+        #{tailorUserId,jdbcType=BIGINT},
       </if>
       <if test="answerCutQuantity != null">
         #{answerCutQuantity,jdbcType=INTEGER},
@@ -188,8 +188,8 @@
       <if test="consumingTime != null">
         #{consumingTime,jdbcType=DECIMAL},
       </if>
-      <if test="tailoringStatus != null">
-        #{tailoringStatus,jdbcType=TINYINT},
+      <if test="tailoStatus != null">
+        #{tailoStatus,jdbcType=TINYINT},
       </if>
       <if test="remarks != null">
         #{remarks,jdbcType=VARCHAR},
@@ -223,8 +223,8 @@
       <if test="record.orderNo != null">
         order_no = #{record.orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.tailoringGroup != null">
-        tailoring_group = #{record.tailoringGroup,jdbcType=VARCHAR},
+      <if test="record.tailorUserId != null">
+        tailor_user_id = #{record.tailorUserId,jdbcType=BIGINT},
       </if>
       <if test="record.answerCutQuantity != null">
         answer_cut_quantity = #{record.answerCutQuantity,jdbcType=INTEGER},
@@ -238,8 +238,8 @@
       <if test="record.consumingTime != null">
         consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
       </if>
-      <if test="record.tailoringStatus != null">
-        tailoring_status = #{record.tailoringStatus,jdbcType=TINYINT},
+      <if test="record.tailoStatus != null">
+        tailo_status = #{record.tailoStatus,jdbcType=TINYINT},
       </if>
       <if test="record.remarks != null">
         remarks = #{record.remarks,jdbcType=VARCHAR},
@@ -265,12 +265,12 @@
     update tailor
     set id = #{record.id,jdbcType=BIGINT},
       order_no = #{record.orderNo,jdbcType=VARCHAR},
-      tailoring_group = #{record.tailoringGroup,jdbcType=VARCHAR},
+      tailor_user_id = #{record.tailorUserId,jdbcType=BIGINT},
       answer_cut_quantity = #{record.answerCutQuantity,jdbcType=INTEGER},
       actual_cut_quantity = #{record.actualCutQuantity,jdbcType=INTEGER},
       monovalent = #{record.monovalent,jdbcType=DECIMAL},
       consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
-      tailoring_status = #{record.tailoringStatus,jdbcType=TINYINT},
+      tailo_status = #{record.tailoStatus,jdbcType=TINYINT},
       remarks = #{record.remarks,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_user = #{record.createUser,jdbcType=VARCHAR},
@@ -286,8 +286,8 @@
       <if test="orderNo != null">
         order_no = #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="tailoringGroup != null">
-        tailoring_group = #{tailoringGroup,jdbcType=VARCHAR},
+      <if test="tailorUserId != null">
+        tailor_user_id = #{tailorUserId,jdbcType=BIGINT},
       </if>
       <if test="answerCutQuantity != null">
         answer_cut_quantity = #{answerCutQuantity,jdbcType=INTEGER},
@@ -301,8 +301,8 @@
       <if test="consumingTime != null">
         consuming_time = #{consumingTime,jdbcType=DECIMAL},
       </if>
-      <if test="tailoringStatus != null">
-        tailoring_status = #{tailoringStatus,jdbcType=TINYINT},
+      <if test="tailoStatus != null">
+        tailo_status = #{tailoStatus,jdbcType=TINYINT},
       </if>
       <if test="remarks != null">
         remarks = #{remarks,jdbcType=VARCHAR},
@@ -325,12 +325,12 @@
   <update id="updateByPrimaryKey" parameterType="com.cl.entity.TailorEntity">
     update tailor
     set order_no = #{orderNo,jdbcType=VARCHAR},
-      tailoring_group = #{tailoringGroup,jdbcType=VARCHAR},
+      tailor_user_id = #{tailorUserId,jdbcType=BIGINT},
       answer_cut_quantity = #{answerCutQuantity,jdbcType=INTEGER},
       actual_cut_quantity = #{actualCutQuantity,jdbcType=INTEGER},
       monovalent = #{monovalent,jdbcType=DECIMAL},
       consuming_time = #{consumingTime,jdbcType=DECIMAL},
-      tailoring_status = #{tailoringStatus,jdbcType=TINYINT},
+      tailo_status = #{tailoStatus,jdbcType=TINYINT},
       remarks = #{remarks,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=VARCHAR},

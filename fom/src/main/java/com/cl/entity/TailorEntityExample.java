@@ -256,73 +256,63 @@ public class TailorEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupIsNull() {
-            addCriterion("tailoring_group is null");
+        public Criteria andTailorUserIdIsNull() {
+            addCriterion("tailor_user_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupIsNotNull() {
-            addCriterion("tailoring_group is not null");
+        public Criteria andTailorUserIdIsNotNull() {
+            addCriterion("tailor_user_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupEqualTo(String value) {
-            addCriterion("tailoring_group =", value, "tailoringGroup");
+        public Criteria andTailorUserIdEqualTo(Long value) {
+            addCriterion("tailor_user_id =", value, "tailorUserId");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupNotEqualTo(String value) {
-            addCriterion("tailoring_group <>", value, "tailoringGroup");
+        public Criteria andTailorUserIdNotEqualTo(Long value) {
+            addCriterion("tailor_user_id <>", value, "tailorUserId");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupGreaterThan(String value) {
-            addCriterion("tailoring_group >", value, "tailoringGroup");
+        public Criteria andTailorUserIdGreaterThan(Long value) {
+            addCriterion("tailor_user_id >", value, "tailorUserId");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupGreaterThanOrEqualTo(String value) {
-            addCriterion("tailoring_group >=", value, "tailoringGroup");
+        public Criteria andTailorUserIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("tailor_user_id >=", value, "tailorUserId");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupLessThan(String value) {
-            addCriterion("tailoring_group <", value, "tailoringGroup");
+        public Criteria andTailorUserIdLessThan(Long value) {
+            addCriterion("tailor_user_id <", value, "tailorUserId");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupLessThanOrEqualTo(String value) {
-            addCriterion("tailoring_group <=", value, "tailoringGroup");
+        public Criteria andTailorUserIdLessThanOrEqualTo(Long value) {
+            addCriterion("tailor_user_id <=", value, "tailorUserId");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupLike(String value) {
-            addCriterion("tailoring_group like", value, "tailoringGroup");
+        public Criteria andTailorUserIdIn(List<Long> values) {
+            addCriterion("tailor_user_id in", values, "tailorUserId");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupNotLike(String value) {
-            addCriterion("tailoring_group not like", value, "tailoringGroup");
+        public Criteria andTailorUserIdNotIn(List<Long> values) {
+            addCriterion("tailor_user_id not in", values, "tailorUserId");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupIn(List<String> values) {
-            addCriterion("tailoring_group in", values, "tailoringGroup");
+        public Criteria andTailorUserIdBetween(Long value1, Long value2) {
+            addCriterion("tailor_user_id between", value1, value2, "tailorUserId");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringGroupNotIn(List<String> values) {
-            addCriterion("tailoring_group not in", values, "tailoringGroup");
-            return (Criteria) this;
-        }
-
-        public Criteria andTailoringGroupBetween(String value1, String value2) {
-            addCriterion("tailoring_group between", value1, value2, "tailoringGroup");
-            return (Criteria) this;
-        }
-
-        public Criteria andTailoringGroupNotBetween(String value1, String value2) {
-            addCriterion("tailoring_group not between", value1, value2, "tailoringGroup");
+        public Criteria andTailorUserIdNotBetween(Long value1, Long value2) {
+            addCriterion("tailor_user_id not between", value1, value2, "tailorUserId");
             return (Criteria) this;
         }
 
@@ -566,63 +556,63 @@ public class TailorEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andTailoringStatusIsNull() {
-            addCriterion("tailoring_status is null");
+        public Criteria andTailoStatusIsNull() {
+            addCriterion("tailo_status is null");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringStatusIsNotNull() {
-            addCriterion("tailoring_status is not null");
+        public Criteria andTailoStatusIsNotNull() {
+            addCriterion("tailo_status is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringStatusEqualTo(Byte value) {
-            addCriterion("tailoring_status =", value, "tailoringStatus");
+        public Criteria andTailoStatusEqualTo(Byte value) {
+            addCriterion("tailo_status =", value, "tailoStatus");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringStatusNotEqualTo(Byte value) {
-            addCriterion("tailoring_status <>", value, "tailoringStatus");
+        public Criteria andTailoStatusNotEqualTo(Byte value) {
+            addCriterion("tailo_status <>", value, "tailoStatus");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringStatusGreaterThan(Byte value) {
-            addCriterion("tailoring_status >", value, "tailoringStatus");
+        public Criteria andTailoStatusGreaterThan(Byte value) {
+            addCriterion("tailo_status >", value, "tailoStatus");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringStatusGreaterThanOrEqualTo(Byte value) {
-            addCriterion("tailoring_status >=", value, "tailoringStatus");
+        public Criteria andTailoStatusGreaterThanOrEqualTo(Byte value) {
+            addCriterion("tailo_status >=", value, "tailoStatus");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringStatusLessThan(Byte value) {
-            addCriterion("tailoring_status <", value, "tailoringStatus");
+        public Criteria andTailoStatusLessThan(Byte value) {
+            addCriterion("tailo_status <", value, "tailoStatus");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringStatusLessThanOrEqualTo(Byte value) {
-            addCriterion("tailoring_status <=", value, "tailoringStatus");
+        public Criteria andTailoStatusLessThanOrEqualTo(Byte value) {
+            addCriterion("tailo_status <=", value, "tailoStatus");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringStatusIn(List<Byte> values) {
-            addCriterion("tailoring_status in", values, "tailoringStatus");
+        public Criteria andTailoStatusIn(List<Byte> values) {
+            addCriterion("tailo_status in", values, "tailoStatus");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringStatusNotIn(List<Byte> values) {
-            addCriterion("tailoring_status not in", values, "tailoringStatus");
+        public Criteria andTailoStatusNotIn(List<Byte> values) {
+            addCriterion("tailo_status not in", values, "tailoStatus");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringStatusBetween(Byte value1, Byte value2) {
-            addCriterion("tailoring_status between", value1, value2, "tailoringStatus");
+        public Criteria andTailoStatusBetween(Byte value1, Byte value2) {
+            addCriterion("tailo_status between", value1, value2, "tailoStatus");
             return (Criteria) this;
         }
 
-        public Criteria andTailoringStatusNotBetween(Byte value1, Byte value2) {
-            addCriterion("tailoring_status not between", value1, value2, "tailoringStatus");
+        public Criteria andTailoStatusNotBetween(Byte value1, Byte value2) {
+            addCriterion("tailo_status not between", value1, value2, "tailoStatus");
             return (Criteria) this;
         }
 

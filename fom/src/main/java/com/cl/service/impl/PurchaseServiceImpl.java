@@ -123,7 +123,10 @@ public class PurchaseServiceImpl implements IPurchaseService {
             }
             purchaseEntity.setActualPickTotal(new BigDecimal(purchaseReqBean.getActualPickTotal()).setScale(2 , RoundingMode.HALF_UP));
         }
-        purchaseEntity.setConsumingTime(purchaseReqBean.getConsumingTime());
+        // purchaseEntity.setConsumingTime(purchaseReqBean.getConsumingTime());
+        Assert.hasText(purchaseReqBean.getOrderTime() , "下单时间不能为空!");
+        //计算耗时
+
         purchaseEntity.setPurchaseStatus(DictionaryConstants.ORDER_STATUS_ALREADY_PURCHASE);
         purchaseEntity.setOrderNo(purchaseReqBean.getOrderNo());
         purchaseEntity.setId(purchaseReqBean.getId());

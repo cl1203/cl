@@ -2,6 +2,7 @@ package com.cl.bean.res;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @ClassName PurchaseResBean
@@ -90,6 +91,18 @@ public class PurchaseResBean implements Serializable {
      */
     private String consumingTime;
 
+    /**
+     * 下单时间
+     */
+    private Date orderTime;
+
+    public Date getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(Date orderTime) {
+        this.orderTime = orderTime;
+    }
 
     public Byte getPurchaseStatus() {
         return purchaseStatus;

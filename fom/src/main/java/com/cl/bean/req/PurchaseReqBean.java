@@ -3,6 +3,7 @@ package com.cl.bean.req;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @ClassName PurchaseReqBean
@@ -66,9 +67,9 @@ public class PurchaseReqBean implements Serializable {
     private String actualPickTotal;
 
     /**
-     * 采购耗时
+     * 下单时间
      */
-    private String consumingTime;
+    private String orderTime;
 
     /**
      * 每页数量
@@ -81,6 +82,14 @@ public class PurchaseReqBean implements Serializable {
      */
     @NotNull(message = "页码大小不能为空!")
     private Integer pageNum;
+
+    public String getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(String orderTime) {
+        this.orderTime = orderTime;
+    }
 
     public String getOrderNo() {
         return orderNo;
@@ -178,11 +187,4 @@ public class PurchaseReqBean implements Serializable {
         this.actualPickTotal = actualPickTotal;
     }
 
-    public String getConsumingTime() {
-        return consumingTime;
-    }
-
-    public void setConsumingTime(String consumingTime) {
-        this.consumingTime = consumingTime;
-    }
 }
