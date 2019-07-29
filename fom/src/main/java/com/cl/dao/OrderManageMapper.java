@@ -16,6 +16,7 @@ import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +36,11 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
         Page<OrderManageEntity> page = PageHelper.startPage(orderManageReqBean.getPageNum() , orderManageReqBean.getPageSize() , "last_update_time DESC");
         OrderManageEntityExample orderManageEntityExample = new OrderManageEntityExample();
         OrderManageEntityExample.Criteria criteria = orderManageEntityExample.createCriteria();
+        List<Byte> statusList = new ArrayList<>();
+        statusList.add((byte) 1);
+        statusList.add((byte) 2);
+        statusList.add((byte) 3);
+        statusList.add((byte) 4);
         if(StringUtils.isNotBlank(orderManageReqBean.getOrderNo())){
             criteria.andOrderNoEqualTo(orderManageReqBean.getOrderNo());
         }
@@ -43,6 +49,8 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
         }
         if(StringUtils.isNotBlank(orderManageReqBean.getOrderStatus())){
             criteria.andOrderStatusEqualTo(Byte.valueOf(orderManageReqBean.getOrderStatus()));
+        }else{
+            criteria.andOrderStatusIn(statusList);
         }
         if(StringUtils.isNotBlank(orderManageReqBean.getOrderTime())){
             criteria.andOrderTimeEqualTo(DateUtils.getDateToString(orderManageReqBean.getOrderTime() , DateUtils.DATESHOWFORMAT));

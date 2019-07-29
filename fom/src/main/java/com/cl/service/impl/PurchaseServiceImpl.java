@@ -40,6 +40,9 @@ public class PurchaseServiceImpl implements IPurchaseService {
     @Override
     public PageInfo<PurchaseResBean> queryPurchaseList(RequestBeanModel<PurchaseReqBean> reqBeanModel) {
         PurchaseReqBean purchaseReqBean = reqBeanModel.getReqData();
+        if(purchaseReqBean.getPageNum() < 1 || purchaseReqBean.getPageSize() < 1){
+            throw new BusinessException("页码信息错误,请填入大于0的整数!");
+        }
         //分页查询
         PageInfo<PurchaseEntity> purchaseEntityPageInfo = this.purchaseMapper.selectPurchasePageInfo(purchaseReqBean);
         //entity转resBean
