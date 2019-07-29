@@ -23,4 +23,13 @@
     WHERE order_no = #{orderNo}
     AND purchase_status = 2
   </update>
+
+  <select id="selectOrderTime" parameterType="string" resultType="date">
+    SELECT
+      order_time
+    FROM
+      order_manage
+    WHERE
+      order_no = #{orderNo}
+  </select>
 </mapper>

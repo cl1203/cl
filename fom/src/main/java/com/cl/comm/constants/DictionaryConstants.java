@@ -18,5 +18,6 @@ public class DictionaryConstants {
     public static final Byte ORDER_STATUS_WAIT_TAILOR = 3; //待裁剪
     public static final Byte ORDER_STATUS_ALREADY_TAILOR = 4; //已裁剪
 
+    public static final long H = 1000 * 60 * 60;//date计算  单位:小时
 
 }

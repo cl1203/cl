@@ -39,7 +39,6 @@ public class PurchaseServiceImpl implements IPurchaseService {
     private IObjectTransformer<PurchaseEntity , PurchaseResBean> purchaseTransformer;
 
 
-
     @Override
     public PageInfo<PurchaseResBean> queryPurchaseList(RequestBeanModel<PurchaseReqBean> reqBeanModel) {
         PurchaseReqBean purchaseReqBean = reqBeanModel.getReqData();
@@ -123,10 +122,15 @@ public class PurchaseServiceImpl implements IPurchaseService {
             }
             purchaseEntity.setActualPickTotal(new BigDecimal(purchaseReqBean.getActualPickTotal()).setScale(2 , RoundingMode.HALF_UP));
         }
-        // purchaseEntity.setConsumingTime(purchaseReqBean.getConsumingTime());
-        Assert.hasText(purchaseReqBean.getOrderTime() , "下单时间不能为空!");
-        //计算耗时
-
+        //根据订单编号获取对应的下单时间
+        Date orderTime = this.purchaseMapper.selectOrderTime(purchaseReqBean.getOrderNo());
+        if(null != orderTime){
+            Date date = new Date();
+            //计算耗时
+            long m = (date.getTime() - orderTime.getTime())/DictionaryConstants.H;
+            BigDecimal consumingTime = new BigDecimal((double) m);
+            purchaseEntity.setConsumingTime(consumingTime);
+        }
         purchaseEntity.setPurchaseStatus(DictionaryConstants.ORDER_STATUS_ALREADY_PURCHASE);
         purchaseEntity.setOrderNo(purchaseReqBean.getOrderNo());
         purchaseEntity.setId(purchaseReqBean.getId());

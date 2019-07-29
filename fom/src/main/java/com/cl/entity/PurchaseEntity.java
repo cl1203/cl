@@ -102,7 +102,7 @@ public class PurchaseEntity implements Serializable {
     /**
      * 采购耗时
      */
-    private String consumingTime;
+    private BigDecimal consumingTime;
 
     /**
      * 备注
@@ -275,11 +275,11 @@ public class PurchaseEntity implements Serializable {
         this.actualPickTotal = actualPickTotal;
     }
 
-    public String getConsumingTime() {
+    public BigDecimal getConsumingTime() {
         return consumingTime;
     }
 
-    public void setConsumingTime(String consumingTime) {
+    public void setConsumingTime(BigDecimal consumingTime) {
         this.consumingTime = consumingTime;
     }
 

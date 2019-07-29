@@ -1306,62 +1306,52 @@ public class PurchaseEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andConsumingTimeEqualTo(String value) {
+        public Criteria andConsumingTimeEqualTo(BigDecimal value) {
             addCriterion("consuming_time =", value, "consumingTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumingTimeNotEqualTo(String value) {
+        public Criteria andConsumingTimeNotEqualTo(BigDecimal value) {
             addCriterion("consuming_time <>", value, "consumingTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumingTimeGreaterThan(String value) {
+        public Criteria andConsumingTimeGreaterThan(BigDecimal value) {
             addCriterion("consuming_time >", value, "consumingTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumingTimeGreaterThanOrEqualTo(String value) {
+        public Criteria andConsumingTimeGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("consuming_time >=", value, "consumingTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumingTimeLessThan(String value) {
+        public Criteria andConsumingTimeLessThan(BigDecimal value) {
             addCriterion("consuming_time <", value, "consumingTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumingTimeLessThanOrEqualTo(String value) {
+        public Criteria andConsumingTimeLessThanOrEqualTo(BigDecimal value) {
             addCriterion("consuming_time <=", value, "consumingTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumingTimeLike(String value) {
-            addCriterion("consuming_time like", value, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeNotLike(String value) {
-            addCriterion("consuming_time not like", value, "consumingTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andConsumingTimeIn(List<String> values) {
+        public Criteria andConsumingTimeIn(List<BigDecimal> values) {
             addCriterion("consuming_time in", values, "consumingTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumingTimeNotIn(List<String> values) {
+        public Criteria andConsumingTimeNotIn(List<BigDecimal> values) {
             addCriterion("consuming_time not in", values, "consumingTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumingTimeBetween(String value1, String value2) {
+        public Criteria andConsumingTimeBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("consuming_time between", value1, value2, "consumingTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumingTimeNotBetween(String value1, String value2) {
+        public Criteria andConsumingTimeNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("consuming_time not between", value1, value2, "consumingTime");
             return (Criteria) this;
         }

@@ -91,18 +91,6 @@ public class PurchaseResBean implements Serializable {
      */
     private String consumingTime;
 
-    /**
-     * 下单时间
-     */
-    private Date orderTime;
-
-    public Date getOrderTime() {
-        return orderTime;
-    }
-
-    public void setOrderTime(Date orderTime) {
-        this.orderTime = orderTime;
-    }
 
     public Byte getPurchaseStatus() {
         return purchaseStatus;

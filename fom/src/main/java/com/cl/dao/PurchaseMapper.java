@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -65,4 +66,11 @@ public interface PurchaseMapper extends MyBatisBaseDao<PurchaseEntity, Long, Pur
      * @return
      */
     Integer updatePurchaseStatusByOrderNo(String orderNo);
+
+    /**
+     * 根据订单号查询下单时间
+     * @param orderNo
+     * @return
+     */
+    Date selectOrderTime(String orderNo);
 }

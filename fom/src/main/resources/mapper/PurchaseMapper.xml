@@ -20,7 +20,7 @@
     <result column="actual_pick_quantity" jdbcType="INTEGER" property="actualPickQuantity" />
     <result column="actual_pick_monovalent" jdbcType="DECIMAL" property="actualPickMonovalent" />
     <result column="actual_pick_total" jdbcType="DECIMAL" property="actualPickTotal" />
-    <result column="consuming_time" jdbcType="VARCHAR" property="consumingTime" />
+    <result column="consuming_time" jdbcType="DECIMAL" property="consumingTime" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
@@ -146,7 +146,7 @@
       #{materielName,jdbcType=VARCHAR}, #{materielColor,jdbcType=VARCHAR}, #{answerPickQuantity,jdbcType=INTEGER}, 
       #{answerPickMonovalent,jdbcType=DECIMAL}, #{answerPickTotal,jdbcType=DECIMAL}, 
       #{actualPickQuantity,jdbcType=INTEGER}, #{actualPickMonovalent,jdbcType=DECIMAL}, 
-      #{actualPickTotal,jdbcType=DECIMAL}, #{consumingTime,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{actualPickTotal,jdbcType=DECIMAL}, #{consumingTime,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
       #{lastUpdateUser,jdbcType=VARCHAR})
   </insert>
@@ -276,7 +276,7 @@
         #{actualPickTotal,jdbcType=DECIMAL},
       </if>
       <if test="consumingTime != null">
-        #{consumingTime,jdbcType=VARCHAR},
+        #{consumingTime,jdbcType=DECIMAL},
       </if>
       <if test="remarks != null">
         #{remarks,jdbcType=VARCHAR},
@@ -359,7 +359,7 @@
         actual_pick_total = #{record.actualPickTotal,jdbcType=DECIMAL},
       </if>
       <if test="record.consumingTime != null">
-        consuming_time = #{record.consumingTime,jdbcType=VARCHAR},
+        consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
       </if>
       <if test="record.remarks != null">
         remarks = #{record.remarks,jdbcType=VARCHAR},
@@ -401,7 +401,7 @@
       actual_pick_quantity = #{record.actualPickQuantity,jdbcType=INTEGER},
       actual_pick_monovalent = #{record.actualPickMonovalent,jdbcType=DECIMAL},
       actual_pick_total = #{record.actualPickTotal,jdbcType=DECIMAL},
-      consuming_time = #{record.consumingTime,jdbcType=VARCHAR},
+      consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
       remarks = #{record.remarks,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_user = #{record.createUser,jdbcType=VARCHAR},
@@ -466,7 +466,7 @@
         actual_pick_total = #{actualPickTotal,jdbcType=DECIMAL},
       </if>
       <if test="consumingTime != null">
-        consuming_time = #{consumingTime,jdbcType=VARCHAR},
+        consuming_time = #{consumingTime,jdbcType=DECIMAL},
       </if>
       <if test="remarks != null">
         remarks = #{remarks,jdbcType=VARCHAR},
@@ -505,7 +505,7 @@
       actual_pick_quantity = #{actualPickQuantity,jdbcType=INTEGER},
       actual_pick_monovalent = #{actualPickMonovalent,jdbcType=DECIMAL},
       actual_pick_total = #{actualPickTotal,jdbcType=DECIMAL},
-      consuming_time = #{consumingTime,jdbcType=VARCHAR},
+      consuming_time = #{consumingTime,jdbcType=DECIMAL},
       remarks = #{remarks,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=VARCHAR},
