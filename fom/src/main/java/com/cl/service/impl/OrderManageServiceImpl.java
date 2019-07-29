@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -78,6 +79,8 @@ public class OrderManageServiceImpl implements IOrderManageService {
         SysOrgEntity sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orgId);
         Assert.isNull(sysOrgEntity , "生产方不存在!");
         orderManageEntity.setProducerOrgId(orgId);
+        orderManageEntity.setLastUpdateTime(new Date());
+        orderManageEntity.setLastUpdateUser(reqBeanModel.getUsername());
         for(Long orderId : orderIdList){
             OrderManageEntity orderManageEntityByOrderId = this.orderManageMapper.selectProducer(orderId);
             Assert.isNull(orderManageEntityByOrderId , "订单数据错误!");

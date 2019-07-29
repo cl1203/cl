@@ -124,8 +124,8 @@ public class PulldownMenuController {
      * @return java.util.List<java.lang.String>
      **/
     @PostMapping("/queryDictItemList")
-    @ApiOperation(value = "查询字典表数据" , notes = "查询字典表数据")
-    public ResponseBeanModel<List<DictItem>> queryDictItemList(RequestBeanModel<DictItem> requestBeanModel){
+    @ApiOperation(value = "查询字典表数据(订单状态:order_status, 采购状态:purchase_status , 裁剪状态:tailoring_status , 物料分类:materiel_type)" , notes = "查询字典表数据")
+    public ResponseBeanModel<List<DictItem>> queryDictItemList(@RequestBody  RequestBeanModel<DictItem> requestBeanModel){
         LOGGER.info("PulldownMenuController------queryDictItemList  start......" );
         List<DictItem> dictItemList = this.pulldownMenuService.queryDictItemList(requestBeanModel);
         LOGGER.info("PulldownMenuController------queryDictItemList  end......" );

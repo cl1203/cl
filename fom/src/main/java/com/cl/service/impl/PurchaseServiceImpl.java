@@ -65,6 +65,8 @@ public class PurchaseServiceImpl implements IPurchaseService {
         PurchaseReqBean purchaseReqBean = reqBeanModel.getReqData();
         //校验修改的参数
         PurchaseEntity purchaseEntity = this.checkParameter(purchaseReqBean);
+        purchaseEntity.setLastUpdateTime(new Date());
+        purchaseEntity.setLastUpdateUser(reqBeanModel.getUsername());
         //录入实采数量时 校验是否存在采购日期 如果没有 就是当前录入时间
         if(null != purchaseReqBean.getActualPickQuantity()){
             PurchaseEntity purchaseEntityById = this.purchaseMapper.selectByPrimaryKey(purchaseReqBean.getId());
