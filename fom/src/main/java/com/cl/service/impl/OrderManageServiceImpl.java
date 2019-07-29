@@ -5,6 +5,7 @@ import com.cl.bean.req.OrderManageReqBean;
 import com.cl.bean.res.OrderManageResBean;
 import com.cl.bean.res.OrderQuantityResBean;
 import com.cl.bean.res.SecondaryProcessResBean;
+import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.SingleParam;
@@ -50,7 +51,7 @@ public class OrderManageServiceImpl implements IOrderManageService {
     @Override
     public PageInfo<OrderManageResBean> queryOrderList(RequestBeanModel<OrderManageReqBean> reqBeanModel) {
         OrderManageReqBean orderManageReqBean = reqBeanModel.getReqData();
-        if(orderManageReqBean.getPageNum() < 1 || orderManageReqBean.getPageSize() < 1){
+        if(orderManageReqBean.getPageNum() < DictionaryConstants.ALL_BUSINESS_ONE || orderManageReqBean.getPageSize() < DictionaryConstants.ALL_BUSINESS_ONE){
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
 
@@ -86,7 +87,7 @@ public class OrderManageServiceImpl implements IOrderManageService {
             Assert.isNull(orderManageEntityByOrderId , "订单数据错误!");
             orderManageEntity.setId(orderId);
             int i = this.orderManageMapper.updateByPrimaryKeySelective(orderManageEntity);
-            Assert.isTrue(i == 1 , "分单失败!");
+            Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "分单失败!");
         }
     }
 

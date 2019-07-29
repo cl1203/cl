@@ -16,15 +16,6 @@
     </if>
   </select>
 
-  <!--<select id="selectPurchaseNumByOrderNoIng" resultType="java.lang.Integer" parameterType="string">
-    SELECT
-    count(1)
-    FROM
-    purchase
-    WHERE
-    order_no = #{orderNo}
-    AND purchase_status = 2
-  </select>-->
 
   <update id="updatePurchaseStatusByOrderNo" parameterType="string">
     UPDATE purchase

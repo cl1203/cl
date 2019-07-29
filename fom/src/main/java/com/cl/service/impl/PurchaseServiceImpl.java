@@ -2,6 +2,7 @@ package com.cl.service.impl;
 
 import com.cl.bean.req.PurchaseReqBean;
 import com.cl.bean.res.PurchaseResBean;
+import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.transformer.IObjectTransformer;
@@ -37,10 +38,12 @@ public class PurchaseServiceImpl implements IPurchaseService {
     @Resource
     private IObjectTransformer<PurchaseEntity , PurchaseResBean> purchaseTransformer;
 
+
+
     @Override
     public PageInfo<PurchaseResBean> queryPurchaseList(RequestBeanModel<PurchaseReqBean> reqBeanModel) {
         PurchaseReqBean purchaseReqBean = reqBeanModel.getReqData();
-        if(purchaseReqBean.getPageNum() < 1 || purchaseReqBean.getPageSize() < 1){
+        if(purchaseReqBean.getPageNum() < DictionaryConstants.ALL_BUSINESS_ONE || purchaseReqBean.getPageSize() < DictionaryConstants.ALL_BUSINESS_ONE){
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
         //分页查询
@@ -80,14 +83,14 @@ public class PurchaseServiceImpl implements IPurchaseService {
         }
         //修改采购表
         int i = this.purchaseMapper.updateByPrimaryKeySelective(purchaseEntity);
-        Assert.isTrue(i == 1 , "修改采购数据失败!");
+        Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "修改采购数据失败!");
         //此订单号对应的待采购和采购中的所有采购单数量 1:查询待采购和采购中所有采购单  0:查询采购中的所有采购单
-        Integer purchaseNum = this.purchaseMapper.selectPurchaseNumByOrderNo(purchaseReqBean.getOrderNo() , (byte)1);
+        Integer purchaseNum = this.purchaseMapper.selectPurchaseNumByOrderNo(purchaseReqBean.getOrderNo() , DictionaryConstants.ALL_BUSINESS_ONE.byteValue());
         //此订单号对应的采购中的所有采购单数量
-        Integer purchaseNumIng = this.purchaseMapper.selectPurchaseNumByOrderNo(purchaseReqBean.getOrderNo() , (byte)0);
+        Integer purchaseNumIng = this.purchaseMapper.selectPurchaseNumByOrderNo(purchaseReqBean.getOrderNo() , DictionaryConstants.ALL_BUSINESS_ZERO.byteValue());
         if(purchaseNum == purchaseNumIng){
             int j = this.purchaseMapper.updatePurchaseStatusByOrderNo(purchaseReqBean.getOrderNo());
-            Assert.isTrue(j > 0 , "修改采购单状态失败!");
+            Assert.isTrue(j > DictionaryConstants.ALL_BUSINESS_ZERO , "修改采购单状态失败!");
         }
     }
 
@@ -121,7 +124,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
             purchaseEntity.setActualPickTotal(new BigDecimal(purchaseReqBean.getActualPickTotal()).setScale(2 , RoundingMode.HALF_UP));
         }
         purchaseEntity.setConsumingTime(purchaseReqBean.getConsumingTime());
-        purchaseEntity.setPurchaseStatus((byte) 2);
+        purchaseEntity.setPurchaseStatus(DictionaryConstants.ORDER_STATUS_ALREADY_PURCHASE);
         purchaseEntity.setOrderNo(purchaseReqBean.getOrderNo());
         purchaseEntity.setId(purchaseReqBean.getId());
         return purchaseEntity;

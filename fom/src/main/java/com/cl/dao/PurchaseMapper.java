@@ -1,6 +1,7 @@
 package com.cl.dao;
 
 import com.cl.bean.req.PurchaseReqBean;
+import com.cl.comm.constants.DictionaryConstants;
 import com.cl.entity.PurchaseEntity;
 import com.cl.entity.PurchaseEntityExample;
 import com.cl.util.DateUtils;
@@ -25,8 +26,8 @@ public interface PurchaseMapper extends MyBatisBaseDao<PurchaseEntity, Long, Pur
         PurchaseEntityExample purchaseEntityExample = new PurchaseEntityExample();
         PurchaseEntityExample.Criteria criteria = purchaseEntityExample.createCriteria();
         List<Byte> statusList = new ArrayList<>();
-        statusList.add((byte) 1);
-        statusList.add((byte) 2);
+        statusList.add(DictionaryConstants.ORDER_STATUS_WAIT_PURCHASE);
+        statusList.add(DictionaryConstants.ORDER_STATUS_ALREADY_PURCHASE);
         if(StringUtils.isNotBlank(purchaseReqBean.getPurchaseNo())){
             criteria.andPurchaseNoEqualTo(purchaseReqBean.getPurchaseNo());
         }
@@ -57,12 +58,6 @@ public interface PurchaseMapper extends MyBatisBaseDao<PurchaseEntity, Long, Pur
      */
     Integer selectPurchaseNumByOrderNo(@Param("orderNo") String orderNo ,@Param("isAll") Byte isAll );
 
-    /**
-     * 查询不同状态的采购单数量
-     * @param orderNo
-     * @return
-     */
-    Integer selectPurchaseNumByOrderNoIng(@Param("orderNo") String orderNo);
 
     /**
      * 修改订单对应的所有采购单状态

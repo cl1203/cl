@@ -7,52 +7,16 @@ package com.cl.comm.constants;
  * @Date 2019/7/22 16:53
  * @Version 1.0
  **/
-public enum DictionaryConstants {
+public class DictionaryConstants {
 
-    MATERIEL_TYPE_FABRIC("1" , "面料"),
-    MATERIEL_TYPE_ACCESSORIES("2" , "辅料");
-    /**
-     * <p>
-     * Field code: 字典编码
-     * </p>
-     */
-    private String code;
+    //业务需要
+    public static final Integer ALL_BUSINESS_ZERO = 0;
+    public static final Integer ALL_BUSINESS_ONE = 1;
+    public static final Byte ORDER_STATUS_DELETED = 0;//已删除
+    public static final Byte ORDER_STATUS_WAIT_PURCHASE = 1;//待采购
+    public static final Byte ORDER_STATUS_ALREADY_PURCHASE= 2; //采购中
+    public static final Byte ORDER_STATUS_WAIT_TAILOR = 3; //待裁剪
+    public static final Byte ORDER_STATUS_ALREADY_TAILOR = 4; //已裁剪
 
-    /**
-     * <p>
-     * Field msg: 字典描述
-     * </p>
-     */
-    private String msg;
 
-    /**
-     * <p>
-     * Description: 构造函数
-     * </p>
-     *
-     * @param code
-     *            字典编码
-     * @param msg
-     *            字典描述
-     */
-    private DictionaryConstants(String code, String msg) {
-        this.code = code;
-        this.msg = msg;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-
-    public String getMsg() {
-        return this.msg;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 }

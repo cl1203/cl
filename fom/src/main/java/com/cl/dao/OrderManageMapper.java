@@ -1,14 +1,11 @@
 package com.cl.dao;
 
 import com.cl.bean.req.OrderManageReqBean;
-import com.cl.bean.res.OrderManageResBean;
 import com.cl.bean.res.OrderQuantityResBean;
 import com.cl.bean.res.SecondaryProcessResBean;
-import com.cl.comm.model.RequestBeanModel;
+import com.cl.comm.constants.DictionaryConstants;
 import com.cl.entity.OrderManageEntity;
 import com.cl.entity.OrderManageEntityExample;
-import com.cl.entity.OrderQuantityEntity;
-import com.cl.entity.SysOrgEntity;
 import com.cl.util.DateUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -36,11 +33,6 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
         Page<OrderManageEntity> page = PageHelper.startPage(orderManageReqBean.getPageNum() , orderManageReqBean.getPageSize() , "last_update_time DESC");
         OrderManageEntityExample orderManageEntityExample = new OrderManageEntityExample();
         OrderManageEntityExample.Criteria criteria = orderManageEntityExample.createCriteria();
-        List<Byte> statusList = new ArrayList<>();
-        statusList.add((byte) 1);
-        statusList.add((byte) 2);
-        statusList.add((byte) 3);
-        statusList.add((byte) 4);
         if(StringUtils.isNotBlank(orderManageReqBean.getOrderNo())){
             criteria.andOrderNoEqualTo(orderManageReqBean.getOrderNo());
         }
@@ -50,7 +42,7 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
         if(StringUtils.isNotBlank(orderManageReqBean.getOrderStatus())){
             criteria.andOrderStatusEqualTo(Byte.valueOf(orderManageReqBean.getOrderStatus()));
         }else{
-            criteria.andOrderStatusIn(statusList);
+            criteria.andOrderStatusNotEqualTo(DictionaryConstants.ORDER_STATUS_DELETED);
         }
         if(StringUtils.isNotBlank(orderManageReqBean.getOrderTime())){
             criteria.andOrderTimeEqualTo(DateUtils.getDateToString(orderManageReqBean.getOrderTime() , DateUtils.DATESHOWFORMAT));
