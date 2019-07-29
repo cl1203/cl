@@ -41,7 +41,7 @@ public interface PurchaseMapper extends MyBatisBaseDao<PurchaseEntity, Long, Pur
             criteria.andPurchaseTimeEqualTo(DateUtils.getDateToString(purchaseReqBean.getPurchaseTime() , DateUtils.DATESHOWFORMAT));
         }
         if(StringUtils.isNotBlank(purchaseReqBean.getMaterielType())){
-            criteria.andMaterielTypeEqualTo(purchaseReqBean.getMaterielType());
+            criteria.andMaterielTypeCodeEqualTo(purchaseReqBean.getMaterielType());
         }
         if(StringUtils.isNotBlank(purchaseReqBean.getSupplierName())){
             criteria.andSupplierNameEqualTo(purchaseReqBean.getSupplierName());

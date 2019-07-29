@@ -11,7 +11,7 @@
     <result column="supplier_color_number" jdbcType="VARCHAR" property="supplierColorNumber" />
     <result column="purchase_status" jdbcType="TINYINT" property="purchaseStatus" />
     <result column="materiel_sku" jdbcType="VARCHAR" property="materielSku" />
-    <result column="materiel_type" jdbcType="VARCHAR" property="materielType" />
+    <result column="materiel_type_code" jdbcType="VARCHAR" property="materielTypeCode" />
     <result column="materiel_name" jdbcType="VARCHAR" property="materielName" />
     <result column="materiel_color" jdbcType="VARCHAR" property="materielColor" />
     <result column="answer_pick_quantity" jdbcType="INTEGER" property="answerPickQuantity" />
@@ -20,6 +20,7 @@
     <result column="actual_pick_quantity" jdbcType="INTEGER" property="actualPickQuantity" />
     <result column="actual_pick_monovalent" jdbcType="DECIMAL" property="actualPickMonovalent" />
     <result column="actual_pick_total" jdbcType="DECIMAL" property="actualPickTotal" />
+    <result column="single_amount_kg" jdbcType="DECIMAL" property="singleAmountKg" />
     <result column="consuming_time" jdbcType="DECIMAL" property="consumingTime" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -87,10 +88,10 @@
   </sql>
   <sql id="Base_Column_List">
     id, order_no, purchase_no, purchase_time, supplier_name, supplier_code, supplier_color_number, 
-    purchase_status, materiel_sku, materiel_type, materiel_name, materiel_color, answer_pick_quantity, 
-    answer_pick_monovalent, answer_pick_total, actual_pick_quantity, actual_pick_monovalent, 
-    actual_pick_total, consuming_time, remarks, create_time, create_user, last_update_time, 
-    last_update_user
+    purchase_status, materiel_sku, materiel_type_code, materiel_name, materiel_color, 
+    answer_pick_quantity, answer_pick_monovalent, answer_pick_total, actual_pick_quantity, 
+    actual_pick_monovalent, actual_pick_total, single_amount_kg, consuming_time, remarks, 
+    create_time, create_user, last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.PurchaseEntityExample" resultMap="BaseResultMap">
     select
@@ -133,22 +134,22 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.PurchaseEntity" useGeneratedKeys="true">
     insert into purchase (order_no, purchase_no, purchase_time, 
       supplier_name, supplier_code, supplier_color_number, 
-      purchase_status, materiel_sku, materiel_type, 
+      purchase_status, materiel_sku, materiel_type_code, 
       materiel_name, materiel_color, answer_pick_quantity, 
       answer_pick_monovalent, answer_pick_total, 
       actual_pick_quantity, actual_pick_monovalent, 
-      actual_pick_total, consuming_time, remarks, 
-      create_time, create_user, last_update_time, 
-      last_update_user)
+      actual_pick_total, single_amount_kg, consuming_time, 
+      remarks, create_time, create_user, 
+      last_update_time, last_update_user)
     values (#{orderNo,jdbcType=VARCHAR}, #{purchaseNo,jdbcType=VARCHAR}, #{purchaseTime,jdbcType=TIMESTAMP}, 
       #{supplierName,jdbcType=VARCHAR}, #{supplierCode,jdbcType=VARCHAR}, #{supplierColorNumber,jdbcType=VARCHAR}, 
-      #{purchaseStatus,jdbcType=TINYINT}, #{materielSku,jdbcType=VARCHAR}, #{materielType,jdbcType=VARCHAR}, 
+      #{purchaseStatus,jdbcType=TINYINT}, #{materielSku,jdbcType=VARCHAR}, #{materielTypeCode,jdbcType=VARCHAR}, 
       #{materielName,jdbcType=VARCHAR}, #{materielColor,jdbcType=VARCHAR}, #{answerPickQuantity,jdbcType=INTEGER}, 
       #{answerPickMonovalent,jdbcType=DECIMAL}, #{answerPickTotal,jdbcType=DECIMAL}, 
       #{actualPickQuantity,jdbcType=INTEGER}, #{actualPickMonovalent,jdbcType=DECIMAL}, 
-      #{actualPickTotal,jdbcType=DECIMAL}, #{consumingTime,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
-      #{lastUpdateUser,jdbcType=VARCHAR})
+      #{actualPickTotal,jdbcType=DECIMAL}, #{singleAmountKg,jdbcType=DECIMAL}, #{consumingTime,jdbcType=DECIMAL}, 
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.PurchaseEntity" useGeneratedKeys="true">
     insert into purchase
@@ -177,8 +178,8 @@
       <if test="materielSku != null">
         materiel_sku,
       </if>
-      <if test="materielType != null">
-        materiel_type,
+      <if test="materielTypeCode != null">
+        materiel_type_code,
       </if>
       <if test="materielName != null">
         materiel_name,
@@ -203,6 +204,9 @@
       </if>
       <if test="actualPickTotal != null">
         actual_pick_total,
+      </if>
+      <if test="singleAmountKg != null">
+        single_amount_kg,
       </if>
       <if test="consumingTime != null">
         consuming_time,
@@ -248,8 +252,8 @@
       <if test="materielSku != null">
         #{materielSku,jdbcType=VARCHAR},
       </if>
-      <if test="materielType != null">
-        #{materielType,jdbcType=VARCHAR},
+      <if test="materielTypeCode != null">
+        #{materielTypeCode,jdbcType=VARCHAR},
       </if>
       <if test="materielName != null">
         #{materielName,jdbcType=VARCHAR},
@@ -274,6 +278,9 @@
       </if>
       <if test="actualPickTotal != null">
         #{actualPickTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="singleAmountKg != null">
+        #{singleAmountKg,jdbcType=DECIMAL},
       </if>
       <if test="consumingTime != null">
         #{consumingTime,jdbcType=DECIMAL},
@@ -331,8 +338,8 @@
       <if test="record.materielSku != null">
         materiel_sku = #{record.materielSku,jdbcType=VARCHAR},
       </if>
-      <if test="record.materielType != null">
-        materiel_type = #{record.materielType,jdbcType=VARCHAR},
+      <if test="record.materielTypeCode != null">
+        materiel_type_code = #{record.materielTypeCode,jdbcType=VARCHAR},
       </if>
       <if test="record.materielName != null">
         materiel_name = #{record.materielName,jdbcType=VARCHAR},
@@ -357,6 +364,9 @@
       </if>
       <if test="record.actualPickTotal != null">
         actual_pick_total = #{record.actualPickTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.singleAmountKg != null">
+        single_amount_kg = #{record.singleAmountKg,jdbcType=DECIMAL},
       </if>
       <if test="record.consumingTime != null">
         consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
@@ -392,7 +402,7 @@
       supplier_color_number = #{record.supplierColorNumber,jdbcType=VARCHAR},
       purchase_status = #{record.purchaseStatus,jdbcType=TINYINT},
       materiel_sku = #{record.materielSku,jdbcType=VARCHAR},
-      materiel_type = #{record.materielType,jdbcType=VARCHAR},
+      materiel_type_code = #{record.materielTypeCode,jdbcType=VARCHAR},
       materiel_name = #{record.materielName,jdbcType=VARCHAR},
       materiel_color = #{record.materielColor,jdbcType=VARCHAR},
       answer_pick_quantity = #{record.answerPickQuantity,jdbcType=INTEGER},
@@ -401,6 +411,7 @@
       actual_pick_quantity = #{record.actualPickQuantity,jdbcType=INTEGER},
       actual_pick_monovalent = #{record.actualPickMonovalent,jdbcType=DECIMAL},
       actual_pick_total = #{record.actualPickTotal,jdbcType=DECIMAL},
+      single_amount_kg = #{record.singleAmountKg,jdbcType=DECIMAL},
       consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
       remarks = #{record.remarks,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -438,8 +449,8 @@
       <if test="materielSku != null">
         materiel_sku = #{materielSku,jdbcType=VARCHAR},
       </if>
-      <if test="materielType != null">
-        materiel_type = #{materielType,jdbcType=VARCHAR},
+      <if test="materielTypeCode != null">
+        materiel_type_code = #{materielTypeCode,jdbcType=VARCHAR},
       </if>
       <if test="materielName != null">
         materiel_name = #{materielName,jdbcType=VARCHAR},
@@ -464,6 +475,9 @@
       </if>
       <if test="actualPickTotal != null">
         actual_pick_total = #{actualPickTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="singleAmountKg != null">
+        single_amount_kg = #{singleAmountKg,jdbcType=DECIMAL},
       </if>
       <if test="consumingTime != null">
         consuming_time = #{consumingTime,jdbcType=DECIMAL},
@@ -496,7 +510,7 @@
       supplier_color_number = #{supplierColorNumber,jdbcType=VARCHAR},
       purchase_status = #{purchaseStatus,jdbcType=TINYINT},
       materiel_sku = #{materielSku,jdbcType=VARCHAR},
-      materiel_type = #{materielType,jdbcType=VARCHAR},
+      materiel_type_code = #{materielTypeCode,jdbcType=VARCHAR},
       materiel_name = #{materielName,jdbcType=VARCHAR},
       materiel_color = #{materielColor,jdbcType=VARCHAR},
       answer_pick_quantity = #{answerPickQuantity,jdbcType=INTEGER},
@@ -505,6 +519,7 @@
       actual_pick_quantity = #{actualPickQuantity,jdbcType=INTEGER},
       actual_pick_monovalent = #{actualPickMonovalent,jdbcType=DECIMAL},
       actual_pick_total = #{actualPickTotal,jdbcType=DECIMAL},
+      single_amount_kg = #{singleAmountKg,jdbcType=DECIMAL},
       consuming_time = #{consumingTime,jdbcType=DECIMAL},
       remarks = #{remarks,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

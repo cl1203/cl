@@ -90,6 +90,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
         if(purchaseNum == purchaseNumIng){
             int j = this.purchaseMapper.updatePurchaseStatusByOrderNo(purchaseReqBean.getOrderNo());
             Assert.isTrue(j > DictionaryConstants.ALL_BUSINESS_ZERO , "修改采购单状态失败!");
+            //调用生成裁剪数据接口
         }
     }
 

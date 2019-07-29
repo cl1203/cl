@@ -726,73 +726,73 @@ public class PurchaseEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeIsNull() {
-            addCriterion("materiel_type is null");
+        public Criteria andMaterielTypeCodeIsNull() {
+            addCriterion("materiel_type_code is null");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeIsNotNull() {
-            addCriterion("materiel_type is not null");
+        public Criteria andMaterielTypeCodeIsNotNull() {
+            addCriterion("materiel_type_code is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeEqualTo(String value) {
-            addCriterion("materiel_type =", value, "materielType");
+        public Criteria andMaterielTypeCodeEqualTo(String value) {
+            addCriterion("materiel_type_code =", value, "materielTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeNotEqualTo(String value) {
-            addCriterion("materiel_type <>", value, "materielType");
+        public Criteria andMaterielTypeCodeNotEqualTo(String value) {
+            addCriterion("materiel_type_code <>", value, "materielTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeGreaterThan(String value) {
-            addCriterion("materiel_type >", value, "materielType");
+        public Criteria andMaterielTypeCodeGreaterThan(String value) {
+            addCriterion("materiel_type_code >", value, "materielTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("materiel_type >=", value, "materielType");
+        public Criteria andMaterielTypeCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("materiel_type_code >=", value, "materielTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeLessThan(String value) {
-            addCriterion("materiel_type <", value, "materielType");
+        public Criteria andMaterielTypeCodeLessThan(String value) {
+            addCriterion("materiel_type_code <", value, "materielTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeLessThanOrEqualTo(String value) {
-            addCriterion("materiel_type <=", value, "materielType");
+        public Criteria andMaterielTypeCodeLessThanOrEqualTo(String value) {
+            addCriterion("materiel_type_code <=", value, "materielTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeLike(String value) {
-            addCriterion("materiel_type like", value, "materielType");
+        public Criteria andMaterielTypeCodeLike(String value) {
+            addCriterion("materiel_type_code like", value, "materielTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeNotLike(String value) {
-            addCriterion("materiel_type not like", value, "materielType");
+        public Criteria andMaterielTypeCodeNotLike(String value) {
+            addCriterion("materiel_type_code not like", value, "materielTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeIn(List<String> values) {
-            addCriterion("materiel_type in", values, "materielType");
+        public Criteria andMaterielTypeCodeIn(List<String> values) {
+            addCriterion("materiel_type_code in", values, "materielTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeNotIn(List<String> values) {
-            addCriterion("materiel_type not in", values, "materielType");
+        public Criteria andMaterielTypeCodeNotIn(List<String> values) {
+            addCriterion("materiel_type_code not in", values, "materielTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeBetween(String value1, String value2) {
-            addCriterion("materiel_type between", value1, value2, "materielType");
+        public Criteria andMaterielTypeCodeBetween(String value1, String value2) {
+            addCriterion("materiel_type_code between", value1, value2, "materielTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeNotBetween(String value1, String value2) {
-            addCriterion("materiel_type not between", value1, value2, "materielType");
+        public Criteria andMaterielTypeCodeNotBetween(String value1, String value2) {
+            addCriterion("materiel_type_code not between", value1, value2, "materielTypeCode");
             return (Criteria) this;
         }
 
@@ -1293,6 +1293,66 @@ public class PurchaseEntityExample {
 
         public Criteria andActualPickTotalNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("actual_pick_total not between", value1, value2, "actualPickTotal");
+            return (Criteria) this;
+        }
+
+        public Criteria andSingleAmountKgIsNull() {
+            addCriterion("single_amount_kg is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSingleAmountKgIsNotNull() {
+            addCriterion("single_amount_kg is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSingleAmountKgEqualTo(BigDecimal value) {
+            addCriterion("single_amount_kg =", value, "singleAmountKg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSingleAmountKgNotEqualTo(BigDecimal value) {
+            addCriterion("single_amount_kg <>", value, "singleAmountKg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSingleAmountKgGreaterThan(BigDecimal value) {
+            addCriterion("single_amount_kg >", value, "singleAmountKg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSingleAmountKgGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("single_amount_kg >=", value, "singleAmountKg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSingleAmountKgLessThan(BigDecimal value) {
+            addCriterion("single_amount_kg <", value, "singleAmountKg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSingleAmountKgLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("single_amount_kg <=", value, "singleAmountKg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSingleAmountKgIn(List<BigDecimal> values) {
+            addCriterion("single_amount_kg in", values, "singleAmountKg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSingleAmountKgNotIn(List<BigDecimal> values) {
+            addCriterion("single_amount_kg not in", values, "singleAmountKg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSingleAmountKgBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("single_amount_kg between", value1, value2, "singleAmountKg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSingleAmountKgNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("single_amount_kg not between", value1, value2, "singleAmountKg");
             return (Criteria) this;
         }
 

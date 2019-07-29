@@ -55,7 +55,9 @@ public class PurchaseTransform extends AbstractObjectTransformer<PurchaseEntity 
             purchaseResBean.setActualPickTotal(purchaseEntity.getActualPickTotal());
         }
         purchaseResBean.setSupplierName(purchaseEntity.getSupplierName());//供应商名称
-        purchaseResBean.setConsumingTime(purchaseEntity.getConsumingTime());//耗时
+        if(null != purchaseEntity.getConsumingTime()){
+            purchaseResBean.setConsumingTime(String.valueOf(purchaseEntity.getConsumingTime()));//耗时
+        }
         return purchaseResBean;
     }
 }
