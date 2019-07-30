@@ -2,6 +2,7 @@ package com.cl.dao;
 
 import com.cl.bean.req.PurchaseReqBean;
 import com.cl.comm.constants.DictionaryConstants;
+import com.cl.entity.OrderManageEntity;
 import com.cl.entity.PurchaseEntity;
 import com.cl.entity.PurchaseEntityExample;
 import com.cl.util.DateUtils;
@@ -72,5 +73,5 @@ public interface PurchaseMapper extends MyBatisBaseDao<PurchaseEntity, Long, Pur
      * @param orderNo
      * @return
      */
-    Date selectOrderTime(String orderNo);
+    OrderManageEntity selectOrderTime(String orderNo);
 }

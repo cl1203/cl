@@ -18,12 +18,19 @@ public interface IPulldownMenuService {
 
     /**
      * @Author 陈龙
-     * @Description 获取组织下拉菜单
+     * @Description 获取组织下拉菜单 或者根据条件查询
      * @Date 20:14 2019/7/20
      * @Param []
      * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
      **/
-    List<PulldownMenuResBean> queryOrgPulldownMenu();
+    List<PulldownMenuResBean> queryOrgPulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel);
+
+    /**
+     *  获取用户下拉菜单 或者根据条件查询
+     * @param requestBeanModel
+     * @return
+     */
+    List<PulldownMenuResBean> queryUserPulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel);
 
     /**
      * @Author 陈龙

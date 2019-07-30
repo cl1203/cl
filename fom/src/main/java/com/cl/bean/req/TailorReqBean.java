@@ -30,7 +30,7 @@ public class TailorReqBean implements Serializable{
     /**
      * 状态 0:已删除 1:戴裁剪 2:已裁剪
      */
-    private String tailoringStatus;
+    private String tailorStatus;
 
     /**
      * SKU
@@ -43,9 +43,14 @@ public class TailorReqBean implements Serializable{
     private String producer;
 
     /**
+     * 指定生产方组织ID(不为空时以此生产方为准)
+     */
+    private Long producerOrgId;
+
+    /**
      * 裁剪员工
      */
-    private String tailorUserName;
+    private Long tailorUserNameId;
 
     /**
      * 每页数量
@@ -78,6 +83,14 @@ public class TailorReqBean implements Serializable{
      * 单价
      */
     private BigDecimal monovalent;
+
+    public Long getProducerOrgId() {
+        return producerOrgId;
+    }
+
+    public void setProducerOrgId(Long producerOrgId) {
+        this.producerOrgId = producerOrgId;
+    }
 
     public BigDecimal getMonovalent() {
         return monovalent;
@@ -135,12 +148,12 @@ public class TailorReqBean implements Serializable{
         this.orderTime = orderTime;
     }
 
-    public String getTailoringStatus() {
-        return tailoringStatus;
+    public String getTailorStatus() {
+        return tailorStatus;
     }
 
-    public void setTailoringStatus(String tailoringStatus) {
-        this.tailoringStatus = tailoringStatus;
+    public void setTailorStatus(String tailorStatus) {
+        this.tailorStatus = tailorStatus;
     }
 
     public String getSku() {
@@ -175,11 +188,11 @@ public class TailorReqBean implements Serializable{
         this.pageNum = pageNum;
     }
 
-    public String getTailorUserName() {
-        return tailorUserName;
+    public Long getTailorUserNameId() {
+        return tailorUserNameId;
     }
 
-    public void setTailorUserName(String tailorUserName) {
-        this.tailorUserName = tailorUserName;
+    public void setTailorUserNameId(Long tailorUserNameId) {
+        this.tailorUserNameId = tailorUserNameId;
     }
 }

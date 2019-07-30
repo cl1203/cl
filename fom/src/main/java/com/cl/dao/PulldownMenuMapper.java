@@ -18,12 +18,21 @@ public interface PulldownMenuMapper {
 
     /**
      * @Author 陈龙
-     * @Description 获取组织下拉菜单
+     * @Description 获取组织下拉菜单 或者根据条件查询
      * @Date 14:16 2019/7/22
      * @Param []
      * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
      **/
-    List<PulldownMenuResBean> queryOrgPulldownMenu();
+    List<PulldownMenuResBean> queryOrgPulldownMenu(PulldownMenuResBean pulldownMenuResBean);
+
+    /**
+     * @Author 陈龙
+     * @Description 获取用户下拉菜单 或者根据条件查询
+     * @Date 14:16 2019/7/22
+     * @Param []
+     * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
+     **/
+    List<PulldownMenuResBean> queryUserPulldownMenu(PulldownMenuResBean pulldownMenuResBean);
 
     /**
      * @Author 陈龙

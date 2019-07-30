@@ -37,17 +37,33 @@ public class PulldownMenuController {
 
     /**
      * @Author 陈龙
-     * @Description 获取组织下拉菜单
+     * @Description 获取组织下拉菜单 或者根据条件查询
      * @Date 20:13 2019/7/20
      * @Param []
      * @return com.cl.comm.model.ResponseBeanModel<java.util.List<com.cl.bean.res.PulldownMenuResBean>>
      **/
     @PostMapping("/queryOrgPulldownMenu")
-    @ApiOperation(value = "查询组织下拉菜单" , notes = "查询所有组织名称和ID")
-    public ResponseBeanModel<List<PulldownMenuResBean>> queryOrgPulldownMenu(){
+    @ApiOperation(value = "查询组织下拉菜单,或者根据条件查询" , notes = "查询所有组织下拉菜单,或者根据条件查询")
+    public ResponseBeanModel<List<PulldownMenuResBean>> queryOrgPulldownMenu(@RequestBody RequestBeanModel<PulldownMenuResBean> requestBeanModel){
         LOGGER.info("PulldownMenuController------queryOrgPulldownMenu  start......" );
-        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuService.queryOrgPulldownMenu();
+        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuService.queryOrgPulldownMenu(requestBeanModel);
         LOGGER.info("PulldownMenuController------queryOrgPulldownMenu  end......" );
+        return new ResponseBeanModel<>(pulldownMenuResBeanList);
+    }
+
+    /**
+     * @Author 陈龙
+     * @Description 获取用户下拉菜单 或者根据条件查询
+     * @Date 0:03 2019/7/30
+     * @Param [requestBeanModel]
+     * @return com.cl.comm.model.ResponseBeanModel<java.util.List<com.cl.bean.res.PulldownMenuResBean>>
+     **/
+    @PostMapping("/queryUserPulldownMenu")
+    @ApiOperation(value = "查询用户下拉菜单,或者根据条件查询" , notes = "查询用户下拉菜单,或者根据条件查询")
+    public ResponseBeanModel<List<PulldownMenuResBean>> queryUserPulldownMenu(@RequestBody RequestBeanModel<PulldownMenuResBean> requestBeanModel){
+        LOGGER.info("PulldownMenuController------queryUserPulldownMenu  start......" );
+        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuService.queryUserPulldownMenu(requestBeanModel);
+        LOGGER.info("PulldownMenuController------queryUserPulldownMenu  end......" );
         return new ResponseBeanModel<>(pulldownMenuResBeanList);
     }
 

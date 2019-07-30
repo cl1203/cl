@@ -33,7 +33,10 @@
 
   <select id="selectOrderQuantityByOrderNo" parameterType="string" resultType="com.cl.bean.res.OrderQuantityResBean">
     SELECT
-      *
+      id,
+      order_no,
+      size_name,
+      quantity
     FROM
       order_quantity
     WHERE
@@ -42,10 +45,15 @@
 
   <select id="selectSecondaryProcessByOrderNo" parameterType="string" resultType="com.cl.bean.res.SecondaryProcessResBean">
     SELECT
-      *
+      sp.id sp_id,
+	  sp.order_no order_no,
+	  sp.process_name process_name,
+	  sp.supplier_name supplier_name,
+	  sp.unit_price unit_price,
+	  sp.simple_use simple_use
     FROM
-      secondary_process
+      secondary_process sp
     WHERE
-      order_no = #{orderNo}
+      sp.order_no = #{orderNo}
   </select>
 </mapper>

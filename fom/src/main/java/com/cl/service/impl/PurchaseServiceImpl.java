@@ -6,7 +6,9 @@ import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.transformer.IObjectTransformer;
+import com.cl.dao.OrderManageMapper;
 import com.cl.dao.PurchaseMapper;
+import com.cl.entity.OrderManageEntity;
 import com.cl.entity.PurchaseEntity;
 import com.cl.service.IPurchaseService;
 import com.github.pagehelper.PageInfo;
@@ -34,6 +36,9 @@ public class PurchaseServiceImpl implements IPurchaseService {
 
     @Resource
     private PurchaseMapper purchaseMapper;
+
+    @Resource
+    private OrderManageMapper orderManageMapper;
 
     @Resource
     private IObjectTransformer<PurchaseEntity , PurchaseResBean> purchaseTransformer;
@@ -68,8 +73,10 @@ public class PurchaseServiceImpl implements IPurchaseService {
     @Override
     public void updatePurchase(RequestBeanModel<PurchaseReqBean> reqBeanModel) {
         PurchaseReqBean purchaseReqBean = reqBeanModel.getReqData();
+        //根据订单编号获取对应的订单对象
+        OrderManageEntity orderManageEntity = this.purchaseMapper.selectOrderTime(purchaseReqBean.getOrderNo());
         //校验修改的参数
-        PurchaseEntity purchaseEntity = this.checkParameter(purchaseReqBean);
+        PurchaseEntity purchaseEntity = this.checkParameter(purchaseReqBean , orderManageEntity);
         purchaseEntity.setLastUpdateTime(new Date());
         purchaseEntity.setLastUpdateUser(reqBeanModel.getUsername());
         //录入实采数量时 校验是否存在采购日期 如果没有 就是当前录入时间
@@ -83,6 +90,14 @@ public class PurchaseServiceImpl implements IPurchaseService {
         //修改采购表
         int i = this.purchaseMapper.updateByPrimaryKeySelective(purchaseEntity);
         Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "修改采购数据失败!");
+        OrderManageEntity updateOrderEntity = new OrderManageEntity();
+        updateOrderEntity.setId(orderManageEntity.getId());
+        //判断采购对应的订单状态是否变为采购中 如果没有  则修改订单状态为采购中
+        if(orderManageEntity.getOrderStatus() == DictionaryConstants.ORDER_STATUS_WAIT_PURCHASE){
+            updateOrderEntity.setOrderStatus(DictionaryConstants.ORDER_STATUS_ALREADY_PURCHASE);
+            int k = this.orderManageMapper.updateByPrimaryKeySelective(updateOrderEntity);
+            Assert.isTrue(k > DictionaryConstants.ALL_BUSINESS_ZERO , "修改订单状态失败!");
+        }
         //此订单号对应的待采购和采购中的所有采购单数量 1:查询待采购和采购中所有采购单  0:查询采购中的所有采购单
         Integer purchaseNum = this.purchaseMapper.selectPurchaseNumByOrderNo(purchaseReqBean.getOrderNo() , DictionaryConstants.ALL_BUSINESS_ONE.byteValue());
         //此订单号对应的采购中的所有采购单数量
@@ -90,6 +105,9 @@ public class PurchaseServiceImpl implements IPurchaseService {
         if(purchaseNum == purchaseNumIng){
             int j = this.purchaseMapper.updatePurchaseStatusByOrderNo(purchaseReqBean.getOrderNo());
             Assert.isTrue(j > DictionaryConstants.ALL_BUSINESS_ZERO , "修改采购单状态失败!");
+            updateOrderEntity.setOrderStatus(DictionaryConstants.ORDER_STATUS_WAIT_TAILOR);
+            int k = this.orderManageMapper.updateByPrimaryKeySelective(updateOrderEntity);
+            Assert.isTrue(k > DictionaryConstants.ALL_BUSINESS_ZERO , "修改订单状态失败!");
             //调用生成裁剪数据接口
         }
     }
@@ -98,7 +116,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
      *  校验 编辑时带过来的参数并转换成entity
      * @param purchaseReqBean
      */
-    private PurchaseEntity checkParameter(PurchaseReqBean purchaseReqBean){
+    private PurchaseEntity checkParameter(PurchaseReqBean purchaseReqBean , OrderManageEntity orderManageEntity){
         PurchaseEntity purchaseEntity = new PurchaseEntity();
         Assert.notNull(purchaseReqBean.getId() , "请选择一条数据,ID不能为空!");
         Assert.hasText(purchaseReqBean.getOrderNo() , "订单号不能为空!");
@@ -123,8 +141,8 @@ public class PurchaseServiceImpl implements IPurchaseService {
             }
             purchaseEntity.setActualPickTotal(new BigDecimal(purchaseReqBean.getActualPickTotal()).setScale(2 , RoundingMode.HALF_UP));
         }
-        //根据订单编号获取对应的下单时间
-        Date orderTime = this.purchaseMapper.selectOrderTime(purchaseReqBean.getOrderNo());
+
+        Date orderTime = orderManageEntity.getOrderTime();
         if(null != orderTime){
             Date date = new Date();
             //计算耗时

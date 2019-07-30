@@ -24,12 +24,40 @@
     AND purchase_status = 2
   </update>
 
-  <select id="selectOrderTime" parameterType="string" resultType="date">
+  <select id="selectOrderTime" parameterType="string" resultMap="OrderBaseResultMap">
     SELECT
-      order_time
+    <include refid="Order_Base_Column_List" />
     FROM
       order_manage
     WHERE
       order_no = #{orderNo}
+    AND order_status != 0
   </select>
+
+  <sql id="Order_Base_Column_List">
+    id, order_no, order_status, order_quantity, order_time, order_img_url, sku, is_first,
+    producer_org_id, producer, surplus_time, purchase_time, tailoring_time, remarks,
+    create_time, create_user, last_update_time, last_update_user
+  </sql>
+
+  <resultMap id="OrderBaseResultMap" type="com.cl.entity.OrderManageEntity">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="order_status" jdbcType="TINYINT" property="orderStatus" />
+    <result column="order_quantity" jdbcType="INTEGER" property="orderQuantity" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="order_img_url" jdbcType="VARCHAR" property="orderImgUrl" />
+    <result column="sku" jdbcType="VARCHAR" property="sku" />
+    <result column="is_first" jdbcType="TINYINT" property="isFirst" />
+    <result column="producer_org_id" jdbcType="BIGINT" property="producerOrgId" />
+    <result column="producer" jdbcType="VARCHAR" property="producer" />
+    <result column="surplus_time" jdbcType="VARCHAR" property="surplusTime" />
+    <result column="purchase_time" jdbcType="INTEGER" property="purchaseTime" />
+    <result column="tailoring_time" jdbcType="INTEGER" property="tailoringTime" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="last_update_user" jdbcType="VARCHAR" property="lastUpdateUser" />
+  </resultMap>
 </mapper>

@@ -28,14 +28,23 @@ public class TailorResBean implements Serializable{
     private String sku;
 
     /**
-     * 状态 0:已删除 1:戴裁剪 2:已裁剪
+     * 状态code 0:已删除 1:戴裁剪 2:已裁剪
      */
-    private Byte tailoringStatus;
+    private Byte tailorStatusCode;
 
+    /**
+     * 裁剪状态
+     */
+    private String tailorStatus;
     /**
      * 生产方
      */
     private String producer;
+
+    /**
+     * 指定生产方组织ID(不为空时以此生产方为准)
+     */
+    private Long producerOrgId;
 
     /**
      * 裁剪员工
@@ -67,6 +76,14 @@ public class TailorResBean implements Serializable{
      */
     private List<SecondaryProcessResBean> secondaryProcessResBeanList;
 
+    public Long getProducerOrgId() {
+        return producerOrgId;
+    }
+
+    public void setProducerOrgId(Long producerOrgId) {
+        this.producerOrgId = producerOrgId;
+    }
+
     public Long getId() {
         return id;
     }
@@ -91,12 +108,20 @@ public class TailorResBean implements Serializable{
         this.sku = sku;
     }
 
-    public Byte getTailoringStatus() {
-        return tailoringStatus;
+    public Byte getTailorStatusCode() {
+        return tailorStatusCode;
     }
 
-    public void setTailoringStatus(Byte tailoringStatus) {
-        this.tailoringStatus = tailoringStatus;
+    public void setTailorStatusCode(Byte tailorStatusCode) {
+        this.tailorStatusCode = tailorStatusCode;
+    }
+
+    public String getTailorStatus() {
+        return tailorStatus;
+    }
+
+    public void setTailorStatus(String tailorStatus) {
+        this.tailorStatus = tailorStatus;
     }
 
     public String getProducer() {

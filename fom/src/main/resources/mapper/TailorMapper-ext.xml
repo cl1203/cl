@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.dao.TailorMapper">
+  <resultMap id="TailorResultMap" type="com.cl.bean.res.TailorResBean">
+    <id column="t_id" jdbcType="BIGINT" property="id" />
+    <result column="t_order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="sku" jdbcType="BIGINT" property="sku" />
+    <result column="answer_cut_quantity" jdbcType="INTEGER" property="answerCutQuantity" />
+    <result column="actual_cut_quantity" jdbcType="INTEGER" property="actualCutQuantity" />
+    <result column="monovalent" jdbcType="DECIMAL" property="monovalent" />
+    <result column="consuming_time" jdbcType="DECIMAL" property="consumingTime" />
+    <result column="tailo_status" jdbcType="TINYINT" property="tailorStatusCode" />
+    <result column="producer" jdbcType="VARCHAR" property="producer" />
+    <result column="producer_org_id" jdbcType="BIGINT" property="producerOrgId" />
+    <result column="tailoring_user_name" jdbcType="VARCHAR" property="tailorUserName" />
+    <collection property="secondaryProcessResBeanList" resultMap="checkDetailResultMap" javaType="list" />
+  </resultMap>
+
+  <resultMap id="checkDetailResultMap" type="com.cl.bean.res.SecondaryProcessResBean">
+    <id column="sp_id" jdbcType="BIGINT" property="id" />
+    <result column="sp_order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="process_name" jdbcType="VARCHAR" property="processName" />
+    <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="simple_use" jdbcType="VARCHAR" property="simpleUse" />
+  </resultMap>
+
+  <select id="queryTailorList" resultMap="TailorResultMap" parameterType="com.cl.bean.req.TailorReqBean">
+    SELECT
+        t.id t_id,
+        t.order_no t_order_no,
+        o.sku sku,
+        t.tailo_status tailo_status,
+        o.producer producer,
+        o.producer_org_id producer_org_id,
+        su.user_name tailoring_user_name,
+        t.answer_cut_quantity answer_cut_quantity,
+        t.actual_cut_quantity actual_cut_quantity,
+        t.monovalent monovalent,
+        t.consuming_time consuming_time,
+        sp.id sp_id,
+        sp.order_no sp_order_no,
+        sp.process_name process_name,
+        sp.supplier_name supplier_name,
+        sp.unit_price unit_price,
+        sp.simple_use simple_use
+    FROM
+        tailor t
+    LEFT JOIN order_manage o ON t.order_no = o.order_no
+    LEFT JOIN secondary_process sp ON sp.order_no = o.order_no
+    LEFT JOIN sys_user su on t.tailor_user_id = su.id
+    WHERE
+      t.tailo_status = 0
+      <if test="orderNo !=null and orderNo !='' ">
+        AND t.order_no = #{orderNo}
+      </if>
+      <if test="orderTime !=null and orderTime !='' ">
+        AND o.order_time = #{orderTime}
+      </if>
+      <if test="tailorStatus !=null and tailorStatus !='' ">
+        AND t.tailo_status = #{tailorStatus}
+      </if>
+      <if test="sku !=null and sku !='' ">
+        AND o.sku = #{sku}
+      </if>
+      <if test="producerOrgId != null ">
+        AND o.producer_org_id = #{producerOrgId}
+      </if>
+      <if test="producerOrgId == null and producer !=null and producer != '' ">
+        AND o.producer = #{producer}
+      </if>
+      <if test="tailorUserNameId != null">
+        AND t.tailor_user_id = #{tailorUserNameId}
+      </if>
+  </select>
+</mapper>

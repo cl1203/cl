@@ -50,7 +50,6 @@ public class OrderManageServiceImpl implements IOrderManageService {
         if(orderManageReqBean.getPageNum() < DictionaryConstants.ALL_BUSINESS_ONE || orderManageReqBean.getPageSize() < DictionaryConstants.ALL_BUSINESS_ONE){
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
-
         //分页查询
         PageInfo<OrderManageEntity> orderManageEntityPageInfo = this.orderManageMapper.selectOrderManagePageInfo(orderManageReqBean);
         //entity转resBean

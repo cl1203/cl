@@ -7,7 +7,7 @@
         <result column="code" jdbcType="VARCHAR" property="code" />
     </resultMap>
 
-    <select id="queryOrgPulldownMenu" resultMap="BaseResultMap">
+    <select id="queryOrgPulldownMenu" resultMap="BaseResultMap" parameterType="com.cl.bean.res.PulldownMenuResBean">
         SELECT
           id ,
           name ,
@@ -16,15 +16,40 @@
           sys_org
         WHERE
           status = 1
+        <if test="name != null  and name !='' ">
+            AND name = #{name}
+        </if>
+        <if test="code !=null and code !='' ">
+            AND code = #{code}
+        </if>
+        <if test="id !=null  ">
+            AND id = #{id}
+        </if>
+    </select>
+
+    <select id="queryUserPulldownMenu" resultMap="BaseResultMap" parameterType="com.cl.bean.res.PulldownMenuResBean">
+        SELECT
+        id ,
+        user_name name
+        FROM
+        sys_user
+        WHERE
+        status = 1
+        <if test="name != null  and name !='' ">
+            AND user_name = #{name}
+        </if>
+        <if test="id !=null  ">
+            AND id = #{id}
+        </if>
     </select>
 
     <select id="queryInputByOrderNumer" resultType="string">
         SELECT
-          order_number
+          order_no
         FROM
-        order_manage
+          order_manage
         WHERE
-        status = 1
+        order_status != 0
         order by
         last_update_time
         desc
@@ -36,17 +61,17 @@
         FROM
         order_manage
         WHERE
-        status = 1
+        order_status != 0
         GROUP BY sku
     </select>
 
     <select id="queryInputByPurchaseNumber" resultType="string">
         SELECT
-          purchase_number
+          purchase_no
         FROM
-        purchase
+          purchase
         WHERE
-        status = 1
+        purchase_status != 0
         order by
         last_update_time
         desc
@@ -58,7 +83,7 @@
         FROM
         purchase
         WHERE
-        status = 1
+        purchase_status != 0
         GROUP BY supplier_name
     </select>
 
