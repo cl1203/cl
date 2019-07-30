@@ -50,7 +50,12 @@ public class TailorReqBean implements Serializable{
     /**
      * 裁剪员工
      */
-    private Long tailorUserNameId;
+    private String tailorUserNameId;
+
+    /**
+     * 实裁数量
+     */
+    private String actualCutQuantity;
 
     /**
      * 每页数量
@@ -72,7 +77,7 @@ public class TailorReqBean implements Serializable{
     /**
      * 单件用量，以公斤为单位
      */
-    private BigDecimal singleAmountKg;
+    private String singleAmountKg;
 
     /**
      * 物料分类
@@ -82,31 +87,7 @@ public class TailorReqBean implements Serializable{
     /**
      * 单价
      */
-    private BigDecimal monovalent;
-
-    public Long getProducerOrgId() {
-        return producerOrgId;
-    }
-
-    public void setProducerOrgId(Long producerOrgId) {
-        this.producerOrgId = producerOrgId;
-    }
-
-    public BigDecimal getMonovalent() {
-        return monovalent;
-    }
-
-    public void setMonovalent(BigDecimal monovalent) {
-        this.monovalent = monovalent;
-    }
-
-    public String getMaterielTypeCode() {
-        return materielTypeCode;
-    }
-
-    public void setMaterielTypeCode(String materielTypeCode) {
-        this.materielTypeCode = materielTypeCode;
-    }
+    private String monovalent;
 
     public Long getId() {
         return id;
@@ -114,22 +95,6 @@ public class TailorReqBean implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getActualPickQuantity() {
-        return actualPickQuantity;
-    }
-
-    public void setActualPickQuantity(String actualPickQuantity) {
-        this.actualPickQuantity = actualPickQuantity;
-    }
-
-    public BigDecimal getSingleAmountKg() {
-        return singleAmountKg;
-    }
-
-    public void setSingleAmountKg(BigDecimal singleAmountKg) {
-        this.singleAmountKg = singleAmountKg;
     }
 
     public String getOrderNo() {
@@ -172,6 +137,30 @@ public class TailorReqBean implements Serializable{
         this.producer = producer;
     }
 
+    public Long getProducerOrgId() {
+        return producerOrgId;
+    }
+
+    public void setProducerOrgId(Long producerOrgId) {
+        this.producerOrgId = producerOrgId;
+    }
+
+    public String getTailorUserNameId() {
+        return tailorUserNameId;
+    }
+
+    public void setTailorUserNameId(String tailorUserNameId) {
+        this.tailorUserNameId = tailorUserNameId;
+    }
+
+    public String getActualCutQuantity() {
+        return actualCutQuantity;
+    }
+
+    public void setActualCutQuantity(String actualCutQuantity) {
+        this.actualCutQuantity = actualCutQuantity;
+    }
+
     public Integer getPageSize() {
         return pageSize;
     }
@@ -188,11 +177,35 @@ public class TailorReqBean implements Serializable{
         this.pageNum = pageNum;
     }
 
-    public Long getTailorUserNameId() {
-        return tailorUserNameId;
+    public String getActualPickQuantity() {
+        return actualPickQuantity;
     }
 
-    public void setTailorUserNameId(Long tailorUserNameId) {
-        this.tailorUserNameId = tailorUserNameId;
+    public void setActualPickQuantity(String actualPickQuantity) {
+        this.actualPickQuantity = actualPickQuantity;
+    }
+
+    public String getSingleAmountKg() {
+        return singleAmountKg;
+    }
+
+    public void setSingleAmountKg(String singleAmountKg) {
+        this.singleAmountKg = singleAmountKg;
+    }
+
+    public String getMaterielTypeCode() {
+        return materielTypeCode;
+    }
+
+    public void setMaterielTypeCode(String materielTypeCode) {
+        this.materielTypeCode = materielTypeCode;
+    }
+
+    public String getMonovalent() {
+        return monovalent;
+    }
+
+    public void setMonovalent(String monovalent) {
+        this.monovalent = monovalent;
     }
 }

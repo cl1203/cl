@@ -65,19 +65,4 @@ public class TailorController {
         return new ResponseBeanModel<>("修改成功!");
     }
 
-    /**
-     * @Author 陈龙
-     * @Description 新增裁剪数据
-     * @Date 21:15 2019/7/29
-     * @Param [reqBeanModel]
-     * @return void
-     **/
-    @PostMapping("/insertTailor")
-    @ApiOperation(value = "新增裁剪数据" , notes = "新增裁剪数据")
-    public ResponseBeanModel<Void> insertTailor(@RequestBody @Valid RequestBeanModel<TailorReqBean> reqBeanModel){
-        LOGGER.info("TailorController------insertTailor  start......" );
-        this.iTailorService.insertTailor(reqBeanModel);
-        LOGGER.info("TailorController------insertTailor  end......" );
-        return new ResponseBeanModel<>("新增成功!");
-    }
 }

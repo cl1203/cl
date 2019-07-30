@@ -33,7 +33,7 @@
         t.tailo_status tailo_status,
         o.producer producer,
         o.producer_org_id producer_org_id,
-        su.user_name tailoring_user_name,
+        su.real_name tailoring_user_name,
         t.answer_cut_quantity answer_cut_quantity,
         t.actual_cut_quantity actual_cut_quantity,
         t.monovalent monovalent,
@@ -50,7 +50,7 @@
     LEFT JOIN secondary_process sp ON sp.order_no = o.order_no
     LEFT JOIN sys_user su on t.tailor_user_id = su.id
     WHERE
-      t.tailo_status = 0
+      t.tailo_status != 0
       <if test="orderNo !=null and orderNo !='' ">
         AND t.order_no = #{orderNo}
       </if>
@@ -72,5 +72,6 @@
       <if test="tailorUserNameId != null">
         AND t.tailor_user_id = #{tailorUserNameId}
       </if>
+    order by t.last_update_time desc
   </select>
 </mapper>

@@ -5,6 +5,7 @@ import com.cl.comm.constants.DictionaryConstants;
 import com.cl.entity.OrderManageEntity;
 import com.cl.entity.PurchaseEntity;
 import com.cl.entity.PurchaseEntityExample;
+import com.cl.entity.TailorEntity;
 import com.cl.util.DateUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -13,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -73,5 +75,19 @@ public interface PurchaseMapper extends MyBatisBaseDao<PurchaseEntity, Long, Pur
      * @param orderNo
      * @return
      */
-    OrderManageEntity selectOrderTime(String orderNo);
+    OrderManageEntity selectOrder(String orderNo);
+
+    /**
+     * 根据订单号查询物料分类为面料的采购单
+      * @param orderNo
+     * @return
+     */
+    PurchaseEntity selectPurchaseListByOrderNo(String orderNo);
+
+    /**
+     * 根据sku查询最近一次的裁剪数据
+     * @param sku
+     * @return
+     */
+    BigDecimal selectTailorBySku(String sku);
 }

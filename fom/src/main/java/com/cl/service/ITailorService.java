@@ -3,6 +3,7 @@ package com.cl.service;
 import com.cl.bean.req.TailorReqBean;
 import com.cl.bean.res.TailorResBean;
 import com.cl.comm.model.RequestBeanModel;
+import com.cl.entity.TailorEntity;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -39,5 +40,5 @@ public interface ITailorService {
      * @Param [reqBeanModel]
      * @return void
      **/
-    void insertTailor(RequestBeanModel<TailorReqBean> reqBeanModel);
+    void insertTailor(TailorEntity tailorEntity);
 }
