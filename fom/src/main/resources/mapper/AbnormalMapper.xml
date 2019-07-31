@@ -7,7 +7,6 @@
     <result column="abnormal_type" jdbcType="TINYINT" property="abnormalType" />
     <result column="is_approval" jdbcType="TINYINT" property="isApproval" />
     <result column="abnormal_remarks" jdbcType="VARCHAR" property="abnormalRemarks" />
-    <result column="status" jdbcType="TINYINT" property="status" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
     <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
@@ -72,8 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_no, abnormal_type, is_approval, abnormal_remarks, `status`, create_time, 
-    create_user, last_update_time, last_update_user
+    id, order_no, abnormal_type, is_approval, abnormal_remarks, create_time, create_user, 
+    last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.AbnormalEntityExample" resultMap="BaseResultMap">
     select
@@ -115,13 +114,11 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.AbnormalEntity" useGeneratedKeys="true">
     insert into abnormal (order_no, abnormal_type, is_approval, 
-      abnormal_remarks, `status`, create_time, 
-      create_user, last_update_time, last_update_user
-      )
+      abnormal_remarks, create_time, create_user, 
+      last_update_time, last_update_user)
     values (#{orderNo,jdbcType=VARCHAR}, #{abnormalType,jdbcType=TINYINT}, #{isApproval,jdbcType=TINYINT}, 
-      #{abnormalRemarks,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
-      )
+      #{abnormalRemarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.AbnormalEntity" useGeneratedKeys="true">
     insert into abnormal
@@ -137,9 +134,6 @@
       </if>
       <if test="abnormalRemarks != null">
         abnormal_remarks,
-      </if>
-      <if test="status != null">
-        `status`,
       </if>
       <if test="createTime != null">
         create_time,
@@ -166,9 +160,6 @@
       </if>
       <if test="abnormalRemarks != null">
         #{abnormalRemarks,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -208,9 +199,6 @@
       <if test="record.abnormalRemarks != null">
         abnormal_remarks = #{record.abnormalRemarks,jdbcType=VARCHAR},
       </if>
-      <if test="record.status != null">
-        `status` = #{record.status,jdbcType=TINYINT},
-      </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -235,7 +223,6 @@
       abnormal_type = #{record.abnormalType,jdbcType=TINYINT},
       is_approval = #{record.isApproval,jdbcType=TINYINT},
       abnormal_remarks = #{record.abnormalRemarks,jdbcType=VARCHAR},
-      `status` = #{record.status,jdbcType=TINYINT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_user = #{record.createUser,jdbcType=VARCHAR},
       last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
@@ -259,9 +246,6 @@
       <if test="abnormalRemarks != null">
         abnormal_remarks = #{abnormalRemarks,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        `status` = #{status,jdbcType=TINYINT},
-      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -283,7 +267,6 @@
       abnormal_type = #{abnormalType,jdbcType=TINYINT},
       is_approval = #{isApproval,jdbcType=TINYINT},
       abnormal_remarks = #{abnormalRemarks,jdbcType=VARCHAR},
-      `status` = #{status,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=VARCHAR},
       last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},

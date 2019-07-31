@@ -34,11 +34,6 @@ public class AbnormalEntity implements Serializable {
     private String abnormalRemarks;
 
     /**
-     * 状态 0:禁用 1:可用 2:删除
-     */
-    private Byte status;
-
-    /**
      * 创建时间
      */
     private Date createTime;
@@ -100,14 +95,6 @@ public class AbnormalEntity implements Serializable {
         this.abnormalRemarks = abnormalRemarks;
     }
 
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
-        this.status = status;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -157,7 +144,6 @@ public class AbnormalEntity implements Serializable {
             && (this.getAbnormalType() == null ? other.getAbnormalType() == null : this.getAbnormalType().equals(other.getAbnormalType()))
             && (this.getIsApproval() == null ? other.getIsApproval() == null : this.getIsApproval().equals(other.getIsApproval()))
             && (this.getAbnormalRemarks() == null ? other.getAbnormalRemarks() == null : this.getAbnormalRemarks().equals(other.getAbnormalRemarks()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
             && (this.getLastUpdateTime() == null ? other.getLastUpdateTime() == null : this.getLastUpdateTime().equals(other.getLastUpdateTime()))
@@ -173,7 +159,6 @@ public class AbnormalEntity implements Serializable {
         result = prime * result + ((getAbnormalType() == null) ? 0 : getAbnormalType().hashCode());
         result = prime * result + ((getIsApproval() == null) ? 0 : getIsApproval().hashCode());
         result = prime * result + ((getAbnormalRemarks() == null) ? 0 : getAbnormalRemarks().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getLastUpdateTime() == null) ? 0 : getLastUpdateTime().hashCode());
@@ -192,7 +177,6 @@ public class AbnormalEntity implements Serializable {
         sb.append(", abnormalType=").append(abnormalType);
         sb.append(", isApproval=").append(isApproval);
         sb.append(", abnormalRemarks=").append(abnormalRemarks);
-        sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", createUser=").append(createUser);
         sb.append(", lastUpdateTime=").append(lastUpdateTime);

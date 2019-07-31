@@ -110,28 +110,41 @@ public class PurchaseServiceImpl implements IPurchaseService {
             int k = this.orderManageMapper.updateByPrimaryKeySelective(updateOrderEntity);
             Assert.isTrue(k > DictionaryConstants.ALL_BUSINESS_ZERO , "修改订单状态失败!");
             //调用生成裁剪数据接口
-            TailorEntity tailorEntity = new TailorEntity();
-            tailorEntity.setOrderNo(purchaseReqBean.getOrderNo());//订单号
-            //根据订单号查询物料分类为面料的采购单
-            PurchaseEntity purchaseEntityByOrderNo = this.purchaseMapper.selectPurchaseListByOrderNo(purchaseReqBean.getOrderNo());
-            BigDecimal singleAmountKg = purchaseEntityByOrderNo.getSingleAmountKg();//单件用量
-            if(null != singleAmountKg){
-                Integer actualPickQuantity = purchaseEntityByOrderNo.getActualPickQuantity();//实采数量
-                BigDecimal answerCutQuantity = (new BigDecimal(String.valueOf(actualPickQuantity))).divide(singleAmountKg , 2 , BigDecimal.ROUND_HALF_UP);
-                tailorEntity.setAnswerCutQuantity(answerCutQuantity.intValue());
-            }
-            //根据订单ID 查询最近的同样sku的订单信息
-            OrderManageEntity orderManageEntityOrderBy = this.orderManageMapper.selectProducer(orderManageEntity.getId());
-            if(null != orderManageEntityOrderBy){
-                //根据订单的sku查询最近一次裁剪表中的单价
-                BigDecimal monovalent = this.purchaseMapper.selectTailorBySku(orderManageEntityOrderBy.getSku());
-                if(null != monovalent){
-                    tailorEntity.setMonovalent(monovalent);
-                }
-            }
-            this.iTailorService.insertTailor(tailorEntity);
+            this.insertTailor(purchaseReqBean , orderManageEntity , reqBeanModel);
         }
     }
+
+    /**
+     * 新增裁剪数据
+     * @param purchaseReqBean
+     * @param orderManageEntity
+     * @param reqBeanModel
+     */
+    private void insertTailor(PurchaseReqBean purchaseReqBean ,OrderManageEntity orderManageEntity , RequestBeanModel<PurchaseReqBean> reqBeanModel){
+        TailorEntity tailorEntity = new TailorEntity();
+        tailorEntity.setOrderNo(purchaseReqBean.getOrderNo());//订单号
+        //根据订单号查询物料分类为面料的采购单
+        PurchaseEntity purchaseEntityByOrderNo = this.purchaseMapper.selectPurchaseListByOrderNo(purchaseReqBean.getOrderNo());
+        BigDecimal singleAmountKg = purchaseEntityByOrderNo.getSingleAmountKg();//单件用量
+        if(null != singleAmountKg){
+            Integer actualPickQuantity = purchaseEntityByOrderNo.getActualPickQuantity();//实采数量
+            BigDecimal answerCutQuantity = (new BigDecimal(String.valueOf(actualPickQuantity))).divide(singleAmountKg , 2 , BigDecimal.ROUND_HALF_UP);//应裁数量
+            tailorEntity.setAnswerCutQuantity(answerCutQuantity.intValue());
+        }
+        //根据订单ID 查询最近的同样sku的订单信息
+        OrderManageEntity orderManageEntityOrderBy = this.orderManageMapper.selectProducer(orderManageEntity.getId());
+        if(null != orderManageEntityOrderBy){
+            //根据订单的sku查询最近一次裁剪表中的单价
+            BigDecimal monovalent = this.purchaseMapper.selectTailorBySku(orderManageEntityOrderBy.getSku());//单价
+            if(null != monovalent){
+                tailorEntity.setMonovalent(monovalent);
+            }
+        }
+        tailorEntity.setLastUpdateUser(reqBeanModel.getUsername());//修改人
+        tailorEntity.setCreateUser(reqBeanModel.getUsername());//新增人
+        this.iTailorService.insertTailor(tailorEntity);
+    }
+
 
     /**
      *  校验 编辑时带过来的参数并转换成entity

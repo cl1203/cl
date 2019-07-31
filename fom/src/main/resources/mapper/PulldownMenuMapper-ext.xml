@@ -99,7 +99,7 @@
         <if test="value != null and value !='' ">
             scd.value = #{value}
         </if>
-        AND sc.status = 1
+        AND sc.status = 1d
         AND sc.status = 1
     </select>
 </mapper>

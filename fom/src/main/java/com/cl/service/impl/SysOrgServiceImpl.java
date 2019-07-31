@@ -10,8 +10,10 @@ import com.cl.dao.SysOrgMapper;
 import com.cl.entity.SysOrgEntity;
 import com.cl.service.ISysOrgService;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -48,7 +50,17 @@ public class SysOrgServiceImpl implements ISysOrgService {
 
     @Override
     public void insertSysOrg(RequestBeanModel<SysOrgReqBean> reqBeanModel) {
-
+        SysOrgReqBean sysOrgReqBean = reqBeanModel.getReqData();
+        Assert.hasText(sysOrgReqBean.getName() , "组织名称不能为空!");
+        SysOrgEntity sysOrgEntity = new SysOrgEntity();
+        sysOrgEntity.setName(sysOrgReqBean.getName());
+        sysOrgEntity.setCreateUser(reqBeanModel.getUsername());
+        sysOrgEntity.setLastUpdateUser(reqBeanModel.getUsername());
+        if(StringUtils.isNotBlank(sysOrgReqBean.getRemarks())){
+            sysOrgEntity.setRemarks(sysOrgReqBean.getRemarks());
+        }
+        int i = this.sysOrgMapper.insertSelective(sysOrgEntity);
+        Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE  , "新增组织失败!");
     }
 
     @Override

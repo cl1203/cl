@@ -7,7 +7,6 @@
     <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
     <result column="company" jdbcType="VARCHAR" property="company" />
-    <result column="status" jdbcType="TINYINT" property="status" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
@@ -73,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_no, supplier_name, quantity, company, `status`, remarks, create_time, create_user, 
+    id, order_no, supplier_name, quantity, company, remarks, create_time, create_user, 
     last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.StockEntityExample" resultMap="BaseResultMap">
@@ -116,13 +115,13 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.StockEntity" useGeneratedKeys="true">
     insert into stock (order_no, supplier_name, quantity, 
-      company, `status`, remarks, 
-      create_time, create_user, last_update_time, 
-      last_update_user)
+      company, remarks, create_time, 
+      create_user, last_update_time, last_update_user
+      )
     values (#{orderNo,jdbcType=VARCHAR}, #{supplierName,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, 
-      #{company,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
-      #{lastUpdateUser,jdbcType=VARCHAR})
+      #{company,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.StockEntity" useGeneratedKeys="true">
     insert into stock
@@ -138,9 +137,6 @@
       </if>
       <if test="company != null">
         company,
-      </if>
-      <if test="status != null">
-        `status`,
       </if>
       <if test="remarks != null">
         remarks,
@@ -170,9 +166,6 @@
       </if>
       <if test="company != null">
         #{company,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
       </if>
       <if test="remarks != null">
         #{remarks,jdbcType=VARCHAR},
@@ -215,9 +208,6 @@
       <if test="record.company != null">
         company = #{record.company,jdbcType=VARCHAR},
       </if>
-      <if test="record.status != null">
-        `status` = #{record.status,jdbcType=TINYINT},
-      </if>
       <if test="record.remarks != null">
         remarks = #{record.remarks,jdbcType=VARCHAR},
       </if>
@@ -245,7 +235,6 @@
       supplier_name = #{record.supplierName,jdbcType=VARCHAR},
       quantity = #{record.quantity,jdbcType=INTEGER},
       company = #{record.company,jdbcType=VARCHAR},
-      `status` = #{record.status,jdbcType=TINYINT},
       remarks = #{record.remarks,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_user = #{record.createUser,jdbcType=VARCHAR},
@@ -269,9 +258,6 @@
       </if>
       <if test="company != null">
         company = #{company,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        `status` = #{status,jdbcType=TINYINT},
       </if>
       <if test="remarks != null">
         remarks = #{remarks,jdbcType=VARCHAR},
@@ -297,7 +283,6 @@
       supplier_name = #{supplierName,jdbcType=VARCHAR},
       quantity = #{quantity,jdbcType=INTEGER},
       company = #{company,jdbcType=VARCHAR},
-      `status` = #{status,jdbcType=TINYINT},
       remarks = #{remarks,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=VARCHAR},
