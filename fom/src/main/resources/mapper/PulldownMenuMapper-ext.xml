@@ -10,17 +10,13 @@
     <select id="queryOrgPulldownMenu" resultMap="BaseResultMap" parameterType="com.cl.bean.res.PulldownMenuResBean">
         SELECT
           id ,
-          name ,
-          code
+          name
         FROM
           sys_org
         WHERE
           status = 1
         <if test="name != null  and name !='' ">
             AND name = #{name}
-        </if>
-        <if test="code !=null and code !='' ">
-            AND code = #{code}
         </if>
         <if test="id !=null  ">
             AND id = #{id}

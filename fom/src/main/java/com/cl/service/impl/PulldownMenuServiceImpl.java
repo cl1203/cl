@@ -38,7 +38,7 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     public List<PulldownMenuResBean> queryUserPulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel) {
         PulldownMenuResBean pulldownMenuResBean = requestBeanModel.getReqData();
         List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryUserPulldownMenu(pulldownMenuResBean);
-        return null;
+        return pulldownMenuResBeanList;
     }
 
     @Override

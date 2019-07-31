@@ -14,6 +14,11 @@ public class SysRoleEntity implements Serializable {
     private Long id;
 
     /**
+     * 组织ID
+     */
+    private Long orgId;
+
+    /**
      * 角色编码
      */
     private String code;
@@ -22,6 +27,11 @@ public class SysRoleEntity implements Serializable {
      * 角色名
      */
     private String name;
+
+    /**
+     * 父ID
+     */
+    private Long parentId;
 
     /**
      * 状态 0:禁用 1:可用 2:删除
@@ -63,6 +73,14 @@ public class SysRoleEntity implements Serializable {
         this.id = id;
     }
 
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
+    }
+
     public String getCode() {
         return code;
     }
@@ -77,6 +95,14 @@ public class SysRoleEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     public Byte getStatus() {
@@ -140,8 +166,10 @@ public class SysRoleEntity implements Serializable {
         }
         SysRoleEntity other = (SysRoleEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getOrgId() == null ? other.getOrgId() == null : this.getOrgId().equals(other.getOrgId()))
             && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+            && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
@@ -155,8 +183,10 @@ public class SysRoleEntity implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getOrgId() == null) ? 0 : getOrgId().hashCode());
         result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getParentId() == null) ? 0 : getParentId().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
@@ -173,8 +203,10 @@ public class SysRoleEntity implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", orgId=").append(orgId);
         sb.append(", code=").append(code);
         sb.append(", name=").append(name);
+        sb.append(", parentId=").append(parentId);
         sb.append(", status=").append(status);
         sb.append(", remark=").append(remark);
         sb.append(", createUser=").append(createUser);

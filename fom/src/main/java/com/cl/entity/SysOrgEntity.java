@@ -19,11 +19,6 @@ public class SysOrgEntity implements Serializable {
     private String name;
 
     /**
-     * 组织编码
-     */
-    private String code;
-
-    /**
      * 状态 0:禁用 1:可用 2:删除
      */
     private Byte status;
@@ -69,14 +64,6 @@ public class SysOrgEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public Byte getStatus() {
@@ -141,7 +128,6 @@ public class SysOrgEntity implements Serializable {
         SysOrgEntity other = (SysOrgEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getRemarks() == null ? other.getRemarks() == null : this.getRemarks().equals(other.getRemarks()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -156,7 +142,6 @@ public class SysOrgEntity implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -174,7 +159,6 @@ public class SysOrgEntity implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
-        sb.append(", code=").append(code);
         sb.append(", status=").append(status);
         sb.append(", remarks=").append(remarks);
         sb.append(", createTime=").append(createTime);
