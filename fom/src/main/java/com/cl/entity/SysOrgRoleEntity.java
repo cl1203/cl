@@ -4,19 +4,24 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * sys_org
+ * sys_org_role
  * @author 
  */
-public class SysOrgEntity implements Serializable {
+public class SysOrgRoleEntity implements Serializable {
     /**
-     * 主键ID
+     * ID
      */
     private Long id;
 
     /**
-     * 组织名称
+     * 组织ID
      */
-    private String name;
+    private Long orgId;
+
+    /**
+     * 角色ID
+     */
+    private Long roleId;
 
     /**
      * 状态 0:已删除 1:可用 
@@ -58,12 +63,20 @@ public class SysOrgEntity implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getOrgId() {
+        return orgId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
     public Byte getStatus() {
@@ -125,9 +138,10 @@ public class SysOrgEntity implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        SysOrgEntity other = (SysOrgEntity) that;
+        SysOrgRoleEntity other = (SysOrgRoleEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+            && (this.getOrgId() == null ? other.getOrgId() == null : this.getOrgId().equals(other.getOrgId()))
+            && (this.getRoleId() == null ? other.getRoleId() == null : this.getRoleId().equals(other.getRoleId()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getRemarks() == null ? other.getRemarks() == null : this.getRemarks().equals(other.getRemarks()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -141,7 +155,8 @@ public class SysOrgEntity implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getOrgId() == null) ? 0 : getOrgId().hashCode());
+        result = prime * result + ((getRoleId() == null) ? 0 : getRoleId().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -158,7 +173,8 @@ public class SysOrgEntity implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
+        sb.append(", orgId=").append(orgId);
+        sb.append(", roleId=").append(roleId);
         sb.append(", status=").append(status);
         sb.append(", remarks=").append(remarks);
         sb.append(", createTime=").append(createTime);

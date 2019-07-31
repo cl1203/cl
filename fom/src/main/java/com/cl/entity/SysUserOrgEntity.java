@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class SysUserOrgEntity implements Serializable {
     /**
-     * 角色ID
+     * ID
      */
     private Long id;
 
@@ -29,7 +29,7 @@ public class SysUserOrgEntity implements Serializable {
     private String remark;
 
     /**
-     * 状态 0:禁用 1:可用 2:删除
+     * 状态 0:已删除 1:可用 
      */
     private Byte status;
 

@@ -64,7 +64,7 @@ public class SysPermissionEntity implements Serializable {
     private String targetPage;
 
     /**
-     * 状态 0:禁用 1:可用 2:删除
+     * 状态 0:已删除 1:可用 
      */
     private Byte status;
 

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cl.dao.SysRoleMapper">
-  <resultMap id="BaseResultMap" type="com.cl.entity.SysRoleEntity">
+<mapper namespace="com.cl.dao.SysOrgRoleMapper">
+  <resultMap id="BaseResultMap" type="com.cl.entity.SysOrgRoleEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="org_id" jdbcType="BIGINT" property="orgId" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
     <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="last_update_user" jdbcType="VARCHAR" property="lastUpdateUser" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
     <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="last_update_user" jdbcType="VARCHAR" property="lastUpdateUser" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,16 +71,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, code, `name`, parent_id, `status`, remark, create_user, create_time, last_update_user, 
-    last_update_time
+    id, org_id, role_id, `status`, remarks, create_time, create_user, last_update_time, 
+    last_update_user
   </sql>
-  <select id="selectByExample" parameterType="com.cl.entity.SysRoleEntityExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cl.entity.SysOrgRoleEntityExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from sys_role
+    from sys_org_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -100,128 +99,117 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from sys_role
+    from sys_org_role
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from sys_role
+    delete from sys_org_role
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cl.entity.SysRoleEntityExample">
-    delete from sys_role
+  <delete id="deleteByExample" parameterType="com.cl.entity.SysOrgRoleEntityExample">
+    delete from sys_org_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysRoleEntity" useGeneratedKeys="true">
-    insert into sys_role (code, `name`, parent_id, 
-      `status`, remark, create_user, 
-      create_time, last_update_user, last_update_time
-      )
-    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, 
-      #{status,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}
-      )
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysOrgRoleEntity" useGeneratedKeys="true">
+    insert into sys_org_role (org_id, role_id, `status`, 
+      remarks, create_time, create_user, 
+      last_update_time, last_update_user)
+    values (#{orgId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, 
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysRoleEntity" useGeneratedKeys="true">
-    insert into sys_role
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysOrgRoleEntity" useGeneratedKeys="true">
+    insert into sys_org_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="code != null">
-        code,
+      <if test="orgId != null">
+        org_id,
       </if>
-      <if test="name != null">
-        `name`,
-      </if>
-      <if test="parentId != null">
-        parent_id,
+      <if test="roleId != null">
+        role_id,
       </if>
       <if test="status != null">
         `status`,
       </if>
-      <if test="remark != null">
-        remark,
-      </if>
-      <if test="createUser != null">
-        create_user,
+      <if test="remarks != null">
+        remarks,
       </if>
       <if test="createTime != null">
         create_time,
       </if>
-      <if test="lastUpdateUser != null">
-        last_update_user,
+      <if test="createUser != null">
+        create_user,
       </if>
       <if test="lastUpdateTime != null">
         last_update_time,
       </if>
+      <if test="lastUpdateUser != null">
+        last_update_user,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="code != null">
-        #{code,jdbcType=VARCHAR},
+      <if test="orgId != null">
+        #{orgId,jdbcType=BIGINT},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=BIGINT},
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
       </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
       </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null">
-        #{createUser,jdbcType=VARCHAR},
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="lastUpdateUser != null">
-        #{lastUpdateUser,jdbcType=VARCHAR},
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
       </if>
       <if test="lastUpdateTime != null">
         #{lastUpdateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="lastUpdateUser != null">
+        #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cl.entity.SysRoleEntityExample" resultType="java.lang.Long">
-    select count(*) from sys_role
+  <select id="countByExample" parameterType="com.cl.entity.SysOrgRoleEntityExample" resultType="java.lang.Long">
+    select count(*) from sys_org_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update sys_role
+    update sys_org_role
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.code != null">
-        code = #{record.code,jdbcType=VARCHAR},
+      <if test="record.orgId != null">
+        org_id = #{record.orgId,jdbcType=BIGINT},
       </if>
-      <if test="record.name != null">
-        `name` = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.parentId != null">
-        parent_id = #{record.parentId,jdbcType=BIGINT},
+      <if test="record.roleId != null">
+        role_id = #{record.roleId,jdbcType=BIGINT},
       </if>
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=TINYINT},
       </if>
-      <if test="record.remark != null">
-        remark = #{record.remark,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createUser != null">
-        create_user = #{record.createUser,jdbcType=VARCHAR},
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.lastUpdateUser != null">
-        last_update_user = #{record.lastUpdateUser,jdbcType=VARCHAR},
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=VARCHAR},
       </if>
       <if test="record.lastUpdateTime != null">
         last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateUser != null">
+        last_update_user = #{record.lastUpdateUser,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -229,65 +217,60 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update sys_role
+    update sys_org_role
     set id = #{record.id,jdbcType=BIGINT},
-      code = #{record.code,jdbcType=VARCHAR},
-      `name` = #{record.name,jdbcType=VARCHAR},
-      parent_id = #{record.parentId,jdbcType=BIGINT},
+      org_id = #{record.orgId,jdbcType=BIGINT},
+      role_id = #{record.roleId,jdbcType=BIGINT},
       `status` = #{record.status,jdbcType=TINYINT},
-      remark = #{record.remark,jdbcType=VARCHAR},
-      create_user = #{record.createUser,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      last_update_user = #{record.lastUpdateUser,jdbcType=VARCHAR},
-      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP}
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      last_update_user = #{record.lastUpdateUser,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.SysRoleEntity">
-    update sys_role
+  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.SysOrgRoleEntity">
+    update sys_org_role
     <set>
-      <if test="code != null">
-        code = #{code,jdbcType=VARCHAR},
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=BIGINT},
       </if>
-      <if test="name != null">
-        `name` = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=BIGINT},
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=BIGINT},
       </if>
       <if test="status != null">
         `status` = #{status,jdbcType=TINYINT},
       </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null">
-        create_user = #{createUser,jdbcType=VARCHAR},
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="lastUpdateUser != null">
-        last_update_user = #{lastUpdateUser,jdbcType=VARCHAR},
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
       </if>
       <if test="lastUpdateTime != null">
         last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="lastUpdateUser != null">
+        last_update_user = #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cl.entity.SysRoleEntity">
-    update sys_role
-    set code = #{code,jdbcType=VARCHAR},
-      `name` = #{name,jdbcType=VARCHAR},
-      parent_id = #{parentId,jdbcType=BIGINT},
+  <update id="updateByPrimaryKey" parameterType="com.cl.entity.SysOrgRoleEntity">
+    update sys_org_role
+    set org_id = #{orgId,jdbcType=BIGINT},
+      role_id = #{roleId,jdbcType=BIGINT},
       `status` = #{status,jdbcType=TINYINT},
-      remark = #{remark,jdbcType=VARCHAR},
-      create_user = #{createUser,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      last_update_user = #{lastUpdateUser,jdbcType=VARCHAR},
-      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
+      create_user = #{createUser,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      last_update_user = #{lastUpdateUser,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
