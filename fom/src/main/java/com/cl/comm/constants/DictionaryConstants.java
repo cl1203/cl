@@ -21,4 +21,7 @@ public class DictionaryConstants {
     public static final long H = 1000 * 60 * 60;//date计算  单位:小时
     public static final String MATERIELCODE = "materiel_type";//物料类型
 
+    public static final Byte DETELE = 0;//已删除
+
+
 }

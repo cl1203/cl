@@ -7,6 +7,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,4 +30,27 @@ public interface SysOrgMapper extends MyBatisBaseDao<SysOrgEntity, Long, SysOrgE
         sysOrgEntityPageInfo.setList(sysOrgEntityList);
         return sysOrgEntityPageInfo;
     }
+
+    /**
+     * 根据组织ID查询所有角色
+     * @param orgId
+     * @return
+     */
+    List<Long> selectRoleIdListByOrgId(Long orgId);
+
+    /**
+     * 根据角色ID查询所有用户
+     * @param roleIdList
+     * @return
+     */
+    List<Long> selectUserIdListByRoleId(@Param("roleIdList")List<Long> roleIdList);
+
+    /**
+     * 删除角色用户关系表
+     * @param roleIdList
+     * @return
+     */
+    int deleteUserRole(@Param("roleIdList")List<Long> roleIdList);
+
+    SysOrgEntity selectSysOrgByIdAndName(SysOrgReqBean sysOrgReqBean);
 }

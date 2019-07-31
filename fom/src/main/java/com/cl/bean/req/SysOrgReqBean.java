@@ -1,7 +1,10 @@
 package com.cl.bean.req;
 
+import com.cl.entity.SysOrgEntity;
+
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @ClassName SysOrgReqBean
@@ -10,7 +13,7 @@ import java.io.Serializable;
  * @Date 2019/7/31 16:57
  * @Version 1.0
  **/
-public class SysOrgReqBean implements Serializable {
+public class SysOrgReqBean extends SysOrgEntity implements Serializable {
 
     private static final long serialVersionUID = -5007817614951638577L;
     /**
@@ -39,6 +42,7 @@ public class SysOrgReqBean implements Serializable {
      */
     @NotNull(message = "页码大小不能为空!")
     private Integer pageNum;
+
 
     public Integer getPageSize() {
         return pageSize;

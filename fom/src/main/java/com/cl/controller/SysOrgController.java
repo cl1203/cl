@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -42,7 +43,7 @@ public class SysOrgController {
      **/
     @PostMapping("/querySysOrgList")
     @ApiOperation(value = "查询组织列表" , notes = "查询组织列表")
-    public ResponseBeanModel<PageInfo<SysOrgResBean>> querySysOrgList(@RequestBody RequestBeanModel<SysOrgReqBean> reqBeanModel){
+    public ResponseBeanModel<PageInfo<SysOrgResBean>> querySysOrgList(@RequestBody @Valid RequestBeanModel<SysOrgReqBean> reqBeanModel){
         LOGGER.info("SysOrgController------querySysOrgList  start......" );
         PageInfo<SysOrgResBean> sysOrgResBeanPageInfo = this.iSysOrgService.querySysOrgList(reqBeanModel);
         LOGGER.info("SysOrgController------querySysOrgList  end......" );
