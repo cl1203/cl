@@ -13,7 +13,7 @@ import java.util.Date;
  * @Date 2019/7/31 16:57
  * @Version 1.0
  **/
-public class SysOrgReqBean extends SysOrgEntity implements Serializable {
+public class SysOrgReqBean  implements Serializable {
 
     private static final long serialVersionUID = -5007817614951638577L;
     /**

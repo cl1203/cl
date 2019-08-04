@@ -49,8 +49,12 @@
     LEFT JOIN order_manage o ON t.order_no = o.order_no
     LEFT JOIN secondary_process sp ON sp.order_no = o.order_no
     LEFT JOIN sys_user su on t.tailor_user_id = su.id
+    LEFT JOIN sys_code_detail scd on t.tailo_status = scd.code
+    LEFT JOIN sys_code sc on sc.id = scd.sys_code_id
     WHERE
       t.tailo_status != 0
+    AND
+      sc.type = 'tailoring_status'
       <if test="orderNo !=null and orderNo !='' ">
         AND t.order_no = #{orderNo}
       </if>
