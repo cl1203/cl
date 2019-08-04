@@ -19,5 +19,19 @@ public class SysRoleReqBean extends SysRoleEntity implements Serializable {
 
     private Integer PageSize;
 
+    public Integer getPageNum() {
+        return PageNum;
+    }
 
+    public void setPageNum(Integer pageNum) {
+        PageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return PageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        PageSize = pageSize;
+    }
 }
