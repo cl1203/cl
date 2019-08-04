@@ -1,10 +1,12 @@
 package com.cl.dao;
 
-import com.cl.entity.TbLog;
+import com.cl.entity.TbLogEntity;
+import com.cl.entity.TbLogEntityExample;
+import org.springframework.stereotype.Repository;
 
-public interface TbLogMapper {
-    int insert(TbLog record);
-
-	int insertSelective(TbLog record);
-
+/**
+ * TbLogMapper继承基类
+ */
+@Repository
+public interface TbLogMapper extends MyBatisBaseDao<TbLogEntity, Integer, TbLogEntityExample> {
 }

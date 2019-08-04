@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.cl.entity.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -40,11 +41,6 @@ import com.cl.dao.OrderQuantityMapper;
 import com.cl.dao.PurchaseMapper;
 import com.cl.dao.SecondaryProcessMapper;
 import com.cl.dao.TbLogMapper;
-import com.cl.entity.OrderManageEntity;
-import com.cl.entity.OrderQuantityEntity;
-import com.cl.entity.PurchaseEntity;
-import com.cl.entity.SecondaryProcessEntity;
-import com.cl.entity.TbLog;
 import com.cl.util.HttpClientUtils;
 import com.cl.util.RsaUtil;
 
@@ -103,7 +99,7 @@ public class PullorderJob {
 		}
 		for(OrderResBean order : orderList) {
 			//记录日志
-			TbLog tbLog = generateLog(order,result,now);
+			TbLogEntity tbLog = generateLog(order,result,now);
 			try {
 				String errMsg = validateOrderData(order);
 				if(StringUtils.isNotBlank(errMsg)) {
@@ -132,8 +128,8 @@ public class PullorderJob {
 		}
 	}
 
-	private TbLog generateLog(OrderResBean order, String result, Date now) {
-		TbLog tbLog = new TbLog();
+	private TbLogEntity generateLog(OrderResBean order, String result, Date now) {
+		TbLogEntity tbLog = new TbLogEntity();
 		tbLog.setOrderNo(order.getProduceOrderId());
 		tbLog.setDescription(result);
 		tbLog.setIsSuccess(ApiConstants.INTERFACE_SAVE_SUCCESS);
