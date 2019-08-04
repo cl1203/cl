@@ -24,7 +24,6 @@ public class PurchaseResBean implements Serializable {
      * 采购单号
      */
     private String purchaseNo;
-
     /**
      * 订单编号
      */

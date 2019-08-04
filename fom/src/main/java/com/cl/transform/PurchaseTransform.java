@@ -1,9 +1,15 @@
 package com.cl.transform;
 
+import com.cl.bean.res.DictItem;
 import com.cl.bean.res.PurchaseResBean;
+import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.transformer.AbstractObjectTransformer;
 import com.cl.entity.PurchaseEntity;
+import com.cl.service.IPulldownMenuService;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ClassName PurchaseTransform
@@ -15,6 +21,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class PurchaseTransform extends AbstractObjectTransformer<PurchaseEntity , PurchaseResBean> {
 
+    @Resource
+    private IPulldownMenuService iPulldownMenuService;
+
     @Override
     public PurchaseResBean transform(PurchaseEntity purchaseEntity) {
         if(null == purchaseEntity){
@@ -25,14 +34,22 @@ public class PurchaseTransform extends AbstractObjectTransformer<PurchaseEntity 
         purchaseResBean.setPurchaseNo(purchaseEntity.getPurchaseNo());//采购单号
         purchaseResBean.setOrderNo(purchaseEntity.getOrderNo());//订单号
         if(null != purchaseEntity.getPurchaseStatus()){//采购单状态
-            switch(purchaseEntity.getPurchaseStatus()){
+            RequestBeanModel requestBeanModel = new RequestBeanModel();
+            DictItem dictItem = new DictItem();
+            dictItem.setType("tailoring_status");
+            dictItem.setCode(String.valueOf(purchaseEntity.getPurchaseStatus()));
+            requestBeanModel.setReqData(dictItem);
+            List<DictItem> dictItemList = this.iPulldownMenuService.queryDictItemList(requestBeanModel);
+            dictItem = dictItemList.get(0);
+            purchaseResBean.setPurchaseStatusName(dictItem.getValue());
+            /*switch(purchaseEntity.getPurchaseStatus()){
                 case 1:
                     purchaseResBean.setPurchaseStatusName("待采购");
                     break;
                 case 2:
                     purchaseResBean.setPurchaseStatusName("采购中");
                     break;
-            }
+            }*/
         }
         purchaseResBean.setMaterielName(purchaseEntity.getMaterielName());//物料名称
         purchaseResBean.setMaterielColor(purchaseEntity.getMaterielColor());//物料颜色
