@@ -1,7 +1,9 @@
 package com.cl.comm.exception;
 
-import com.cl.comm.model.ResponseBeanModel;
 import org.springframework.http.HttpStatus;
+
+import com.cl.comm.model.ResponseBeanModel;
+import com.cl.comm.model.Status;
 
 /**
  * @ClassName BusinessException
@@ -31,6 +33,11 @@ public class BusinessException extends RuntimeException {
         super(httpStatus.getReasonPhrase());
         this.code = httpStatus.value();
     }
+    
+    public BusinessException(Status status) {
+    	super(status.getErrMsg());
+        this.code = status.getCode();
+	}
 
     public BusinessException(String message){
         super(message);
