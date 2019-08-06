@@ -7,7 +7,7 @@ spring:
       name: fom
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.108.11.132:3306/fom?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    url: jdbc:mysql://10.108.11.132:3306/fom?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
     username: anji-plus
     password: anji-plus
     type: com.alibaba.druid.pool.DruidDataSource
@@ -41,11 +41,19 @@ mybatis-plus:
     logic-not-delete-value: 1
 
 interface:
+#  app:
+#    id: F0005mauBUF
+#    secure: nuX8Vj6ZcY
+#    uri : /platform/order/queryProduceOrderInfo
+#  private: 
+#    key: MIIBVgIBADANBgkqhkiG9w0BAQEFAASCAUAwggE8AgEAAkEApJ5OxE1EpZVq9bz6BHzsbBEsgIv4Kmn1Ana5jDY3S4ClQvKM3I2eWPP5AlMGg7SsMH8890xjxS9hchGAk5T0jwIDAQABAkEAnV08HMlkewmX4uvQ8SNeenv8V7H1/M2nSsCl5RQazc/XGs4v1YZMgYohVGA/rI6ing7nLut9sMtzLK+VjOHzgQIhANF15Itiqy0eLMEMXnakT/K7nZFBWsYnU3vuKFynwUJBAiEAyTHLz1KS/jj3I4C9F0FYCTBbX/fzUj2HaMDJ7KcT4s8CIQCK/zL0lDuHqziDuxOMo6kyKPJ9C+OTD1HFMduy8Ne8gQIhAJ0uSguudyglWO5jpVaFtkF3hetzyqR1bVRpSVeZL/ABAiBh4S6+k9oInL9TXZcv6lH2pKeovA1zkN/bZZSlcDWEEg==
+#  url: 
+#    prefix: http://mes-sit01.020mes.com
   app:
-    id: F0005mauBUF
-    secure: nuX8Vj6ZcY
+    id: 'F0005FqG*bC'
+    secure: 'vvjfBa#8XR'
     uri : /platform/order/queryProduceOrderInfo
   private: 
-    key: MIIBVgIBADANBgkqhkiG9w0BAQEFAASCAUAwggE8AgEAAkEApJ5OxE1EpZVq9bz6BHzsbBEsgIv4Kmn1Ana5jDY3S4ClQvKM3I2eWPP5AlMGg7SsMH8890xjxS9hchGAk5T0jwIDAQABAkEAnV08HMlkewmX4uvQ8SNeenv8V7H1/M2nSsCl5RQazc/XGs4v1YZMgYohVGA/rI6ing7nLut9sMtzLK+VjOHzgQIhANF15Itiqy0eLMEMXnakT/K7nZFBWsYnU3vuKFynwUJBAiEAyTHLz1KS/jj3I4C9F0FYCTBbX/fzUj2HaMDJ7KcT4s8CIQCK/zL0lDuHqziDuxOMo6kyKPJ9C+OTD1HFMduy8Ne8gQIhAJ0uSguudyglWO5jpVaFtkF3hetzyqR1bVRpSVeZL/ABAiBh4S6+k9oInL9TXZcv6lH2pKeovA1zkN/bZZSlcDWEEg==
+    key: MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAoctb4JxWViUVUdTBRH2WE1vLmBqo/tcayUcbG2jwGKNvVfty6SuOEer8onYz2m/SV2HnMkX0i4/1XZCo5t6GTwIDAQABAkAUQOzDdU6pggLlN4jqFf6PddJKvCujmzHTOH+AMua7bqcespYx+FD4C3/xcz9BMJdNaut5nVMdWf5V3FNpNXGhAiEA1p+4x/n88iPzJAApUdjQICL3Xvn1cVQiX7nuDhxsyA0CIQDA/Fq6xMpp/c4oXM1sKlGrhtnXVl7YAjir/GwFFk50ywIgcuUWepetfcMZCpC7jgFPiaSuYL3XU1ADBtP2SL+WzJECICcewLGdlL6ZoYHTFh04EugnZN9e9cjp4l0SxT7ev7azAiEAt09Yog0VBI0OjpF/basZhyqWPPU3iPb//M18rR3He6k=
   url: 
-    prefix: http://mes-sit01.020mes.com
+    prefix: https://www.020mes.com
