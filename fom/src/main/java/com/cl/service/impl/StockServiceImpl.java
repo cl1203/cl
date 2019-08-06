@@ -26,8 +26,8 @@ public class StockServiceImpl implements IStockService {
 	@Autowired
 	private StockMapper stockMapper;
 	
-	@Autowired
-	private IObjectTransformer<StockEntity, StockResBean> transFormer;
+//	@Autowired
+//	private IObjectTransformer<StockEntity, StockResBean> transFormer;
 	
 	@Override
 	public PageInfo<StockResBean> queryStockList(RequestBeanModel<StockReqBean> reqBeanModel) {
@@ -45,10 +45,10 @@ public class StockServiceImpl implements IStockService {
         Page<StockEntity> page = PageHelper.startPage(stockReqBean.getPageNum() , stockReqBean.getPageSize() , "last_update_time DESC");
         PageInfo<StockEntity> stockEntityPageInfo = new PageInfo<StockEntity>(page);
         stockEntityPageInfo.setList(stockList);
+        return null;
         //entity转resBean
-        PageInfo<StockResBean> stockResBeanPageInfo = transFormer.transform(stockEntityPageInfo);
-        return stockResBeanPageInfo;
+//        PageInfo<StockResBean> stockResBeanPageInfo = transFormer.transform(stockEntityPageInfo);
+//        return stockResBeanPageInfo;
 	}
-
 
 }
