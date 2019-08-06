@@ -30,29 +30,29 @@ public class SysOrgResBean implements Serializable{
     private String remarks;
 
     /**
-     * 创建时间
+     * 最后修改时间
      */
-    private Date createTime;
+    private Date lastUpdateTime;
 
     /**
-     * 创建人
+     * 最后修改人
      */
-    private String createUser;
+    private String lastUpdateUser;
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getLastUpdateTime() {
+        return lastUpdateTime;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setLastUpdateTime(Date lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
     }
 
-    public String getCreateUser() {
-        return createUser;
+    public String getLastUpdateUser() {
+        return lastUpdateUser;
     }
 
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
+    public void setLastUpdateUser(String lastUpdateUser) {
+        this.lastUpdateUser = lastUpdateUser;
     }
 
     public Long getId() {

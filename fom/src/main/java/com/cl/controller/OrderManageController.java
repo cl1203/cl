@@ -4,8 +4,6 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import com.cl.comm.model.SingleParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,10 +27,6 @@ import io.swagger.annotations.ApiOperation;
 @Api(description = "订单管理接口文档")
 public class OrderManageController {
 	 
-	/**
-     * 日志
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(OrderManageController.class);
 
     @Resource
     private IOrderManageService orderManageService;
@@ -47,9 +41,7 @@ public class OrderManageController {
     @PostMapping("/queryOrderList")
     @ApiOperation(value = "查询订单列表" , notes = "根据条件查询订单列表")
     public ResponseBeanModel<PageInfo<OrderManageResBean>> queryOrderList(@RequestBody @Valid RequestBeanModel<OrderManageReqBean> reqBeanModel){
-    	LOGGER.info("OrderManageController------queryOrderList  start......" );
     	PageInfo<OrderManageResBean> orderManageResBeanPageInfo = this.orderManageService.queryOrderList(reqBeanModel);
-    	LOGGER.info("OrderManageController------queryOrderList  end......" );
     	return new ResponseBeanModel<>(orderManageResBeanPageInfo);
     }
     
@@ -63,9 +55,7 @@ public class OrderManageController {
     @PostMapping("/distributionOrder")
     @ApiOperation(value = "分单接口" , notes = "根据订单ID的list和组织ID绑定 进行分单")
     public ResponseBeanModel<Void> distributionOrder(@RequestBody @Valid RequestBeanModel<DistributionOrderReqBean> reqBeanModel){
-    	LOGGER.info("OrderManageController------distributionOrder  start......" );
     	this.orderManageService.distributionOrder(reqBeanModel);
-    	LOGGER.info("OrderManageController------distributionOrder  end......" );
     	return new ResponseBeanModel<>("分单成功");
     }
 
@@ -79,11 +69,9 @@ public class OrderManageController {
     @PostMapping("/queryProducer")
     @ApiOperation(value = "根据ID查询上一次生产方" , notes = "根据ID查询上一次生产方")
     public ResponseBeanModel<SingleParam> queryProducer(@RequestBody RequestBeanModel<SingleParam> reqBeanModel){
-        LOGGER.info("OrderManageController------queryProducer  start......" );
         SingleParam singleParam = new SingleParam();
         String producer = this.orderManageService.queryProducer(reqBeanModel);
         singleParam.setParam(producer);
-        LOGGER.info("OrderManageController------queryProducer  end......" );
         return new ResponseBeanModel<>(singleParam);
     }
 }

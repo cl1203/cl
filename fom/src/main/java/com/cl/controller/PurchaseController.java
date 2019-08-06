@@ -8,8 +8,6 @@ import com.cl.service.IPurchaseService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -28,7 +26,6 @@ import javax.validation.Valid;
 @Api(description = "采购接口文档")
 public class PurchaseController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PurchaseController.class);
 
     @Resource
     private IPurchaseService iPurchaseService;
@@ -43,9 +40,7 @@ public class PurchaseController {
     @PostMapping("/queryPurchaseList")
     @ApiOperation(value = "查询采购列表" , notes = "查询采购列表")
     public ResponseBeanModel<PageInfo<PurchaseResBean>> queryPurchaseList(@RequestBody @Valid RequestBeanModel<PurchaseReqBean> reqBeanModel){
-        LOGGER.info("PurchaseController------queryPurchaseList  start......" );
         PageInfo<PurchaseResBean> purchaseResBeanPageInfo = this.iPurchaseService.queryPurchaseList(reqBeanModel);
-        LOGGER.info("PurchaseController------queryPurchaseList  end......" );
         return new ResponseBeanModel<>(purchaseResBeanPageInfo);
     }
 
@@ -59,10 +54,8 @@ public class PurchaseController {
     @PostMapping("/updatePurchase")
     @ApiOperation(value = "修改采购单" , notes = "修改采购单")
     public ResponseBeanModel<Void> updatePurchase(@RequestBody RequestBeanModel<PurchaseReqBean> reqBeanModel){
-        LOGGER.info("PurchaseController------updatePurchase  start......" );
         this.iPurchaseService.updatePurchase(reqBeanModel);
-        LOGGER.info("PurchaseController------updatePurchase  end......" );
-        return new ResponseBeanModel<>("修改成功!");
+        return new ResponseBeanModel<>("修改采购单成功!");
     }
 
 

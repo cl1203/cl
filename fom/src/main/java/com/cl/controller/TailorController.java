@@ -8,8 +8,6 @@ import com.cl.service.ITailorService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -28,7 +26,6 @@ import javax.validation.Valid;
 @Api(description = "裁剪接口文档")
 public class TailorController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TailorController.class);
 
     @Resource
     private ITailorService iTailorService;
@@ -43,9 +40,7 @@ public class TailorController {
     @PostMapping("/queryTailorList")
     @ApiOperation(value = "查询裁剪列表" , notes = "查询裁剪列表")
     public ResponseBeanModel<PageInfo<TailorResBean>> queryTailorList(@RequestBody @Valid RequestBeanModel<TailorReqBean> reqBeanModel){
-        LOGGER.info("TailorController------queryTailorList  start......" );
         PageInfo<TailorResBean> tailorResBeanPageInfo = this.iTailorService.queryTailorList(reqBeanModel);
-        LOGGER.info("TailorController------queryTailorList  end......" );
         return new ResponseBeanModel<>(tailorResBeanPageInfo);
     }
 
@@ -59,10 +54,8 @@ public class TailorController {
     @PostMapping("/updateTailor")
     @ApiOperation(value = "修改裁剪数据" , notes = "修改裁剪数据")
     public ResponseBeanModel<Void> updateTailor(@RequestBody @Valid RequestBeanModel<TailorReqBean> reqBeanModel){
-        LOGGER.info("TailorController------updateTailor  start......" );
         this.iTailorService.updateTailor(reqBeanModel);
-        LOGGER.info("TailorController------updateTailor  end......" );
-        return new ResponseBeanModel<>("修改成功!");
+        return new ResponseBeanModel<>("修改裁剪数据成功!");
     }
 
 }

@@ -19,7 +19,7 @@ public interface ISysOrgService {
 
     /**
      * @Author 陈龙
-     * @Description 新增权限组织
+     * @Description 查询权限组织
      * @Date 17:14 2019/7/31
      * @Param [reqBeanModel]
      * @return com.github.pagehelper.PageInfo<com.cl.bean.res.SysOrgResBean>

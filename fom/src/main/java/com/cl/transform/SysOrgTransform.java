@@ -23,8 +23,8 @@ public class SysOrgTransform extends AbstractObjectTransformer<SysOrgEntity , Sy
         sysOrgResBean.setId(sysOrgEntity.getId());
         sysOrgResBean.setName(sysOrgEntity.getName());
         sysOrgResBean.setRemarks(sysOrgEntity.getRemarks());
-        sysOrgResBean.setCreateUser(sysOrgEntity.getCreateUser());
-        sysOrgResBean.setCreateTime(sysOrgEntity.getCreateTime());
+        sysOrgResBean.setLastUpdateUser(sysOrgEntity.getLastUpdateUser());
+        sysOrgResBean.setLastUpdateTime(sysOrgEntity.getLastUpdateTime());
         return sysOrgResBean;
     }
 }
