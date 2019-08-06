@@ -21,4 +21,6 @@ public class ApiConstants {
     public static final Byte INTERFACE_SAVE_SUCCESS = 1;
     
     public static final Byte INTERFACE_SAVE_FAILED = 0;
+    
+    public static final String PULL_ORDER_TIME_CODE = "pull_order_time";
 }

@@ -1,5 +1,11 @@
 package com.cl.dao;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Repository;
+
 import com.cl.bean.req.OrderManageReqBean;
 import com.cl.bean.res.OrderQuantityResBean;
 import com.cl.bean.res.SecondaryProcessResBean;
@@ -10,11 +16,6 @@ import com.cl.util.DateUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * OrderManageMapper继承基类
@@ -80,4 +81,5 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
      **/
     List<SecondaryProcessResBean> selectSecondaryProcessByOrderNo(String orderNo);
 
+    List<OrderManageEntity> selectByParams(Map<String,Object> params);
 }
