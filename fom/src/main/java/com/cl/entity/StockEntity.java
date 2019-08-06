@@ -19,6 +19,11 @@ public class StockEntity implements Serializable {
     private String sku;
 
     /**
+     * 采购单编码
+     */
+    private String purchaseCode;
+
+    /**
      * 库存数量
      */
     private Integer stock;
@@ -64,6 +69,14 @@ public class StockEntity implements Serializable {
 
     public void setSku(String sku) {
         this.sku = sku;
+    }
+
+    public String getPurchaseCode() {
+        return purchaseCode;
+    }
+
+    public void setPurchaseCode(String purchaseCode) {
+        this.purchaseCode = purchaseCode;
     }
 
     public Integer getStock() {
@@ -128,6 +141,7 @@ public class StockEntity implements Serializable {
         StockEntity other = (StockEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getSku() == null ? other.getSku() == null : this.getSku().equals(other.getSku()))
+            && (this.getPurchaseCode() == null ? other.getPurchaseCode() == null : this.getPurchaseCode().equals(other.getPurchaseCode()))
             && (this.getStock() == null ? other.getStock() == null : this.getStock().equals(other.getStock()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -142,6 +156,7 @@ public class StockEntity implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getSku() == null) ? 0 : getSku().hashCode());
+        result = prime * result + ((getPurchaseCode() == null) ? 0 : getPurchaseCode().hashCode());
         result = prime * result + ((getStock() == null) ? 0 : getStock().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -159,6 +174,7 @@ public class StockEntity implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", sku=").append(sku);
+        sb.append(", purchaseCode=").append(purchaseCode);
         sb.append(", stock=").append(stock);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);

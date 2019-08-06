@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.cl.entity.StockEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="sku" jdbcType="VARCHAR" property="sku" />
+    <result column="purchase_code" jdbcType="VARCHAR" property="purchaseCode" />
     <result column="stock" jdbcType="INTEGER" property="stock" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -70,7 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, sku, stock, `status`, create_time, create_user, last_update_time, last_update_user
+    id, sku, purchase_code, stock, `status`, create_time, create_user, last_update_time, 
+    last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.StockEntityExample" resultMap="BaseResultMap">
     select
@@ -111,18 +113,21 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.StockEntity" useGeneratedKeys="true">
-    insert into stock (sku, stock, `status`, 
-      create_time, create_user, last_update_time, 
-      last_update_user)
-    values (#{sku,jdbcType=VARCHAR}, #{stock,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
-      #{lastUpdateUser,jdbcType=VARCHAR})
+    insert into stock (sku, purchase_code, stock, 
+      `status`, create_time, create_user, 
+      last_update_time, last_update_user)
+    values (#{sku,jdbcType=VARCHAR}, #{purchaseCode,jdbcType=VARCHAR}, #{stock,jdbcType=INTEGER}, 
+      #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.StockEntity" useGeneratedKeys="true">
     insert into stock
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="sku != null">
         sku,
+      </if>
+      <if test="purchaseCode != null">
+        purchase_code,
       </if>
       <if test="stock != null">
         stock,
@@ -146,6 +151,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="sku != null">
         #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseCode != null">
+        #{purchaseCode,jdbcType=VARCHAR},
       </if>
       <if test="stock != null">
         #{stock,jdbcType=INTEGER},
@@ -182,6 +190,9 @@
       <if test="record.sku != null">
         sku = #{record.sku,jdbcType=VARCHAR},
       </if>
+      <if test="record.purchaseCode != null">
+        purchase_code = #{record.purchaseCode,jdbcType=VARCHAR},
+      </if>
       <if test="record.stock != null">
         stock = #{record.stock,jdbcType=INTEGER},
       </if>
@@ -209,6 +220,7 @@
     update stock
     set id = #{record.id,jdbcType=BIGINT},
       sku = #{record.sku,jdbcType=VARCHAR},
+      purchase_code = #{record.purchaseCode,jdbcType=VARCHAR},
       stock = #{record.stock,jdbcType=INTEGER},
       `status` = #{record.status,jdbcType=TINYINT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -224,6 +236,9 @@
     <set>
       <if test="sku != null">
         sku = #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseCode != null">
+        purchase_code = #{purchaseCode,jdbcType=VARCHAR},
       </if>
       <if test="stock != null">
         stock = #{stock,jdbcType=INTEGER},
@@ -249,6 +264,7 @@
   <update id="updateByPrimaryKey" parameterType="com.cl.entity.StockEntity">
     update stock
     set sku = #{sku,jdbcType=VARCHAR},
+      purchase_code = #{purchaseCode,jdbcType=VARCHAR},
       stock = #{stock,jdbcType=INTEGER},
       `status` = #{status,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
