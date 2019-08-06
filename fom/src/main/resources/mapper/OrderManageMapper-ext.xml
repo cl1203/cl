@@ -56,4 +56,13 @@
     WHERE
       sp.order_no = #{orderNo}
   </select>
+  
+  <select id="selectByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from order_manage
+  	where 1 = 1
+  	<if test="orderNo != null and orderNo != ''">
+  		and order_no = #{orderNo}
+  	</if>
+  </select>
 </mapper>

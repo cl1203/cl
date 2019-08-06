@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.cl.entity.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -35,12 +34,25 @@ import com.cl.bean.res.OrderResBean;
 import com.cl.bean.res.PurchaseBean;
 import com.cl.bean.res.SecondProcessBean;
 import com.cl.comm.constants.ApiConstants;
+import com.cl.comm.exception.BusinessException;
+import com.cl.comm.model.Status;
 import com.cl.config.CommonConfig;
 import com.cl.dao.OrderManageMapper;
 import com.cl.dao.OrderQuantityMapper;
 import com.cl.dao.PurchaseMapper;
 import com.cl.dao.SecondaryProcessMapper;
+import com.cl.dao.SysParameterMapper;
 import com.cl.dao.TbLogMapper;
+import com.cl.entity.OrderManageEntity;
+import com.cl.entity.OrderQuantityEntity;
+import com.cl.entity.OrderQuantityEntityExample;
+import com.cl.entity.OrderQuantityEntityExample.Criteria;
+import com.cl.entity.PurchaseEntity;
+import com.cl.entity.PurchaseEntityExample;
+import com.cl.entity.SecondaryProcessEntity;
+import com.cl.entity.SysParameterEntity;
+import com.cl.entity.SysParameterEntityExample;
+import com.cl.entity.TbLogEntity;
 import com.cl.util.HttpClientUtils;
 import com.cl.util.RsaUtil;
 
@@ -67,15 +79,32 @@ public class PullorderJob {
 	private TbLogMapper tbLogMapper;
 	
 	@Autowired
+	private SysParameterMapper sysParameterMapper;
+	
+	@Autowired
 	private CommonConfig config;
 	
-	@Scheduled(cron = "0 */3 * * * *")
+	@Scheduled(cron = "0 */10 * * * *")
 	@Transactional(rollbackFor = Exception.class)
 	public void pullOrder() throws Exception {
-		Calendar c = Calendar.getInstance();
+		SysParameterEntityExample example = new SysParameterEntityExample();
+		SysParameterEntityExample.Criteria criteria = example.createCriteria();
+		criteria.andCodeEqualTo(ApiConstants.PULL_ORDER_TIME_CODE);
+		List<SysParameterEntity> sysParameterList = sysParameterMapper.selectByExample(example);
+		if(CollectionUtils.isEmpty(sysParameterList)) {
+			log.info("pull_order_time时间戳不存在！");
+			return;
+		}
+		if(sysParameterList.size() > 1) {
+			log.info("pull_order_time时间戳重复！");
+			return;
+		}
+		SysParameterEntity parameterEntity = sysParameterList.get(0);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date now = c.getTime();
-		String endTime = sdf.format(now);
+		Calendar c = Calendar.getInstance();
+		c.setTime(sdf.parse(parameterEntity.getValue()));
+		Date now = new Date();
+		String endTime = parameterEntity.getValue();
 		c.add(Calendar.MINUTE, -10);
 		String startTime = sdf.format(c.getTime());
 		Map<String,String> params = new HashMap<String, String>();
@@ -85,47 +114,64 @@ public class PullorderJob {
 		String result = HttpClientUtils.httpPostWithJSON(config.getUrlPrefix() + config.getUri(), params,headerParams);
 		if(StringUtils.isBlank(result)) {
 			log.info("startTime:" + startTime + ",endTime:" + endTime + "无订单！");
+			c.add(Calendar.MINUTE, 20);
+			parameterEntity.setValue(sdf.format(c.getTime()));
+			sysParameterMapper.updateByPrimaryKey(parameterEntity);
 			return;
 		}
 		InfResBean resBean = JSONObject.parseObject(result, InfResBean.class);
 		if(resBean == null) {
 			log.info("startTime:" + startTime + ",endTime:" + endTime + "无订单！");
+			c.add(Calendar.MINUTE, 20);
+			parameterEntity.setValue(sdf.format(c.getTime()));
+			sysParameterMapper.updateByPrimaryKey(parameterEntity);
 			return;
 		}
 		List<OrderResBean> orderList = resBean.getInfo();
 		if(CollectionUtils.isEmpty(orderList)) {
 			log.info("startTime:" + startTime + ",endTime:" + endTime + "无订单！");
+			c.add(Calendar.MINUTE, 20);
+			parameterEntity.setValue(sdf.format(c.getTime()));
+			sysParameterMapper.updateByPrimaryKey(parameterEntity);
 			return;
 		}
+		log.info("startTime:" + startTime + ",endTime:" + endTime);
 		for(OrderResBean order : orderList) {
 			//记录日志
 			TbLogEntity tbLog = generateLog(order,result,now);
-			try {
-				String errMsg = validateOrderData(order);
-				if(StringUtils.isNotBlank(errMsg)) {
-					tbLog.setIsSuccess(ApiConstants.INTERFACE_SAVE_FAILED);
-					tbLog.setErrMsg(errMsg);
-					tbLogMapper.insertSelective(tbLog);
-					return;
-				}
-				OrderManageEntity entity = convertFromOrder(order, now);
-				if(entity == null) {
-					continue;
-				}
-				orderManageMapper.insertSelective(entity);
-				List<OrderQuantityBean> orderQuantityList = order.getOrderInfo();
-				processOrderQuantity(orderQuantityList,entity.getOrderNo(),now);
-				List<SecondProcessBean> secondProcessList = order.getSecondProcess();
-				processSecondProcess(secondProcessList,entity.getOrderNo(),now);
-				List<PurchaseBean> purchaseList = order.getPurchaseInfo();
-				processPurchase(purchaseList,order,now);
-			}catch (Exception e) {
-				e.printStackTrace();
+			String errMsg = validateOrderData(order);
+			if(StringUtils.isNotBlank(errMsg)) {
 				tbLog.setIsSuccess(ApiConstants.INTERFACE_SAVE_FAILED);
-				tbLog.setErrMsg(e.getMessage());
+				tbLog.setErrMsg(errMsg);
+				tbLogMapper.insertSelective(tbLog);
+				continue;
 			}
-			tbLogMapper.insertSelective(tbLog);
+			Map<String,Object> orderParams = new HashMap<>();
+			orderParams.put("orderNo", order.getProduceOrderId());
+			List<OrderManageEntity> existsOrderList = orderManageMapper.selectByParams(orderParams);
+			if(CollectionUtils.isNotEmpty(existsOrderList)) {
+				tbLog.setIsSuccess(ApiConstants.INTERFACE_SAVE_FAILED);
+				tbLog.setErrMsg("订单编号：" + order.getProduceOrderId() + "已存在");
+				tbLogMapper.insertSelective(tbLog);
+				continue;
+			}
+			OrderManageEntity entity = convertFromOrder(order, now);
+			if(entity == null) {
+				continue;
+			}
+			orderManageMapper.insertSelective(entity);
+			List<OrderQuantityBean> orderQuantityList = order.getOrderInfo();
+			processOrderQuantity(orderQuantityList,entity.getOrderNo(),now);
+			List<SecondProcessBean> secondProcessList = order.getSecondProcess();
+			if(CollectionUtils.isNotEmpty(secondProcessList)) {
+				processSecondProcess(secondProcessList,entity.getOrderNo(),now);
+			}
+			List<PurchaseBean> purchaseList = order.getPurchaseInfo();
+			processPurchase(purchaseList,order,now);
 		}
+		c.add(Calendar.MINUTE, 20);
+		parameterEntity.setValue(sdf.format(c.getTime()));
+		sysParameterMapper.updateByPrimaryKey(parameterEntity);
 	}
 
 	private TbLogEntity generateLog(OrderResBean order, String result, Date now) {
@@ -140,6 +186,14 @@ public class PullorderJob {
 
 	private void processPurchase(List<PurchaseBean> purchaseList, OrderResBean order, Date now) {
 		for(PurchaseBean pb : purchaseList) {
+			PurchaseEntityExample example = new PurchaseEntityExample();
+			PurchaseEntityExample.Criteria criteria = example.createCriteria();
+			criteria.andOrderNoEqualTo(order.getProduceOrderId());
+			criteria.andPurchaseNoEqualTo(pb.getPurchaseCode());
+			List<PurchaseEntity> existEntityList = purchaseMapper.selectByExample(example);
+			if(CollectionUtils.isNotEmpty(existEntityList)) {
+				throw new BusinessException(Status.EXISTS_PURCHASE);
+			}
 			PurchaseEntity entity = convertFromPurchaseBean(pb,order,now);
 			purchaseMapper.insertSelective(entity);
 		}
@@ -158,7 +212,7 @@ public class PullorderJob {
 		entity.setMaterielName(pb.getMaterialName());
 		entity.setMaterielColor(pb.getMaterialColor());
 		//应采数量 = 单件用量 * 订单件数
-		entity.setAnswerPickQuantity(Integer.valueOf(pb.getSimpleUse().multiply(BigDecimal.valueOf(Double.valueOf(order.getQuantity() + ""))).toString()));
+		entity.setAnswerPickQuantity(Integer.valueOf(pb.getSimpleUse().multiply(BigDecimal.valueOf(Double.valueOf(order.getQuantity() + ""))).setScale(0, BigDecimal.ROUND_HALF_UP).toString()));
 		entity.setAnswerPickMonovalent(pb.getPrice());
 //		entity.setAnswerPickTotal(answerPickTotal);
 //		entity.setS
@@ -168,7 +222,7 @@ public class PullorderJob {
 		entity.setLastUpdateTime(now);
 		return entity;
 	}
-
+	
 	private void processSecondProcess(List<SecondProcessBean> secondProcessList, String orderNo, Date now) {
 		for(SecondProcessBean sp : secondProcessList) {
 			SecondaryProcessEntity entity = new SecondaryProcessEntity();
@@ -184,6 +238,15 @@ public class PullorderJob {
 
 	private void processOrderQuantity(List<OrderQuantityBean> orderQuantityList,String orderNo,Date now) {
 		for(OrderQuantityBean oq : orderQuantityList) {
+			OrderQuantityEntityExample example = new OrderQuantityEntityExample();
+			Criteria criteria = example.createCriteria();
+			criteria.andOrderNoEqualTo(orderNo);
+			criteria.andSizeNameEqualTo(oq.getSizeName());
+			criteria.andQuantityEqualTo(oq.getQuantity());
+			List<OrderQuantityEntity> existList = orderQuantityMapper.selectByExample(example);
+			if(CollectionUtils.isNotEmpty(existList)) {
+				throw new BusinessException(Status.EXISTS_ORDER_QUANTITY);
+			}
 			OrderQuantityEntity entity = new OrderQuantityEntity();
 			BeanUtils.copyProperties(oq, entity);
 			entity.setOrderNo(orderNo);
@@ -236,15 +299,15 @@ public class PullorderJob {
 			sb.append("SKU不能为空！");
 		}
 		List<SecondProcessBean> secondProcessList = order.getSecondProcess();
-		if(CollectionUtils.isEmpty(secondProcessList)) {
-			sb.append("二次工艺列表不能为空！");
-		}
-		for(SecondProcessBean sp : secondProcessList) {
-			String errMsg = validateSecondProcessBean(sp);
-			if(StringUtils.isNotBlank(errMsg)) {
-				sb.append(errMsg);
+		if(CollectionUtils.isNotEmpty(secondProcessList)) {
+			for(SecondProcessBean sp : secondProcessList) {
+				String errMsg = validateSecondProcessBean(sp);
+				if(StringUtils.isNotBlank(errMsg)) {
+					sb.append(errMsg);
+				}
 			}
 		}
+		
 		List<OrderQuantityBean> orderQuantityList = order.getOrderInfo();
 		if(CollectionUtils.isEmpty(orderQuantityList)) {
 			sb.append("订单数量列表不能为空！");

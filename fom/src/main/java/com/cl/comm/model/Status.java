@@ -2,10 +2,15 @@ package com.cl.comm.model;
 
 public enum Status {
 
+	//1开头的是公用的错误信息
 	INSERT_FAILED(10000, "insert failed"),
     UPDATE_FAILED(10001, "update failed"),
-    NOT_VALID_PARAMS(40005, "Not Valid Params");
+    NOT_VALID_PARAMS(10002, "Not Valid Params"),
     
+	//2开头的是外部接口的错误信息
+	EXISTS_ORDER_QUANTITY(20001,"exists order quantity"),
+	EXISTS_PURCHASE(20002,"exists order quantity");
+	
 	private Integer code;
     private String errMsg;
 	public Integer getCode() {
