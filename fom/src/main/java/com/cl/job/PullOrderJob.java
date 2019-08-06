@@ -41,6 +41,7 @@ import com.cl.dao.OrderManageMapper;
 import com.cl.dao.OrderQuantityMapper;
 import com.cl.dao.PurchaseMapper;
 import com.cl.dao.SecondaryProcessMapper;
+import com.cl.dao.StockMapper;
 import com.cl.dao.SysParameterMapper;
 import com.cl.dao.TbLogMapper;
 import com.cl.entity.OrderManageEntity;
@@ -50,6 +51,8 @@ import com.cl.entity.OrderQuantityEntityExample.Criteria;
 import com.cl.entity.PurchaseEntity;
 import com.cl.entity.PurchaseEntityExample;
 import com.cl.entity.SecondaryProcessEntity;
+import com.cl.entity.StockEntity;
+import com.cl.entity.StockEntityExample;
 import com.cl.entity.SysParameterEntity;
 import com.cl.entity.SysParameterEntityExample;
 import com.cl.entity.TbLogEntity;
@@ -59,9 +62,9 @@ import com.cl.util.RsaUtil;
 @Component
 @EnableScheduling
 @Configurable
-public class PullorderJob {
+public class PullOrderJob {
 
-	private final Logger log = LoggerFactory.getLogger(PullorderJob.class);
+	private final Logger log = LoggerFactory.getLogger(PullOrderJob.class);
 	
 	@Autowired
 	private OrderManageMapper orderManageMapper;
@@ -80,6 +83,9 @@ public class PullorderJob {
 	
 	@Autowired
 	private SysParameterMapper sysParameterMapper;
+	
+	@Autowired
+	private StockMapper stockMapper;
 	
 	@Autowired
 	private CommonConfig config;
@@ -186,6 +192,7 @@ public class PullorderJob {
 
 	private void processPurchase(List<PurchaseBean> purchaseList, OrderResBean order, Date now) {
 		for(PurchaseBean pb : purchaseList) {
+			//新增采购单
 			PurchaseEntityExample example = new PurchaseEntityExample();
 			PurchaseEntityExample.Criteria criteria = example.createCriteria();
 			criteria.andOrderNoEqualTo(order.getProduceOrderId());
@@ -196,6 +203,25 @@ public class PullorderJob {
 			}
 			PurchaseEntity entity = convertFromPurchaseBean(pb,order,now);
 			purchaseMapper.insertSelective(entity);
+			
+			//新增库存数据
+			StockEntityExample stockExample = new StockEntityExample();
+			StockEntityExample.Criteria stockCriteria = stockExample.createCriteria();
+			stockCriteria.andSkuEqualTo(order.getSku());
+			stockCriteria.andPurchaseCodeEqualTo(pb.getPurchaseCode());
+			List<StockEntity> existsStock = stockMapper.selectByExample(stockExample);
+			if(CollectionUtils.isNotEmpty(existsStock)) {
+				continue;
+			}
+			StockEntity stock = new StockEntity();
+			stock.setSku(order.getSku());
+			stock.setPurchaseCode(pb.getPurchaseCode());
+			stock.setStock(ApiConstants.DEFAULT_STOCK);
+			stock.setCreateUser(ApiConstants.API_USER);
+			stock.setCreateTime(now);
+			stock.setLastUpdateUser(ApiConstants.API_USER);
+			stock.setLastUpdateTime(now);
+			stockMapper.insertSelective(stock);
 		}
 	}
 

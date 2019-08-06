@@ -23,4 +23,6 @@ public class ApiConstants {
     public static final Byte INTERFACE_SAVE_FAILED = 0;
     
     public static final String PULL_ORDER_TIME_CODE = "pull_order_time";
+    
+    public static final Integer DEFAULT_STOCK = 0;
 }
