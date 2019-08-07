@@ -32,32 +32,6 @@ public interface IPulldownMenuService {
      */
     List<PulldownMenuResBean> queryUserPulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel);
 
-    /**
-     * @Author 陈龙
-     * @Description 订单号的下拉菜单
-     * @Date 12:03 2019/7/22
-     * @Param [orderNum]
-     * @return java.util.List<java.lang.String>
-     **/
-    List<String> queryInputByOrderNumer();
-
-    /**
-     * @Author 陈龙
-     * @Description sku的下拉菜单
-     * @Date 12:04 2019/7/22
-     * @Param [sku]
-     * @return java.util.List<java.lang.String>
-     **/
-    List<String> queryInputBySku();
-
-    /**
-     * @Author 陈龙
-     * @Description 采购单号的下拉菜单
-     * @Date 12:04 2019/7/22
-     * @Param [PurchaseNumber]
-     * @return java.util.List<java.lang.String>
-     **/
-    List<String> queryInputByPurchaseNumber();
 
     /**
      * @Author 陈龙

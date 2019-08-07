@@ -42,24 +42,6 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     }
 
     @Override
-    public List<String> queryInputByOrderNumer() {
-        List<String> orderNumberList = this.pulldownMenuMapper.queryInputByOrderNumer();
-        return orderNumberList;
-    }
-
-    @Override
-    public List<String> queryInputBySku() {
-        List<String> skuList = this.pulldownMenuMapper.queryInputBySku();
-        return skuList;
-    }
-
-    @Override
-    public List<String> queryInputByPurchaseNumber() {
-        List<String> purchaseNumberList = this.pulldownMenuMapper.queryInputByPurchaseNumber();
-        return purchaseNumberList;
-    }
-
-    @Override
     public List<String> queryInputSupplierName() {
         List<String> supplierNameList = this.pulldownMenuMapper.queryInputSupplierName();
         return supplierNameList;

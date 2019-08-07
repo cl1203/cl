@@ -39,39 +39,6 @@
         </if>
     </select>
 
-    <select id="queryInputByOrderNumer" resultType="string">
-        SELECT
-          order_no
-        FROM
-          order_manage
-        WHERE
-        order_status != 0
-        order by
-        last_update_time
-        desc
-    </select>
-
-    <select id="queryInputBySku" resultType="string">
-        SELECT
-         sku
-        FROM
-        order_manage
-        WHERE
-        order_status != 0
-        GROUP BY sku
-    </select>
-
-    <select id="queryInputByPurchaseNumber" resultType="string">
-        SELECT
-          purchase_no
-        FROM
-          purchase
-        WHERE
-        purchase_status != 0
-        order by
-        last_update_time
-        desc
-    </select>
 
     <select id="queryInputSupplierName" resultType="string">
         SELECT
@@ -94,12 +61,12 @@
         ON sc.id = scd.sys_code_id
         WHERE sc.type = #{type}
         <if test="code != null and code !='' ">
-            scd.code = #{code}
+            AND scd.code = #{code}
         </if>
         <if test="value != null and value !='' ">
-            scd.value = #{value}
+            AND scd.value = #{value}
         </if>
         AND sc.status = 1
-        AND sc.status = 1
+        AND scd.status = 1
     </select>
 </mapper>

@@ -30,7 +30,8 @@
         t.id t_id,
         t.order_no t_order_no,
         o.sku sku,
-        t.tailo_status tailo_status,
+        /*t.tailo_status tailo_status,*/
+        scd.value tailo_status,
         o.producer producer,
         o.producer_org_id producer_org_id,
         su.real_name tailoring_user_name,

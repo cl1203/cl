@@ -36,7 +36,7 @@ public class PurchaseTransform extends AbstractObjectTransformer<PurchaseEntity 
         if(null != purchaseEntity.getPurchaseStatus()){//采购单状态
             RequestBeanModel requestBeanModel = new RequestBeanModel();
             DictItem dictItem = new DictItem();
-            dictItem.setType("tailoring_status");
+            dictItem.setType("purchase_status");
             dictItem.setCode(String.valueOf(purchaseEntity.getPurchaseStatus()));
             requestBeanModel.setReqData(dictItem);
             List<DictItem> dictItemList = this.iPulldownMenuService.queryDictItemList(requestBeanModel);

@@ -56,47 +56,7 @@ public class PulldownMenuController {
         return new ResponseBeanModel<>(pulldownMenuResBeanList);
     }
 
-    /**
-     * @Author 陈龙
-     * @Description 输入订单号的模糊查询
-     * @Date 12:03 2019/7/22
-     * @Param [orderNum]
-     * @return java.util.List<java.lang.String>
-     **/
-    @PostMapping("/queryInputByOrderNumer")
-    @ApiOperation(value = "查询订单号下拉菜单" , notes = "查询订单号下拉菜单")
-    public ResponseBeanModel<List<String>> queryInputByOrderNumer(){
-        List<String> orderNumList = this.pulldownMenuService.queryInputByOrderNumer();
-        return new ResponseBeanModel<>(orderNumList);
-    }
-
-    /**
-     * @Author 陈龙
-     * @Description 输入sku的模糊查询
-     * @Date 12:04 2019/7/22
-     * @Param [sku]
-     * @return java.util.List<java.lang.String>
-     **/
-    @PostMapping("/queryInputBySku")
-    @ApiOperation(value = "查询SKU下拉菜单" , notes = "查询SKU下拉菜单")
-    public ResponseBeanModel<List<String>> queryInputBySku(){
-        List<String> orderNumList = this.pulldownMenuService.queryInputBySku();
-        return new ResponseBeanModel<>(orderNumList);
-    }
-
-    /**
-     * @Author 陈龙
-     * @Description 查询采购单号下拉菜单
-     * @Date 12:04 2019/7/22
-     * @Param [PurchaseNumber]
-     * @return java.util.List<java.lang.String>
-     **/
-    @PostMapping("/queryInputByPurchaseNumber")
-    @ApiOperation(value = "查询采购单号下拉菜单" , notes = "查询采购单号下拉菜单")
-    public ResponseBeanModel<List<String>> queryInputByPurchaseNumber(){
-        List<String> orderNumList = this.pulldownMenuService.queryInputByPurchaseNumber();
-        return new ResponseBeanModel<>(orderNumList);
-    }
+    
 
     /**
      * @Author 陈龙
