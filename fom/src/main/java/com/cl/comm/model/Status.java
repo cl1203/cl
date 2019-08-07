@@ -9,7 +9,9 @@ public enum Status {
     
 	//2开头的是外部接口的错误信息
 	EXISTS_ORDER_QUANTITY(20001,"exists order quantity"),
-	EXISTS_PURCHASE(20002,"exists order quantity");
+	EXISTS_PURCHASE(20002,"exists order quantity"),
+	NOT_EXISTS_STOCK(20003,"库存不存在！"),
+	DUPLICATE_STOCK(20004,"库存重复！");
 	
 	private Integer code;
     private String errMsg;

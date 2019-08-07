@@ -1,7 +1,6 @@
 package com.cl.controller;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,14 +23,20 @@ import io.swagger.annotations.ApiOperation;
 @Api(description = "库存管理")
 public class StockController {
 	 
-    @Resource
+    @Autowired
     private IStockService stockService;
     
-    @PostMapping("/queryOrderList")
+    @PostMapping("/queryStockList")
     @ApiOperation(value = "查询库存列表" , notes = "根据条件查询库存列表")
     public ResponseBeanModel<PageInfo<StockResBean>> queryStockList(@RequestBody RequestBeanModel<StockReqBean> reqBeanModel){
     	PageInfo<StockResBean> resBean = stockService.queryStockList(reqBeanModel);
     	return new ResponseBeanModel<>(resBean);
     }
     
+    @PostMapping("/updateStock")
+    @ApiOperation(value = "修改库存数量" , notes = "根据条件查询库存列表")
+    public ResponseBeanModel<Void> updateStock(@RequestBody RequestBeanModel<StockReqBean> reqBeanModel){
+    	stockService.updateStock(reqBeanModel);
+    	return new ResponseBeanModel<>("修改成功");
+    }
 }
