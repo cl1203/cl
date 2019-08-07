@@ -40,7 +40,10 @@
     </select>
 
 
-    <select id="queryInputSupplierName" resultType="string">
+    <resultMap id="SingleParamMap" type="com.cl.comm.model.SingleParam">
+        <result column="supplier_name" property="param" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="queryInputSupplierName" resultMap="SingleParamMap">
         SELECT
         supplier_name
         FROM

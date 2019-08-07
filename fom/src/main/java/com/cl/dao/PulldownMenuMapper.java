@@ -2,6 +2,7 @@ package com.cl.dao;
 
 import com.cl.bean.res.DictItem;
 import com.cl.bean.res.PulldownMenuResBean;
+import com.cl.comm.model.SingleParam;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public interface PulldownMenuMapper {
      * @Param [supplierName]
      * @return java.util.List<java.lang.String>
      **/
-    List<String> queryInputSupplierName();
+    List<SingleParam> queryInputSupplierName();
 
     /**
      * @Author 陈龙

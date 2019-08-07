@@ -4,6 +4,7 @@ import com.cl.bean.res.DictItem;
 import com.cl.bean.res.PulldownMenuResBean;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.ResponseBeanModel;
+import com.cl.comm.model.SingleParam;
 import com.cl.service.IPulldownMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -56,7 +57,7 @@ public class PulldownMenuController {
         return new ResponseBeanModel<>(pulldownMenuResBeanList);
     }
 
-    
+
 
     /**
      * @Author 陈龙
@@ -67,8 +68,8 @@ public class PulldownMenuController {
      **/
     @PostMapping("/queryInputSupplierName")
     @ApiOperation(value = "查询供应商名称下拉菜单" , notes = "查询供应商名称下拉菜单")
-    public ResponseBeanModel<List<String>> queryInputSupplierName(){
-        List<String> orderNumList = this.pulldownMenuService.queryInputSupplierName();
+    public ResponseBeanModel<List<SingleParam>> queryInputSupplierName(){
+        List<SingleParam> orderNumList = this.pulldownMenuService.queryInputSupplierName();
         return new ResponseBeanModel<>(orderNumList);
     }
 

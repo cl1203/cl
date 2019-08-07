@@ -40,7 +40,7 @@ public interface IPulldownMenuService {
      * @Param [supplierName]
      * @return java.util.List<java.lang.String>
      **/
-    List<String> queryInputSupplierName();
+    List<SingleParam> queryInputSupplierName();
 
     /**
      * @Author 陈龙

@@ -42,8 +42,8 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     }
 
     @Override
-    public List<String> queryInputSupplierName() {
-        List<String> supplierNameList = this.pulldownMenuMapper.queryInputSupplierName();
+    public List<SingleParam> queryInputSupplierName() {
+        List<SingleParam> supplierNameList = this.pulldownMenuMapper.queryInputSupplierName();
         return supplierNameList;
     }
 
