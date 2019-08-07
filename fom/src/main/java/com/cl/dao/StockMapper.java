@@ -1,7 +1,12 @@
 package com.cl.dao;
 
+import com.cl.bean.res.StockResBean;
 import com.cl.entity.StockEntity;
 import com.cl.entity.StockEntityExample;
+
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,4 +14,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface StockMapper extends MyBatisBaseDao<StockEntity, Long, StockEntityExample> {
+
+	List<StockResBean> selectByParams(Map<String, Object> params);
 }

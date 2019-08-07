@@ -25,4 +25,8 @@ public class ApiConstants {
     public static final String PULL_ORDER_TIME_CODE = "pull_order_time";
     
     public static final Integer DEFAULT_STOCK = 0;
+    
+    public static final Integer DEFAULT_PAGE_NUM = 1;
+    
+    public static final Integer DEFAULT_PAGE_SIZE = 10;
 }

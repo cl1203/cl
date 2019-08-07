@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.dao.StockMapper">
+
+	<resultMap id="stockResBeanResultMap" type="com.cl.bean.res.StockResBean">
+		<result column="order_no" property="orderNo" />
+		<result column="sku" property="sku" />
+		<result column="order_img_url" property="orderImgUrl" />
+		<collection property="materiaList" javaType="list" resultMap="materiaListResultMap" />
+	</resultMap>
+	<resultMap id="materiaListResultMap" type="com.cl.bean.res.MaterialResBean">
+		<result column="purchase_no" property="purchaseNo" />
+		<result column="stock" property="stock" />
+		<result column="supplier_name" property="supplierName" />
+		<result column="supplier_code" property="supplierCode" />
+		<result column="supplier_color_number" property="supplierColorNumber" />
+		<result column="materiel_type_code" property="materielTypeCode" />
+		<result column="materiel_name" property="materielName" />
+		<result column="materiel_color" property="materielColor" />
+	</resultMap>
+
+	<select id="selectByParams" parameterType="java.util.Map" resultMap="stockResBeanResultMap">
+		select om.order_no,om.order_img_url,s.sku,p.purchase_no,s.stock,p.supplier_name,p.supplier_code,p.supplier_color_number,
+			   p.materiel_type_code,p.materiel_name,p.materiel_color
+		from stock s 
+			inner join order_manage om on s.sku = om.sku
+			inner join purchase p on s.purchase_code = p.purchase_no
+		where s.status = 1
+		<if test="sku != null and sku != ''">
+			s.sku = #{sku}
+		</if>
+		order by s.last_update_time desc,s.id desc
+		<if test="offset != null and limit != null">
+			limit #{offset},#{limit}
+		</if>
+	</select>
+
+</mapper>
