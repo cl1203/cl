@@ -1,5 +1,7 @@
 package com.cl.bean.req;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
@@ -8,6 +10,7 @@ public class StockReqBean implements Serializable {
 
 	private static final long serialVersionUID = -2802523055119658649L;
 
+	@ApiModelProperty(value = "sku")
 	private String sku;
 	
 	/**
