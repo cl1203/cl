@@ -4,8 +4,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
-
 public class StockReqBean implements Serializable {
 
 	private static final long serialVersionUID = -2802523055119658649L;
@@ -16,13 +14,11 @@ public class StockReqBean implements Serializable {
 	/**
 	 * 每页数量
 	 */
-	@NotNull(message = "每页查询数量大小不能为空!")
 	private Integer pageSize;
 
 	/**
 	 * 页码
 	 */
-	@NotNull(message = "页码大小不能为空!")
 	private Integer pageNum;
 
 	public Integer getPageSize() {
