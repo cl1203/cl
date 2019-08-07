@@ -1,5 +1,7 @@
 package com.cl.bean.req;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -19,51 +21,61 @@ public class PurchaseReqBean implements Serializable {
     /**
      * 采购单号
      */
+    @ApiModelProperty(value = "采购单号")
     private String purchaseNo;
 
     /**
      * 订单状态1:待采购 2:采购中 3:待裁剪 4:已裁剪
      */
+    @ApiModelProperty(value = "订单状态1:待采购 2:采购中 3:待裁剪 4:已裁剪")
     private String purchaseStatus;
 
     /**
-     * 采购日期 (录入实采时期)
+     * 采购日期 (录入实采日期)
      */
+    @ApiModelProperty(value = "录入实采日期")
     private String purchaseTime;
 
     /**
      * 物料分类
      */
+    @ApiModelProperty(value = "物料分类")
     private String materielType;
 
     /**
      * 供应商名称
      */
+    @ApiModelProperty
     private String supplierName;
 
     /**
      * ID
      */
+    @ApiModelProperty(value = "id")
     private Long id;
 
     /**
      * 订单编号
      */
+    @ApiModelProperty(value = "订单编号")
     private String orderNo;
 
     /**
      * 实采数量
      */
+    @ApiModelProperty(value = "实采数量")
     private String actualPickQuantity;
 
     /**
      * 实采单价
      */
+    @ApiModelProperty(value = "实采单价")
     private String actualPickMonovalent;
 
     /**
      * 实采总额
      */
+    @ApiModelProperty(value = "实采总额")
     private String actualPickTotal;
 
 

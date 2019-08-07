@@ -1,7 +1,9 @@
 package com.cl.bean.req;
 
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
+
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,21 +19,25 @@ public class OrderManageReqBean implements Serializable{
 	 /**
      * 订单编号
      */
-    private String orderNo;
+     @ApiModelProperty(value = "订单号")
+	 private String orderNo;
 
     /**
      * 订单状态1:待采购 2:采购中 3:待裁剪 4:已裁剪
      */
+	@ApiModelProperty(value = "订单状态1:待采购 2:采购中 3:待裁剪 4:已裁剪")
     private String orderStatus;
     
     /**
      * 下单时间
      */
+    @ApiModelProperty(value = "下单时间")
     private String orderTime;
     
     /**
      * SKU
      */
+    @ApiModelProperty(value = "sku")
     private String sku;
 
 	/**

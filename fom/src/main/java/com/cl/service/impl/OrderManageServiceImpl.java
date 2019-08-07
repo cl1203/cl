@@ -73,18 +73,20 @@ public class OrderManageServiceImpl implements IOrderManageService {
         List<Long> orderIdList = reqBeanModel.getReqData().getOrderIdList();
         Long orgId = reqBeanModel.getReqData().getOrgId();
         SysOrgEntity sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orgId);
-        Assert.isNull(sysOrgEntity , "生产方不存在!");
+        Assert.notNull(sysOrgEntity , "生产方不存在!");
         orderManageEntity.setProducerOrgId(orgId);
         orderManageEntity.setLastUpdateTime(new Date());
         orderManageEntity.setLastUpdateUser(reqBeanModel.getUsername());
         for(Long orderId : orderIdList){
             OrderManageEntity orderManageEntityByOrderId = this.orderManageMapper.selectProducer(orderId);
-            Assert.isNull(orderManageEntityByOrderId , "订单数据错误!");
+            Assert.notNull(orderManageEntityByOrderId , "订单数据错误!");
             orderManageEntity.setId(orderId);
             int i = this.orderManageMapper.updateByPrimaryKeySelective(orderManageEntity);
             Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "分单失败!");
         }
     }
+
+
 
     @Override
     public String queryProducer(RequestBeanModel<SingleParam> reqBeanModel) {
