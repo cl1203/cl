@@ -78,7 +78,7 @@ public class SysRoleController {
      * @Param [reqBeanModel]
      * @return com.cl.comm.model.ResponseBeanModel<java.lang.Void>
      **/
-    @PostMapping("/updateSysRole")
+    @PostMapping("/deleteSysRole")
     @ApiOperation(value = "删除角色列表" , notes = "删除角色列表")
     public ResponseBeanModel<Void> deleteSysRole(@RequestBody RequestBeanModel<SysRoleReqBean> reqBeanModel){
         this.iSysRoleService.deleteSysRole(reqBeanModel);
