@@ -1,5 +1,7 @@
 package com.cl.bean.res;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -16,16 +18,19 @@ public class PulldownMenuResBean implements Serializable{
     /**
      * ID
      */
+    @ApiModelProperty(value = "ID")
     private Long id;
 
     /**
      * 名称
      */
+    @ApiModelProperty(value = "名称")
     private String name;
 
     /**
      * 编码
      */
+    @ApiModelProperty(value = "编码")
     private String code;
 
     public String getCode() {

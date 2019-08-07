@@ -1,5 +1,7 @@
 package com.cl.bean.req;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -18,12 +20,14 @@ public class DistributionOrderReqBean implements Serializable {
 	 * 订单ID list
 	 */
 	@NotEmpty(message = "请最少选择一条订单数据!")
+	@ApiModelProperty(value = "订单ID集合")
 	private List<Long> orderIdList;
 
 	/**
 	 * 组织ID
 	 */
 	@NotNull(message = "请选择一个生产方!")
+	@ApiModelProperty(value = "组织ID")
 	private Long orgId;
 
 	public List<Long> getOrderIdList() {

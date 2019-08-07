@@ -1,5 +1,7 @@
 package com.cl.bean.res;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -16,68 +18,82 @@ public class OrderManageResBean implements Serializable {
 	/**
 	 * 主键ID
 	 */
+	@ApiModelProperty(value = "主键ID")
 	private Long id;
 
 	/**
 	 * 订单编号
 	 */
+	@ApiModelProperty(value = "订单编号")
 	private String orderNo;
 
 	/**
 	 * 订单状态1:待采购 2:采购中 3:待裁剪 4:已裁剪
 	 */
+	@ApiModelProperty(value = "订单状态1:待采购 2:采购中 3:待裁剪 4:已裁剪")
 	private Byte orderStatus;
 
 	/**
 	 * 订单状态名称
 	 */
+	@ApiModelProperty(value = "订单状态名称")
 	private String orderStatusName;
 
 	/**
 	 * 订单件数
 	 */
+	@ApiModelProperty(value = "订单件数")
 	private Integer orderQuantity;
 
 	/**
 	 * 下单时间
 	 */
+	@ApiModelProperty(value = "下单时间")
 	private Date orderTime;
 
 	/**
 	 * 订单图片URL
 	 */
+	@ApiModelProperty(value = "订单图片URL")
 	private String orderImgUrl;
 
 	/**
 	 * SKU
 	 */
+	@ApiModelProperty(value = "SKU")
 	private String sku;
 
 	/**
 	 * 是否首单: 0 :不是 1:是
 	 */
+	@ApiModelProperty(value = "否首单: 0 :不是 1:是")
 	private Byte isFirst;
 
 	/**
 	 * 指定生产方组织ID(不为空时以此生产方为准)
 	 */
+	@ApiModelProperty(value = "指定生产方组织ID(不为空时以此生产方为准)")
 	private Long producerOrgId;
 
 	/**
 	 * 生产方
 	 */
+	@ApiModelProperty(value = "生产方")
 	private String producer;
 
 	/**
 	 * 剩余时间
 	 */
+	@ApiModelProperty(value = "剩余时间")
 	private String surplusTime;
 
     /**
      * 二次工艺
      */
+	@ApiModelProperty(value = "二次工艺")
     private List<SecondaryProcessResBean> secondaryProcessResBeanList;
 
+	@ApiModelProperty(value = "下单数量")
 	private List<OrderQuantityResBean> orderQuantityResBeanList;
 
 	public Long getId() {

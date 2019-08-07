@@ -1,5 +1,7 @@
 package com.cl.bean.res;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -16,21 +18,25 @@ public class OrderQuantityResBean implements Serializable {
     /**
      * 主键ID
      */
+    @ApiModelProperty(value = "主键ID")
     private Long id;
 
     /**
      * 订单编号
      */
+    @ApiModelProperty(value = "订单编号")
     private String orderNo;
 
     /**
      * 尺寸
      */
+    @ApiModelProperty(value = "尺寸")
     private String sizeName;
 
     /**
      * 数量
      */
+    @ApiModelProperty(value = "数量")
     private Integer quantity;
 
     public Long getId() {

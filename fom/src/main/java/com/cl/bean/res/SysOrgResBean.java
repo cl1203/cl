@@ -1,5 +1,7 @@
 package com.cl.bean.res;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,26 +19,31 @@ public class SysOrgResBean implements Serializable{
     /**
      * 主键ID
      */
+    @ApiModelProperty(value = "主键ID")
     private Long id;
 
     /**
      * 组织名称
      */
+    @ApiModelProperty(value = "组织名称")
     private String name;
 
     /**
      * 备注
      */
+    @ApiModelProperty(value = "备注")
     private String remarks;
 
     /**
      * 最后修改时间
      */
+    @ApiModelProperty(value = "最后修改时间")
     private Date lastUpdateTime;
 
     /**
      * 最后修改人
      */
+    @ApiModelProperty(value = "最后修改人")
     private String lastUpdateUser;
 
     public Date getLastUpdateTime() {

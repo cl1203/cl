@@ -1,5 +1,7 @@
 package com.cl.bean.res;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -17,31 +19,37 @@ public class SecondaryProcessResBean implements Serializable {
     /**
      * ID
      */
+    @ApiModelProperty(value = "ID")
     private Long id;
 
     /**
      * 订单编号
      */
+    @ApiModelProperty(value = "订单编号")
     private String orderNo;
 
     /**
      * 工艺名称
      */
+    @ApiModelProperty(value = "工艺名称")
     private String processName;
 
     /**
      * 供应商名称
      */
+    @ApiModelProperty(value = "供应商名称")
     private String supplierName;
 
     /**
      * 价格
      */
+    @ApiModelProperty(value = "价格")
     private BigDecimal unitPrice;
 
     /**
      * 单位用量
      */
+    @ApiModelProperty(value = "单位用量")
     private String simpleUse;
 
     public Long getId() {

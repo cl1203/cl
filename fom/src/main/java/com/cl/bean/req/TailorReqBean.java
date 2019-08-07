@@ -1,5 +1,7 @@
 package com.cl.bean.req;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -20,41 +22,49 @@ public class TailorReqBean implements Serializable{
     /**
      * 订单编号
      */
+    @ApiModelProperty(value = "订单编号")
     private String orderNo;
 
     /**
      * 下单时间
      */
+    @ApiModelProperty(value = "下单时间")
     private String orderTime;
 
     /**
      * 状态 0:已删除 1:戴裁剪 2:已裁剪
      */
+    @ApiModelProperty(value = "状态 0:已删除 1:戴裁剪 2:已裁剪" )
     private String tailorStatus;
 
     /**
      * SKU
      */
+    @ApiModelProperty(value = "sku")
     private String sku;
 
     /**
      * 生产方
      */
+    @ApiModelProperty(value = "生成方")
     private String producer;
 
     /**
      * 指定生产方组织ID(不为空时以此生产方为准)
      */
+    @ApiModelProperty(value = "指定生产方组织ID(不为空时以此生产方为准)")
     private Long producerOrgId;
 
     /**
      * 裁剪员工
      */
+    @ApiModelProperty(value = "裁剪员工")
     private String tailorUserNameId;
 
     /**
      * 实裁数量
      */
+    @ApiModelProperty(value = "实裁数量")
     private String actualCutQuantity;
 
     /**
@@ -72,21 +82,25 @@ public class TailorReqBean implements Serializable{
     /**
      * 实采数量
      */
+    @ApiModelProperty(value = "实采数量")
     private String actualPickQuantity;
 
     /**
      * 单件用量，以公斤为单位
      */
+    @ApiModelProperty(value = "单位用量,以公斤为单位")
     private String singleAmountKg;
 
     /**
      * 物料分类
      */
+    @ApiModelProperty(value = "物料分类")
     private String materielTypeCode;
 
     /**
      * 单价
      */
+    @ApiModelProperty(value = "单价")
     private String monovalent;
 
     public Long getId() {

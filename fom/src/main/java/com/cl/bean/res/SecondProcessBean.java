@@ -1,5 +1,7 @@
 package com.cl.bean.res;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -7,12 +9,13 @@ public class SecondProcessBean implements Serializable {
 
 	private static final long serialVersionUID = 7469496620362606383L;
 
+	@ApiModelProperty(value = "工艺名称")
 	private String processName;                    //工艺名称
-	
+	@ApiModelProperty(value = "单件用量")
 	private String simpleUse;                      //单件用量
-	
+	@ApiModelProperty(value = "供应商名称")
 	private String supplierName;                   //供应商名称
-	
+	@ApiModelProperty(value = "单价")
 	private BigDecimal unitPrice;                      //单价
 
 	public String getProcessName() {

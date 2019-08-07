@@ -1,6 +1,7 @@
 package com.cl.bean.req;
 
 import com.cl.entity.SysOrgEntity;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -19,16 +20,19 @@ public class SysOrgReqBean  implements Serializable {
     /**
      * 主键ID
      */
+    @ApiModelProperty(value = "id")
     private Long id;
 
     /**
      * 组织名称
      */
+    @ApiModelProperty(value = "组织名称")
     private String name;
 
     /**
      * 备注
      */
+    @ApiModelProperty(value = "备注")
     private String remarks;
 
     /**

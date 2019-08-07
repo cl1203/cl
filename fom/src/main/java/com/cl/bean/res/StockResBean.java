@@ -1,5 +1,7 @@
 package com.cl.bean.res;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 public class StockResBean implements Serializable {
@@ -11,21 +13,25 @@ public class StockResBean implements Serializable {
     /**
      * SKU编号
      */
+    @ApiModelProperty(value = "SKU编号")
     private String sku;
 
     /**
      * 采购单编码
      */
+	@ApiModelProperty(value = "采购单编码")
     private String purchaseCode;
 
     /**
      * 库存数量
      */
+	@ApiModelProperty(value = "库存数量")
     private Integer stock;
 
     /**
      * 状态 1:正常 0:删除
      */
+	@ApiModelProperty(value = "状态 1:正常 0:删除")
     private Byte status;
 
 	public Long getId() {

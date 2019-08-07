@@ -1,5 +1,7 @@
 package com.cl.bean.res;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,60 +22,72 @@ public class TailorResBean implements Serializable{
     /**
      * 订单编号
      */
+    @ApiModelProperty(value = "订单编号")
     private String orderNo;
 
     /**
      * SKU
      */
+    @ApiModelProperty(value = "SKU")
     private String sku;
 
     /**
      * 状态code 0:已删除 1:戴裁剪 2:已裁剪
      */
+    @ApiModelProperty(value = "状态code 0:已删除 1:戴裁剪 2:已裁剪")
     private Byte tailorStatusCode;
 
     /**
      * 裁剪状态
      */
+    @ApiModelProperty(value = "裁剪状态")
     private String tailorStatus;
     /**
      * 生产方
      */
+    @ApiModelProperty(value = "生产方")
     private String producer;
 
     /**
      * 指定生产方组织ID(不为空时以此生产方为准)
      */
+    @ApiModelProperty(value = "指定生产方组织ID(不为空时以此生产方为准)")
     private Long producerOrgId;
 
     /**
      * 裁剪员工
      */
+    @ApiModelProperty(value = "裁剪员工")
     private String tailorUserName;
 
     /**
      * 应裁数量
      */
+    @ApiModelProperty(value = "应裁数量")
     private Integer answerCutQuantity;
 
     /**
      * 实裁数量
      */
+    @ApiModelProperty(value = "实裁数量")
     private Integer actualCutQuantity;
 
     /**
      * 单价
      */
+    @ApiModelProperty(value = "单价")
     private BigDecimal monovalent;
 
     /**
      * 裁剪耗时
      */
+    @ApiModelProperty(value = "裁剪耗时")
     private BigDecimal consumingTime;
 
     /**
      * 二次工艺
      */
+    @ApiModelProperty(value = "二次工艺")
     private List<SecondaryProcessResBean> secondaryProcessResBeanList;
 
     public Long getProducerOrgId() {

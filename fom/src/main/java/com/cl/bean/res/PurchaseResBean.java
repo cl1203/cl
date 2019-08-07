@@ -1,5 +1,7 @@
 package com.cl.bean.res;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -18,76 +20,90 @@ public class PurchaseResBean implements Serializable {
     /**
      * 主键ID
      */
+    @ApiModelProperty(value = "主键ID")
     private Long id;
 
     /**
      * 采购单号
      */
+    @ApiModelProperty(value = "采购单号")
     private String purchaseNo;
     /**
      * 订单编号
      */
+    @ApiModelProperty(value = "订单编号")
     private String orderNo;
 
     /**
      * 采购单状态1:待采购 2:采购中 0:已删除
      */
+    @ApiModelProperty(value = "采购单状态1:待采购 2:采购中 0:已删除")
     private Byte purchaseStatus;
 
     /**
      * 订单状态名称
      */
+    @ApiModelProperty(value = "订单状态名称")
     private String purchaseStatusName;
 
     /**
      * 物料名称
      */
+    @ApiModelProperty(value = "物料名称")
     private String materielName;
 
     /**
      * 物料颜色
      */
+    @ApiModelProperty(value = "物料颜色")
     private String materielColor;
 
     /**
      * 应采数量
      */
+    @ApiModelProperty(value = "应采数量")
     private Integer answerPickQuantity;
 
     /**
      * 实采数量
      */
+    @ApiModelProperty(value = "实采数量")
     private Integer actualPickQuantity;
 
     /**
      * 应采单价
      */
+    @ApiModelProperty(value = "应采单价")
     private BigDecimal answerPickMonovalent;
 
     /**
      * 应采总额
      */
+    @ApiModelProperty(value = "应采总额")
     private BigDecimal answerPickTotal;
 
     /**
      * 实采单价
      */
+    @ApiModelProperty(value = "实采单价")
     private BigDecimal actualPickMonovalent;
 
     /**
      * 实采总额
      */
+    @ApiModelProperty(value = "实采总额")
     private BigDecimal actualPickTotal;
-
 
     /**
      * 供应商名称
      */
+    @ApiModelProperty(value = "供应商名称")
     private String supplierName;
 
     /**
      * 采购耗时
      */
+    @ApiModelProperty(value = "采购耗时")
     private String consumingTime;
 
 
