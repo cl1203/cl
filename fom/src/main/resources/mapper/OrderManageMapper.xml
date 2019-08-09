@@ -178,15 +178,11 @@
       <if test="remarks != null">
         remarks,
       </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
+      create_time,
       <if test="createUser != null">
         create_user,
       </if>
-      <if test="lastUpdateTime != null">
-        last_update_time,
-      </if>
+      last_update_time,
       <if test="lastUpdateUser != null">
         last_update_user,
       </if>
@@ -231,15 +227,11 @@
       <if test="remarks != null">
         #{remarks,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
+      now(),
       <if test="createUser != null">
         #{createUser,jdbcType=VARCHAR},
       </if>
-      <if test="lastUpdateTime != null">
-        #{lastUpdateTime,jdbcType=TIMESTAMP},
-      </if>
+      now(),
       <if test="lastUpdateUser != null">
         #{lastUpdateUser,jdbcType=VARCHAR},
       </if>

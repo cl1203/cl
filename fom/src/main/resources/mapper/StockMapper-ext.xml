@@ -19,19 +19,34 @@
 		<result column="materiel_color" property="materielColor" />
 	</resultMap>
 
-	<select id="selectByParams" parameterType="java.util.Map" resultMap="stockResBeanResultMap">
-		select om.order_no,om.order_img_url,s.sku,p.purchase_no,s.stock,p.supplier_name,p.supplier_code,p.supplier_color_number,
+	<select id="selectOrderNoByParams" parameterType="java.util.Map" resultType="java.lang.String">
+		select distinct(order_no)
+		from (
+			select distinct(order_no),last_update_time
+			from stock s 
+			where s.status = 1
+			<if test="sku != null and sku != ''">
+				s.sku = #{sku}
+			</if>
+			order by s.last_update_time desc
+			<if test="offset != null and limit != null">
+				limit #{offset},#{limit}
+			</if>
+		) a
+	</select>
+
+	<select id="selectByOrderNoList" parameterType="java.util.Map" resultMap="stockResBeanResultMap">
+		select s.order_no,om.order_img_url,s.sku,p.purchase_no,s.stock,p.supplier_name,p.supplier_code,p.supplier_color_number,
 			   p.materiel_type_code,p.materiel_name,p.materiel_color
 		from stock s 
-			inner join order_manage om on s.sku = om.sku
+			inner join order_manage om on s.sku = om.sku and s.order_no = om.order_no
 			inner join purchase p on s.purchase_code = p.purchase_no
 		where s.status = 1
-		<if test="sku != null and sku != ''">
-			s.sku = #{sku}
-		</if>
-		order by s.last_update_time desc,s.id desc
-		<if test="offset != null and limit != null">
-			limit #{offset},#{limit}
+		<if test="list != null and list.size > 0">
+			and s.order_no in
+			<foreach collection="list" item="item" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
 		</if>
 	</select>
 

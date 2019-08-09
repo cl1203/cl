@@ -37,10 +37,11 @@ public class StockServiceImpl implements IStockService {
         if(StringUtils.isNotBlank(stockReqBean.getSku())) {
         	params.put("sku", stockReqBean.getSku());
         }
-        int offset = (stockReqBean.getPageNum() - 1) * stockReqBean.getPageSize();
+        int offset = (stockReqBean.getPageNum() - 1) * stockReqBean.getPageSize() + 1;
         params.put("offset", offset);
         params.put("limit", stockReqBean.getPageSize());
-        List<StockResBean> stockList = stockMapper.selectByParams(params);
+        List<String> orderNoList = stockMapper.selectOrderNoByParams(params);
+        List<StockResBean> stockList = stockMapper.selectByOrderNoList(orderNoList);
         PageInfo<StockResBean> stockResBeanPageInfo = new PageInfo<>(stockList);
         return stockResBeanPageInfo;
 	}

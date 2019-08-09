@@ -15,5 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StockMapper extends MyBatisBaseDao<StockEntity, Long, StockEntityExample> {
 
-	List<StockResBean> selectByParams(Map<String, Object> params);
+	List<StockResBean> selectByOrderNoList(List<String> skuList);
+
+	List<String> selectOrderNoByParams(Map<String, Object> params);
 }
