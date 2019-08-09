@@ -39,7 +39,7 @@ public class StockServiceImpl implements IStockService {
         }
         int offset = (stockReqBean.getPageNum() - 1) * stockReqBean.getPageSize();
         params.put("offset", offset);
-        params.put("pageSize", stockReqBean.getPageSize());
+        params.put("limit", stockReqBean.getPageSize());
         List<StockResBean> stockList = stockMapper.selectByParams(params);
         PageInfo<StockResBean> stockResBeanPageInfo = new PageInfo<>(stockList);
         return stockResBeanPageInfo;

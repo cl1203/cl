@@ -34,7 +34,7 @@ public class StockController {
     }
     
     @PostMapping("/updateStock")
-    @ApiOperation(value = "修改库存数量" , notes = "根据条件查询库存列表")
+    @ApiOperation(value = "修改库存数量" , notes = "修改库存数量")
     public ResponseBeanModel<Void> updateStock(@RequestBody RequestBeanModel<StockReqBean> reqBeanModel){
     	stockService.updateStock(reqBeanModel);
     	return new ResponseBeanModel<>("修改成功");
