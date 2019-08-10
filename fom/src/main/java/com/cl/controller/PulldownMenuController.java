@@ -45,6 +45,34 @@ public class PulldownMenuController {
 
     /**
      * @Author 陈龙
+     * @Description 获取菜单权限下拉菜单 或者根据条件查询
+     * @Date 0:03 2019/7/30
+     * @Param [requestBeanModel]
+     * @return com.cl.comm.model.ResponseBeanModel<java.util.List<com.cl.bean.res.PulldownMenuResBean>>
+     **/
+    @PostMapping("/queryPermissionPulldownMenu")
+    @ApiOperation(value = "获取菜单权限下拉菜单,或者根据条件查询" , notes = "获取菜单权限下拉菜单,或者根据条件查询")
+    public ResponseBeanModel<List<PulldownMenuResBean>> queryPermissionPulldownMenu(@RequestBody RequestBeanModel<PulldownMenuResBean> requestBeanModel){
+        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuService.queryPermissionPulldownMenu(requestBeanModel);
+        return new ResponseBeanModel<>(pulldownMenuResBeanList);
+    }
+
+    /**
+     * @Author 陈龙
+     * @Description 获取角色下拉菜单 或者根据条件查询
+     * @Date 0:03 2019/7/30
+     * @Param [requestBeanModel]
+     * @return com.cl.comm.model.ResponseBeanModel<java.util.List<com.cl.bean.res.PulldownMenuResBean>>
+     **/
+    @PostMapping("/queryRolePulldownMenu")
+    @ApiOperation(value = "获取角色下拉菜单,或者根据条件查询" , notes = "获取角色下拉菜单,或者根据条件查询")
+    public ResponseBeanModel<List<PulldownMenuResBean>> queryRolePulldownMenu(@RequestBody RequestBeanModel<PulldownMenuResBean> requestBeanModel){
+        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuService.queryRolePulldownMenu(requestBeanModel);
+        return new ResponseBeanModel<>(pulldownMenuResBeanList);
+    }
+
+    /**
+     * @Author 陈龙
      * @Description 获取用户下拉菜单 或者根据条件查询
      * @Date 0:03 2019/7/30
      * @Param [requestBeanModel]
@@ -56,8 +84,6 @@ public class PulldownMenuController {
         List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuService.queryUserPulldownMenu(requestBeanModel);
         return new ResponseBeanModel<>(pulldownMenuResBeanList);
     }
-
-
 
     /**
      * @Author 陈龙

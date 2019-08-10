@@ -118,6 +118,8 @@
     LEFT JOIN order_manage o ON t.order_no = o.order_no
     WHERE
         o.sku = #{sku}
+    AND t.status != 0
+    AND o.status != 0
     ORDER BY t.create_time DESC
     LIMIT 1
   </select>

@@ -4,6 +4,7 @@ package com.cl.service;
 import com.cl.bean.req.SysOrgReqBean;
 import com.cl.bean.res.SysOrgResBean;
 import com.cl.comm.model.RequestBeanModel;
+import com.cl.comm.model.SingleParam;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public interface ISysOrgService {
      * @Param [reqBeanModel]
      * @return void
      **/
-    void deleteSysOrg(RequestBeanModel<List<Long>> reqBeanModel);
+    void deleteSysOrg(RequestBeanModel<List<SingleParam>> reqBeanModel);
 
     /**
      * @Author 陈龙

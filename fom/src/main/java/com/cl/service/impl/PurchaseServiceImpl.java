@@ -1,7 +1,6 @@
 package com.cl.service.impl;
 
 import com.cl.bean.req.PurchaseReqBean;
-import com.cl.bean.req.TailorReqBean;
 import com.cl.bean.res.PurchaseResBean;
 import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.exception.BusinessException;

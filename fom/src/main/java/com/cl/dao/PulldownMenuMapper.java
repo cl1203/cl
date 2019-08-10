@@ -35,6 +35,24 @@ public interface PulldownMenuMapper {
      **/
     List<PulldownMenuResBean> queryUserPulldownMenu(PulldownMenuResBean pulldownMenuResBean);
 
+    /**
+     * @Author 陈龙
+     * @Description 获取菜单权限下拉菜单 或者根据条件查询
+     * @Date 14:16 2019/7/22
+     * @Param []
+     * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
+     **/
+    List<PulldownMenuResBean> queryPermissionPulldownMenu(PulldownMenuResBean pulldownMenuResBean);
+
+    /**
+     * @Author 陈龙
+     * @Description 获取角色下拉菜单 或者根据条件查询
+     * @Date 14:16 2019/7/22
+     * @Param []
+     * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
+     **/
+    List<PulldownMenuResBean> queryRolePulldownMenu(PulldownMenuResBean pulldownMenuResBean);
+
 
     /**
      * @Author 陈龙

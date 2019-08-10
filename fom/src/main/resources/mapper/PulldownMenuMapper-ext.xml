@@ -39,6 +39,38 @@
         </if>
     </select>
 
+    <select id="queryPermissionPulldownMenu" resultMap="BaseResultMap" parameterType="com.cl.bean.res.PulldownMenuResBean">
+        SELECT
+        id ,
+        name name
+        FROM
+        sys_permission
+        WHERE
+        status = 1
+        <if test="name != null  and name !='' ">
+            AND name = #{name}
+        </if>
+        <if test="id !=null  ">
+            AND id = #{id}
+        </if>
+    </select>
+
+    <select id="queryRolePulldownMenu" resultMap="BaseResultMap" parameterType="com.cl.bean.res.PulldownMenuResBean">
+        SELECT
+        id ,
+        name name
+        FROM
+        sys_role
+        WHERE
+        status = 1
+        <if test="name != null  and name !='' ">
+            AND name = #{name}
+        </if>
+        <if test="id !=null  ">
+            AND id = #{id}
+        </if>
+    </select>
+
 
     <resultMap id="SingleParamMap" type="com.cl.comm.model.SingleParam">
         <result column="supplier_name" property="param" jdbcType="VARCHAR" />

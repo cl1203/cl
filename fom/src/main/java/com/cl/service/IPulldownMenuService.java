@@ -32,7 +32,19 @@ public interface IPulldownMenuService {
      */
     List<PulldownMenuResBean> queryUserPulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel);
 
+    /**
+     * 获取菜单权限下拉菜单 或者根据条件查询
+     * @param requestBeanModel
+     * @return
+     */
+    List<PulldownMenuResBean> queryPermissionPulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel);
 
+    /**
+     * 获取角色下拉菜单 或者根据条件查询
+     * @param requestBeanModel
+     * @return
+     */
+    List<PulldownMenuResBean> queryRolePulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel);
     /**
      * @Author 陈龙
      * @Description 供应商名称的下拉菜单

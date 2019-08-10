@@ -39,16 +39,4 @@
     </foreach>
   </update>
 
-  <select id="selectSysOrgByIdAndName" resultType="com.cl.entity.SysOrgEntity" parameterType="com.cl.bean.req.SysOrgReqBean">
-    SELECT
-      *
-    FROM
-      sys_org
-    WHERE
-      id != #{id}
-    AND
-      name = #{name}
-    AND
-      status = 1
-  </select>
 </mapper>

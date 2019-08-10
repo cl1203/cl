@@ -4,6 +4,7 @@ import com.cl.bean.req.SysOrgReqBean;
 import com.cl.bean.res.SysOrgResBean;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.ResponseBeanModel;
+import com.cl.comm.model.SingleParam;
 import com.cl.service.ISysOrgService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -24,7 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/org")
 @CrossOrigin
-@Api(description = "组织接口文档")
+@Api(description = "组织管理接口文档")
 public class SysOrgController {
 
 
@@ -68,7 +69,7 @@ public class SysOrgController {
      **/
     @PostMapping("/deleteSysOrg")
     @ApiOperation(value = "删除组织数据" , notes = "删除组织数据")
-    public ResponseBeanModel<Void> deleteSysOrg(@RequestBody RequestBeanModel<List<Long>> reqBeanModel){
+    public ResponseBeanModel<Void> deleteSysOrg(@RequestBody RequestBeanModel<List<SingleParam>> reqBeanModel){
         this.iSysOrgService.deleteSysOrg(reqBeanModel);
         return new ResponseBeanModel<>("删除组织成功!");
     }

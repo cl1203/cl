@@ -74,6 +74,7 @@ public class OrderManageServiceImpl implements IOrderManageService {
         Long orgId = reqBeanModel.getReqData().getOrgId();
         SysOrgEntity sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orgId);
         Assert.notNull(sysOrgEntity , "生产方不存在!");
+        Assert.isTrue(sysOrgEntity.getStatus() == DictionaryConstants.AVAILABLE , "生产方已被删除!");
         orderManageEntity.setProducerOrgId(orgId);
         orderManageEntity.setLastUpdateTime(new Date());
         orderManageEntity.setLastUpdateUser(reqBeanModel.getUsername());

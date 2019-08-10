@@ -8,7 +8,6 @@ import com.cl.dao.PulldownMenuMapper;
 import com.cl.service.IPulldownMenuService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -38,6 +37,20 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     public List<PulldownMenuResBean> queryUserPulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel) {
         PulldownMenuResBean pulldownMenuResBean = requestBeanModel.getReqData();
         List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryUserPulldownMenu(pulldownMenuResBean);
+        return pulldownMenuResBeanList;
+    }
+
+    @Override
+    public List<PulldownMenuResBean> queryPermissionPulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel) {
+        PulldownMenuResBean pulldownMenuResBean = requestBeanModel.getReqData();
+        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryPermissionPulldownMenu(pulldownMenuResBean);
+        return pulldownMenuResBeanList;
+    }
+
+    @Override
+    public List<PulldownMenuResBean> queryRolePulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel) {
+        PulldownMenuResBean pulldownMenuResBean = requestBeanModel.getReqData();
+        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryRolePulldownMenu(pulldownMenuResBean);
         return pulldownMenuResBeanList;
     }
 

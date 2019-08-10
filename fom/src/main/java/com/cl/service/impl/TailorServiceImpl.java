@@ -2,7 +2,6 @@ package com.cl.service.impl;
 
 import com.cl.bean.req.TailorReqBean;
 import com.cl.bean.res.PulldownMenuResBean;
-import com.cl.bean.res.SecondaryProcessResBean;
 import com.cl.bean.res.TailorResBean;
 import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.exception.BusinessException;

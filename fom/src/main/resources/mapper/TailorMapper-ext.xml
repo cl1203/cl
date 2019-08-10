@@ -30,7 +30,6 @@
         t.id t_id,
         t.order_no t_order_no,
         o.sku sku,
-        /*t.tailo_status tailo_status,*/
         scd.value tailo_status,
         o.producer producer,
         o.producer_org_id producer_org_id,
@@ -54,6 +53,7 @@
     LEFT JOIN sys_code sc on sc.id = scd.sys_code_id
     WHERE
       t.tailo_status != 0
+    AND o.order_status != 0
     AND
       sc.type = 'tailoring_status'
       <if test="orderNo !=null and orderNo !='' ">

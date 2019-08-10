@@ -1,6 +1,7 @@
 package com.cl.dao;
 
 import com.cl.bean.req.SysOrgReqBean;
+import com.cl.comm.constants.DictionaryConstants;
 import com.cl.entity.SysOrgEntity;
 import com.cl.entity.SysOrgEntityExample;
 import com.github.pagehelper.Page;
@@ -25,6 +26,7 @@ public interface SysOrgMapper extends MyBatisBaseDao<SysOrgEntity, Long, SysOrgE
         if(StringUtils.isNotBlank(sysOrgReqBean.getName())){
             criteria.andNameEqualTo(sysOrgReqBean.getName());
         }
+        criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
         List<SysOrgEntity> sysOrgEntityList = this.selectByExample(sysOrgEntityExample);
         PageInfo<SysOrgEntity> sysOrgEntityPageInfo = new PageInfo<>(page);
         sysOrgEntityPageInfo.setList(sysOrgEntityList);
@@ -52,5 +54,5 @@ public interface SysOrgMapper extends MyBatisBaseDao<SysOrgEntity, Long, SysOrgE
      */
     int deleteUserRole(@Param("roleIdList")List<Long> roleIdList);
 
-    SysOrgEntity selectSysOrgByIdAndName(SysOrgReqBean sysOrgReqBean);
+
 }

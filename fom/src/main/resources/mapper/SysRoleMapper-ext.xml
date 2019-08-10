@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.dao.SysRoleMapper">
+  <resultMap id="UserResultMap" type="com.cl.bean.res.SysUserResBean">
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+  </resultMap>
+
+  <select id="selectUserByRoleId" parameterType="java.lang.Long" resultMap="UserResultMap">
+    SELECT
+      su.real_name ,
+      su.mobile
+    FROM
+      sys_user su
+    LEFT JOIN
+      sys_user_role sur on su.id = sur.user_id
+    LEFT JOIN
+      sys_role sr on sur.role_id = sr.id
+    WHERE
+      su.status = 1
+    AND
+      sur.status = 1
+    AND
+      sr.status = 1
+    AND
+      sr.id = #{roleId}
+  </select>
+
+  <select id="selectOrgIdByUserId" resultType="java.lang.Long" parameterType="java.lang.Long">
+    SELECT
+	  so.id
+    FROM
+        sys_org so
+    LEFT JOIN sys_role sr ON so.id = sr.org_id
+    LEFT JOIN sys_user_role sur ON sr.id = sur.role_id
+    LEFT JOIN sys_user su ON su.id = sur.user_id
+    WHERE sr.status = 1
+    AND sur.status = 1
+    AND so.status = 1
+    AND su.status = 1
+    AND sur.user_id = #{userId}
+  </select>
+</mapper>
