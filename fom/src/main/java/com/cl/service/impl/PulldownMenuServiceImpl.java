@@ -1,5 +1,6 @@
 package com.cl.service.impl;
 
+import com.cl.bean.req.PulldownMenuReqBean;
 import com.cl.bean.res.DictItem;
 import com.cl.bean.res.PulldownMenuResBean;
 import com.cl.comm.model.RequestBeanModel;
@@ -27,30 +28,30 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     private PulldownMenuMapper pulldownMenuMapper;
 
     @Override
-    public List<PulldownMenuResBean> queryOrgPulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel) {
-        PulldownMenuResBean pulldownMenuResBean = requestBeanModel.getReqData();
-        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryOrgPulldownMenu(pulldownMenuResBean);
+    public List<PulldownMenuResBean> queryOrgPulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel) {
+        PulldownMenuReqBean pulldownMenuReqBean = requestBeanModel.getReqData();
+        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryOrgPulldownMenu(pulldownMenuReqBean);
         return pulldownMenuResBeanList;
     }
 
     @Override
-    public List<PulldownMenuResBean> queryUserPulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel) {
-        PulldownMenuResBean pulldownMenuResBean = requestBeanModel.getReqData();
-        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryUserPulldownMenu(pulldownMenuResBean);
+    public List<PulldownMenuResBean> queryUserPulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel) {
+        PulldownMenuReqBean pulldownMenuReqBean = requestBeanModel.getReqData();
+        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryUserPulldownMenu(pulldownMenuReqBean);
         return pulldownMenuResBeanList;
     }
 
     @Override
-    public List<PulldownMenuResBean> queryPermissionPulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel) {
-        PulldownMenuResBean pulldownMenuResBean = requestBeanModel.getReqData();
-        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryPermissionPulldownMenu(pulldownMenuResBean);
+    public List<PulldownMenuResBean> queryPermissionPulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel) {
+        PulldownMenuReqBean pulldownMenuReqBean = requestBeanModel.getReqData();
+        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryPermissionPulldownMenu(pulldownMenuReqBean);
         return pulldownMenuResBeanList;
     }
 
     @Override
-    public List<PulldownMenuResBean> queryRolePulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel) {
-        PulldownMenuResBean pulldownMenuResBean = requestBeanModel.getReqData();
-        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryRolePulldownMenu(pulldownMenuResBean);
+    public List<PulldownMenuResBean> queryRolePulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel) {
+        PulldownMenuReqBean pulldownMenuReqBean = requestBeanModel.getReqData();
+        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryRolePulldownMenu(pulldownMenuReqBean);
         return pulldownMenuResBeanList;
     }
 

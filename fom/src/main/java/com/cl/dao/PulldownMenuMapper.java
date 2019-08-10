@@ -1,5 +1,6 @@
 package com.cl.dao;
 
+import com.cl.bean.req.PulldownMenuReqBean;
 import com.cl.bean.res.DictItem;
 import com.cl.bean.res.PulldownMenuResBean;
 import com.cl.comm.model.SingleParam;
@@ -24,7 +25,7 @@ public interface PulldownMenuMapper {
      * @Param []
      * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
      **/
-    List<PulldownMenuResBean> queryOrgPulldownMenu(PulldownMenuResBean pulldownMenuResBean);
+    List<PulldownMenuResBean> queryOrgPulldownMenu(PulldownMenuReqBean pulldownMenuReqBean);
 
     /**
      * @Author 陈龙
@@ -33,7 +34,7 @@ public interface PulldownMenuMapper {
      * @Param []
      * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
      **/
-    List<PulldownMenuResBean> queryUserPulldownMenu(PulldownMenuResBean pulldownMenuResBean);
+    List<PulldownMenuResBean> queryUserPulldownMenu(PulldownMenuReqBean pulldownMenuReqBean);
 
     /**
      * @Author 陈龙
@@ -42,7 +43,7 @@ public interface PulldownMenuMapper {
      * @Param []
      * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
      **/
-    List<PulldownMenuResBean> queryPermissionPulldownMenu(PulldownMenuResBean pulldownMenuResBean);
+    List<PulldownMenuResBean> queryPermissionPulldownMenu(PulldownMenuReqBean pulldownMenuReqBean);
 
     /**
      * @Author 陈龙
@@ -51,7 +52,7 @@ public interface PulldownMenuMapper {
      * @Param []
      * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
      **/
-    List<PulldownMenuResBean> queryRolePulldownMenu(PulldownMenuResBean pulldownMenuResBean);
+    List<PulldownMenuResBean> queryRolePulldownMenu(PulldownMenuReqBean pulldownMenuReqBean);
 
 
     /**

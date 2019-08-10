@@ -1,5 +1,6 @@
 package com.cl.transform;
 
+import com.cl.bean.res.SysPermissionResBean;
 import com.cl.bean.res.SysRoleResBean;
 import com.cl.bean.res.SysUserResBean;
 import com.cl.comm.constants.DictionaryConstants;
@@ -52,9 +53,10 @@ public class SysRoleTransform extends AbstractObjectTransformer<SysRoleEntity , 
         sysRoleResBean.setLastUpdateTime(sysRoleEntity.getLastUpdateTime());
         //绑定的用户list
         List<SysUserResBean> sysUserResBeanList = this.sysRoleMapper.selectUserByRoleId(sysRoleEntity.getId());
-        if(CollectionUtils.isNotEmpty(sysUserResBeanList)){
-            sysRoleResBean.setUserList(sysUserResBeanList);
-        }
+        sysRoleResBean.setUserList(sysUserResBeanList);
+        //绑定的菜单list
+        List<SysPermissionResBean> sysPermissionResBeanList = this.sysRoleMapper.selectPermissionByRoleId(sysRoleEntity.getId());
+        sysRoleResBean.setPermissionList(sysPermissionResBeanList);
         return sysRoleResBean;
     }
 }

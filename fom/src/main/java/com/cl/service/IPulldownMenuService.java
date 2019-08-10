@@ -1,5 +1,6 @@
 package com.cl.service;
 
+import com.cl.bean.req.PulldownMenuReqBean;
 import com.cl.bean.res.DictItem;
 import com.cl.bean.res.PulldownMenuResBean;
 import com.cl.comm.model.RequestBeanModel;
@@ -23,28 +24,28 @@ public interface IPulldownMenuService {
      * @Param []
      * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
      **/
-    List<PulldownMenuResBean> queryOrgPulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel);
+    List<PulldownMenuResBean> queryOrgPulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel);
 
     /**
      *  获取用户下拉菜单 或者根据条件查询
      * @param requestBeanModel
      * @return
      */
-    List<PulldownMenuResBean> queryUserPulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel);
+    List<PulldownMenuResBean> queryUserPulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel);
 
     /**
      * 获取菜单权限下拉菜单 或者根据条件查询
      * @param requestBeanModel
      * @return
      */
-    List<PulldownMenuResBean> queryPermissionPulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel);
+    List<PulldownMenuResBean> queryPermissionPulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel);
 
     /**
      * 获取角色下拉菜单 或者根据条件查询
      * @param requestBeanModel
      * @return
      */
-    List<PulldownMenuResBean> queryRolePulldownMenu(RequestBeanModel<PulldownMenuResBean> requestBeanModel);
+    List<PulldownMenuResBean> queryRolePulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel);
     /**
      * @Author 陈龙
      * @Description 供应商名称的下拉菜单

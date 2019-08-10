@@ -1,5 +1,6 @@
 package com.cl.service.impl;
 
+import com.cl.bean.req.PulldownMenuReqBean;
 import com.cl.bean.req.TailorReqBean;
 import com.cl.bean.res.PulldownMenuResBean;
 import com.cl.bean.res.TailorResBean;
@@ -76,9 +77,9 @@ public class TailorServiceImpl implements ITailorService {
      */
     private void getOrgIdByProducer(TailorReqBean tailorReqBean){
         if(StringUtils.isNotBlank(tailorReqBean.getProducer())){
-            PulldownMenuResBean pulldownMenuResBean = new PulldownMenuResBean();
-            pulldownMenuResBean.setName(tailorReqBean.getProducer());
-            List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryOrgPulldownMenu(pulldownMenuResBean);
+            PulldownMenuReqBean pulldownMenuReqBean = new PulldownMenuReqBean();
+            pulldownMenuReqBean.setName(tailorReqBean.getProducer());
+            List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryOrgPulldownMenu(pulldownMenuReqBean);
             if(CollectionUtils.isNotEmpty(pulldownMenuResBeanList)){
                 Long orgId = pulldownMenuResBeanList.get(0).getId();
                 tailorReqBean.setProducerOrgId(orgId);

@@ -1,5 +1,6 @@
 package com.cl.bean.res;
 
+import com.cl.entity.SysPermissionEntity;
 import com.cl.entity.SysRoleEntity;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -77,6 +78,20 @@ public class SysRoleResBean implements Serializable{
      */
     @ApiModelProperty(value = "此角色绑定的所有用户")
     private List<SysUserResBean> userList;
+
+    /**
+     * 此角色绑定的所有菜单权限
+     */
+    @ApiModelProperty(value = "此角色绑定的所有菜单权限")
+    private List<SysPermissionResBean> permissionList;
+
+    public List<SysPermissionResBean> getPermissionList() {
+        return permissionList;
+    }
+
+    public void setPermissionList(List<SysPermissionResBean> permissionList) {
+        this.permissionList = permissionList;
+    }
 
     public Long getId() {
         return id;

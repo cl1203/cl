@@ -26,6 +26,28 @@
       sr.id = #{roleId}
   </select>
 
+  <resultMap id="PermissionResultMap" type="com.cl.bean.res.SysPermissionResBean">
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <select id="selectPermissionByRoleId" parameterType="long" resultMap="PermissionResultMap">
+    SELECT
+      sp.name
+    FROM
+      sys_permission sp
+    LEFT JOIN
+      sys_role_permission srp on sp.id = srp.permission_id
+    LEFT JOIN
+      sys_role sr on sr.id = srp.role_id
+    WHERE
+      sp.status = 1
+    AND
+      srp.status = 1
+    AND
+      sr.status = 1
+    AND
+      sr.id = #{roleId}
+  </select>
+
   <select id="selectOrgIdByUserId" resultType="java.lang.Long" parameterType="java.lang.Long">
     SELECT
 	  so.id
