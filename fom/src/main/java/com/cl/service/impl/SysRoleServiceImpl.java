@@ -5,20 +5,21 @@ import com.cl.bean.res.SysRoleResBean;
 import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.RequestBeanModel;
+import com.cl.comm.model.SingleParam;
 import com.cl.comm.transformer.IObjectTransformer;
+import com.cl.dao.SysPermissionMapper;
 import com.cl.dao.SysRoleMapper;
 import com.cl.dao.SysRolePermissionMapper;
-import com.cl.entity.SysRoleEntity;
-import com.cl.entity.SysRoleEntityExample;
-import com.cl.entity.SysRolePermissionEntity;
+import com.cl.entity.*;
 import com.cl.service.ISysRoleService;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,6 +38,9 @@ public class SysRoleServiceImpl implements ISysRoleService {
 
     @Resource
     private SysRolePermissionMapper sysRolePermissionMapper;
+
+    @Resource
+    private SysPermissionMapper sysPermissionMapper;
 
     @Resource
     private IObjectTransformer<SysRoleEntity , SysRoleResBean> sysRoleTransform;
@@ -68,6 +72,8 @@ public class SysRoleServiceImpl implements ISysRoleService {
 
     /**
      * 新增角色和菜单权限关系表数据
+     * @param roleId 角色id
+     * @param reqBeanModel 请求对象
      */
     private void insertSysRoelPermission(Long roleId , RequestBeanModel<SysRoleReqBean> reqBeanModel){
         List<Long> permissionIdList = reqBeanModel.getReqData().getPermissionIdList();
@@ -75,8 +81,8 @@ public class SysRoleServiceImpl implements ISysRoleService {
         SysRolePermissionEntity sysRolePermissionEntity = new SysRolePermissionEntity();
         sysRolePermissionEntity.setRoleId(roleId);
         permissionIdList.forEach(permissionId ->{
-            SysRolePermissionEntity sysRolePermissionEntityById = this.sysRolePermissionMapper.selectByPrimaryKey(permissionId);
-            if(null != sysRolePermissionEntityById && sysRolePermissionEntityById.getStatus() == DictionaryConstants.AVAILABLE){
+            SysPermissionEntity sysPermissionEntity = this.sysPermissionMapper.selectByPrimaryKey(permissionId);
+            if(null != sysPermissionEntity && sysPermissionEntity.getStatus() == DictionaryConstants.AVAILABLE){
                 sysRolePermissionEntity.setPermissionId(permissionId);
             }else{
                 throw new BusinessException("菜单id: " + permissionId + "不存在 , 或者已被删除, 请重新选择!");
@@ -90,7 +96,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
 
     /**
      * 根据用户id查询对应的组织
-     * @param userId
+     * @param userId 用户id
      * @return
      */
     private Long selectOrgIdByUserId(String userId){
@@ -102,8 +108,10 @@ public class SysRoleServiceImpl implements ISysRoleService {
 
 
     /**
-     * 校验reqBean
-     * @param
+     * 校验reqBean 并转换entity
+     * @param reqBeanModel 请求对象
+     * @param orgId 组织id
+     * @return
      */
     private SysRoleEntity checkRoleReqBean(RequestBeanModel<SysRoleReqBean> reqBeanModel , Long orgId ){
         SysRoleReqBean sysRoleReqBean = reqBeanModel.getReqData();
@@ -129,20 +137,56 @@ public class SysRoleServiceImpl implements ISysRoleService {
             sysRoleEntity.setParentId(sysRoleReqBean.getParentId());
         }
         sysRoleEntity.setName(roleName);
-        if(StringUtils.isNotBlank(sysRoleReqBean.getRemark())){
-            sysRoleEntity.setRemark(sysRoleReqBean.getRemark());
-        }
+        sysRoleEntity.setRemark(sysRoleReqBean.getRemark());
         sysRoleEntity.setLastUpdateUser(reqBeanModel.getUsername());
         return sysRoleEntity;
     }
 
     @Override
     public void updateSysRole(RequestBeanModel<SysRoleReqBean> reqBeanModel) {
-
+        Long id = reqBeanModel.getReqData().getId();
+        Assert.notNull(id , "请选择一条数据,主键ID不能为空!");
+        SysRoleEntity sysRoleEntity = this.sysRoleMapper.selectByPrimaryKey(id);
+        Assert.notNull(sysRoleEntity , "此id对应的数据不存在!");
+        Assert.isTrue(sysRoleEntity.getStatus() == DictionaryConstants.AVAILABLE , "此id对应的数据已被删除!");
+        //根据用户id查询对应的组织
+        Long orgId = selectOrgIdByUserId(reqBeanModel.getUserId());
+        //入参校验  并转换为entity
+        sysRoleEntity = this.checkRoleReqBean(reqBeanModel , orgId);
+        sysRoleEntity.setLastUpdateTime(new Date());
+        sysRoleEntity.setId(id);
+        int i = this.sysRoleMapper.updateByPrimaryKeySelective(sysRoleEntity);
+        Assert.isTrue(i == 1 , "修改角色失败!");
+        //删除角色绑定的权限
+        SysRolePermissionEntityExample sysRolePermissionEntityExample = new SysRolePermissionEntityExample();
+        SysRolePermissionEntityExample.Criteria criteria = sysRolePermissionEntityExample.createCriteria();
+        criteria.andRoleIdEqualTo(id);
+        criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
+        List<SysRolePermissionEntity> sysRolePermissionEntityList = this.sysRolePermissionMapper.selectByExample(sysRolePermissionEntityExample);
+        if(CollectionUtils.isNotEmpty(sysRolePermissionEntityList)){
+            sysRolePermissionEntityList.forEach(sysRolePermissionEntity -> {
+                int j = this.sysRolePermissionMapper.deleteByPrimaryKey(sysRolePermissionEntity.getId());
+                Assert.isTrue(j == DictionaryConstants.AVAILABLE , "修改角色和权限关系表数据失败!");
+            });
+        }
+        //新增角色和菜单权限关系表数据
+        this.insertSysRoelPermission(sysRoleEntity.getId() , reqBeanModel);
     }
 
     @Override
-    public void deleteSysRole(RequestBeanModel<SysRoleReqBean> reqBeanModel) {
-
+    public void deleteSysRole(RequestBeanModel<List<SingleParam>> reqBeanModel) {
+        List<SingleParam> roleIdList = reqBeanModel.getReqData();
+        Assert.isTrue(roleIdList.size() > DictionaryConstants.ALL_BUSINESS_ZERO , "至少选择一条需要删除的数据!");
+        //删除角色数据 删除角色和菜单权限数据  删除角色和用户关系数据
+        SysRoleEntity sysRoleEntity = new SysRoleEntity();
+        sysRoleEntity.setStatus(DictionaryConstants.DETELE);
+        roleIdList.forEach(singleParam ->{
+            sysRoleEntity.setId(Long.valueOf(singleParam.getParam()));
+            int i = this.sysRoleMapper.updateByPrimaryKeySelective(sysRoleEntity);
+            Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "删除角色数据失败!");
+            int j = this.sysRoleMapper.updateRolePermission(Long.valueOf(singleParam.getParam()));
+            Assert.isTrue(j == DictionaryConstants.ALL_BUSINESS_ONE , "删除角色菜单权限关系表失败!");
+            this.sysRoleMapper.updateUserRole(Long.valueOf(singleParam.getParam()));
+        });
     }
 }

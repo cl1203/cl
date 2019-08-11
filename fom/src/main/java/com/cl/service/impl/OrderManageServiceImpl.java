@@ -16,6 +16,7 @@ import com.cl.entity.OrderManageEntity;
 import com.cl.entity.SysOrgEntity;
 import com.cl.service.IOrderManageService;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -55,14 +56,16 @@ public class OrderManageServiceImpl implements IOrderManageService {
         //entity转resBean
         PageInfo<OrderManageResBean> orderManageResBeanPageInfo = this.orderManageTransformer.transform(orderManageEntityPageInfo);
         List<OrderManageResBean> orderManageResBeanList = orderManageResBeanPageInfo.getList();
-        orderManageResBeanList.forEach(orderManageResBean -> {
-            //根据订单号查询下单数量信息
-            List<OrderQuantityResBean> orderQuantityResBeanList = this.orderManageMapper.selectOrderQuantityByOrderNo(orderManageResBean.getOrderNo());
-            orderManageResBean.setOrderQuantityResBeanList(orderQuantityResBeanList);
-            //根据订单号查询二次工艺信息
-            List<SecondaryProcessResBean> secondaryProcessResBeanList = this.orderManageMapper.selectSecondaryProcessByOrderNo(orderManageResBean.getOrderNo());
-            orderManageResBean.setSecondaryProcessResBeanList(secondaryProcessResBeanList);
-        });
+        if(CollectionUtils.isNotEmpty(orderManageResBeanList)){
+            orderManageResBeanList.forEach(orderManageResBean -> {
+                //根据订单号查询下单数量信息
+                List<OrderQuantityResBean> orderQuantityResBeanList = this.orderManageMapper.selectOrderQuantityByOrderNo(orderManageResBean.getOrderNo());
+                orderManageResBean.setOrderQuantityResBeanList(orderQuantityResBeanList);
+                //根据订单号查询二次工艺信息
+                List<SecondaryProcessResBean> secondaryProcessResBeanList = this.orderManageMapper.selectSecondaryProcessByOrderNo(orderManageResBean.getOrderNo());
+                orderManageResBean.setSecondaryProcessResBeanList(secondaryProcessResBeanList);
+            });
+        }
         orderManageResBeanPageInfo.setList(orderManageResBeanList);
         return orderManageResBeanPageInfo;
     }

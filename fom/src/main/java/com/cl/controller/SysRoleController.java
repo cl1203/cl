@@ -4,6 +4,7 @@ import com.cl.bean.req.SysRoleReqBean;
 import com.cl.bean.res.SysRoleResBean;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.ResponseBeanModel;
+import com.cl.comm.model.SingleParam;
 import com.cl.service.ISysRoleService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @ClassName SysRoleController
@@ -80,7 +82,7 @@ public class SysRoleController {
      **/
     @PostMapping("/deleteSysRole")
     @ApiOperation(value = "删除角色列表" , notes = "删除角色列表")
-    public ResponseBeanModel<Void> deleteSysRole(@RequestBody RequestBeanModel<SysRoleReqBean> reqBeanModel){
+    public ResponseBeanModel<Void> deleteSysRole(@RequestBody RequestBeanModel<List<SingleParam>> reqBeanModel){
         this.iSysRoleService.deleteSysRole(reqBeanModel);
         return new ResponseBeanModel<>("删除角色成功!");
     }

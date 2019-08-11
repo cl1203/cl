@@ -101,10 +101,12 @@ public class SysOrgServiceImpl implements ISysOrgService {
         SysOrgEntity sysOrgEntity = new SysOrgEntity();
         SysRoleEntity sysRoleEntity = new SysRoleEntity();
         SysUserEntity sysUserEntity = new SysUserEntity();
+        sysOrgEntity.setStatus(DictionaryConstants.DETELE);
+        sysRoleEntity.setStatus(DictionaryConstants.DETELE);
+        sysUserEntity.setStatus(DictionaryConstants.DETELE);
         orgIdList.forEach(singleParam -> {
             //删除组织
             sysOrgEntity.setId(Long.valueOf(singleParam.getParam()));
-            sysOrgEntity.setStatus(DictionaryConstants.DETELE);
             int i = this.sysOrgMapper.updateByPrimaryKeySelective(sysOrgEntity);
             Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE ,"删除组织失败!");
             //查询组织绑定的所有角色的ID
@@ -119,7 +121,6 @@ public class SysOrgServiceImpl implements ISysOrgService {
                     //删除角色绑定的用户
                     userIdList.forEach(userId ->{
                         sysUserEntity.setId(userId);
-                        sysUserEntity.setStatus(DictionaryConstants.DETELE);
                         int k = this.sysUserMapper.updateByPrimaryKeySelective(sysUserEntity);
                         Assert.isTrue(k > DictionaryConstants.ALL_BUSINESS_ZERO , "删除角色绑定的用户失败!");
                     });
@@ -127,7 +128,6 @@ public class SysOrgServiceImpl implements ISysOrgService {
                 //删除组织对应的角色
                 roleIdList.forEach(roleId ->{
                     sysRoleEntity.setId(roleId);
-                    sysRoleEntity.setStatus(DictionaryConstants.DETELE);
                     int l = this.sysRoleMapper.updateByPrimaryKeySelective(sysRoleEntity);
                     Assert.isTrue(l > DictionaryConstants.ALL_BUSINESS_ZERO , "删除组织对应的角色失败!");
                 });

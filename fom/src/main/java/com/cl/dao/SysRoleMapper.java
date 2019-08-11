@@ -58,4 +58,18 @@ public interface SysRoleMapper extends MyBatisBaseDao<SysRoleEntity, Long, SysRo
      * @return
      */
     List<Long> selectOrgIdByUserId(Long userId);
+
+    /**
+     * 根据角色id删除角色权限关系表
+     * @param roleId
+     * @return
+     */
+    Integer updateRolePermission(Long roleId);
+
+    /**
+     * 根据角色id删除角色用户关系表
+     * @param roleId
+     * @return
+     */
+    Integer updateUserRole(Long roleId);
 }

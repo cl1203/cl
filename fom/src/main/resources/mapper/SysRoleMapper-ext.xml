@@ -62,4 +62,22 @@
     AND su.status = 1
     AND sur.user_id = #{userId}
   </select>
+
+  <update id="updateRolePermission" parameterType="long">
+    UPDATE
+      sys_role_permission
+    SET
+      status = 0
+    WHERE
+      role_id = #{roleId}
+  </update>
+
+  <update id="updateUserRole" parameterType="long">
+    UPDATE
+      sys_user_role
+    SET
+      status = 0
+    WHERE
+      role_id = #{roleId}
+  </update>
 </mapper>

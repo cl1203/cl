@@ -3,7 +3,10 @@ package com.cl.service;
 import com.cl.bean.req.SysRoleReqBean;
 import com.cl.bean.res.SysRoleResBean;
 import com.cl.comm.model.RequestBeanModel;
+import com.cl.comm.model.SingleParam;
 import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 /**
  * @ClassName ISysRoleService
@@ -48,6 +51,6 @@ public interface ISysRoleService {
      * @Param [reqBeanModel]
      * @return void
      **/
-    void deleteSysRole(RequestBeanModel<SysRoleReqBean> reqBeanModel);
+    void deleteSysRole(RequestBeanModel<List<SingleParam>> reqBeanModel);
 
 }
