@@ -23,6 +23,7 @@ public class DictionaryConstants {
     public static final String MATERIELCODE = "materiel_type";//物料类型
 
     public static final Byte DETELE = 0;//已删除
+    public static final String PASS_WORD = "123456";//默认密码
 
 
 }

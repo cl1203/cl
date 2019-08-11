@@ -130,7 +130,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
         criteria.andOrgIdEqualTo(orgId);
         criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
         List<SysRoleEntity> sysRoleEntityList = this.sysRoleMapper.selectByExample(sysRoleEntityExample);
-        Assert.isTrue(sysRoleEntityList.size() == 0 , "该组织下已有相同角色名,请修改!");
+        Assert.isTrue(sysRoleEntityList.size() == DictionaryConstants.ALL_BUSINESS_ZERO , "该组织下已有相同角色名,请修改!");
         //查询上级角色是否存在
         if(null != sysRoleReqBean.getParentId()){
             SysRoleEntity sysRoleEntityByParentId = this.sysRoleMapper.selectByPrimaryKey(sysRoleReqBean.getParentId());

@@ -79,6 +79,7 @@ public class SysUserServiceImpl implements ISysUserService {
         //校验reqBean 并转entity
         SysUserEntity sysUserEntity = this.checkUserReqBean(reqBeanModel);
         sysUserEntity.setCreateUser(reqBeanModel.getUserId());
+        sysUserEntity.setPassword(DictionaryConstants.PASS_WORD);
         Integer i = this.sysUserMapper.insertSelective(sysUserEntity);
         Assert.isTrue( i == DictionaryConstants.ALL_BUSINESS_ONE , "新增用户失败!");
         //绑定角色
@@ -99,15 +100,12 @@ public class SysUserServiceImpl implements ISysUserService {
         sysUserRoleEntity.setLastUpdateUser(reqBeanModel.getUserId());
         roleIdList.forEach(roleId ->{
             SysRoleEntity sysRoleEntity = this.sysRoleMapper.selectByPrimaryKey(roleId);
-            if(null != sysRoleEntity && sysRoleEntity.getStatus() == DictionaryConstants.AVAILABLE && sysRoleEntity.getOrgId() == orgId){
-                sysUserRoleEntity.setRoleId(roleId);
-                Integer i = this.sysUserRoleMapper.insertSelective(sysUserRoleEntity);
-                Assert.isTrue(i > DictionaryConstants.ALL_BUSINESS_ONE , "绑定角色失败! roleId: " + roleId);
-            }else if(sysRoleEntity.getOrgId() != orgId){
-                throw new BusinessException("角色ID: " + roleId + ",对应的角色不属于该用户对应的组织!");
-            }else{
-                throw new BusinessException("角色ID: " + roleId + ",对应的角色不存在, 或者已被删除!");
-            }
+            Assert.notNull(sysRoleEntity , "角色ID: \" + roleId + \",对应的角色不存在!");
+            Assert.isTrue(sysRoleEntity.getStatus() == DictionaryConstants.AVAILABLE , "该角色已被删除!");
+            Assert.isTrue(sysRoleEntity.getOrgId() == orgId , "该角色不属于该用户对应的组织!");
+            sysUserRoleEntity.setRoleId(roleId);
+            Integer i = this.sysUserRoleMapper.insertSelective(sysUserRoleEntity);
+            Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "绑定角色失败! roleId: " + roleId);
         });
     }
 
@@ -135,11 +133,11 @@ public class SysUserServiceImpl implements ISysUserService {
         SysUserEntityExample.Criteria criteria = sysUserEntityExample.createCriteria();
         criteria.andUserNameEqualTo(sysUserReqBean.getUserName());
         if(null != sysUserReqBean.getId()){
-            criteria.andIdEqualTo(sysUserReqBean.getId());
+            criteria.andIdNotEqualTo(sysUserReqBean.getId());
         }
         criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
         List<SysUserEntity> sysUserEntityList = this.sysUserMapper.selectByExample(sysUserEntityExample);
-        Assert.isTrue(sysUserEntityList.size() > 0 ,"用户名已经存在,请修改!");
+        Assert.isTrue(sysUserEntityList.size() == DictionaryConstants.ALL_BUSINESS_ZERO ,"用户名已经存在,请修改!");
         sysUserEntity.setUserName(sysUserReqBean.getUserName());
         sysUserEntity.setRealName(sysUserReqBean.getRealName());
         sysUserEntity.setMobile(sysUserReqBean.getMobile());
