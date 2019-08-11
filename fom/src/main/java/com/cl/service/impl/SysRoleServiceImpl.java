@@ -51,6 +51,9 @@ public class SysRoleServiceImpl implements ISysRoleService {
         if(sysRoleReqBean.getPageNum() < DictionaryConstants.ALL_BUSINESS_ONE || sysRoleReqBean.getPageSize() < DictionaryConstants.ALL_BUSINESS_ONE){
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
+        //根据用户id查询对应的组织
+        Long orgId = this.selectOrgIdByUserId(reqBeanModel.getUserId());
+        sysRoleReqBean.setOrgId(orgId);
         PageInfo<SysRoleEntity> pageInfo = this.sysRoleMapper.selectSysRolePageInfo(sysRoleReqBean);
         PageInfo<SysRoleResBean> roleResBeanPageInfo = this.sysRoleTransform.transform(pageInfo);
         return roleResBeanPageInfo;
@@ -59,7 +62,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     @Override
     public void insertSysRole(RequestBeanModel<SysRoleReqBean> reqBeanModel) {
         //根据用户id查询对应的组织
-        Long orgId = selectOrgIdByUserId(reqBeanModel.getUserId());
+        Long orgId = this.selectOrgIdByUserId(reqBeanModel.getUserId());
         //入参校验  并转换为entity
         SysRoleEntity sysRoleEntity = this.checkRoleReqBean(reqBeanModel , orgId);
         sysRoleEntity.setCreateUser(reqBeanModel.getUsername());
@@ -77,21 +80,21 @@ public class SysRoleServiceImpl implements ISysRoleService {
      */
     private void insertSysRoelPermission(Long roleId , RequestBeanModel<SysRoleReqBean> reqBeanModel){
         List<Long> permissionIdList = reqBeanModel.getReqData().getPermissionIdList();
-        Assert.notEmpty(permissionIdList , "请选择菜单权限!");
+        Assert.notEmpty(permissionIdList , "请选择需要绑定的菜单权限!");
         SysRolePermissionEntity sysRolePermissionEntity = new SysRolePermissionEntity();
         sysRolePermissionEntity.setRoleId(roleId);
+        sysRolePermissionEntity.setCreateUser(reqBeanModel.getUserId());
+        sysRolePermissionEntity.setLastUpdateUser(reqBeanModel.getUserId());
         permissionIdList.forEach(permissionId ->{
             SysPermissionEntity sysPermissionEntity = this.sysPermissionMapper.selectByPrimaryKey(permissionId);
             if(null != sysPermissionEntity && sysPermissionEntity.getStatus() == DictionaryConstants.AVAILABLE){
                 sysRolePermissionEntity.setPermissionId(permissionId);
+                Integer i = this.sysRolePermissionMapper.insertSelective(sysRolePermissionEntity);
+                Assert.isTrue(i == 1 , "新增角色和菜单权限关系表失败! 菜单id: " + permissionId);
             }else{
-                throw new BusinessException("菜单id: " + permissionId + "不存在 , 或者已被删除, 请重新选择!");
+                throw new BusinessException("菜单id: " + permissionId + ",对应的菜单不存在 , 或者已被删除, 请重新选择!");
             }
         });
-        sysRolePermissionEntity.setCreateUser(reqBeanModel.getUserId());
-        sysRolePermissionEntity.setLastUpdateUser(reqBeanModel.getUserId());
-        int i = this.sysRolePermissionMapper.insertSelective(sysRolePermissionEntity);
-        Assert.isTrue(i == 1 , "新增角色和菜单权限关系表失败!");
     }
 
     /**
@@ -100,9 +103,8 @@ public class SysRoleServiceImpl implements ISysRoleService {
      * @return
      */
     private Long selectOrgIdByUserId(String userId){
-        List<Long> orgIdList = this.sysRoleMapper.selectOrgIdByUserId(Long.valueOf(userId));
-        Assert.isTrue(orgIdList.size() > 0 , "用户未绑定组织!");
-        Long orgId = orgIdList.get(0);
+        Long orgId = this.sysRoleMapper.selectOrgIdByUserId(Long.valueOf(userId));
+        Assert.notNull(orgId , "用户未绑定组织!");
         return orgId;
     }
 
@@ -155,20 +157,21 @@ public class SysRoleServiceImpl implements ISysRoleService {
         sysRoleEntity = this.checkRoleReqBean(reqBeanModel , orgId);
         sysRoleEntity.setLastUpdateTime(new Date());
         sysRoleEntity.setId(id);
-        int i = this.sysRoleMapper.updateByPrimaryKeySelective(sysRoleEntity);
-        Assert.isTrue(i == 1 , "修改角色失败!");
+        Integer i = this.sysRoleMapper.updateByPrimaryKeySelective(sysRoleEntity);
+        Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "修改角色失败!");
         //删除角色绑定的权限
         SysRolePermissionEntityExample sysRolePermissionEntityExample = new SysRolePermissionEntityExample();
         SysRolePermissionEntityExample.Criteria criteria = sysRolePermissionEntityExample.createCriteria();
         criteria.andRoleIdEqualTo(id);
-        criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
-        List<SysRolePermissionEntity> sysRolePermissionEntityList = this.sysRolePermissionMapper.selectByExample(sysRolePermissionEntityExample);
+        //criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
+        this.sysRolePermissionMapper.deleteByExample(sysRolePermissionEntityExample);
+        /*List<SysRolePermissionEntity> sysRolePermissionEntityList = this.sysRolePermissionMapper.selectByExample(sysRolePermissionEntityExample);
         if(CollectionUtils.isNotEmpty(sysRolePermissionEntityList)){
             sysRolePermissionEntityList.forEach(sysRolePermissionEntity -> {
                 int j = this.sysRolePermissionMapper.deleteByPrimaryKey(sysRolePermissionEntity.getId());
                 Assert.isTrue(j == DictionaryConstants.AVAILABLE , "修改角色和权限关系表数据失败!");
             });
-        }
+        }*/
         //新增角色和菜单权限关系表数据
         this.insertSysRoelPermission(sysRoleEntity.getId() , reqBeanModel);
     }
@@ -182,9 +185,9 @@ public class SysRoleServiceImpl implements ISysRoleService {
         sysRoleEntity.setStatus(DictionaryConstants.DETELE);
         roleIdList.forEach(singleParam ->{
             sysRoleEntity.setId(Long.valueOf(singleParam.getParam()));
-            int i = this.sysRoleMapper.updateByPrimaryKeySelective(sysRoleEntity);
+            Integer i = this.sysRoleMapper.updateByPrimaryKeySelective(sysRoleEntity);
             Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "删除角色数据失败!");
-            int j = this.sysRoleMapper.updateRolePermission(Long.valueOf(singleParam.getParam()));
+            Integer j = this.sysRoleMapper.updateRolePermission(Long.valueOf(singleParam.getParam()));
             Assert.isTrue(j == DictionaryConstants.ALL_BUSINESS_ONE , "删除角色菜单权限关系表失败!");
             this.sysRoleMapper.updateUserRole(Long.valueOf(singleParam.getParam()));
         });

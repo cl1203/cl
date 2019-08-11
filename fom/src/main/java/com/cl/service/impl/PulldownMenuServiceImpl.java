@@ -6,9 +6,11 @@ import com.cl.bean.res.PulldownMenuResBean;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.SingleParam;
 import com.cl.dao.PulldownMenuMapper;
+import com.cl.dao.SysRoleMapper;
 import com.cl.service.IPulldownMenuService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -27,6 +29,9 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     @Resource
     private PulldownMenuMapper pulldownMenuMapper;
 
+    @Resource
+    private SysRoleMapper sysRoleMapper;
+
     @Override
     public List<PulldownMenuResBean> queryOrgPulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel) {
         PulldownMenuReqBean pulldownMenuReqBean = requestBeanModel.getReqData();
@@ -37,6 +42,9 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     @Override
     public List<PulldownMenuResBean> queryUserPulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel) {
         PulldownMenuReqBean pulldownMenuReqBean = requestBeanModel.getReqData();
+        Long orgId = this.sysRoleMapper.selectOrgIdByUserId(Long.valueOf(requestBeanModel.getUserId()));
+        Assert.notNull(orgId , "用户未绑定组织!");
+        pulldownMenuReqBean.setOrgId(orgId);
         List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryUserPulldownMenu(pulldownMenuReqBean);
         return pulldownMenuResBeanList;
     }
@@ -51,6 +59,9 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     @Override
     public List<PulldownMenuResBean> queryRolePulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel) {
         PulldownMenuReqBean pulldownMenuReqBean = requestBeanModel.getReqData();
+        Long orgId = this.sysRoleMapper.selectOrgIdByUserId(Long.valueOf(requestBeanModel.getUserId()));
+        Assert.notNull(orgId , "用户未绑定组织!");
+        pulldownMenuReqBean.setOrgId(orgId);
         List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryRolePulldownMenu(pulldownMenuReqBean);
         return pulldownMenuResBeanList;
     }

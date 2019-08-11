@@ -28,17 +28,23 @@ public class PulldownMenuReqBean implements Serializable{
     private String name;
 
     /**
-     * 编码
+     * 真实名称
      */
-    @ApiModelProperty(value = "编码")
-    private String code;
+    @ApiModelProperty(value = "真实名称")
+    private String realName;
 
-    public String getCode() {
-        return code;
+    /**
+     * 组织id
+     */
+    @ApiModelProperty(value = "组织id")
+    private Long orgId;
+
+    public Long getOrgId() {
+        return orgId;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
     }
 
     public Long getId() {
@@ -55,5 +61,13 @@ public class PulldownMenuReqBean implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 }

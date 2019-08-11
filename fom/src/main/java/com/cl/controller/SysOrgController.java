@@ -40,7 +40,7 @@ public class SysOrgController {
      * @return com.github.pagehelper.PageInfo<com.cl.bean.res.SysOrgResBean>
      **/
     @PostMapping("/querySysOrgList")
-    @ApiOperation(value = "查询组织列表" , notes = "查询组织列表")
+    @ApiOperation(value = "查询组织列表" , notes = "根据条件查询组织列表")
     public ResponseBeanModel<PageInfo<SysOrgResBean>> querySysOrgList(@RequestBody @Valid RequestBeanModel<SysOrgReqBean> reqBeanModel){
         PageInfo<SysOrgResBean> sysOrgResBeanPageInfo = this.iSysOrgService.querySysOrgList(reqBeanModel);
         return new ResponseBeanModel<>(sysOrgResBeanPageInfo);
@@ -54,7 +54,7 @@ public class SysOrgController {
      * @return void
      **/
     @PostMapping("/insertSysOrg")
-    @ApiOperation(value = "新增组织数据" , notes = "新增组织数据")
+    @ApiOperation(value = "新增组织数据" , notes = "根据条件新增组织数据")
     public ResponseBeanModel<Void> insertSysOrg(@RequestBody RequestBeanModel<SysOrgReqBean> reqBeanModel){
         this.iSysOrgService.insertSysOrg(reqBeanModel);
         return new ResponseBeanModel<>("新增组织成功!");
@@ -68,7 +68,7 @@ public class SysOrgController {
      * @return void
      **/
     @PostMapping("/deleteSysOrg")
-    @ApiOperation(value = "删除组织数据" , notes = "删除组织数据")
+    @ApiOperation(value = "删除组织数据" , notes = "根据条件删除组织数据")
     public ResponseBeanModel<Void> deleteSysOrg(@RequestBody RequestBeanModel<List<SingleParam>> reqBeanModel){
         this.iSysOrgService.deleteSysOrg(reqBeanModel);
         return new ResponseBeanModel<>("删除组织成功!");
@@ -82,7 +82,7 @@ public class SysOrgController {
      * @return void
      **/
     @PostMapping("/updateSysOrg")
-    @ApiOperation(value = "修改组织数据" , notes = "修改组织数据")
+    @ApiOperation(value = "修改组织数据" , notes = "根据条件修改组织数据")
     public ResponseBeanModel<Void> updateSysOrg(@RequestBody RequestBeanModel<SysOrgReqBean> reqBeanModel){
         this.iSysOrgService.updateSysOrg(reqBeanModel);
         return new ResponseBeanModel<>("修改组织成功!");

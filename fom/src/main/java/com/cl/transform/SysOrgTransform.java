@@ -2,8 +2,13 @@ package com.cl.transform;
 
 import com.cl.bean.res.SysOrgResBean;
 import com.cl.comm.transformer.AbstractObjectTransformer;
+import com.cl.dao.SysUserMapper;
 import com.cl.entity.SysOrgEntity;
+import com.cl.entity.SysUserEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * @ClassName SysOrgTransform
@@ -14,6 +19,10 @@ import org.springframework.stereotype.Service;
  **/
 @Service
 public class SysOrgTransform extends AbstractObjectTransformer<SysOrgEntity , SysOrgResBean> {
+
+    @Resource
+    private SysUserMapper sysUserMapper;
+
     @Override
     public SysOrgResBean transform(SysOrgEntity sysOrgEntity) {
         if (null == sysOrgEntity){
@@ -23,7 +32,12 @@ public class SysOrgTransform extends AbstractObjectTransformer<SysOrgEntity , Sy
         sysOrgResBean.setId(sysOrgEntity.getId());
         sysOrgResBean.setName(sysOrgEntity.getName());
         sysOrgResBean.setRemarks(sysOrgEntity.getRemarks());
-        sysOrgResBean.setLastUpdateUser(sysOrgEntity.getLastUpdateUser());
+        if(StringUtils.isNotBlank(sysOrgEntity.getLastUpdateUser())){
+            SysUserEntity sysUserEntity = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(sysOrgEntity.getLastUpdateUser()));
+            if(null != sysUserEntity){
+                sysOrgResBean.setLastUpdateUser(sysUserEntity.getRealName());
+            }
+        }
         sysOrgResBean.setLastUpdateTime(sysOrgEntity.getLastUpdateTime());
         return sysOrgResBean;
     }

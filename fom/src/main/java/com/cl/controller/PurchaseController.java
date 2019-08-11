@@ -38,7 +38,7 @@ public class PurchaseController {
      * @return com.cl.comm.model.ResponseBeanModel<com.github.pagehelper.PageInfo<com.cl.bean.res.PurchaseResBean>>
      **/
     @PostMapping("/queryPurchaseList")
-    @ApiOperation(value = "查询采购列表" , notes = "查询采购列表")
+    @ApiOperation(value = "查询采购列表" , notes = "根据条件查询采购列表")
     public ResponseBeanModel<PageInfo<PurchaseResBean>> queryPurchaseList(@RequestBody @Valid RequestBeanModel<PurchaseReqBean> reqBeanModel){
         PageInfo<PurchaseResBean> purchaseResBeanPageInfo = this.iPurchaseService.queryPurchaseList(reqBeanModel);
         return new ResponseBeanModel<>(purchaseResBeanPageInfo);
@@ -52,7 +52,7 @@ public class PurchaseController {
      * @return void
      **/
     @PostMapping("/updatePurchase")
-    @ApiOperation(value = "修改采购单" , notes = "修改采购单")
+    @ApiOperation(value = "修改采购单" , notes = "根据条件修改采购单")
     public ResponseBeanModel<Void> updatePurchase(@RequestBody RequestBeanModel<PurchaseReqBean> reqBeanModel){
         this.iPurchaseService.updatePurchase(reqBeanModel);
         return new ResponseBeanModel<>("修改采购单成功!");

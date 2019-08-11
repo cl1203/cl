@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName SysUserResBean
@@ -19,20 +20,8 @@ public class SysUserResBean implements Serializable{
     /**
      * 主键，自增长
      */
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "主键，自增长")
     private Long id;
-
-    /**
-     * 组织ID
-     */
-    @ApiModelProperty(value = "组织ID")
-    private Long orgId;
-
-    /**
-     * 组织名称
-     */
-    @ApiModelProperty(value = "组织名称")
-    private String orgName;
 
     /**
      * 用户名
@@ -70,28 +59,26 @@ public class SysUserResBean implements Serializable{
     @ApiModelProperty(value = "最后修改人")
     private String lastUpdateUser;
 
+    /**
+     * 用户绑定的所有角色
+     */
+    @ApiModelProperty(value = "用户绑定的所有角色")
+    private List<SysRoleResBean> sysRoleList;
+
+    public List<SysRoleResBean> getSysRoleList() {
+        return sysRoleList;
+    }
+
+    public void setSysRoleList(List<SysRoleResBean> sysRoleList) {
+        this.sysRoleList = sysRoleList;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
-    }
-
-    public String getOrgName() {
-        return orgName;
-    }
-
-    public void setOrgName(String orgName) {
-        this.orgName = orgName;
     }
 
     public String getUserName() {

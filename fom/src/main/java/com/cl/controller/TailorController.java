@@ -38,7 +38,7 @@ public class TailorController {
      * @return com.github.pagehelper.PageInfo<com.cl.bean.res.TailorResBean>
      **/
     @PostMapping("/queryTailorList")
-    @ApiOperation(value = "查询裁剪列表" , notes = "查询裁剪列表")
+    @ApiOperation(value = "查询裁剪列表" , notes = "根据条件查询裁剪列表")
     public ResponseBeanModel<PageInfo<TailorResBean>> queryTailorList(@RequestBody @Valid RequestBeanModel<TailorReqBean> reqBeanModel){
         PageInfo<TailorResBean> tailorResBeanPageInfo = this.iTailorService.queryTailorList(reqBeanModel);
         return new ResponseBeanModel<>(tailorResBeanPageInfo);
@@ -52,7 +52,7 @@ public class TailorController {
      * @return void
      **/
     @PostMapping("/updateTailor")
-    @ApiOperation(value = "修改裁剪数据" , notes = "修改裁剪数据")
+    @ApiOperation(value = "修改裁剪数据" , notes = "根据条件修改裁剪数据")
     public ResponseBeanModel<Void> updateTailor(@RequestBody @Valid RequestBeanModel<TailorReqBean> reqBeanModel){
         this.iTailorService.updateTailor(reqBeanModel);
         return new ResponseBeanModel<>("修改裁剪数据成功!");

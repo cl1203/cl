@@ -28,17 +28,17 @@ public class PulldownMenuResBean implements Serializable{
     private String name;
 
     /**
-     * 编码
+     * 真实名称
      */
-    @ApiModelProperty(value = "编码")
-    private String code;
+    @ApiModelProperty(value = "真实名称")
+    private String realName;
 
-    public String getCode() {
-        return code;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     public Long getId() {

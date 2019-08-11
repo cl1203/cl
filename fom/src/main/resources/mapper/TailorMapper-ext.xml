@@ -13,10 +13,10 @@
     <result column="producer" jdbcType="VARCHAR" property="producer" />
     <result column="producer_org_id" jdbcType="BIGINT" property="producerOrgId" />
     <result column="tailoring_user_name" jdbcType="VARCHAR" property="tailorUserName" />
-    <collection property="secondaryProcessResBeanList" resultMap="checkDetailResultMap" javaType="list" />
+    <collection property="secondaryProcessResBeanList" resultMap="secondaryProcessResultMap" javaType="list" />
   </resultMap>
 
-  <resultMap id="checkDetailResultMap" type="com.cl.bean.res.SecondaryProcessResBean">
+  <resultMap id="secondaryProcessResultMap" type="com.cl.bean.res.SecondaryProcessResBean">
     <id column="sp_id" jdbcType="BIGINT" property="id" />
     <result column="sp_order_no" jdbcType="VARCHAR" property="orderNo" />
     <result column="process_name" jdbcType="VARCHAR" property="processName" />

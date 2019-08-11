@@ -42,14 +42,6 @@ public class PurchaseTransform extends AbstractObjectTransformer<PurchaseEntity 
             List<DictItem> dictItemList = this.iPulldownMenuService.queryDictItemList(requestBeanModel);
             dictItem = dictItemList.get(0);
             purchaseResBean.setPurchaseStatusName(dictItem.getValue());
-            /*switch(purchaseEntity.getPurchaseStatus()){
-                case 1:
-                    purchaseResBean.setPurchaseStatusName("待采购");
-                    break;
-                case 2:
-                    purchaseResBean.setPurchaseStatusName("采购中");
-                    break;
-            }*/
         }
         purchaseResBean.setMaterielName(purchaseEntity.getMaterielName());//物料名称
         purchaseResBean.setMaterielColor(purchaseEntity.getMaterielColor());//物料颜色

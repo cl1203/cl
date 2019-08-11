@@ -53,6 +53,7 @@ public class SysRoleReqBean implements Serializable {
      */
     @ApiModelProperty(value = "菜单权限id")
     private List<Long> permissionIdList;
+
     /**
      * 每页数量
      */
