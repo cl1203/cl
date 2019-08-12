@@ -153,7 +153,8 @@ public class SysOrgServiceImpl implements ISysOrgService {
             criteriaByUserRole.andRoleIdEqualTo(sysRoleEntity.getId());
             this.sysUserRoleMapper.updateByExampleSelective(sysUserRoleEntity , sysUserRoleEntityExample);
             criteriaByRolePermission.andRoleIdEqualTo(sysRoleEntity.getId());
-            this.sysRolePermissionMapper.updateByExampleSelective(sysRolePermissionEntity , sysRolePermissionEntityExample);
+            int j = this.sysRolePermissionMapper.updateByExampleSelective(sysRolePermissionEntity , sysRolePermissionEntityExample);
+            Assert.isTrue(j == DictionaryConstants.ALL_BUSINESS_ONE , "删除该组织对应的角色id: " + sysRoleEntity.getId() + ",的角色和菜单权限数据失败!");
         });
     }
 

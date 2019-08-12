@@ -63,4 +63,11 @@ public interface IPulldownMenuService {
      * @return java.util.List<java.lang.String>
      **/
     List<DictItem> queryDictItemList(RequestBeanModel<DictItem> requestBeanModel);
+
+    /**
+     * 根据用户id查询组织ID
+     * @param userId
+     * @return
+     */
+    Long selectOrgIdByUserId(Long userId);
 }

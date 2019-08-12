@@ -27,7 +27,9 @@ public interface SysRoleMapper extends MyBatisBaseDao<SysRoleEntity, Long, SysRo
         if(null != sysRoleReqBean.getId()){
             criteria.andIdEqualTo(sysRoleReqBean.getId());
         }
-        criteria.andOrgIdEqualTo((sysRoleReqBean.getOrgId()));
+        if(sysRoleReqBean.getOrgId() != Long.valueOf(DictionaryConstants.ADMIN_ORG_ID)){
+            criteria.andOrgIdEqualTo((sysRoleReqBean.getOrgId()));
+        }
         criteria.andStatusEqualTo(Byte.valueOf(DictionaryConstants.ALL_BUSINESS_ONE + ""));
         List<SysRoleEntity> sysRoleEntityList = this.selectByExample(sysRoleEntityExample);
         PageInfo<SysRoleEntity> pageInfo = new PageInfo<>(page);
@@ -49,25 +51,4 @@ public interface SysRoleMapper extends MyBatisBaseDao<SysRoleEntity, Long, SysRo
      */
     List<SysPermissionResBean> selectPermissionByRoleId(Long roleId);
 
-
-    /**
-     * 根据用户id查询对应的组织
-     * @param userId
-     * @return
-     */
-    Long selectOrgIdByUserId(Long userId);
-
-    /**
-     * 根据角色id删除角色权限关系表
-     * @param roleId
-     * @return
-     */
-    Integer updateRolePermission(Long roleId);
-
-    /**
-     * 根据角色id删除角色用户关系表
-     * @param roleId
-     * @return
-     */
-    Integer updateUserRole(Long roleId);
 }

@@ -7,10 +7,9 @@ import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.SingleParam;
 import com.cl.comm.transformer.IObjectTransformer;
-import com.cl.dao.SysPermissionMapper;
-import com.cl.dao.SysRoleMapper;
-import com.cl.dao.SysRolePermissionMapper;
+import com.cl.dao.*;
 import com.cl.entity.*;
+import com.cl.service.IPulldownMenuService;
 import com.cl.service.ISysRoleService;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections4.CollectionUtils;
@@ -43,6 +42,12 @@ public class SysRoleServiceImpl implements ISysRoleService {
     private SysPermissionMapper sysPermissionMapper;
 
     @Resource
+    private IPulldownMenuService pulldownMenuService;
+
+    @Resource
+    private SysUserRoleMapper sysUserRoleMapper;
+
+    @Resource
     private IObjectTransformer<SysRoleEntity , SysRoleResBean> sysRoleTransform;
 
     @Override
@@ -52,7 +57,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
         //根据用户id查询对应的组织
-        Long orgId = this.selectOrgIdByUserId(reqBeanModel.getUserId());
+        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
         sysRoleReqBean.setOrgId(orgId);
         PageInfo<SysRoleEntity> pageInfo = this.sysRoleMapper.selectSysRolePageInfo(sysRoleReqBean);
         PageInfo<SysRoleResBean> roleResBeanPageInfo = this.sysRoleTransform.transform(pageInfo);
@@ -62,7 +67,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     @Override
     public void insertSysRole(RequestBeanModel<SysRoleReqBean> reqBeanModel) {
         //根据用户id查询对应的组织
-        Long orgId = this.selectOrgIdByUserId(reqBeanModel.getUserId());
+        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
         //入参校验  并转换为entity
         SysRoleEntity sysRoleEntity = this.checkRoleReqBean(reqBeanModel , orgId);
         sysRoleEntity.setCreateUser(reqBeanModel.getUsername());
@@ -96,18 +101,6 @@ public class SysRoleServiceImpl implements ISysRoleService {
             }
         });
     }
-
-    /**
-     * 根据用户id查询对应的组织
-     * @param userId 用户id
-     * @return
-     */
-    private Long selectOrgIdByUserId(String userId){
-        Long orgId = this.sysRoleMapper.selectOrgIdByUserId(Long.valueOf(userId));
-        Assert.notNull(orgId , "用户未绑定组织!");
-        return orgId;
-    }
-
 
     /**
      * 校验reqBean 并转换entity
@@ -152,7 +145,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
         Assert.notNull(sysRoleEntity , "此id对应的数据不存在!");
         Assert.isTrue(sysRoleEntity.getStatus() == DictionaryConstants.AVAILABLE , "此id对应的数据已被删除!");
         //根据用户id查询对应的组织
-        Long orgId = selectOrgIdByUserId(reqBeanModel.getUserId());
+        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
         //入参校验  并转换为entity
         sysRoleEntity = this.checkRoleReqBean(reqBeanModel , orgId);
         sysRoleEntity.setLastUpdateTime(new Date());
@@ -163,15 +156,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
         SysRolePermissionEntityExample sysRolePermissionEntityExample = new SysRolePermissionEntityExample();
         SysRolePermissionEntityExample.Criteria criteria = sysRolePermissionEntityExample.createCriteria();
         criteria.andRoleIdEqualTo(id);
-        //criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
         this.sysRolePermissionMapper.deleteByExample(sysRolePermissionEntityExample);
-        /*List<SysRolePermissionEntity> sysRolePermissionEntityList = this.sysRolePermissionMapper.selectByExample(sysRolePermissionEntityExample);
-        if(CollectionUtils.isNotEmpty(sysRolePermissionEntityList)){
-            sysRolePermissionEntityList.forEach(sysRolePermissionEntity -> {
-                int j = this.sysRolePermissionMapper.deleteByPrimaryKey(sysRolePermissionEntity.getId());
-                Assert.isTrue(j == DictionaryConstants.AVAILABLE , "修改角色和权限关系表数据失败!");
-            });
-        }*/
         //新增角色和菜单权限关系表数据
         this.insertSysRoelPermission(sysRoleEntity.getId() , reqBeanModel);
     }
@@ -180,16 +165,26 @@ public class SysRoleServiceImpl implements ISysRoleService {
     public void deleteSysRole(RequestBeanModel<List<SingleParam>> reqBeanModel) {
         List<SingleParam> roleIdList = reqBeanModel.getReqData();
         Assert.isTrue(roleIdList.size() > DictionaryConstants.ALL_BUSINESS_ZERO , "至少选择一条需要删除的数据!");
-        //删除角色数据 删除角色和菜单权限数据  删除角色和用户关系数据
+        //删除角色数据  删除角色和用户关系数据 删除角色和菜单权限数据
         SysRoleEntity sysRoleEntity = new SysRoleEntity();
         sysRoleEntity.setStatus(DictionaryConstants.DETELE);
+        SysUserRoleEntity sysUserRoleEntity = new SysUserRoleEntity();
+        sysUserRoleEntity.setStatus(DictionaryConstants.DETELE);
+        SysUserRoleEntityExample sysUserRoleEntityExample = new SysUserRoleEntityExample();
+        SysUserRoleEntityExample.Criteria criteriaByUserRole = sysUserRoleEntityExample.createCriteria();
+        SysRolePermissionEntity sysRolePermissionEntity = new SysRolePermissionEntity();
+        sysRolePermissionEntity.setStatus(DictionaryConstants.DETELE);
+        SysRolePermissionEntityExample sysRolePermissionEntityExample = new SysRolePermissionEntityExample();
+        SysRolePermissionEntityExample.Criteria criteriaByRolePermission = sysRolePermissionEntityExample.createCriteria();
         roleIdList.forEach(singleParam ->{
             sysRoleEntity.setId(Long.valueOf(singleParam.getParam()));
             Integer i = this.sysRoleMapper.updateByPrimaryKeySelective(sysRoleEntity);
             Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "删除角色数据失败!");
-            Integer j = this.sysRoleMapper.updateRolePermission(Long.valueOf(singleParam.getParam()));
-            Assert.isTrue(j == DictionaryConstants.ALL_BUSINESS_ONE , "删除角色菜单权限关系表失败!");
-            this.sysRoleMapper.updateUserRole(Long.valueOf(singleParam.getParam()));
+            criteriaByUserRole.andRoleIdEqualTo(sysRoleEntity.getId());
+            this.sysUserRoleMapper.updateByExampleSelective(sysUserRoleEntity , sysUserRoleEntityExample);
+            criteriaByRolePermission.andRoleIdEqualTo(sysRoleEntity.getId());
+            int j = this.sysRolePermissionMapper.updateByExampleSelective(sysRolePermissionEntity , sysRolePermissionEntityExample);
+            Assert.isTrue(j == DictionaryConstants.ALL_BUSINESS_ONE , "删除该组织对应的角色id: " + sysRoleEntity.getId() + ",的角色和菜单权限数据失败!");
         });
     }
 }

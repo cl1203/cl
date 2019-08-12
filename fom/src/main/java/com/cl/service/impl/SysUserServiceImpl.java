@@ -11,6 +11,7 @@ import com.cl.dao.SysRoleMapper;
 import com.cl.dao.SysUserMapper;
 import com.cl.dao.SysUserRoleMapper;
 import com.cl.entity.*;
+import com.cl.service.IPulldownMenuService;
 import com.cl.service.ISysUserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -36,6 +37,9 @@ import java.util.List;
 public class SysUserServiceImpl implements ISysUserService {
 
     @Resource
+    private IPulldownMenuService pulldownMenuService;
+
+    @Resource
     private SysUserMapper sysUserMapper;
 
     @Resource
@@ -51,7 +55,7 @@ public class SysUserServiceImpl implements ISysUserService {
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
         //根据用户id查询对应的组织
-        Long orgId = selectOrgIdByUserId(reqBeanModel.getUserId());
+        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
         sysUserReqBean.setOrgId(orgId);
         //分页查询
         PageHelper.startPage(sysUserReqBean.getPageNum() , sysUserReqBean.getPageSize());
@@ -75,7 +79,7 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public void insertSysUser(RequestBeanModel<SysUserReqBean> reqBeanModel) {
         //根据用户id查询对应的组织
-        Long orgId = selectOrgIdByUserId(reqBeanModel.getUserId());
+        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
         //校验reqBean 并转entity
         SysUserEntity sysUserEntity = this.checkUserReqBean(reqBeanModel);
         sysUserEntity.setCreateUser(reqBeanModel.getUserId());
@@ -109,16 +113,6 @@ public class SysUserServiceImpl implements ISysUserService {
         });
     }
 
-    /**
-     * 根据用户id查询对应的组织
-     * @param userId 用户id
-     * @return
-     */
-    private Long selectOrgIdByUserId(String userId){
-        Long orgId = this.sysRoleMapper.selectOrgIdByUserId(Long.valueOf(userId));
-        Assert.notNull(orgId , "用户未绑定组织!");
-        return orgId;
-    }
 
     /**
      * 校验请求参数并转换entity
@@ -154,7 +148,7 @@ public class SysUserServiceImpl implements ISysUserService {
         Assert.notNull(sysUserEntity , "此id对应的数据不存在!");
         Assert.isTrue(sysUserEntity.getStatus() == DictionaryConstants.AVAILABLE , "此id对应的数据已被删除!");
         //根据用户id查询对应的组织
-        Long orgId = selectOrgIdByUserId(reqBeanModel.getUserId());
+        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
         //校验reqBean 并转entity
         sysUserEntity = this.checkUserReqBean(reqBeanModel);
         sysUserEntity.setLastUpdateTime(new Date());
