@@ -33,26 +33,4 @@ public interface SysOrgMapper extends MyBatisBaseDao<SysOrgEntity, Long, SysOrgE
         return sysOrgEntityPageInfo;
     }
 
-    /**
-     * 根据组织ID查询所有角色
-     * @param orgId
-     * @return
-     */
-    List<Long> selectRoleIdListByOrgId(Long orgId);
-
-    /**
-     * 根据角色ID查询所有用户
-     * @param roleIdList
-     * @return
-     */
-    List<Long> selectUserIdListByRoleId(@Param("roleIdList")List<Long> roleIdList);
-
-    /**
-     * 删除角色用户关系表
-     * @param roleIdList
-     * @return
-     */
-    int deleteUserRole(@Param("roleIdList")List<Long> roleIdList);
-
-
 }

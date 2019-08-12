@@ -20,9 +20,6 @@ import javax.annotation.Resource;
 @Service
 public class SysOrgTransform extends AbstractObjectTransformer<SysOrgEntity , SysOrgResBean> {
 
-    @Resource
-    private SysUserMapper sysUserMapper;
-
     @Override
     public SysOrgResBean transform(SysOrgEntity sysOrgEntity) {
         if (null == sysOrgEntity){
@@ -32,12 +29,7 @@ public class SysOrgTransform extends AbstractObjectTransformer<SysOrgEntity , Sy
         sysOrgResBean.setId(sysOrgEntity.getId());
         sysOrgResBean.setName(sysOrgEntity.getName());
         sysOrgResBean.setRemarks(sysOrgEntity.getRemarks());
-        if(StringUtils.isNotBlank(sysOrgEntity.getLastUpdateUser())){
-            SysUserEntity sysUserEntity = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(sysOrgEntity.getLastUpdateUser()));
-            if(null != sysUserEntity){
-                sysOrgResBean.setLastUpdateUser(sysUserEntity.getRealName());
-            }
-        }
+        sysOrgResBean.setLastUpdateUser(sysOrgEntity.getLastUpdateUser());
         sysOrgResBean.setLastUpdateTime(sysOrgEntity.getLastUpdateTime());
         return sysOrgResBean;
     }

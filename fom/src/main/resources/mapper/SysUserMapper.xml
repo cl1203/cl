@@ -3,6 +3,7 @@
 <mapper namespace="com.cl.dao.SysUserMapper">
   <resultMap id="BaseResultMap" type="com.cl.entity.SysUserEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="org_id" jdbcType="BIGINT" property="orgId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
@@ -73,8 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_name, `password`, real_name, mobile, `status`, remarks, create_time, create_user, 
-    last_update_time, last_update_user
+    id, org_id, user_name, `password`, real_name, mobile, `status`, remarks, create_time, 
+    create_user, last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.SysUserEntityExample" resultMap="BaseResultMap">
     select
@@ -115,18 +116,21 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysUserEntity" useGeneratedKeys="true">
-    insert into sys_user (user_name, `password`, real_name, 
-      mobile, `status`, remarks, 
-      create_time, create_user, last_update_time, 
-      last_update_user)
-    values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
-      #{mobile,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
-      #{lastUpdateUser,jdbcType=VARCHAR})
+    insert into sys_user (org_id, user_name, `password`, 
+      real_name, mobile, `status`, 
+      remarks, create_time, create_user, 
+      last_update_time, last_update_user)
+    values (#{orgId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysUserEntity" useGeneratedKeys="true">
     insert into sys_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orgId != null">
+        org_id,
+      </if>
       <if test="userName != null">
         user_name,
       </if>
@@ -159,6 +163,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orgId != null">
+        #{orgId,jdbcType=BIGINT},
+      </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
       </if>
@@ -203,6 +210,9 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
+      <if test="record.orgId != null">
+        org_id = #{record.orgId,jdbcType=BIGINT},
+      </if>
       <if test="record.userName != null">
         user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
@@ -241,6 +251,7 @@
   <update id="updateByExample" parameterType="map">
     update sys_user
     set id = #{record.id,jdbcType=BIGINT},
+      org_id = #{record.orgId,jdbcType=BIGINT},
       user_name = #{record.userName,jdbcType=VARCHAR},
       `password` = #{record.password,jdbcType=VARCHAR},
       real_name = #{record.realName,jdbcType=VARCHAR},
@@ -258,6 +269,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.SysUserEntity">
     update sys_user
     <set>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=BIGINT},
+      </if>
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
@@ -293,7 +307,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cl.entity.SysUserEntity">
     update sys_user
-    set user_name = #{userName,jdbcType=VARCHAR},
+    set org_id = #{orgId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
       `password` = #{password,jdbcType=VARCHAR},
       real_name = #{realName,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},

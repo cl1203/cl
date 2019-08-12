@@ -7,13 +7,8 @@ import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.SingleParam;
 import com.cl.comm.transformer.IObjectTransformer;
-import com.cl.dao.SysOrgMapper;
-import com.cl.dao.SysRoleMapper;
-import com.cl.dao.SysUserMapper;
-import com.cl.entity.SysOrgEntity;
-import com.cl.entity.SysOrgEntityExample;
-import com.cl.entity.SysRoleEntity;
-import com.cl.entity.SysUserEntity;
+import com.cl.dao.*;
+import com.cl.entity.*;
 import com.cl.service.ISysOrgService;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections4.CollectionUtils;
@@ -44,6 +39,12 @@ public class SysOrgServiceImpl implements ISysOrgService {
 
     @Resource
     private SysUserMapper sysUserMapper;
+
+    @Resource
+    private SysUserRoleMapper sysUserRoleMapper;
+
+    @Resource
+    private SysRolePermissionMapper sysRolePermissionMapper;
 
     @Resource
     private IObjectTransformer<SysOrgEntity , SysOrgResBean> sysOrgTransformer;
@@ -89,7 +90,8 @@ public class SysOrgServiceImpl implements ISysOrgService {
         List<SysOrgEntity> sysOrgEntityList = this.sysOrgMapper.selectByExample(sysOrgEntityExample);
         Assert.isTrue(sysOrgEntityList.size() == DictionaryConstants.ALL_BUSINESS_ZERO , "组织名已经存在!");
         sysOrgEntity.setName(sysOrgReqBean.getName());
-        sysOrgEntity.setLastUpdateUser(reqBeanModel.getUsername());
+        SysUserEntity sysUserEntity = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(reqBeanModel.getUserId()));
+        sysOrgEntity.setLastUpdateUser(sysUserEntity.getRealName());
         sysOrgEntity.setRemarks(sysOrgReqBean.getRemarks());
         return sysOrgEntity;
     }
@@ -99,40 +101,73 @@ public class SysOrgServiceImpl implements ISysOrgService {
         List<SingleParam> orgIdList = reqBeanModel.getReqData();
         Assert.notEmpty(orgIdList , "请选择需要删除的数据,组织ID不能为空!");
         SysOrgEntity sysOrgEntity = new SysOrgEntity();
-        SysRoleEntity sysRoleEntity = new SysRoleEntity();
-        SysUserEntity sysUserEntity = new SysUserEntity();
         sysOrgEntity.setStatus(DictionaryConstants.DETELE);
-        sysRoleEntity.setStatus(DictionaryConstants.DETELE);
-        sysUserEntity.setStatus(DictionaryConstants.DETELE);
         orgIdList.forEach(singleParam -> {
+            Long orgId = Long.valueOf(singleParam.getParam());
             //删除组织
-            sysOrgEntity.setId(Long.valueOf(singleParam.getParam()));
+            sysOrgEntity.setId(orgId);
             int i = this.sysOrgMapper.updateByPrimaryKeySelective(sysOrgEntity);
             Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE ,"删除组织失败!");
-            //查询组织绑定的所有角色的ID
-            List<Long> roleIdList = this.sysOrgMapper.selectRoleIdListByOrgId(Long.valueOf(singleParam.getParam()));
-            if(CollectionUtils.isNotEmpty(roleIdList)){
-                //查询角色绑定的所有用户ID
-                List<Long> userIdList = this.sysOrgMapper.selectUserIdListByRoleId(roleIdList);
-                if(CollectionUtils.isNotEmpty(userIdList)){
-                    //删除角色绑定的用户的关系表
-                    int j = this.sysOrgMapper.deleteUserRole(roleIdList);
-                    Assert.isTrue(j > DictionaryConstants.ALL_BUSINESS_ZERO ,"删除角色绑定的用户关系失败!");
-                    //删除角色绑定的用户
-                    userIdList.forEach(userId ->{
-                        sysUserEntity.setId(userId);
-                        int k = this.sysUserMapper.updateByPrimaryKeySelective(sysUserEntity);
-                        Assert.isTrue(k > DictionaryConstants.ALL_BUSINESS_ZERO , "删除角色绑定的用户失败!");
-                    });
-                }
-                //删除组织对应的角色
-                roleIdList.forEach(roleId ->{
-                    sysRoleEntity.setId(roleId);
-                    int l = this.sysRoleMapper.updateByPrimaryKeySelective(sysRoleEntity);
-                    Assert.isTrue(l > DictionaryConstants.ALL_BUSINESS_ZERO , "删除组织对应的角色失败!");
-                });
+            //根据组织ID查询绑定的所有角色
+            List<SysRoleEntity> sysRoleEntityList = this.selectRoleByOrgId(orgId);
+            if(CollectionUtils.isNotEmpty(sysRoleEntityList)){
+                //根据id删除所有角色  并删除该组织下所有角色和所有用户的关系表 删除角色绑定的菜单权限关系表
+                this.deleteRoleAndUserRoleByOrgId(sysRoleEntityList);
             }
+            //根据组织ID删除对应的所有用户
+            this.deleteUserByOrgId(orgId);
         });
+    }
+
+    /**
+     * 查询组织id对应的所有角色
+     * @param orgId
+     * @return
+     */
+    private List<SysRoleEntity> selectRoleByOrgId(Long orgId){
+        SysRoleEntityExample sysRoleEntityExample = new SysRoleEntityExample();
+        SysRoleEntityExample.Criteria criteria = sysRoleEntityExample.createCriteria();
+        criteria.andOrgIdEqualTo(orgId);
+        criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
+        List<SysRoleEntity> sysRoleEntityList = this.sysRoleMapper.selectByExample(sysRoleEntityExample);
+        return sysRoleEntityList;
+    }
+
+    /**
+     * 根据id删除所有角色  并删除该组织下所有角色和所有用户的关系表
+     * @param
+     */
+    private void deleteRoleAndUserRoleByOrgId(List<SysRoleEntity> sysRoleEntityList){
+        SysUserRoleEntity sysUserRoleEntity = new SysUserRoleEntity();
+        sysUserRoleEntity.setStatus(DictionaryConstants.DETELE);
+        SysUserRoleEntityExample sysUserRoleEntityExample = new SysUserRoleEntityExample();
+        SysUserRoleEntityExample.Criteria criteriaByUserRole = sysUserRoleEntityExample.createCriteria();
+        SysRolePermissionEntity sysRolePermissionEntity = new SysRolePermissionEntity();
+        sysRolePermissionEntity.setStatus(DictionaryConstants.DETELE);
+        SysRolePermissionEntityExample sysRolePermissionEntityExample = new SysRolePermissionEntityExample();
+        SysRolePermissionEntityExample.Criteria criteriaByRolePermission = sysRolePermissionEntityExample.createCriteria();
+        sysRoleEntityList.forEach(sysRoleEntity -> {
+            sysRoleEntity.setStatus(DictionaryConstants.DETELE);
+            int i = this.sysRoleMapper.updateByPrimaryKeySelective(sysRoleEntity);
+            Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "删除该组织对应的角色id: " + sysRoleEntity.getId() + ",的角色失败!");
+            criteriaByUserRole.andRoleIdEqualTo(sysRoleEntity.getId());
+            this.sysUserRoleMapper.updateByExampleSelective(sysUserRoleEntity , sysUserRoleEntityExample);
+            criteriaByRolePermission.andRoleIdEqualTo(sysRoleEntity.getId());
+            this.sysRolePermissionMapper.updateByExampleSelective(sysRolePermissionEntity , sysRolePermissionEntityExample);
+        });
+    }
+
+    /**
+     * 根据组织ID删除对应的所有用户
+     * @param orgId
+     */
+    private void deleteUserByOrgId(Long orgId){
+        SysUserEntity sysUserEntity = new SysUserEntity();
+        sysUserEntity.setStatus(DictionaryConstants.DETELE);
+        SysUserEntityExample sysUserEntityExample = new SysUserEntityExample();
+        SysUserEntityExample.Criteria criteria = sysUserEntityExample.createCriteria();
+        criteria.andOrgIdEqualTo(orgId);
+        this.sysUserMapper.updateByExampleSelective(sysUserEntity , sysUserEntityExample);
     }
 
     @Override
