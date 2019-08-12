@@ -20,12 +20,25 @@ import java.util.List;
 @Repository
 public interface SysUserMapper extends MyBatisBaseDao<SysUserEntity, Long, SysUserEntityExample> {
 
-    /**
-     * 查询用户列表
-     * @param sysUserReqBean
-     * @return
-     */
-    List<SysUserResBean> selectSysUserList(SysUserReqBean sysUserReqBean);
+    default PageInfo<SysUserEntity> selectSysUserPageInfo(SysUserReqBean sysUserReqBean){
+        Page<SysUserEntity> page = PageHelper.startPage(sysUserReqBean.getPageNum() , sysUserReqBean.getPageSize() , "last_update_time DESC");
+        SysUserEntityExample sysUserEntityExample = new SysUserEntityExample();
+        SysUserEntityExample.Criteria criteria = sysUserEntityExample.createCriteria();
+        if(StringUtils.isNotBlank(sysUserReqBean.getUserName())){
+            criteria.andUserNameEqualTo(sysUserReqBean.getUserName());
+        }
+        if(StringUtils.isNotBlank(sysUserReqBean.getRealName())){
+            criteria.andRealNameEqualTo(sysUserReqBean.getRealName());
+        }
+        criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
+        if(sysUserReqBean.getOrgId() != Long.valueOf(DictionaryConstants.ADMIN_ORG_ID)){
+            criteria.andOrgIdEqualTo((sysUserReqBean.getOrgId()));
+        }
+        List<SysUserEntity> sysUserEntityList = this.selectByExample(sysUserEntityExample);
+        PageInfo<SysUserEntity> sysUserEntityPageInfo = new PageInfo<>(page);
+        sysUserEntityPageInfo.setList(sysUserEntityList);
+        return sysUserEntityPageInfo;
+    }
 
     /**
      * 根据userid查询所属角色

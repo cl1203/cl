@@ -18,48 +18,4 @@
     AND su.id = #{userId}
   </select>
 
-  <resultMap id="UserResulMap" type="com.cl.bean.res.SysUserResBean">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="real_name" jdbcType="VARCHAR" property="realName" />
-    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
-    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
-    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
-    <result column="last_update_user" jdbcType="VARCHAR" property="lastUpdateUser" />
-  </resultMap>
-  <select id="selectSysUserList" parameterType="com.cl.bean.req.SysUserReqBean" resultMap="UserResulMap">
-      SELECT
-        su.id ,
-        su.user_name ,
-        su.real_name ,
-        su.mobile ,
-        su.remarks ,
-        su.last_update_time ,
-        su.last_update_user
-      FROM
-        sys_user su
-      LEFT JOIN sys_user_role sur on su.id = sur.user_id
-      LEFT JOIN sys_role sr on sr.id = sur.role_id
-      LEFT JOIN sys_org so on so.id = sr.org_id
-      WHERE
-        su.status = 1
-      AND sur.status = 1
-      AND sr.status = 1
-      AND so.status = 1
-      AND so.id = #{orgId}
-      <if test="realName != null and realName !=''">
-        AND su.real_name = #{realName}
-      </if>
-      <if test="mobile != null and mobile !=''">
-        AND su.mobile = #{mobile}
-      </if>
-      GROUP BY  su.id ,
-      su.user_name ,
-      su.real_name ,
-      su.mobile ,
-      su.remarks ,
-      su.last_update_time ,
-      su.last_update_user
-      order by su.last_update_time
-  </select>
 </mapper>

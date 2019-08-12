@@ -101,7 +101,10 @@ public class SysOrgServiceImpl implements ISysOrgService {
         List<SingleParam> orgIdList = reqBeanModel.getReqData();
         Assert.notEmpty(orgIdList , "请选择需要删除的数据,组织ID不能为空!");
         SysOrgEntity sysOrgEntity = new SysOrgEntity();
+        SysUserEntity sysUserEntityByid = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(reqBeanModel.getUserId()));
         sysOrgEntity.setStatus(DictionaryConstants.DETELE);
+        sysOrgEntity.setLastUpdateTime(new Date());
+        sysOrgEntity.setLastUpdateUser(sysUserEntityByid.getRealName());
         orgIdList.forEach(singleParam -> {
             Long orgId = Long.valueOf(singleParam.getParam());
             //删除组织
@@ -112,10 +115,10 @@ public class SysOrgServiceImpl implements ISysOrgService {
             List<SysRoleEntity> sysRoleEntityList = this.selectRoleByOrgId(orgId);
             if(CollectionUtils.isNotEmpty(sysRoleEntityList)){
                 //根据id删除所有角色  并删除该组织下所有角色和所有用户的关系表 删除角色绑定的菜单权限关系表
-                this.deleteRoleAndUserRoleByOrgId(sysRoleEntityList);
+                this.deleteRoleAndUserRoleByOrgId(sysRoleEntityList , reqBeanModel);
             }
             //根据组织ID删除对应的所有用户
-            this.deleteUserByOrgId(orgId);
+            this.deleteUserByOrgId(orgId , reqBeanModel);
         });
     }
 
@@ -137,24 +140,27 @@ public class SysOrgServiceImpl implements ISysOrgService {
      * 根据id删除所有角色  并删除该组织下所有角色和所有用户的关系表
      * @param
      */
-    private void deleteRoleAndUserRoleByOrgId(List<SysRoleEntity> sysRoleEntityList){
+    private void deleteRoleAndUserRoleByOrgId(List<SysRoleEntity> sysRoleEntityList , RequestBeanModel<List<SingleParam>> reqBeanModel){
         SysUserRoleEntity sysUserRoleEntity = new SysUserRoleEntity();
         sysUserRoleEntity.setStatus(DictionaryConstants.DETELE);
+        sysUserRoleEntity.setLastUpdateUser(reqBeanModel.getUserId());
+        sysUserRoleEntity.setLastUpdateTime(new Date());
         SysUserRoleEntityExample sysUserRoleEntityExample = new SysUserRoleEntityExample();
         SysUserRoleEntityExample.Criteria criteriaByUserRole = sysUserRoleEntityExample.createCriteria();
+
         SysRolePermissionEntity sysRolePermissionEntity = new SysRolePermissionEntity();
         sysRolePermissionEntity.setStatus(DictionaryConstants.DETELE);
+        sysUserRoleEntity.setLastUpdateUser(reqBeanModel.getUserId());
+        sysUserRoleEntity.setLastUpdateTime(new Date());
         SysRolePermissionEntityExample sysRolePermissionEntityExample = new SysRolePermissionEntityExample();
         SysRolePermissionEntityExample.Criteria criteriaByRolePermission = sysRolePermissionEntityExample.createCriteria();
         sysRoleEntityList.forEach(sysRoleEntity -> {
             sysRoleEntity.setStatus(DictionaryConstants.DETELE);
-            int i = this.sysRoleMapper.updateByPrimaryKeySelective(sysRoleEntity);
-            Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "删除该组织对应的角色id: " + sysRoleEntity.getId() + ",的角色失败!");
+            this.sysRoleMapper.updateByPrimaryKeySelective(sysRoleEntity);
             criteriaByUserRole.andRoleIdEqualTo(sysRoleEntity.getId());
             this.sysUserRoleMapper.updateByExampleSelective(sysUserRoleEntity , sysUserRoleEntityExample);
             criteriaByRolePermission.andRoleIdEqualTo(sysRoleEntity.getId());
-            int j = this.sysRolePermissionMapper.updateByExampleSelective(sysRolePermissionEntity , sysRolePermissionEntityExample);
-            Assert.isTrue(j == DictionaryConstants.ALL_BUSINESS_ONE , "删除该组织对应的角色id: " + sysRoleEntity.getId() + ",的角色和菜单权限数据失败!");
+            this.sysRolePermissionMapper.updateByExampleSelective(sysRolePermissionEntity , sysRolePermissionEntityExample);
         });
     }
 
@@ -162,9 +168,12 @@ public class SysOrgServiceImpl implements ISysOrgService {
      * 根据组织ID删除对应的所有用户
      * @param orgId
      */
-    private void deleteUserByOrgId(Long orgId){
+    private void deleteUserByOrgId(Long orgId , RequestBeanModel<List<SingleParam>> reqBeanModel){
+        SysUserEntity sysUserEntityByid = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(reqBeanModel.getUserId()));
         SysUserEntity sysUserEntity = new SysUserEntity();
         sysUserEntity.setStatus(DictionaryConstants.DETELE);
+        sysUserEntity.setLastUpdateTime(new Date());
+        sysUserEntity.setLastUpdateUser(sysUserEntityByid.getRealName());
         SysUserEntityExample sysUserEntityExample = new SysUserEntityExample();
         SysUserEntityExample.Criteria criteria = sysUserEntityExample.createCriteria();
         criteria.andOrgIdEqualTo(orgId);

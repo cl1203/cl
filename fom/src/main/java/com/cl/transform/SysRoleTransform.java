@@ -32,9 +32,6 @@ public class SysRoleTransform extends AbstractObjectTransformer<SysRoleEntity , 
     @Resource
     private SysRoleMapper sysRoleMapper;
 
-    @Resource
-    private SysUserMapper sysUserMapper;
-
     @Override
     public SysRoleResBean transform(SysRoleEntity sysRoleEntity) {
         if(null == sysRoleEntity){
@@ -54,12 +51,7 @@ public class SysRoleTransform extends AbstractObjectTransformer<SysRoleEntity , 
             }
         }
         sysRoleResBean.setRemark(sysRoleEntity.getRemark());
-        if(StringUtils.isNotBlank(sysOrgEntity.getLastUpdateUser())){
-            SysUserEntity sysUserEntity = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(sysOrgEntity.getLastUpdateUser()));
-            if(null != sysUserEntity){
-                sysRoleResBean.setLastUpdateUser(sysUserEntity.getRealName());
-            }
-        }
+        sysRoleResBean.setLastUpdateUser(sysRoleEntity.getLastUpdateUser());
         sysRoleResBean.setLastUpdateTime(sysRoleEntity.getLastUpdateTime());
         //绑定的用户list
         List<SysUserResBean> sysUserResBeanList = this.sysRoleMapper.selectUserByRoleId(sysRoleEntity.getId());

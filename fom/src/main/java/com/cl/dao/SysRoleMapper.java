@@ -9,6 +9,7 @@ import com.cl.entity.SysRoleEntityExample;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -24,8 +25,8 @@ public interface SysRoleMapper extends MyBatisBaseDao<SysRoleEntity, Long, SysRo
         Page<SysRoleEntity> page = PageHelper.startPage(sysRoleReqBean.getPageNum() , sysRoleReqBean.getPageSize() , "last_update_time DESC");
         SysRoleEntityExample sysRoleEntityExample = new SysRoleEntityExample();
         SysRoleEntityExample.Criteria criteria = sysRoleEntityExample.createCriteria();
-        if(null != sysRoleReqBean.getId()){
-            criteria.andIdEqualTo(sysRoleReqBean.getId());
+        if(StringUtils.isNotBlank(sysRoleReqBean.getName())){
+            criteria.andNameEqualTo(sysRoleReqBean.getName());
         }
         if(sysRoleReqBean.getOrgId() != Long.valueOf(DictionaryConstants.ADMIN_ORG_ID)){
             criteria.andOrgIdEqualTo((sysRoleReqBean.getOrgId()));

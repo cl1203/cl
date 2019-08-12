@@ -7,6 +7,7 @@ import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.SingleParam;
+import com.cl.comm.transformer.IObjectTransformer;
 import com.cl.dao.SysRoleMapper;
 import com.cl.dao.SysUserMapper;
 import com.cl.dao.SysUserRoleMapper;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,6 +50,9 @@ public class SysUserServiceImpl implements ISysUserService {
     @Resource
     private SysUserRoleMapper sysUserRoleMapper;
 
+    @Resource
+    private IObjectTransformer<SysUserEntity , SysUserResBean> sysUserTransform;
+
     @Override
     public PageInfo<SysUserResBean> querySysUserList(RequestBeanModel<SysUserReqBean> reqBeanModel) {
         SysUserReqBean sysUserReqBean = reqBeanModel.getReqData();
@@ -56,24 +61,17 @@ public class SysUserServiceImpl implements ISysUserService {
         }
         //根据用户id查询对应的组织
         Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
-        sysUserReqBean.setOrgId(orgId);
-        //分页查询
-        PageHelper.startPage(sysUserReqBean.getPageNum() , sysUserReqBean.getPageSize());
-        List<SysUserResBean> sysUserResBeanList = this.sysUserMapper.selectSysUserList(sysUserReqBean);
-        if(CollectionUtils.isNotEmpty(sysUserResBeanList)){
-            sysUserResBeanList.forEach(sysUserResBean -> {
-                if(StringUtils.isNotBlank(sysUserResBean.getLastUpdateUser())){
-                    SysUserEntity sysUserEntityById = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(sysUserResBean.getLastUpdateUser()));
-                    if(null != sysUserEntityById){
-                        sysUserResBean.setLastUpdateUser(sysUserEntityById.getRealName());
-                    }
-                }
-                //用户所属角色
-                List<SysRoleResBean> sysRoleList = this.sysUserMapper.selectRoleByUserId(sysUserResBean.getId());
-                sysUserResBean.setSysRoleList(sysRoleList);
-            });
+        if(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID) == orgId){//如果是管理员
+            if(null == sysUserReqBean.getOrgId()){//没选择组织
+                //根据用户id查询对应的组织
+                sysUserReqBean.setOrgId(orgId);//默认全部  否则查对应的组织
+            }
+        }else{
+            sysUserReqBean.setOrgId(orgId);//如果不是管理员 根据登录用户判断组织
         }
-        return new PageInfo<>(sysUserResBeanList);
+        PageInfo<SysUserEntity> sysUserEntityPageInfo = this.sysUserMapper.selectSysUserPageInfo(sysUserReqBean);
+        PageInfo<SysUserResBean> sysUserResBeanList = this.sysUserTransform.transform(sysUserEntityPageInfo);
+        return sysUserResBeanList;
     }
 
     @Override
@@ -84,6 +82,7 @@ public class SysUserServiceImpl implements ISysUserService {
         SysUserEntity sysUserEntity = this.checkUserReqBean(reqBeanModel);
         sysUserEntity.setCreateUser(reqBeanModel.getUserId());
         sysUserEntity.setPassword(DictionaryConstants.PASS_WORD);
+        sysUserEntity.setOrgId(orgId);
         Integer i = this.sysUserMapper.insertSelective(sysUserEntity);
         Assert.isTrue( i == DictionaryConstants.ALL_BUSINESS_ONE , "新增用户失败!");
         //绑定角色
@@ -136,7 +135,8 @@ public class SysUserServiceImpl implements ISysUserService {
         sysUserEntity.setRealName(sysUserReqBean.getRealName());
         sysUserEntity.setMobile(sysUserReqBean.getMobile());
         sysUserEntity.setRemarks(sysUserReqBean.getRemarks());
-        sysUserEntity.setLastUpdateUser(reqBeanModel.getUserId());
+        SysUserEntity sysUserEntityByid = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(reqBeanModel.getUserId()));
+        sysUserEntity.setLastUpdateUser(sysUserEntityByid.getRealName());
         return sysUserEntity;
     }
 
@@ -181,6 +181,9 @@ public class SysUserServiceImpl implements ISysUserService {
         //删除用户 删除用户和角色关系表
         SysUserEntity sysUserEntity = new SysUserEntity();
         sysUserEntity.setStatus(DictionaryConstants.DETELE);
+        SysUserEntity sysUserEntityByid = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(reqBeanModel.getUserId()));
+        sysUserEntity.setLastUpdateUser(sysUserEntityByid.getRealName());
+        sysUserEntity.setLastUpdateTime(new Date());
         userIdList.forEach(singleParam ->{
             sysUserEntity.setId(Long.valueOf(singleParam.getParam()));
             Integer i = this.sysUserMapper.updateByPrimaryKeySelective(sysUserEntity);

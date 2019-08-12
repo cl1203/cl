@@ -34,6 +34,16 @@ public class SysUserResBean implements Serializable{
      */
     @ApiModelProperty(value = "真实姓名")
     private String realName;
+    /**
+     * 组织id
+     */
+    @ApiModelProperty(value = "组织id")
+    private Long orgId;
+    /**
+     * 组织名称
+     */
+    @ApiModelProperty(value = "组织名称")
+    private String orgName;
 
     /**
      * 电话
@@ -64,6 +74,22 @@ public class SysUserResBean implements Serializable{
      */
     @ApiModelProperty(value = "用户绑定的所有角色")
     private List<SysRoleResBean> sysRoleList;
+
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
 
     public List<SysRoleResBean> getSysRoleList() {
         return sysRoleList;
