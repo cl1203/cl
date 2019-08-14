@@ -30,9 +30,7 @@ public class OrderManageTransform extends AbstractObjectTransformer<OrderManageE
         OrderManageResBean orderManageResBean = new OrderManageResBean();
         orderManageResBean.setId(orderManageEntity.getId());//id
         orderManageResBean.setOrderNo(orderManageEntity.getOrderNo());//订单号
-        if(null != orderManageEntity.getOrderTime()){//下单时间
-            orderManageResBean.setOrderTime(orderManageEntity.getOrderTime());
-        }
+        orderManageResBean.setOrderTime(orderManageEntity.getOrderTime());//下单时间
         orderManageResBean.setSurplusTime(orderManageEntity.getSurplusTime());//剩余时间
         if(null != orderManageEntity.getOrderStatus()){//订单状态
             switch(orderManageEntity.getOrderStatus()){
@@ -52,16 +50,14 @@ public class OrderManageTransform extends AbstractObjectTransformer<OrderManageE
         }
         orderManageResBean.setOrderImgUrl(orderManageEntity.getOrderImgUrl());//图片url
         orderManageResBean.setSku(orderManageEntity.getSku());//sku
-        if(null != orderManageEntity.getIsFirst()){//是否首单
-            orderManageResBean.setIsFirst(orderManageEntity.getIsFirst());
-        }
-        if(null != orderManageEntity.getOrderQuantity()){//订单件数
-            orderManageResBean.setOrderQuantity(orderManageEntity.getOrderQuantity());
-        }
+        orderManageResBean.setIsFirst(orderManageEntity.getIsFirst());
+        orderManageResBean.setOrderQuantity(orderManageEntity.getOrderQuantity());
         if(null != orderManageEntity.getProducerOrgId()){//生产方
             //根据组织ID查询组织名称
             SysOrgEntity sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orderManageEntity.getProducerOrgId());
-            orderManageResBean.setProducer(sysOrgEntity.getName());
+            if(null != sysOrgEntity){
+                orderManageResBean.setProducer(sysOrgEntity.getName());
+            }
         }else{
             orderManageResBean.setProducer(orderManageEntity.getProducer());
         }

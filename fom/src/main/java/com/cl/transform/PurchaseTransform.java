@@ -45,12 +45,8 @@ public class PurchaseTransform extends AbstractObjectTransformer<PurchaseEntity 
         }
         purchaseResBean.setMaterielName(purchaseEntity.getMaterielName());//物料名称
         purchaseResBean.setMaterielColor(purchaseEntity.getMaterielColor());//物料颜色
-        if(null != purchaseEntity.getAnswerPickQuantity()){//应采数量
-            purchaseResBean.setAnswerPickQuantity(purchaseEntity.getAnswerPickQuantity());
-        }
-        if(null != purchaseEntity.getActualPickQuantity()){//实采数量
-            purchaseResBean.setActualPickQuantity(purchaseEntity.getActualPickQuantity());
-        }
+        purchaseResBean.setAnswerPickQuantity(purchaseEntity.getAnswerPickQuantity());
+        purchaseResBean.setActualPickQuantity(purchaseEntity.getActualPickQuantity());
         if(null != purchaseEntity.getAnswerPickMonovalent()){//应采单价
             purchaseResBean.setActualPickMonovalent(purchaseEntity.getAnswerPickMonovalent());
         }

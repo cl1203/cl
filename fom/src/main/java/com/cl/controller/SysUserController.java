@@ -81,7 +81,7 @@ public class SysUserController {
      * @return com.cl.comm.model.ResponseBeanModel<java.lang.Void>
      **/
     @PostMapping("/deleteSysUser")
-    @ApiOperation(value = "删除用户" , notes = "根据删除用户")
+    @ApiOperation(value = "删除用户" , notes = "根据条件删除用户")
     public ResponseBeanModel<Void> deleteSysUser(@RequestBody RequestBeanModel<List<SingleParam>> reqBeanModel){
         this.sysUserService.deleteSysUser(reqBeanModel);
         return new ResponseBeanModel<>("删除用户成功!");

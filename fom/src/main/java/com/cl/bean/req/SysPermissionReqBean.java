@@ -1,25 +1,25 @@
-package com.cl.bean.res;
+package com.cl.bean.req;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * @ClassName SysPermissionResBean
+ * @ClassName SysPermissionReqBean
  * @Description TODO
  * @Author 陈龙
- * @Date 2019/8/10 23:18
+ * @Date 2019/8/14 11:20
  * @Version 1.0
  **/
-public class SysPermissionResBean implements Serializable{
+public class SysPermissionReqBean implements Serializable {
 
-    private static final long serialVersionUID = 4525840830629877837L;
+    private static final long serialVersionUID = 3318642110026901958L;
 
     /**
      * 主键ID
      */
-    @ApiModelProperty(value = "主键ID")
+    @ApiModelProperty(value = "")
     private Long id;
 
     /**
@@ -41,18 +41,6 @@ public class SysPermissionResBean implements Serializable{
     private Long parentId;
 
     /**
-     * 上级菜单名称
-     */
-    @ApiModelProperty(value = "上级菜单名称")
-    private String parentName;
-
-    /**
-     * 权限url（备用）
-     */
-    @ApiModelProperty(value = "权限url（备用）")
-    private String url;
-
-    /**
      * 排列序号
      */
     @ApiModelProperty(value = "排列序号")
@@ -70,18 +58,33 @@ public class SysPermissionResBean implements Serializable{
     @ApiModelProperty(value = "备注")
     private String remarks;
 
+    /**
+     * 每页数量
+     */
+    @NotNull(message = "每页查询数量大小不能为空!")
+    private Integer pageSize;
 
     /**
-     * 最后修改时间
+     * 页码
      */
-    @ApiModelProperty(value = "最后修改时间")
-    private Date lastUpdateTime;
+    @NotNull(message = "页码大小不能为空!")
+    private Integer pageNum;
 
-    /**
-     * 最后修改人
-     */
-    @ApiModelProperty(value = "最后修改人")
-    private String lastUpdateUser;
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
 
     public Long getId() {
         return id;
@@ -115,14 +118,6 @@ public class SysPermissionResBean implements Serializable{
         this.parentId = parentId;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public Byte getSortNo() {
         return sortNo;
     }
@@ -145,29 +140,5 @@ public class SysPermissionResBean implements Serializable{
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
-    }
-
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
-
-    public String getLastUpdateUser() {
-        return lastUpdateUser;
-    }
-
-    public void setLastUpdateUser(String lastUpdateUser) {
-        this.lastUpdateUser = lastUpdateUser;
-    }
-
-    public String getParentName() {
-        return parentName;
-    }
-
-    public void setParentName(String parentName) {
-        this.parentName = parentName;
     }
 }
