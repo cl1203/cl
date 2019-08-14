@@ -6,11 +6,8 @@
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="permission_type" jdbcType="TINYINT" property="permissionType" />
-    <result column="permission_key" jdbcType="VARCHAR" property="permissionKey" />
-    <result column="permission_class" jdbcType="VARCHAR" property="permissionClass" />
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
     <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="grade" jdbcType="VARCHAR" property="grade" />
     <result column="sort_no" jdbcType="TINYINT" property="sortNo" />
     <result column="target_page" jdbcType="VARCHAR" property="targetPage" />
     <result column="status" jdbcType="TINYINT" property="status" />
@@ -79,9 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, code, `name`, permission_type, permission_key, permission_class, parent_id, url, 
-    grade, sort_no, target_page, `status`, remarks, create_time, create_user, last_update_time, 
-    last_update_user
+    id, code, `name`, permission_type, parent_id, url, sort_no, target_page, `status`, 
+    remarks, create_time, create_user, last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.SysPermissionEntityExample" resultMap="BaseResultMap">
     select
@@ -123,14 +119,12 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysPermissionEntity" useGeneratedKeys="true">
     insert into sys_permission (code, `name`, permission_type, 
-      permission_key, permission_class, parent_id, 
-      url, grade, sort_no, 
+      parent_id, url, sort_no, 
       target_page, `status`, remarks, 
       create_time, create_user, last_update_time, 
       last_update_user)
     values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{permissionType,jdbcType=TINYINT}, 
-      #{permissionKey,jdbcType=VARCHAR}, #{permissionClass,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, 
-      #{url,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, #{sortNo,jdbcType=TINYINT}, 
+      #{parentId,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, #{sortNo,jdbcType=TINYINT}, 
       #{targetPage,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
       #{lastUpdateUser,jdbcType=VARCHAR})
@@ -147,20 +141,11 @@
       <if test="permissionType != null">
         permission_type,
       </if>
-      <if test="permissionKey != null">
-        permission_key,
-      </if>
-      <if test="permissionClass != null">
-        permission_class,
-      </if>
       <if test="parentId != null">
         parent_id,
       </if>
       <if test="url != null">
         url,
-      </if>
-      <if test="grade != null">
-        grade,
       </if>
       <if test="sortNo != null">
         sort_no,
@@ -197,20 +182,11 @@
       <if test="permissionType != null">
         #{permissionType,jdbcType=TINYINT},
       </if>
-      <if test="permissionKey != null">
-        #{permissionKey,jdbcType=VARCHAR},
-      </if>
-      <if test="permissionClass != null">
-        #{permissionClass,jdbcType=VARCHAR},
-      </if>
       <if test="parentId != null">
         #{parentId,jdbcType=BIGINT},
       </if>
       <if test="url != null">
         #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="grade != null">
-        #{grade,jdbcType=VARCHAR},
       </if>
       <if test="sortNo != null">
         #{sortNo,jdbcType=TINYINT},
@@ -259,20 +235,11 @@
       <if test="record.permissionType != null">
         permission_type = #{record.permissionType,jdbcType=TINYINT},
       </if>
-      <if test="record.permissionKey != null">
-        permission_key = #{record.permissionKey,jdbcType=VARCHAR},
-      </if>
-      <if test="record.permissionClass != null">
-        permission_class = #{record.permissionClass,jdbcType=VARCHAR},
-      </if>
       <if test="record.parentId != null">
         parent_id = #{record.parentId,jdbcType=BIGINT},
       </if>
       <if test="record.url != null">
         url = #{record.url,jdbcType=VARCHAR},
-      </if>
-      <if test="record.grade != null">
-        grade = #{record.grade,jdbcType=VARCHAR},
       </if>
       <if test="record.sortNo != null">
         sort_no = #{record.sortNo,jdbcType=TINYINT},
@@ -309,11 +276,8 @@
       code = #{record.code,jdbcType=VARCHAR},
       `name` = #{record.name,jdbcType=VARCHAR},
       permission_type = #{record.permissionType,jdbcType=TINYINT},
-      permission_key = #{record.permissionKey,jdbcType=VARCHAR},
-      permission_class = #{record.permissionClass,jdbcType=VARCHAR},
       parent_id = #{record.parentId,jdbcType=BIGINT},
       url = #{record.url,jdbcType=VARCHAR},
-      grade = #{record.grade,jdbcType=VARCHAR},
       sort_no = #{record.sortNo,jdbcType=TINYINT},
       target_page = #{record.targetPage,jdbcType=VARCHAR},
       `status` = #{record.status,jdbcType=TINYINT},
@@ -338,20 +302,11 @@
       <if test="permissionType != null">
         permission_type = #{permissionType,jdbcType=TINYINT},
       </if>
-      <if test="permissionKey != null">
-        permission_key = #{permissionKey,jdbcType=VARCHAR},
-      </if>
-      <if test="permissionClass != null">
-        permission_class = #{permissionClass,jdbcType=VARCHAR},
-      </if>
       <if test="parentId != null">
         parent_id = #{parentId,jdbcType=BIGINT},
       </if>
       <if test="url != null">
         url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="grade != null">
-        grade = #{grade,jdbcType=VARCHAR},
       </if>
       <if test="sortNo != null">
         sort_no = #{sortNo,jdbcType=TINYINT},
@@ -385,11 +340,8 @@
     set code = #{code,jdbcType=VARCHAR},
       `name` = #{name,jdbcType=VARCHAR},
       permission_type = #{permissionType,jdbcType=TINYINT},
-      permission_key = #{permissionKey,jdbcType=VARCHAR},
-      permission_class = #{permissionClass,jdbcType=VARCHAR},
       parent_id = #{parentId,jdbcType=BIGINT},
       url = #{url,jdbcType=VARCHAR},
-      grade = #{grade,jdbcType=VARCHAR},
       sort_no = #{sortNo,jdbcType=TINYINT},
       target_page = #{targetPage,jdbcType=VARCHAR},
       `status` = #{status,jdbcType=TINYINT},

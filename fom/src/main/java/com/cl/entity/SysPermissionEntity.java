@@ -29,16 +29,6 @@ public class SysPermissionEntity implements Serializable {
     private Byte permissionType;
 
     /**
-     * 权限标识
-     */
-    private String permissionKey;
-
-    /**
-     * 权限图标样式
-     */
-    private String permissionClass;
-
-    /**
      * 父ID
      */
     private Long parentId;
@@ -47,11 +37,6 @@ public class SysPermissionEntity implements Serializable {
      * 权限url（备用）
      */
     private String url;
-
-    /**
-     * 等级
-     */
-    private String grade;
 
     /**
      * 排列序号
@@ -127,22 +112,6 @@ public class SysPermissionEntity implements Serializable {
         this.permissionType = permissionType;
     }
 
-    public String getPermissionKey() {
-        return permissionKey;
-    }
-
-    public void setPermissionKey(String permissionKey) {
-        this.permissionKey = permissionKey;
-    }
-
-    public String getPermissionClass() {
-        return permissionClass;
-    }
-
-    public void setPermissionClass(String permissionClass) {
-        this.permissionClass = permissionClass;
-    }
-
     public Long getParentId() {
         return parentId;
     }
@@ -157,14 +126,6 @@ public class SysPermissionEntity implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public String getGrade() {
-        return grade;
-    }
-
-    public void setGrade(String grade) {
-        this.grade = grade;
     }
 
     public Byte getSortNo() {
@@ -247,11 +208,8 @@ public class SysPermissionEntity implements Serializable {
             && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getPermissionType() == null ? other.getPermissionType() == null : this.getPermissionType().equals(other.getPermissionType()))
-            && (this.getPermissionKey() == null ? other.getPermissionKey() == null : this.getPermissionKey().equals(other.getPermissionKey()))
-            && (this.getPermissionClass() == null ? other.getPermissionClass() == null : this.getPermissionClass().equals(other.getPermissionClass()))
             && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
-            && (this.getGrade() == null ? other.getGrade() == null : this.getGrade().equals(other.getGrade()))
             && (this.getSortNo() == null ? other.getSortNo() == null : this.getSortNo().equals(other.getSortNo()))
             && (this.getTargetPage() == null ? other.getTargetPage() == null : this.getTargetPage().equals(other.getTargetPage()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
@@ -270,11 +228,8 @@ public class SysPermissionEntity implements Serializable {
         result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getPermissionType() == null) ? 0 : getPermissionType().hashCode());
-        result = prime * result + ((getPermissionKey() == null) ? 0 : getPermissionKey().hashCode());
-        result = prime * result + ((getPermissionClass() == null) ? 0 : getPermissionClass().hashCode());
         result = prime * result + ((getParentId() == null) ? 0 : getParentId().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
-        result = prime * result + ((getGrade() == null) ? 0 : getGrade().hashCode());
         result = prime * result + ((getSortNo() == null) ? 0 : getSortNo().hashCode());
         result = prime * result + ((getTargetPage() == null) ? 0 : getTargetPage().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
@@ -296,11 +251,8 @@ public class SysPermissionEntity implements Serializable {
         sb.append(", code=").append(code);
         sb.append(", name=").append(name);
         sb.append(", permissionType=").append(permissionType);
-        sb.append(", permissionKey=").append(permissionKey);
-        sb.append(", permissionClass=").append(permissionClass);
         sb.append(", parentId=").append(parentId);
         sb.append(", url=").append(url);
-        sb.append(", grade=").append(grade);
         sb.append(", sortNo=").append(sortNo);
         sb.append(", targetPage=").append(targetPage);
         sb.append(", status=").append(status);

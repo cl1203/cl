@@ -1,5 +1,7 @@
 package com.cl.bean.res;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,72 +19,62 @@ public class SysPermissionResBean implements Serializable{
     /**
      * 主键ID
      */
+    @ApiModelProperty(value = "")
     private Long id;
 
     /**
      * 权限名称
      */
+    @ApiModelProperty(value = "权限名称")
     private String name;
 
     /**
      * 权限类型 0：未知 1：菜单 2：按钮 3：数据
      */
+    @ApiModelProperty(value = "")
     private Byte permissionType;
-
-    /**
-     * 权限标识
-     */
-    private String permissionKey;
-
-    /**
-     * 权限图标样式
-     */
-    private String permissionClass;
 
     /**
      * 父ID
      */
+    @ApiModelProperty(value = "")
     private Long parentId;
 
     /**
      * 权限url（备用）
      */
+    @ApiModelProperty(value = "")
     private String url;
-
-    /**
-     * 等级
-     */
-    private String grade;
 
     /**
      * 排列序号
      */
+    @ApiModelProperty(value = "")
     private Byte sortNo;
 
     /**
      * 跳转目标页面
      */
+    @ApiModelProperty(value = "")
     private String targetPage;
-
-    /**
-     * 状态 0:已删除 1:可用
-     */
-    private Byte status;
 
     /**
      * 备注
      */
+    @ApiModelProperty(value = "")
     private String remarks;
 
 
     /**
      * 最后修改时间
      */
+    @ApiModelProperty(value = "")
     private Date lastUpdateTime;
 
     /**
      * 最后修改人
      */
+    @ApiModelProperty(value = "")
     private String lastUpdateUser;
 
     public Long getId() {
@@ -109,22 +101,6 @@ public class SysPermissionResBean implements Serializable{
         this.permissionType = permissionType;
     }
 
-    public String getPermissionKey() {
-        return permissionKey;
-    }
-
-    public void setPermissionKey(String permissionKey) {
-        this.permissionKey = permissionKey;
-    }
-
-    public String getPermissionClass() {
-        return permissionClass;
-    }
-
-    public void setPermissionClass(String permissionClass) {
-        this.permissionClass = permissionClass;
-    }
-
     public Long getParentId() {
         return parentId;
     }
@@ -141,14 +117,6 @@ public class SysPermissionResBean implements Serializable{
         this.url = url;
     }
 
-    public String getGrade() {
-        return grade;
-    }
-
-    public void setGrade(String grade) {
-        this.grade = grade;
-    }
-
     public Byte getSortNo() {
         return sortNo;
     }
@@ -163,14 +131,6 @@ public class SysPermissionResBean implements Serializable{
 
     public void setTargetPage(String targetPage) {
         this.targetPage = targetPage;
-    }
-
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
-        this.status = status;
     }
 
     public String getRemarks() {
@@ -196,4 +156,5 @@ public class SysPermissionResBean implements Serializable{
     public void setLastUpdateUser(String lastUpdateUser) {
         this.lastUpdateUser = lastUpdateUser;
     }
+
 }
