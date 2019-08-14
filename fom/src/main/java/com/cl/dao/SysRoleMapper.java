@@ -28,7 +28,7 @@ public interface SysRoleMapper extends MyBatisBaseDao<SysRoleEntity, Long, SysRo
         if(StringUtils.isNotBlank(sysRoleReqBean.getName())){
             criteria.andNameEqualTo(sysRoleReqBean.getName());
         }
-        if(sysRoleReqBean.getOrgId() != Long.valueOf(DictionaryConstants.ADMIN_ORG_ID)){
+        if(!sysRoleReqBean.getOrgId().equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
             criteria.andOrgIdEqualTo((sysRoleReqBean.getOrgId()));
         }
         criteria.andStatusEqualTo(Byte.valueOf(DictionaryConstants.ALL_BUSINESS_ONE + ""));

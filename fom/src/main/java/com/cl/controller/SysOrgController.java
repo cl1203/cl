@@ -1,5 +1,6 @@
 package com.cl.controller;
 
+import com.cl.aop.LoggerManage;
 import com.cl.bean.req.SysOrgReqBean;
 import com.cl.bean.res.SysOrgResBean;
 import com.cl.comm.model.RequestBeanModel;
@@ -41,6 +42,7 @@ public class SysOrgController {
      **/
     @PostMapping("/querySysOrgList")
     @ApiOperation(value = "查询组织列表" , notes = "根据条件查询组织列表")
+    @LoggerManage(description = "查询组织列表")
     public ResponseBeanModel<PageInfo<SysOrgResBean>> querySysOrgList(@RequestBody @Valid RequestBeanModel<SysOrgReqBean> reqBeanModel){
         PageInfo<SysOrgResBean> sysOrgResBeanPageInfo = this.iSysOrgService.querySysOrgList(reqBeanModel);
         return new ResponseBeanModel<>(sysOrgResBeanPageInfo);

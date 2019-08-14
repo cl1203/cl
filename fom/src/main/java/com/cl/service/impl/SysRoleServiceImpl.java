@@ -60,7 +60,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
         Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
-        if(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID) == orgId){//如果是管理员
+        if(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID).equals(orgId)){//如果是管理员
             if(null == sysRoleReqBean.getOrgId()){//没选择组织
                 //根据用户id查询对应的组织
                 sysRoleReqBean.setOrgId(orgId);//默认全部  否则查对应的组织
