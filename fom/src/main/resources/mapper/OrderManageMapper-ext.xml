@@ -65,4 +65,29 @@
   		and order_no = #{orderNo}
   	</if>
   </select>
+  
+  <select id="selectDashBoardByParams" parameterType="com.cl.bean.req.DashBoardReqBean" resultType="com.cl.bean.res.DashBoardResBean">
+  	select order_date as date,count(1) as orderQuantity,sum(number) as tailorQuantity
+	from (
+		select date_format(om.order_time,'%Y-%m-%d') as order_date,
+			   case when (t.actual_cut_quantity != null) then t.actual_cut_quantity else om.order_quantity end as number
+		from order_manage om
+			left join tailor t on t.order_no = om.order_no
+		where om.order_time between #{startDate} and #{endDate}
+		order by om.order_time
+	) a
+	group by order_date
+  </select>
+  
+  <select id="selectDashBoardDetailByParams" parameterType="java.util.Map" resultType="com.cl.bean.res.DashBoardDetailResBean">
+  	select om.order_no as orderNo,om.sku,
+  		   case when (t.actual_cut_quantity != null) then t.actual_cut_quantity else om.order_quantity end as tailorQuantity,
+		   date_format(om.order_time,'%Y-%m-%d') as orderDate,om.remarks as remark
+	from order_manage om 
+		left join tailor t on t.order_no = om.order_no
+	where om.order_time >= #{startDate} and om.order_time &lt;= #{endDate}
+	order by om.order_time
+	limit #{offset},#{limit}
+  </select>
+  
 </mapper>

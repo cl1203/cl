@@ -90,7 +90,7 @@ public class PullOrderJob {
 	@Autowired
 	private CommonConfig config;
 	
-	@Scheduled(cron = "0 */10 * * * *")
+	@Scheduled(cron = "0 */1 * * * *")
 	@Transactional(rollbackFor = Exception.class)
 	public void pullOrder() throws Exception {
 		SysParameterEntityExample example = new SysParameterEntityExample();
@@ -214,6 +214,7 @@ public class PullOrderJob {
 				continue;
 			}
 			StockEntity stock = new StockEntity();
+			stock.setOrderNo(order.getProduceOrderId());
 			stock.setSku(order.getSku());
 			stock.setPurchaseCode(pb.getPurchaseCode());
 			stock.setStock(ApiConstants.DEFAULT_STOCK);
@@ -427,7 +428,7 @@ public class PullOrderJob {
 		entity.setSku(order.getSku());
 		entity.setIsFirst(order.getIsFirst().equals(ApiConstants.INF_IS_FIRST) ? Byte.valueOf("1") : Byte.valueOf("0"));
 		entity.setProducer(order.getProducer());
-		entity.setOrderStatus(ApiConstants.ORDER_STATUS_WAITING_PURCHASE);
+		entity.setOrderStatus(ApiConstants.ORDER_STATUS_WAIT_PURCHASE);
 		entity.setCreateUser(ApiConstants.API_USER);
 		entity.setCreateTime(now);
 		entity.setLastUpdateUser(ApiConstants.API_USER);

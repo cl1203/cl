@@ -6,7 +6,10 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
+import com.cl.bean.req.DashBoardReqBean;
 import com.cl.bean.req.OrderManageReqBean;
+import com.cl.bean.res.DashBoardDetailResBean;
+import com.cl.bean.res.DashBoardResBean;
 import com.cl.bean.res.OrderQuantityResBean;
 import com.cl.bean.res.SecondaryProcessResBean;
 import com.cl.comm.constants.DictionaryConstants;
@@ -82,4 +85,8 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
     List<SecondaryProcessResBean> selectSecondaryProcessByOrderNo(String orderNo);
 
     List<OrderManageEntity> selectByParams(Map<String,Object> params);
+
+	List<DashBoardResBean> selectDashBoardByParams(DashBoardReqBean reqBean);
+	
+	List<DashBoardDetailResBean> selectDashBoardDetailByParams(Map<String,Object> params);
 }

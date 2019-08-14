@@ -20,6 +20,17 @@ public class CommonConfig {
 	
 	@Value("${interface.url.prefix}")
 	private String urlPrefix;
+	
+	@Value("${dashboard.show.day}")
+	private Integer dashBoardShowDay;
+
+	public Integer getDashBoardShowDay() {
+		return dashBoardShowDay;
+	}
+
+	public void setDashBoardShowDay(Integer dashBoardShowDay) {
+		this.dashBoardShowDay = dashBoardShowDay;
+	}
 
 	public String getUrlPrefix() {
 		return urlPrefix;

@@ -57,3 +57,7 @@ interface:
     key: MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAoctb4JxWViUVUdTBRH2WE1vLmBqo/tcayUcbG2jwGKNvVfty6SuOEer8onYz2m/SV2HnMkX0i4/1XZCo5t6GTwIDAQABAkAUQOzDdU6pggLlN4jqFf6PddJKvCujmzHTOH+AMua7bqcespYx+FD4C3/xcz9BMJdNaut5nVMdWf5V3FNpNXGhAiEA1p+4x/n88iPzJAApUdjQICL3Xvn1cVQiX7nuDhxsyA0CIQDA/Fq6xMpp/c4oXM1sKlGrhtnXVl7YAjir/GwFFk50ywIgcuUWepetfcMZCpC7jgFPiaSuYL3XU1ADBtP2SL+WzJECICcewLGdlL6ZoYHTFh04EugnZN9e9cjp4l0SxT7ev7azAiEAt09Yog0VBI0OjpF/basZhyqWPPU3iPb//M18rR3He6k=
   url: 
     prefix: https://www.020mes.com
+    
+dashboard:
+  show:
+    day: 5

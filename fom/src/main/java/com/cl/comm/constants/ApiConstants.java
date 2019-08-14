@@ -3,7 +3,13 @@ package com.cl.comm.constants;
 public class ApiConstants {
 
 	//订单状态：待采购
-	public static final Byte ORDER_STATUS_WAITING_PURCHASE = 1;
+	public static final Byte ORDER_STATUS_WAIT_PURCHASE = 1;
+	
+	//订单状态：采购中
+	public static final Byte ORDER_STATUS_PURCHASING = 2;
+	
+	//订单状态：待裁剪
+	public static final Byte ORDER_STATUS_WAIT_TAILOR = 3;
 	
 	//采购状态：待采购
 	public static final Byte PURCHASE_STATUS_WAITING_PURCHASE = 1;

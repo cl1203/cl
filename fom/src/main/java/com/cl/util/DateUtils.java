@@ -1160,5 +1160,26 @@ public class DateUtils {
         return beginOfDate;
     }
 
-
+    /**
+     * 日期转化为星期
+     * @param datetime  日期，2019-08-14
+     * @return			星期三
+     */
+    public static String dateToWeek(String datetime) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+        Calendar c = Calendar.getInstance();
+        try {
+        	Date date = sdf.parse(datetime);
+            c.setTime(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int index = c.get(Calendar.DAY_OF_WEEK) - 1;
+        if (index < 0) {
+        	index = 0;
+        }
+        return weekDays[index];
+    }
+    
 }
