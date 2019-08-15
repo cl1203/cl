@@ -97,6 +97,16 @@ public class DateUtils {
         calendar.add(Calendar.MINUTE, minute);
         return calendar.getTime();
     }
+    
+    public static Date addDays(Date date,int day) {
+    	if(date == null) {
+    		date = new Date();
+    	}
+    	Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, day);
+        return calendar.getTime();
+    }
 
     /**
      * <p>

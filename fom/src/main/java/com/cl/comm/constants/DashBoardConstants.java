@@ -13,4 +13,6 @@ public class DashBoardConstants {
 	
 	//未超期
 	public static final Byte IS_NOT_EXCEED = 0;
+	
+	public static final String TODAY = "今天";
 }

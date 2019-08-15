@@ -50,20 +50,26 @@ public class DashBoardServiceImpl implements IDashBoardService {
 		if(CollectionUtils.isEmpty(resBeanList)) {
 			return new PageInfo<>(new ArrayList<DashBoardResBean>());
 		}
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date now = new Date();
+		String today = sdf.format(now);
 		for(DashBoardResBean bean : resBeanList) {
 			String date = bean.getDate();
 			if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
-				bean.setDate(date + config.getPurchaseDifference());
+				bean.setDate(sdf.format(DateUtils.addDays(sdf.parse(date), config.getPurchaseDifference())));
 			}else {
-				bean.setDate(date + config.getTailorDifference());
+				bean.setDate(sdf.format(DateUtils.addDays(sdf.parse(date), config.getTailorDifference())));
 			}
-			String week = DateUtils.dateToWeek(date);
-			bean.setDayOfWeek(week);
+			if(bean.getDate().equals(today)) {
+				bean.setDayOfWeek(DashBoardConstants.TODAY);
+			}else {
+				String week = DateUtils.dateToWeek(date);
+				bean.setDayOfWeek(week);
+			}
 			Map<String,Object> params = new HashMap<>();
 			params.put("startDate", date + " 00:00:00");
 			params.put("endDate", date + " 23:59:59");
-	        params.put("offset", (reqBean.getPageNum() - 1) * reqBean.getPageSize() + 1);
+	        params.put("offset", (reqBean.getPageNum() - 1) * reqBean.getPageSize());
 	        params.put("limit", reqBean.getPageSize());
 			List<DashBoardDetailResBean> detail = orderManageMapper.selectDashBoardDetailByParams(params);
 			if(CollectionUtils.isNotEmpty(detail)) {
@@ -77,11 +83,11 @@ public class DashBoardServiceImpl implements IDashBoardService {
 	
 	private void processDetailDeliveryTime(List<DashBoardDetailResBean> detailList,DashBoardReqBean reqBean,String orderDate) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Calendar c = Calendar.getInstance();
-		orderDate += " 00:00:00";
-		c.setTime(sdf.parse(orderDate));
-		long startTime = System.currentTimeMillis();
 		for(DashBoardDetailResBean detail : detailList) {
+			Calendar c = Calendar.getInstance();
+			orderDate += " 00:00:00";
+			c.setTime(sdf.parse(orderDate));
+			long startTime = System.currentTimeMillis();
 			if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
 				c.add(Calendar.DAY_OF_MONTH, config.getPurchaseDifference());
 			}
