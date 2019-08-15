@@ -3,6 +3,7 @@ package com.cl.controller;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
+import com.cl.aop.LoggerManage;
 import com.cl.comm.model.SingleParam;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +41,7 @@ public class OrderManageController {
      **/
     @PostMapping("/queryOrderList")
     @ApiOperation(value = "查询订单列表" , notes = "根据条件查询订单列表")
+    @LoggerManage(description = "查询订单列表")
     public ResponseBeanModel<PageInfo<OrderManageResBean>> queryOrderList(@RequestBody @Valid RequestBeanModel<OrderManageReqBean> reqBeanModel){
     	PageInfo<OrderManageResBean> orderManageResBeanPageInfo = this.orderManageService.queryOrderList(reqBeanModel);
     	return new ResponseBeanModel<>(orderManageResBeanPageInfo);
@@ -54,6 +56,7 @@ public class OrderManageController {
      **/
     @PostMapping("/distributionOrder")
     @ApiOperation(value = "分单接口" , notes = "根据订单ID的list和组织ID绑定 进行分单")
+    @LoggerManage(description = "分单接口")
     public ResponseBeanModel<Void> distributionOrder(@RequestBody @Valid RequestBeanModel<DistributionOrderReqBean> reqBeanModel){
     	this.orderManageService.distributionOrder(reqBeanModel);
     	return new ResponseBeanModel<>("分单成功");
@@ -68,6 +71,7 @@ public class OrderManageController {
      **/
     @PostMapping("/queryProducer")
     @ApiOperation(value = "根据ID查询上一次生产方" , notes = "根据ID查询上一次生产方")
+    @LoggerManage(description = "根据ID查询上一次生产方")
     public ResponseBeanModel<SingleParam> queryProducer(@RequestBody RequestBeanModel<SingleParam> reqBeanModel){
         SingleParam singleParam = new SingleParam();
         String producer = this.orderManageService.queryProducer(reqBeanModel);

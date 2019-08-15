@@ -1,5 +1,6 @@
 package com.cl.controller;
 
+import com.cl.aop.LoggerManage;
 import com.cl.bean.req.TailorReqBean;
 import com.cl.bean.res.TailorResBean;
 import com.cl.comm.model.RequestBeanModel;
@@ -39,6 +40,7 @@ public class TailorController {
      **/
     @PostMapping("/queryTailorList")
     @ApiOperation(value = "查询裁剪列表" , notes = "根据条件查询裁剪列表")
+    @LoggerManage(description = "查询裁剪列表")
     public ResponseBeanModel<PageInfo<TailorResBean>> queryTailorList(@RequestBody @Valid RequestBeanModel<TailorReqBean> reqBeanModel){
         PageInfo<TailorResBean> tailorResBeanPageInfo = this.iTailorService.queryTailorList(reqBeanModel);
         return new ResponseBeanModel<>(tailorResBeanPageInfo);
@@ -53,6 +55,7 @@ public class TailorController {
      **/
     @PostMapping("/updateTailor")
     @ApiOperation(value = "修改裁剪数据" , notes = "根据条件修改裁剪数据")
+    @LoggerManage(description = "修改裁剪数据")
     public ResponseBeanModel<Void> updateTailor(@RequestBody @Valid RequestBeanModel<TailorReqBean> reqBeanModel){
         this.iTailorService.updateTailor(reqBeanModel);
         return new ResponseBeanModel<>("修改裁剪数据成功!");

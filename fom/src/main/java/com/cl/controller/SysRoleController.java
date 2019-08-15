@@ -1,5 +1,6 @@
 package com.cl.controller;
 
+import com.cl.aop.LoggerManage;
 import com.cl.bean.req.SysRoleReqBean;
 import com.cl.bean.res.SysRoleResBean;
 import com.cl.comm.model.RequestBeanModel;
@@ -40,6 +41,7 @@ public class SysRoleController {
      **/
     @PostMapping("/querySysRoleList")
     @ApiOperation(value = "查询角色列表" , notes = "根据条件查询角色列表")
+    @LoggerManage(description = "查询角色列表")
     public ResponseBeanModel<PageInfo<SysRoleResBean>> querySysRoleList(@RequestBody @Valid RequestBeanModel<SysRoleReqBean> reqBeanModel){
         PageInfo<SysRoleResBean> sysRoleResBeanPageInfo = this.iSysRoleService.querySysRoleList(reqBeanModel);
         return new ResponseBeanModel<>(sysRoleResBeanPageInfo);
@@ -54,6 +56,7 @@ public class SysRoleController {
      **/
     @PostMapping("/insertSysRole")
     @ApiOperation(value = "新增角色" , notes = "根据条件新增角色列表")
+    @LoggerManage(description = "新增角色")
     public ResponseBeanModel<Void> insertSysRole(@RequestBody RequestBeanModel<SysRoleReqBean> reqBeanModel){
         this.iSysRoleService.insertSysRole(reqBeanModel);
         return new ResponseBeanModel<>("新增角色成功!");
@@ -68,6 +71,7 @@ public class SysRoleController {
      **/
     @PostMapping("/updateSysRole")
     @ApiOperation(value = "修改角色" , notes = "根据条件修改角色")
+    @LoggerManage(description = "修改角色")
     public ResponseBeanModel<Void> updateSysRole(@RequestBody RequestBeanModel<SysRoleReqBean> reqBeanModel){
         this.iSysRoleService.updateSysRole(reqBeanModel);
         return new ResponseBeanModel<>("修改角色成功!");
@@ -82,6 +86,7 @@ public class SysRoleController {
      **/
     @PostMapping("/deleteSysRole")
     @ApiOperation(value = "删除角色" , notes = "根据条件删除角色")
+    @LoggerManage(description = "删除角色")
     public ResponseBeanModel<Void> deleteSysRole(@RequestBody RequestBeanModel<List<SingleParam>> reqBeanModel){
         this.iSysRoleService.deleteSysRole(reqBeanModel);
         return new ResponseBeanModel<>("删除角色成功!");

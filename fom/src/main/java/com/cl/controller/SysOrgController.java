@@ -57,6 +57,7 @@ public class SysOrgController {
      **/
     @PostMapping("/insertSysOrg")
     @ApiOperation(value = "新增组织数据" , notes = "根据条件新增组织数据")
+    @LoggerManage(description = "新增组织数据")
     public ResponseBeanModel<Void> insertSysOrg(@RequestBody RequestBeanModel<SysOrgReqBean> reqBeanModel){
         this.iSysOrgService.insertSysOrg(reqBeanModel);
         return new ResponseBeanModel<>("新增组织成功!");
@@ -71,6 +72,7 @@ public class SysOrgController {
      **/
     @PostMapping("/deleteSysOrg")
     @ApiOperation(value = "删除组织数据" , notes = "根据条件删除组织数据")
+    @LoggerManage(description = "删除组织数据")
     public ResponseBeanModel<Void> deleteSysOrg(@RequestBody RequestBeanModel<List<SingleParam>> reqBeanModel){
         this.iSysOrgService.deleteSysOrg(reqBeanModel);
         return new ResponseBeanModel<>("删除组织成功!");
@@ -85,6 +87,7 @@ public class SysOrgController {
      **/
     @PostMapping("/updateSysOrg")
     @ApiOperation(value = "修改组织数据" , notes = "根据条件修改组织数据")
+    @LoggerManage(description = "修改组织数据")
     public ResponseBeanModel<Void> updateSysOrg(@RequestBody RequestBeanModel<SysOrgReqBean> reqBeanModel){
         this.iSysOrgService.updateSysOrg(reqBeanModel);
         return new ResponseBeanModel<>("修改组织成功!");

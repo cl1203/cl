@@ -65,3 +65,11 @@ dashboard:
     difference: 5
   tailor:
     difference: 3
+
+
+logging:
+  level:
+    root: info
+  file: src/log/fom.log
+  # 默认日志路径
+  #path: ./log

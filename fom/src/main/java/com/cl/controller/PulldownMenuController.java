@@ -1,5 +1,6 @@
 package com.cl.controller;
 
+import com.cl.aop.LoggerManage;
 import com.cl.bean.req.PulldownMenuReqBean;
 import com.cl.bean.res.DictItem;
 import com.cl.bean.res.PulldownMenuResBean;
@@ -40,6 +41,7 @@ public class PulldownMenuController {
      **/
     @PostMapping("/queryOrgPulldownMenu")
     @ApiOperation(value = "查询组织下拉菜单,或者根据条件查询" , notes = "查询所有组织下拉菜单,或者根据条件查询")
+    @LoggerManage(description = "查询组织下拉菜单")
     public ResponseBeanModel<List<PulldownMenuResBean>> queryOrgPulldownMenu(@RequestBody RequestBeanModel<PulldownMenuReqBean> requestBeanModel){
         List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuService.queryOrgPulldownMenu(requestBeanModel);
         return new ResponseBeanModel<>(pulldownMenuResBeanList);
@@ -54,6 +56,7 @@ public class PulldownMenuController {
      **/
     @PostMapping("/queryPermissionPulldownMenu")
     @ApiOperation(value = "获取菜单权限下拉菜单,或者根据条件查询" , notes = "获取菜单权限下拉菜单,或者根据条件查询")
+    @LoggerManage(description = "获取菜单权限下拉菜单")
     public ResponseBeanModel<List<PulldownMenuResBean>> queryPermissionPulldownMenu(@RequestBody RequestBeanModel<PulldownMenuReqBean> requestBeanModel){
         List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuService.queryPermissionPulldownMenu(requestBeanModel);
         return new ResponseBeanModel<>(pulldownMenuResBeanList);
@@ -68,6 +71,7 @@ public class PulldownMenuController {
      **/
     @PostMapping("/queryRolePulldownMenu")
     @ApiOperation(value = "获取角色下拉菜单,或者根据条件查询" , notes = "获取角色下拉菜单,或者根据条件查询")
+    @LoggerManage(description = "获取角色下拉菜单")
     public ResponseBeanModel<List<PulldownMenuResBean>> queryRolePulldownMenu(@RequestBody RequestBeanModel<PulldownMenuReqBean> requestBeanModel){
         List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuService.queryRolePulldownMenu(requestBeanModel);
         return new ResponseBeanModel<>(pulldownMenuResBeanList);
@@ -82,6 +86,7 @@ public class PulldownMenuController {
      **/
     @PostMapping("/queryUserPulldownMenu")
     @ApiOperation(value = "查询用户下拉菜单,或者根据条件查询" , notes = "查询用户下拉菜单,或者根据条件查询")
+    @LoggerManage(description = "查询用户下拉菜单")
     public ResponseBeanModel<List<PulldownMenuResBean>> queryUserPulldownMenu(@RequestBody RequestBeanModel<PulldownMenuReqBean> requestBeanModel){
         List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuService.queryUserPulldownMenu(requestBeanModel);
         return new ResponseBeanModel<>(pulldownMenuResBeanList);
@@ -96,6 +101,7 @@ public class PulldownMenuController {
      **/
     @PostMapping("/queryInputSupplierName")
     @ApiOperation(value = "查询供应商名称下拉菜单" , notes = "查询供应商名称下拉菜单")
+    @LoggerManage(description = "查询供应商名称下拉菜单")
     public ResponseBeanModel<List<SingleParam>> queryInputSupplierName(){
         List<SingleParam> orderNumList = this.pulldownMenuService.queryInputSupplierName();
         return new ResponseBeanModel<>(orderNumList);
@@ -111,6 +117,7 @@ public class PulldownMenuController {
      **/
     @PostMapping("/queryDictItemList")
     @ApiOperation(value = "查询字典表数据(订单状态:order_status, 采购状态:purchase_status , 裁剪状态:tailoring_status , 物料分类:materiel_type)" , notes = "查询字典表数据")
+    @LoggerManage(description = "查询字典表数据")
     public ResponseBeanModel<List<DictItem>> queryDictItemList(@RequestBody  RequestBeanModel<DictItem> requestBeanModel){
         List<DictItem> dictItemList = this.pulldownMenuService.queryDictItemList(requestBeanModel);
         return new ResponseBeanModel<>(dictItemList);

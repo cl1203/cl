@@ -1,5 +1,6 @@
 package com.cl.controller;
 
+import com.cl.aop.LoggerManage;
 import com.cl.bean.req.PurchaseReqBean;
 import com.cl.bean.res.PurchaseResBean;
 import com.cl.comm.model.RequestBeanModel;
@@ -39,6 +40,7 @@ public class PurchaseController {
      **/
     @PostMapping("/queryPurchaseList")
     @ApiOperation(value = "查询采购列表" , notes = "根据条件查询采购列表")
+    @LoggerManage(description = "查询采购列表")
     public ResponseBeanModel<PageInfo<PurchaseResBean>> queryPurchaseList(@RequestBody @Valid RequestBeanModel<PurchaseReqBean> reqBeanModel){
         PageInfo<PurchaseResBean> purchaseResBeanPageInfo = this.iPurchaseService.queryPurchaseList(reqBeanModel);
         return new ResponseBeanModel<>(purchaseResBeanPageInfo);
@@ -53,6 +55,7 @@ public class PurchaseController {
      **/
     @PostMapping("/updatePurchase")
     @ApiOperation(value = "修改采购单" , notes = "根据条件修改采购单")
+    @LoggerManage(description = "修改采购单")
     public ResponseBeanModel<Void> updatePurchase(@RequestBody RequestBeanModel<PurchaseReqBean> reqBeanModel){
         this.iPurchaseService.updatePurchase(reqBeanModel);
         return new ResponseBeanModel<>("修改采购单成功!");

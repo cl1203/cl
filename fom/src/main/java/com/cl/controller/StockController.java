@@ -1,5 +1,6 @@
 package com.cl.controller;
 
+import com.cl.aop.LoggerManage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,7 @@ public class StockController {
     
     @PostMapping("/queryStockList")
     @ApiOperation(value = "查询库存列表" , notes = "根据条件查询库存列表")
+    @LoggerManage(description = "查询库存列表")
     public ResponseBeanModel<PageInfo<StockResBean>> queryStockList(@RequestBody RequestBeanModel<StockReqBean> reqBeanModel){
     	PageInfo<StockResBean> resBean = stockService.queryStockList(reqBeanModel);
     	return new ResponseBeanModel<>(resBean);
@@ -35,6 +37,7 @@ public class StockController {
     
     @PostMapping("/updateStock")
     @ApiOperation(value = "修改库存数量" , notes = "修改库存数量")
+    @LoggerManage(description = "修改库存数量")
     public ResponseBeanModel<Void> updateStock(@RequestBody RequestBeanModel<StockReqBean> reqBeanModel){
     	stockService.updateStock(reqBeanModel);
     	return new ResponseBeanModel<>("修改成功");

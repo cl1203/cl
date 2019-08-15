@@ -1,5 +1,6 @@
 package com.cl.controller;
 
+import com.cl.aop.LoggerManage;
 import com.cl.bean.req.SysUserReqBean;
 import com.cl.bean.res.SysUserResBean;
 import com.cl.comm.model.RequestBeanModel;
@@ -40,6 +41,7 @@ public class SysUserController {
      **/
     @PostMapping("/querySysUserList")
     @ApiOperation(value = "查询用户列表" , notes = "根据条件查询用户列表")
+    @LoggerManage(description = "查询用户列表")
     public ResponseBeanModel<PageInfo<SysUserResBean>> querySysUserList(@RequestBody @Valid RequestBeanModel<SysUserReqBean> reqBeanModel){
         PageInfo<SysUserResBean> sysUserResBeanPageInfo = this.sysUserService.querySysUserList(reqBeanModel);
         return new ResponseBeanModel<>(sysUserResBeanPageInfo);
@@ -54,6 +56,7 @@ public class SysUserController {
      **/
     @PostMapping("/insertSysUser")
     @ApiOperation(value = "新增用户" , notes = "根据条件新增用户")
+    @LoggerManage(description = "新增用户")
     public ResponseBeanModel<Void> insertSysUser(@RequestBody RequestBeanModel<SysUserReqBean> reqBeanModel){
         this.sysUserService.insertSysUser(reqBeanModel);
         return new ResponseBeanModel<>("新增用户成功!");
@@ -68,6 +71,7 @@ public class SysUserController {
      **/
     @PostMapping("/updateSysUser")
     @ApiOperation(value = "修改用户" , notes = "根据条件修改用户")
+    @LoggerManage(description = "修改用户")
     public ResponseBeanModel<Void> updateSysUser(@RequestBody RequestBeanModel<SysUserReqBean> reqBeanModel){
         this.sysUserService.updateSysUser(reqBeanModel);
         return new ResponseBeanModel<>("修改用户成功!");
@@ -82,6 +86,7 @@ public class SysUserController {
      **/
     @PostMapping("/deleteSysUser")
     @ApiOperation(value = "删除用户" , notes = "根据条件删除用户")
+    @LoggerManage(description = "删除用户")
     public ResponseBeanModel<Void> deleteSysUser(@RequestBody RequestBeanModel<List<SingleParam>> reqBeanModel){
         this.sysUserService.deleteSysUser(reqBeanModel);
         return new ResponseBeanModel<>("删除用户成功!");

@@ -1,5 +1,6 @@
 package com.cl.controller;
 
+import com.cl.aop.LoggerManage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,7 @@ public class DashBoardController {
     
     @PostMapping("/queryForecastInfo")
     @ApiOperation(value = "预报看板" , notes = "根据条件查询预报看板")
+    @LoggerManage(description = "预报看板")
     public ResponseBeanModel<PageInfo<DashBoardResBean>> queryForecastInfo(@RequestBody RequestBeanModel<DashBoardReqBean> reqBeanModel) throws Exception{
     	PageInfo<DashBoardResBean> resBean = dashBoardService.queryForecastInfo(reqBeanModel);
     	return new ResponseBeanModel<>(resBean);

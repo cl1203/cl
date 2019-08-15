@@ -1,5 +1,6 @@
 package com.cl.controller;
 
+import com.cl.aop.LoggerManage;
 import com.cl.bean.req.SysPermissionReqBean;
 import com.cl.bean.res.SysPermissionResBean;
 import com.cl.comm.model.RequestBeanModel;
@@ -39,6 +40,7 @@ public class SysPermissionController {
      **/
     @PostMapping("/querySysPermissionList")
     @ApiOperation(value = "查询菜单列表" , notes = "根据条件查询菜单列表")
+    @LoggerManage(description = "查询菜单列表")
     public ResponseBeanModel<PageInfo<SysPermissionResBean>> querySysPermissionListc(@RequestBody RequestBeanModel<SysPermissionReqBean> reqBeanModel) {
         PageInfo<SysPermissionResBean> sysPermissionResBeanPageInfo = this.sysPermissionService.querySysPermissionList(reqBeanModel);
         return new ResponseBeanModel<>(sysPermissionResBeanPageInfo);
@@ -53,6 +55,7 @@ public class SysPermissionController {
      **/
     @PostMapping("/insertSysPermission")
     @ApiOperation(value = "新增菜单数据" , notes = "新增菜单数据")
+    @LoggerManage(description = "新增菜单数据")
     public ResponseBeanModel<Void> insertSysPermission(@RequestBody RequestBeanModel<SysPermissionReqBean> reqBeanModel) {
         this.sysPermissionService.insertSysPermission(reqBeanModel);
         return new ResponseBeanModel<>("新增菜单成功!");
@@ -67,6 +70,7 @@ public class SysPermissionController {
      **/
     @PostMapping("/updateSysPermission")
     @ApiOperation(value = "修改菜单信息" , notes = "修改菜单信息")
+    @LoggerManage(description = "修改菜单信息")
     public ResponseBeanModel<Void> updateSysPermission(@RequestBody RequestBeanModel<SysPermissionReqBean> reqBeanModel) {
         this.sysPermissionService.updateSysPermission(reqBeanModel);
         return new ResponseBeanModel<>("新增菜单成功!");
@@ -81,6 +85,7 @@ public class SysPermissionController {
      **/
     @PostMapping("/deleteSysPermission")
     @ApiOperation(value = "删除菜单" , notes = "删除菜单")
+    @LoggerManage(description = "删除菜单")
     public ResponseBeanModel<Void> deleteSysPermission(@RequestBody RequestBeanModel<List<SingleParam>> reqBeanModel){
         this.sysPermissionService.deleteSysPermission(reqBeanModel);
         return new ResponseBeanModel<>("删除用户成功!");
