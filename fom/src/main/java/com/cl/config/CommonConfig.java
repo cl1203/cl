@@ -23,6 +23,28 @@ public class CommonConfig {
 	
 	@Value("${dashboard.show.day}")
 	private Integer dashBoardShowDay;
+	
+	@Value("${dashboard.purchase.difference}")
+	private Integer purchaseDifference;
+	
+	@Value("${dashboard.tailor.difference}")
+	private Integer tailorDifference;
+
+	public Integer getPurchaseDifference() {
+		return purchaseDifference;
+	}
+
+	public void setPurchaseDifference(Integer purchaseDifference) {
+		this.purchaseDifference = purchaseDifference;
+	}
+
+	public Integer getTailorDifference() {
+		return tailorDifference;
+	}
+
+	public void setTailorDifference(Integer tailorDifference) {
+		this.tailorDifference = tailorDifference;
+	}
 
 	public Integer getDashBoardShowDay() {
 		return dashBoardShowDay;

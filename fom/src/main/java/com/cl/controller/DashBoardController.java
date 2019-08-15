@@ -26,10 +26,10 @@ public class DashBoardController {
     @Autowired
     private IDashBoardService dashBoardService;
     
-    @PostMapping("/queryForecaseInfo")
+    @PostMapping("/queryForecastInfo")
     @ApiOperation(value = "预报看板" , notes = "根据条件查询预报看板")
-    public ResponseBeanModel<PageInfo<DashBoardResBean>> queryForecaseInfo(@RequestBody RequestBeanModel<DashBoardReqBean> reqBeanModel){
-    	PageInfo<DashBoardResBean> resBean = dashBoardService.queryForecaseInfo(reqBeanModel);
+    public ResponseBeanModel<PageInfo<DashBoardResBean>> queryForecastInfo(@RequestBody RequestBeanModel<DashBoardReqBean> reqBeanModel) throws Exception{
+    	PageInfo<DashBoardResBean> resBean = dashBoardService.queryForecastInfo(reqBeanModel);
     	return new ResponseBeanModel<>(resBean);
     }
     

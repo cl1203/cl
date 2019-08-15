@@ -70,6 +70,12 @@ public class DateUtils {
      * <p>Field HOURSMINUTES: 时分格式化</p>
      */
     public static final String HOURSMINUTES = "HH:mm";
+    
+    public static final long nd = 1000 * 24 * 60 * 60;
+    
+    public static final long nh = 1000 * 60 * 60;
+    
+    public static final long nm = 1000 * 60;
 
     /**
      * <p>
@@ -1182,4 +1188,24 @@ public class DateUtils {
         return weekDays[index];
     }
     
+    public static Long dayDifference(long startTime,long endTime) {
+    	long diff = endTime - startTime;
+    	long day = diff / nd;
+    	return day;
+    }
+    
+    public static Long hourDifference(long startTime,long endTime) {
+    	long diff = endTime - startTime;
+    	long hour = diff % nd / nh;
+    	return hour;
+    }
+    
+    public static void main(String[] args) throws ParseException {
+		String startDate = "2019-07-03 15:50:20";
+		String endDate = "2019-07-15 00:00:00";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		long day = dayDifference(sdf.parse(startDate).getTime(), sdf.parse(endDate).getTime());
+		long hour = hourDifference(sdf.parse(startDate).getTime(), sdf.parse(endDate).getTime());
+		System.out.println("day:" + day + ",hour:" + hour);
+	}
 }

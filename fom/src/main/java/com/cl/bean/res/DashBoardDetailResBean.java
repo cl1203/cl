@@ -18,7 +18,7 @@ public class DashBoardDetailResBean implements Serializable {
 	
 	private Integer deliveryHour;                      //剩余或超期小时数
 	
-	private Byte isExceed;                             //是否超期
+	private Byte isExceed;                             //是否超期 1:超期 0:未超期
 	
 	private String remark;                             //备注
 

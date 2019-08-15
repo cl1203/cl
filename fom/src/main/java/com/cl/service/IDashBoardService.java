@@ -7,7 +7,7 @@ import com.github.pagehelper.PageInfo;
 
 public interface IDashBoardService {
 
-	PageInfo<DashBoardResBean> queryForecaseInfo(RequestBeanModel<DashBoardReqBean> reqBeanModel);
+	PageInfo<DashBoardResBean> queryForecastInfo(RequestBeanModel<DashBoardReqBean> reqBeanModel) throws Exception;
 
 	
 }

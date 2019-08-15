@@ -1,5 +1,6 @@
 package com.cl.service.impl;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,17 +43,17 @@ public class DashBoardServiceImpl implements IDashBoardService {
 	private CommonConfig config;
 	
 	@Override
-	public PageInfo<DashBoardResBean> queryForecaseInfo(RequestBeanModel<DashBoardReqBean> reqBeanModel) {
+	public PageInfo<DashBoardResBean> queryForecastInfo(RequestBeanModel<DashBoardReqBean> reqBeanModel) throws Exception {
 		DashBoardReqBean reqBean = reqBeanModel.getReqData();
 		validateParams(reqBean);
 		List<DashBoardResBean> resBeanList = orderManageMapper.selectDashBoardByParams(reqBean);
 		if(CollectionUtils.isEmpty(resBeanList)) {
 			return new PageInfo<>(new ArrayList<DashBoardResBean>());
 		}
-		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		for(DashBoardResBean bean : resBeanList) {
 			String date = bean.getDate();
-			bean.setDate(sdf.format(date));
+			bean.setDate(date);
 			String week = DateUtils.dateToWeek(date);
 			bean.setDayOfWeek(week);
 			Map<String,Object> params = new HashMap<>();
@@ -62,7 +63,7 @@ public class DashBoardServiceImpl implements IDashBoardService {
 	        params.put("limit", reqBean.getPageSize());
 			List<DashBoardDetailResBean> detail = orderManageMapper.selectDashBoardDetailByParams(params);
 			if(CollectionUtils.isNotEmpty(detail)) {
-				processDetailDeliveryTime(detail);
+				processDetailDeliveryTime(detail,reqBean,date);
 				bean.setDetail(detail);
 			}
 		}
@@ -70,10 +71,43 @@ public class DashBoardServiceImpl implements IDashBoardService {
 		return dashBoardResBeanPageInfo;
 	}
 	
-	private void processDetailDeliveryTime(List<DashBoardDetailResBean> detail) {
-		
+	private void processDetailDeliveryTime(List<DashBoardDetailResBean> detailList,DashBoardReqBean reqBean,String orderDate) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar c = Calendar.getInstance();
+		orderDate += " 00:00:00";
+		c.setTime(sdf.parse(orderDate));
+		long startTime = System.currentTimeMillis();
+		for(DashBoardDetailResBean detail : detailList) {
+			if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
+				c.add(Calendar.DAY_OF_MONTH, config.getPurchaseDifference());
+			}
+			if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_TAILOR) {
+				c.add(Calendar.DAY_OF_MONTH, config.getTailorDifference());
+			}
+			long endTime = c.getTimeInMillis();
+			long day = DateUtils.dayDifference(startTime, endTime);
+			long hour = DateUtils.hourDifference(startTime, endTime);
+			if(day < 0 || hour < 0) {
+				detail.setIsExceed(DashBoardConstants.IS_EXCEED);
+			}else {
+				detail.setIsExceed(DashBoardConstants.IS_NOT_EXCEED);
+			}
+			detail.setDeliveryDay(Integer.valueOf(day + ""));
+			detail.setDeliveryHour(Integer.valueOf(hour + ""));
+		}
 	}
 
+	public static void main(String[] args) {
+		Date now = new Date();
+    	Calendar c = Calendar.getInstance();
+    	c.setTime(now);
+    	c.add(Calendar.DAY_OF_MONTH, -5);
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    	String startDate = sdf.format(c.getTime());
+    	String endDate = sdf.format(now);
+    	System.out.println("startDate:" + startDate + ",endDate:" + endDate);
+	}
+	
 	private void validateParams(DashBoardReqBean reqBean) {
     	if(reqBean == null) {
     		throw new BusinessException(Status.NOT_VALID_PARAMS);

@@ -23,7 +23,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -90,7 +89,7 @@ public class PullOrderJob {
 	@Autowired
 	private CommonConfig config;
 	
-	@Scheduled(cron = "0 */1 * * * *")
+//	@Scheduled(cron = "0 */1 * * * *")
 	@Transactional(rollbackFor = Exception.class)
 	public void pullOrder() throws Exception {
 		SysParameterEntityExample example = new SysParameterEntityExample();
@@ -174,6 +173,7 @@ public class PullOrderJob {
 			}
 			List<PurchaseBean> purchaseList = order.getPurchaseInfo();
 			processPurchase(purchaseList,order,now);
+			tbLogMapper.insertSelective(tbLog);
 		}
 		c.add(Calendar.MINUTE, 20);
 		parameterEntity.setValue(sdf.format(c.getTime()));
@@ -294,24 +294,31 @@ public class PullOrderJob {
 			sb.append("接单时间不能为空！");
 		}
 		Pattern pattern = Pattern.compile(ApiConstants.DATETIME_REG);
-		Matcher matcher = pattern.matcher(order.getAcceptOrderTime());
-		if(!matcher.matches()) {
-			sb.append("接单时间不符合规则！");
+		if(StringUtils.isNotBlank(order.getAcceptOrderTime())) {
+			Matcher matcher = pattern.matcher(order.getAcceptOrderTime());
+			if(!matcher.matches()) {
+				sb.append("接单时间不符合规则！");
+			}
+		}
+		if(StringUtils.isNotBlank(order.getPlaceOrderTime())) {
+			Matcher matcher = pattern.matcher(order.getPlaceOrderTime());
+			if(!matcher.matches()) {
+				sb.append("下单时间不符合规则！");
+			}
 		}
 		if(StringUtils.isBlank(order.getPlaceOrderTime())) {
 			sb.append("下单时间不能为空！");
 		}
-		matcher = pattern.matcher(order.getPlaceOrderTime());
-		if(!matcher.matches()) {
-			sb.append("下单时间不符合规则！");
-		}
+		
 		if(StringUtils.isBlank(order.getDeliveryTime())) {
 			sb.append("目标交期不能为空！");
 		}
 		pattern = Pattern.compile(ApiConstants.DATE_REG);
-		matcher = pattern.matcher(order.getDeliveryTime());
-		if(!matcher.matches()) {
-			sb.append("目标交期不符合规则！");
+		if(StringUtils.isNotBlank(order.getDeliveryTime())) {
+			Matcher matcher = pattern.matcher(order.getDeliveryTime());
+			if(!matcher.matches()) {
+				sb.append("目标交期不符合规则！");
+			}
 		}
 		if(StringUtils.isBlank(order.getPic())) {
 			sb.append("订单图片不能为空！");

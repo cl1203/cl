@@ -61,3 +61,7 @@ interface:
 dashboard:
   show:
     day: 5
+  purchase:
+    difference: 5
+  tailor:
+    difference: 3
