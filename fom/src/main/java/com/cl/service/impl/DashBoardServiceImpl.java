@@ -53,7 +53,11 @@ public class DashBoardServiceImpl implements IDashBoardService {
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		for(DashBoardResBean bean : resBeanList) {
 			String date = bean.getDate();
-			bean.setDate(date);
+			if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
+				bean.setDate(date + config.getPurchaseDifference());
+			}else {
+				bean.setDate(date + config.getTailorDifference());
+			}
 			String week = DateUtils.dateToWeek(date);
 			bean.setDayOfWeek(week);
 			Map<String,Object> params = new HashMap<>();
