@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cl.dao.SysUserMapper">
-  <resultMap id="RoleResultMap" type="com.cl.bean.res.SysRoleResBean">
-    <result column="name" jdbcType="VARCHAR" property="name" />
-  </resultMap>
+    <resultMap id="RoleResultMap" type="com.cl.bean.res.SysRoleResBean">
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
 
-  <select id="selectRoleByUserId" parameterType="long" resultMap="RoleResultMap">
+    <select id="selectRoleByUserId" parameterType="long" resultMap="RoleResultMap">
     SELECT
       sr.name
     FROM
@@ -17,5 +17,45 @@
     AND su.status = 1
     AND su.id = #{userId}
   </select>
+
+    <resultMap id="PermissionResultMap" type="com.cl.bean.res.SysPermissionResBean">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="permission_type" jdbcType="TINYINT" property="permissionType" />
+        <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="sort_no" jdbcType="TINYINT" property="sortNo" />
+        <result column="target_page" jdbcType="VARCHAR" property="targetPage" />
+    </resultMap>
+    <select id="selectPermissionListByUserId" parameterType="java.lang.Long" resultMap="PermissionResultMap">
+    SELECT
+        sp.id ,
+        sp.name ,
+        sp.permission_type,
+        sp.parent_id,
+        sp.url,
+        sp.sort_no,
+        sp.target_page
+    FROM
+        sys_permission sp
+    LEFT JOIN sys_role_permission srp ON sp.id = srp.permission_id
+    LEFT JOIN sys_role sr ON sr.id = srp.role_id
+    LEFT JOIN sys_user_role sur ON sr.id = sur.role_id
+    LEFT JOIN sys_user su ON su.id = sur.user_id
+    WHERE sp.status = 1
+    AND srp.status = 1
+    AND sr.status = 1
+    AND sur.status = 1
+    AND su.status = 1
+    AND su.id = #{userId}
+    GROUP BY
+    sp.id ,
+        sp.name ,
+        sp.permission_type,
+        sp.parent_id,
+        sp.url,
+        sp.sort_no,
+        sp.target_page
+    </select>
 
 </mapper>

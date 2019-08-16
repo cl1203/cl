@@ -2,9 +2,12 @@ package com.cl.service.impl;
 
 import com.cl.bean.req.LoginReqBean;
 import com.cl.bean.res.LoginResBean;
+import com.cl.bean.res.SysPermissionResBean;
+import com.cl.bean.res.SysUserResBean;
 import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.RequestBeanModel;
+import com.cl.comm.transformer.IObjectTransformer;
 import com.cl.dao.SysUserMapper;
 import com.cl.entity.SysUserEntity;
 import com.cl.entity.SysUserEntityExample;
@@ -36,12 +39,20 @@ public class LoginServiceImpl implements ILoginService{
     @Resource
     private SysUserMapper sysUserMapper;
 
+    @Resource
+    private IObjectTransformer<SysUserEntity , SysUserResBean> sysUserTransform;
+
     @Override
     public LoginResBean login(RequestBeanModel<LoginReqBean> reqBeanModel) {
+        LoginResBean loginResBean = new LoginResBean();
         LoginReqBean loginReqBean = reqBeanModel.getReqData();
         List<SysUserEntity> sysUserEntityList = this.checkUser(loginReqBean);
         SysUserEntity sysUserEntity = sysUserEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
-        return null;
+        SysUserResBean sysUserResBean = this.sysUserTransform.transform(sysUserEntity);
+        List<SysPermissionResBean> sysPermissionResBeanList = this.sysUserMapper.selectPermissionListByUserId(sysUserEntity.getId());
+        loginResBean.setSysUserResBean(sysUserResBean);
+        loginResBean.setSysPermissionResBeanList(sysPermissionResBeanList);
+        return loginResBean;
     }
 
     /**

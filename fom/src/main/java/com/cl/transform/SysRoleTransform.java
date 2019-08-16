@@ -7,10 +7,8 @@ import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.transformer.AbstractObjectTransformer;
 import com.cl.dao.SysOrgMapper;
 import com.cl.dao.SysRoleMapper;
-import com.cl.dao.SysUserMapper;
-import com.cl.entity.*;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
+import com.cl.entity.SysOrgEntity;
+import com.cl.entity.SysRoleEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -58,7 +56,7 @@ public class SysRoleTransform extends AbstractObjectTransformer<SysRoleEntity , 
         //绑定的用户list
         List<SysUserResBean> sysUserResBeanList = this.sysRoleMapper.selectUserByRoleId(sysRoleEntity.getId());
         sysRoleResBean.setUserList(sysUserResBeanList);
-        //绑定的菜单list
+        //绑定的菜单权限list
         List<SysPermissionResBean> sysPermissionResBeanList = this.sysRoleMapper.selectPermissionByRoleId(sysRoleEntity.getId());
         sysRoleResBean.setPermissionList(sysPermissionResBeanList);
         return sysRoleResBean;

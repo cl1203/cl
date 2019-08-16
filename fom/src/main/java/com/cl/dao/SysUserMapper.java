@@ -1,8 +1,8 @@
 package com.cl.dao;
 
 import com.cl.bean.req.SysUserReqBean;
+import com.cl.bean.res.SysPermissionResBean;
 import com.cl.bean.res.SysRoleResBean;
-import com.cl.bean.res.SysUserResBean;
 import com.cl.comm.constants.DictionaryConstants;
 import com.cl.entity.SysUserEntity;
 import com.cl.entity.SysUserEntityExample;
@@ -46,4 +46,11 @@ public interface SysUserMapper extends MyBatisBaseDao<SysUserEntity, Long, SysUs
      * @return
      */
     List<SysRoleResBean> selectRoleByUserId(Long userId);
+
+    /**
+     * 根据用户id查询对应的角色绑定的所有权限
+     * @param userId
+     * @return
+     */
+    List<SysPermissionResBean> selectPermissionListByUserId(Long userId);
 }
