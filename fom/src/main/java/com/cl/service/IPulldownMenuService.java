@@ -70,4 +70,11 @@ public interface IPulldownMenuService {
      * @return
      */
     Long selectOrgIdByUserId(Long userId);
+
+    /**
+     * 校验字符串是否包含了空格
+     * @param str
+     * @return
+     */
+    boolean checkBlankSpace(String str);
 }

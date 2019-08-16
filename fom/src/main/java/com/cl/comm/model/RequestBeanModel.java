@@ -36,17 +36,6 @@ public class RequestBeanModel<T> implements Serializable {
     }
 
     public String getUserId() {
-        if (null != this.userId) {
-            return userId;
-        }
-        if (null == this.token || 0 == this.token.length() || !this.token.contains("_")) {
-            this.token = "111_xxxxx";
-        }
-        String[] tokenInfo = this.token.split("_");
-        if (tokenInfo.length != 2) {
-            return null;
-        }
-        this.userId = tokenInfo[0];
         return userId;
     }
 

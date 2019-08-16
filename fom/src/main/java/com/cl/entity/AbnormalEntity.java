@@ -18,6 +18,8 @@ public class AbnormalEntity implements Serializable {
      */
     private String orderNo;
 
+    private String purchaseNo;
+
     /**
      * 异常类型 1:采购异常 2:裁剪异常
      */
@@ -69,6 +71,14 @@ public class AbnormalEntity implements Serializable {
 
     public void setOrderNo(String orderNo) {
         this.orderNo = orderNo;
+    }
+
+    public String getPurchaseNo() {
+        return purchaseNo;
+    }
+
+    public void setPurchaseNo(String purchaseNo) {
+        this.purchaseNo = purchaseNo;
     }
 
     public Byte getAbnormalType() {
@@ -141,6 +151,7 @@ public class AbnormalEntity implements Serializable {
         AbnormalEntity other = (AbnormalEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getOrderNo() == null ? other.getOrderNo() == null : this.getOrderNo().equals(other.getOrderNo()))
+            && (this.getPurchaseNo() == null ? other.getPurchaseNo() == null : this.getPurchaseNo().equals(other.getPurchaseNo()))
             && (this.getAbnormalType() == null ? other.getAbnormalType() == null : this.getAbnormalType().equals(other.getAbnormalType()))
             && (this.getIsApproval() == null ? other.getIsApproval() == null : this.getIsApproval().equals(other.getIsApproval()))
             && (this.getAbnormalRemarks() == null ? other.getAbnormalRemarks() == null : this.getAbnormalRemarks().equals(other.getAbnormalRemarks()))
@@ -156,6 +167,7 @@ public class AbnormalEntity implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getOrderNo() == null) ? 0 : getOrderNo().hashCode());
+        result = prime * result + ((getPurchaseNo() == null) ? 0 : getPurchaseNo().hashCode());
         result = prime * result + ((getAbnormalType() == null) ? 0 : getAbnormalType().hashCode());
         result = prime * result + ((getIsApproval() == null) ? 0 : getIsApproval().hashCode());
         result = prime * result + ((getAbnormalRemarks() == null) ? 0 : getAbnormalRemarks().hashCode());
@@ -174,6 +186,7 @@ public class AbnormalEntity implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", orderNo=").append(orderNo);
+        sb.append(", purchaseNo=").append(purchaseNo);
         sb.append(", abnormalType=").append(abnormalType);
         sb.append(", isApproval=").append(isApproval);
         sb.append(", abnormalRemarks=").append(abnormalRemarks);

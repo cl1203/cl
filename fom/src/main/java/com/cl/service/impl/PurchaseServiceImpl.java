@@ -23,7 +23,6 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Date;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -127,7 +126,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
         BigDecimal singleAmountKg = purchaseEntityByOrderNo.getSingleAmountKg();//单件用量
         if(null != singleAmountKg){
             Integer actualPickQuantity = purchaseEntityByOrderNo.getActualPickQuantity();//实采数量
-            BigDecimal answerCutQuantity = (new BigDecimal(String.valueOf(actualPickQuantity))).divide(singleAmountKg , 2 , BigDecimal.ROUND_HALF_UP);//应裁数量
+            BigDecimal answerCutQuantity = (new BigDecimal(String.valueOf(actualPickQuantity))).divide(singleAmountKg , DictionaryConstants.ALL_BUSINESS_ZERO , BigDecimal.ROUND_HALF_UP);//应裁数量
             tailorEntity.setAnswerCutQuantity(answerCutQuantity.intValue());
         }
         //根据订单ID 查询最近的同样sku的订单信息

@@ -6,7 +6,6 @@ import com.cl.bean.res.PulldownMenuResBean;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.SingleParam;
 import com.cl.dao.PulldownMenuMapper;
-import com.cl.dao.SysRoleMapper;
 import com.cl.dao.SysUserMapper;
 import com.cl.entity.SysUserEntity;
 import com.cl.service.IPulldownMenuService;
@@ -86,5 +85,12 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
         Long orgId = sysUserEntity.getOrgId();
         Assert.notNull(orgId , "用户未绑定组织!");
         return orgId;
+    }
+
+    @Override
+    public boolean checkBlankSpace(String str) {
+        int i = str.indexOf(" ");
+        if(i==-1)return true;
+        return false;
     }
 }

@@ -1,7 +1,6 @@
 package com.cl.service.impl;
 
 import com.cl.bean.req.SysUserReqBean;
-import com.cl.bean.res.SysRoleResBean;
 import com.cl.bean.res.SysUserResBean;
 import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.exception.BusinessException;
@@ -14,18 +13,16 @@ import com.cl.dao.SysUserRoleMapper;
 import com.cl.entity.*;
 import com.cl.service.IPulldownMenuService;
 import com.cl.service.ISysUserService;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @ClassName SysUserServiceImpl
@@ -122,6 +119,13 @@ public class SysUserServiceImpl implements ISysUserService {
         SysUserReqBean sysUserReqBean = reqBeanModel.getReqData();
         SysUserEntity sysUserEntity = new SysUserEntity();
         Assert.hasText(sysUserReqBean.getUserName() , "用户名不能为空!");
+        Assert.isTrue(sysUserReqBean.getUserName().length() < 20 ,"用户名太长,请修改!");
+        boolean flag = this.pulldownMenuService.checkBlankSpace(sysUserReqBean.getUserName());
+        Assert.isTrue(flag , "用户名不能包含空格!");
+        String regex = "^[a-z0-9A-Z]+$";
+        if(!match(regex , sysUserReqBean.getUserName())) {
+            throw new BusinessException("用户名格式规则: 必须只能包含数字和字母! ");
+        }
         SysUserEntityExample sysUserEntityExample = new SysUserEntityExample();
         SysUserEntityExample.Criteria criteria = sysUserEntityExample.createCriteria();
         criteria.andUserNameEqualTo(sysUserReqBean.getUserName());
@@ -132,12 +136,26 @@ public class SysUserServiceImpl implements ISysUserService {
         List<SysUserEntity> sysUserEntityList = this.sysUserMapper.selectByExample(sysUserEntityExample);
         Assert.isTrue(sysUserEntityList.size() == DictionaryConstants.ALL_BUSINESS_ZERO ,"用户名已经存在,请修改!");
         sysUserEntity.setUserName(sysUserReqBean.getUserName());
+        Assert.hasText(sysUserReqBean.getRealName() , "用户真实姓名不能为空!");
         sysUserEntity.setRealName(sysUserReqBean.getRealName());
         sysUserEntity.setMobile(sysUserReqBean.getMobile());
         sysUserEntity.setRemarks(sysUserReqBean.getRemarks());
         SysUserEntity sysUserEntityByid = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(reqBeanModel.getUserId()));
         sysUserEntity.setLastUpdateUser(sysUserEntityByid.getRealName());
         return sysUserEntity;
+    }
+
+    /**
+     * @param regex
+     * 正则表达式字符串
+     * @param str
+     * 要匹配的字符串
+     * @return 如果str 符合 regex的正则表达式格式,返回true, 否则返回 false;
+     */
+    private static boolean match(String regex, String str) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
     }
 
     @Override

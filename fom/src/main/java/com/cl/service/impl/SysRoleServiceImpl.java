@@ -12,7 +12,6 @@ import com.cl.entity.*;
 import com.cl.service.IPulldownMenuService;
 import com.cl.service.ISysRoleService;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -122,6 +121,9 @@ public class SysRoleServiceImpl implements ISysRoleService {
         SysRoleEntity sysRoleEntity = new SysRoleEntity();
         String roleName = sysRoleReqBean.getName();
         Assert.hasText(roleName , "角色名不能为空!");
+        Assert.isTrue(roleName.length() < 20 ,"角色名太长,请修改!");
+        boolean flag = this.pulldownMenuService.checkBlankSpace(roleName);
+        Assert.isTrue(flag , "角色名不能包含空格!");
         //根据ID和角色名称查询是否存在  如果id为空 代表为新增校验 否则为修改校验
         SysRoleEntityExample sysRoleEntityExample = new SysRoleEntityExample();
         SysRoleEntityExample.Criteria criteria = sysRoleEntityExample.createCriteria();

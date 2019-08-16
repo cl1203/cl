@@ -9,6 +9,7 @@ import com.cl.comm.model.SingleParam;
 import com.cl.comm.transformer.IObjectTransformer;
 import com.cl.dao.*;
 import com.cl.entity.*;
+import com.cl.service.IPulldownMenuService;
 import com.cl.service.ISysOrgService;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections4.CollectionUtils;
@@ -47,6 +48,9 @@ public class SysOrgServiceImpl implements ISysOrgService {
     private SysRolePermissionMapper sysRolePermissionMapper;
 
     @Resource
+    private IPulldownMenuService pulldownMenuService;
+
+    @Resource
     private IObjectTransformer<SysOrgEntity , SysOrgResBean> sysOrgTransformer;
 
     @Override
@@ -79,6 +83,9 @@ public class SysOrgServiceImpl implements ISysOrgService {
         SysOrgEntity sysOrgEntity = new SysOrgEntity();
         SysOrgReqBean sysOrgReqBean = reqBeanModel.getReqData();
         Assert.hasText(sysOrgReqBean.getName() , "组织名称不能为空!");
+        Assert.isTrue(sysOrgReqBean.getName().length() < 20 ,"组织名太长,请修改!");
+        boolean flag = this.pulldownMenuService.checkBlankSpace(sysOrgReqBean.getName());
+        Assert.isTrue(flag , "组织名不能包含空格!");
         //查询组织名称是否存在
         SysOrgEntityExample sysOrgEntityExample = new SysOrgEntityExample();
         SysOrgEntityExample.Criteria criteria = sysOrgEntityExample.createCriteria();
