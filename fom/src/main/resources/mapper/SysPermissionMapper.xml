@@ -3,7 +3,6 @@
 <mapper namespace="com.cl.dao.SysPermissionMapper">
   <resultMap id="BaseResultMap" type="com.cl.entity.SysPermissionEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="permission_type" jdbcType="TINYINT" property="permissionType" />
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
@@ -76,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, code, `name`, permission_type, parent_id, url, sort_no, target_page, `status`, 
-    remarks, create_time, create_user, last_update_time, last_update_user
+    id, `name`, permission_type, parent_id, url, sort_no, target_page, `status`, remarks, 
+    create_time, create_user, last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.SysPermissionEntityExample" resultMap="BaseResultMap">
     select
@@ -118,23 +117,20 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysPermissionEntity" useGeneratedKeys="true">
-    insert into sys_permission (code, `name`, permission_type, 
-      parent_id, url, sort_no, 
-      target_page, `status`, remarks, 
-      create_time, create_user, last_update_time, 
-      last_update_user)
-    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{permissionType,jdbcType=TINYINT}, 
-      #{parentId,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, #{sortNo,jdbcType=TINYINT}, 
-      #{targetPage,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
-      #{lastUpdateUser,jdbcType=VARCHAR})
+    insert into sys_permission (`name`, permission_type, parent_id, 
+      url, sort_no, target_page, 
+      `status`, remarks, create_time, 
+      create_user, last_update_time, last_update_user
+      )
+    values (#{name,jdbcType=VARCHAR}, #{permissionType,jdbcType=TINYINT}, #{parentId,jdbcType=BIGINT}, 
+      #{url,jdbcType=VARCHAR}, #{sortNo,jdbcType=TINYINT}, #{targetPage,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysPermissionEntity" useGeneratedKeys="true">
     insert into sys_permission
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="code != null">
-        code,
-      </if>
       <if test="name != null">
         `name`,
       </if>
@@ -173,9 +169,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="code != null">
-        #{code,jdbcType=VARCHAR},
-      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -226,9 +219,6 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.code != null">
-        code = #{record.code,jdbcType=VARCHAR},
-      </if>
       <if test="record.name != null">
         `name` = #{record.name,jdbcType=VARCHAR},
       </if>
@@ -273,7 +263,6 @@
   <update id="updateByExample" parameterType="map">
     update sys_permission
     set id = #{record.id,jdbcType=BIGINT},
-      code = #{record.code,jdbcType=VARCHAR},
       `name` = #{record.name,jdbcType=VARCHAR},
       permission_type = #{record.permissionType,jdbcType=TINYINT},
       parent_id = #{record.parentId,jdbcType=BIGINT},
@@ -293,9 +282,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.SysPermissionEntity">
     update sys_permission
     <set>
-      <if test="code != null">
-        code = #{code,jdbcType=VARCHAR},
-      </if>
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
       </if>
@@ -337,8 +323,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cl.entity.SysPermissionEntity">
     update sys_permission
-    set code = #{code,jdbcType=VARCHAR},
-      `name` = #{name,jdbcType=VARCHAR},
+    set `name` = #{name,jdbcType=VARCHAR},
       permission_type = #{permissionType,jdbcType=TINYINT},
       parent_id = #{parentId,jdbcType=BIGINT},
       url = #{url,jdbcType=VARCHAR},

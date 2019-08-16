@@ -14,11 +14,6 @@ public class SysPermissionEntity implements Serializable {
     private Long id;
 
     /**
-     * 权限编码
-     */
-    private String code;
-
-    /**
      * 权限名称
      */
     private String name;
@@ -86,14 +81,6 @@ public class SysPermissionEntity implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getName() {
@@ -205,7 +192,6 @@ public class SysPermissionEntity implements Serializable {
         }
         SysPermissionEntity other = (SysPermissionEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getPermissionType() == null ? other.getPermissionType() == null : this.getPermissionType().equals(other.getPermissionType()))
             && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
@@ -225,7 +211,6 @@ public class SysPermissionEntity implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getPermissionType() == null) ? 0 : getPermissionType().hashCode());
         result = prime * result + ((getParentId() == null) ? 0 : getParentId().hashCode());
@@ -248,7 +233,6 @@ public class SysPermissionEntity implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", code=").append(code);
         sb.append(", name=").append(name);
         sb.append(", permissionType=").append(permissionType);
         sb.append(", parentId=").append(parentId);
