@@ -70,6 +70,6 @@ dashboard:
 logging:
   level:
     root: info
-  file: src/log/fom.log
+  file: log/fom.log
   # 默认日志路径
   #path: ./log
