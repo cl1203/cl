@@ -83,7 +83,7 @@ public class SysOrgServiceImpl implements ISysOrgService {
         SysOrgEntity sysOrgEntity = new SysOrgEntity();
         SysOrgReqBean sysOrgReqBean = reqBeanModel.getReqData();
         Assert.hasText(sysOrgReqBean.getName() , "组织名称不能为空!");
-        Assert.isTrue(sysOrgReqBean.getName().length() < 20 ,"组织名太长,请修改!");
+        Assert.isTrue(sysOrgReqBean.getName().length() <= 20 ,"组织名太长,请修改!");
         boolean flag = this.pulldownMenuService.checkBlankSpace(sysOrgReqBean.getName());
         Assert.isTrue(flag , "组织名不能包含空格!");
         //查询组织名称是否存在

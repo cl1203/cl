@@ -71,6 +71,7 @@ public class LoginServiceImpl implements ILoginService{
     @Override
     public void updatePassword(RequestBeanModel<LoginReqBean> reqBeanModel) {
         LoginReqBean loginReqBean = reqBeanModel.getReqData();
+        List<SysUserEntity> sysUserEntityList = this.checkUser(loginReqBean);
         String newPassword = loginReqBean.getNewPassword();
         Assert.hasText(newPassword , "新密码不能为空!");
         if(!(newPassword.length() >= DictionaryConstants.PASSWORD_MIN && newPassword.length() <= DictionaryConstants.PASSWORD_MAX)){
@@ -82,7 +83,6 @@ public class LoginServiceImpl implements ILoginService{
         if(!match(regex , loginReqBean.getNewPassword())) {
             throw new BusinessException("密码格式规则: 必须只能包含数字和字母! ");
         }
-        List<SysUserEntity> sysUserEntityList = this.checkUser(loginReqBean);
         SysUserEntity sysUserEntity = sysUserEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
         sysUserEntity.setPassword(loginReqBean.getNewPassword());
         Integer i = this.sysUserMapper.updateByPrimaryKeySelective(sysUserEntity);
@@ -100,7 +100,7 @@ public class LoginServiceImpl implements ILoginService{
         criteria.andUserNameEqualTo(loginReqBean.getUserName());
         criteria.andPasswordEqualTo(loginReqBean.getPassword());
         List<SysUserEntity> sysUserEntityList = this.sysUserMapper.selectByExample(sysUserEntityExample);
-        Assert.notEmpty(sysUserEntityList , "用户名和旧密码不匹配!");
+        Assert.notEmpty(sysUserEntityList , "用户名和密码不匹配!");
         return  sysUserEntityList;
     }
 }

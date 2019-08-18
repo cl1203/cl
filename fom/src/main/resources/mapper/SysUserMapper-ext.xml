@@ -2,11 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cl.dao.SysUserMapper">
     <resultMap id="RoleResultMap" type="com.cl.bean.res.SysRoleResBean">
+        <id column="id" jdbcType="BIGINT" property="id" />
         <result column="name" jdbcType="VARCHAR" property="name"/>
     </resultMap>
 
     <select id="selectRoleByUserId" parameterType="long" resultMap="RoleResultMap">
     SELECT
+      sr.id,
       sr.name
     FROM
       sys_role sr

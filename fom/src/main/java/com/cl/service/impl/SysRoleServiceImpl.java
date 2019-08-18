@@ -121,7 +121,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
         SysRoleEntity sysRoleEntity = new SysRoleEntity();
         String roleName = sysRoleReqBean.getName();
         Assert.hasText(roleName , "角色名不能为空!");
-        Assert.isTrue(roleName.length() < 20 ,"角色名太长,请修改!");
+        Assert.isTrue(roleName.length() <= 20 ,"角色名太长,请修改!");
         boolean flag = this.pulldownMenuService.checkBlankSpace(roleName);
         Assert.isTrue(flag , "角色名不能包含空格!");
         //根据ID和角色名称查询是否存在  如果id为空 代表为新增校验 否则为修改校验

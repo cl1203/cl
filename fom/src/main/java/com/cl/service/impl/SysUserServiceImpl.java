@@ -119,7 +119,7 @@ public class SysUserServiceImpl implements ISysUserService {
         SysUserReqBean sysUserReqBean = reqBeanModel.getReqData();
         SysUserEntity sysUserEntity = new SysUserEntity();
         Assert.hasText(sysUserReqBean.getUserName() , "用户名不能为空!");
-        Assert.isTrue(sysUserReqBean.getUserName().length() < 20 ,"用户名太长,请修改!");
+        Assert.isTrue(sysUserReqBean.getUserName().length() <= 20 ,"用户名太长,请修改!");
         boolean flag = this.pulldownMenuService.checkBlankSpace(sysUserReqBean.getUserName());
         Assert.isTrue(flag , "用户名不能包含空格!");
         String regex = "^[a-z0-9A-Z]+$";

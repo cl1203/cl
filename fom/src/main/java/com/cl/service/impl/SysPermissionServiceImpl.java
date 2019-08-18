@@ -79,7 +79,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         SysPermissionReqBean sysPermissionReqBean = reqBeanModel.getReqData();
         String name = sysPermissionReqBean.getName();
         Assert.hasText(name , "菜单名称不能为空");
-        Assert.isTrue(name.length() < 20 ,"菜单名太长,请修改!");
+        Assert.isTrue(name.length() <= 20 ,"菜单名太长,请修改!");
         boolean flag = this.pulldownMenuService.checkBlankSpace(name);
         Assert.isTrue(flag , "菜单名不能包含空格!");
         SysPermissionEntityExample sysPermissionEntityExample = new SysPermissionEntityExample();

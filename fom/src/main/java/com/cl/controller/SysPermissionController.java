@@ -25,7 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/permission")
 @CrossOrigin
-@Api(value = "菜单管理接口文档")
+@Api(description = "菜单管理接口文档")
 public class SysPermissionController {
 
     @Resource
