@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName SysPermissionResBean
@@ -65,6 +66,11 @@ public class SysPermissionResBean implements Serializable{
     private String targetPage;
 
     /**
+     * 权限图标样式
+     */
+    @ApiModelProperty(value = "权限图标样式")
+    private String permissionClass;
+    /**
      * 备注
      */
     @ApiModelProperty(value = "备注")
@@ -82,6 +88,25 @@ public class SysPermissionResBean implements Serializable{
      */
     @ApiModelProperty(value = "最后修改人")
     private String lastUpdateUser;
+
+    @ApiModelProperty(value = "二级菜单List")
+    private List<SysPermissionResBean> sysPermissionResBeanList;
+
+    public List<SysPermissionResBean> getSysPermissionResBeanList() {
+        return sysPermissionResBeanList;
+    }
+
+    public void setSysPermissionResBeanList(List<SysPermissionResBean> sysPermissionResBeanList) {
+        this.sysPermissionResBeanList = sysPermissionResBeanList;
+    }
+
+    public String getPermissionClass() {
+        return permissionClass;
+    }
+
+    public void setPermissionClass(String permissionClass) {
+        this.permissionClass = permissionClass;
+    }
 
     public Long getId() {
         return id;

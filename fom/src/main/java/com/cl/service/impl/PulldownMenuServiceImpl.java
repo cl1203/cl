@@ -3,10 +3,16 @@ package com.cl.service.impl;
 import com.cl.bean.req.PulldownMenuReqBean;
 import com.cl.bean.res.DictItem;
 import com.cl.bean.res.PulldownMenuResBean;
+import com.cl.bean.res.SysPermissionResBean;
+import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.SingleParam;
+import com.cl.comm.transformer.IObjectTransformer;
 import com.cl.dao.PulldownMenuMapper;
+import com.cl.dao.SysPermissionMapper;
 import com.cl.dao.SysUserMapper;
+import com.cl.entity.SysPermissionEntity;
+import com.cl.entity.SysPermissionEntityExample;
 import com.cl.entity.SysUserEntity;
 import com.cl.service.IPulldownMenuService;
 import org.springframework.stereotype.Service;
@@ -32,6 +38,12 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
 
     @Resource
     private SysUserMapper sysUserMapper;
+
+    @Resource
+    private SysPermissionMapper sysPermissionMapper;
+
+    @Resource
+    private IObjectTransformer<SysPermissionEntity , SysPermissionResBean> sysPermissionTransform;
 
     @Override
     public List<PulldownMenuResBean> queryOrgPulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel) {
@@ -92,5 +104,18 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
         int i = str.indexOf(" ");
         if(i==-1)return true;
         return false;
+    }
+
+    @Override
+    public void queryPermissionByParentId(List<SysPermissionResBean> sysPermissionResBeanList) {
+        SysPermissionEntityExample sysPermissionEntityExample = new SysPermissionEntityExample();
+        SysPermissionEntityExample.Criteria criteria = sysPermissionEntityExample.createCriteria();
+        criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
+        sysPermissionResBeanList.forEach(sysPermissionResBean -> {
+            criteria.andParentIdEqualTo(sysPermissionResBean.getId());
+            List<SysPermissionEntity> sysPermissionEntityList = this.sysPermissionMapper.selectByExample(sysPermissionEntityExample);
+            List<SysPermissionResBean> sysPermissionResBeanListByParentId = this.sysPermissionTransform.transform(sysPermissionEntityList);
+            sysPermissionResBean.setSysPermissionResBeanList(sysPermissionResBeanListByParentId);
+        });
     }
 }

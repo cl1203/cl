@@ -5,10 +5,8 @@ import com.cl.bean.res.SysUserResBean;
 import com.cl.comm.transformer.AbstractObjectTransformer;
 import com.cl.dao.SysOrgMapper;
 import com.cl.dao.SysUserMapper;
-import com.cl.dao.SysUserRoleMapper;
 import com.cl.entity.SysOrgEntity;
 import com.cl.entity.SysUserEntity;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -48,7 +46,6 @@ public class SysUserTransform extends AbstractObjectTransformer<SysUserEntity, S
         sysUserResBean.setRemarks(sysUserEntity.getRemarks());
         sysUserResBean.setLastUpdateTime(sysUserEntity.getLastUpdateTime());
         sysUserResBean.setLastUpdateUser(sysUserEntity.getLastUpdateUser());
-
         List<SysRoleResBean> sysRoleList = this.sysUserMapper.selectRoleByUserId(sysUserEntity.getId());
         sysUserResBean.setSysRoleList(sysRoleList);
         return sysUserResBean;

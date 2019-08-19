@@ -24,6 +24,7 @@
       sr.status = 1
     AND
       sr.id = #{roleId}
+    order by su.last_update_time desc
   </select>
 
   <resultMap id="PermissionResultMap" type="com.cl.bean.res.SysPermissionResBean">
@@ -47,7 +48,10 @@
     AND
       sr.status = 1
     AND
+      sp.parent_id = 0
+    AND
       sr.id = #{roleId}
+    order by sp.sort_no
   </select>
 
 </mapper>

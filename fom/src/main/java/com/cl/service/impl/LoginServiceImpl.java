@@ -50,6 +50,7 @@ public class LoginServiceImpl implements ILoginService{
         SysUserEntity sysUserEntity = sysUserEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
         SysUserResBean sysUserResBean = this.sysUserTransform.transform(sysUserEntity);
         List<SysPermissionResBean> sysPermissionResBeanList = this.sysUserMapper.selectPermissionListByUserId(sysUserEntity.getId());
+        this.pulldownMenuService.queryPermissionByParentId(sysPermissionResBeanList);
         loginResBean.setSysUserResBean(sysUserResBean);
         loginResBean.setSysPermissionResBeanList(sysPermissionResBeanList);
         return loginResBean;

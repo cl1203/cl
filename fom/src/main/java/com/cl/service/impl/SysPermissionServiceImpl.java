@@ -90,23 +90,30 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
             criteria.andIdNotEqualTo(sysPermissionReqBean.getId());
         }
         List<SysPermissionEntity> sysPermissionEntityList = this.sysPermissionMapper.selectByExample(sysPermissionEntityExample);
-        Assert.isTrue(sysPermissionEntityList.size() == DictionaryConstants.ALL_BUSINESS_ZERO , "菜单名称已经存在!");
+        Assert.isTrue(sysPermissionEntityList.size() == DictionaryConstants.ALL_BUSINESS_ZERO , "名称已经存在!");
         SysPermissionEntityExample sysPermissionEntityExampleBySortNo = new SysPermissionEntityExample();
         SysPermissionEntityExample.Criteria criteriaBySortNo = sysPermissionEntityExampleBySortNo.createCriteria();
         Byte permissionType = sysPermissionReqBean.getPermissionType();
         Assert.notNull(permissionType , "权限类型不能为空!");
         if(permissionType != DictionaryConstants.PERMISSION_TYPE_ZERO && permissionType != DictionaryConstants.PERMISSION_TYPE_ONE && permissionType != DictionaryConstants.PERMISSION_TYPE_TWO && permissionType != DictionaryConstants.PERMISSION_TYPE_THREE ){
-            throw new BusinessException("未知权限类型");
+            throw new BusinessException("权限类型不存在!");
         }
         Byte sortNo = sysPermissionReqBean.getSortNo();
         Assert.notNull(sortNo , "排列序号不能为空!");
         Long parentId = sysPermissionReqBean.getParentId();
+        Assert.notNull(parentId ,"父ID不能为空!");
+        if(!(Long.valueOf(DictionaryConstants.ALL_BUSINESS_ZERO).equals(parentId))){
+            //根据父ID查询是否是一级菜单
+            SysPermissionEntity sysPermissionEntityById = this.sysPermissionMapper.selectByPrimaryKey(parentId);
+            Assert.notNull(sysPermissionEntityById , "上级菜单不存在!");
+            if(!(Long.valueOf(DictionaryConstants.ALL_BUSINESS_ZERO).equals(sysPermissionEntityById.getParentId()))){
+                throw new BusinessException("上级菜单只能是一级菜单!");
+            }
+        }
         criteriaBySortNo.andSortNoEqualTo(sortNo);
         criteriaBySortNo.andPermissionTypeEqualTo(permissionType);
-        if(null != parentId){
-            criteriaBySortNo.andParentIdEqualTo(parentId);
-            sysPermissionEntity.setParentId(parentId);
-        }
+        criteriaBySortNo.andParentIdEqualTo(parentId);
+        sysPermissionEntity.setParentId(parentId);
         if(null != sysPermissionReqBean.getId()){
             criteria.andIdNotEqualTo(sysPermissionReqBean.getId());
         }
@@ -155,7 +162,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
             Long id = Long.valueOf(singleParam.getParam());
             sysPermissionEntity.setId(id);
             Integer i = this.sysPermissionMapper.updateByPrimaryKeySelective(sysPermissionEntity);
-            Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "删除菜单数据失败!");
+            Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "删除数据失败!");
             criteria.andPermissionIdEqualTo(id);
             this.sysRolePermissionMapper.updateByExample(sysRolePermissionEntity , sysRolePermissionEntityExample);
         });

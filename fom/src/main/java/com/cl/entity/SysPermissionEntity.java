@@ -44,6 +44,11 @@ public class SysPermissionEntity implements Serializable {
     private String targetPage;
 
     /**
+     * 权限图标样式
+     */
+    private String permissionClass;
+
+    /**
      * 状态 0:已删除 1:可用 
      */
     private Byte status;
@@ -131,6 +136,14 @@ public class SysPermissionEntity implements Serializable {
         this.targetPage = targetPage;
     }
 
+    public String getPermissionClass() {
+        return permissionClass;
+    }
+
+    public void setPermissionClass(String permissionClass) {
+        this.permissionClass = permissionClass;
+    }
+
     public Byte getStatus() {
         return status;
     }
@@ -198,6 +211,7 @@ public class SysPermissionEntity implements Serializable {
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
             && (this.getSortNo() == null ? other.getSortNo() == null : this.getSortNo().equals(other.getSortNo()))
             && (this.getTargetPage() == null ? other.getTargetPage() == null : this.getTargetPage().equals(other.getTargetPage()))
+            && (this.getPermissionClass() == null ? other.getPermissionClass() == null : this.getPermissionClass().equals(other.getPermissionClass()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getRemarks() == null ? other.getRemarks() == null : this.getRemarks().equals(other.getRemarks()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -217,6 +231,7 @@ public class SysPermissionEntity implements Serializable {
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
         result = prime * result + ((getSortNo() == null) ? 0 : getSortNo().hashCode());
         result = prime * result + ((getTargetPage() == null) ? 0 : getTargetPage().hashCode());
+        result = prime * result + ((getPermissionClass() == null) ? 0 : getPermissionClass().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -239,6 +254,7 @@ public class SysPermissionEntity implements Serializable {
         sb.append(", url=").append(url);
         sb.append(", sortNo=").append(sortNo);
         sb.append(", targetPage=").append(targetPage);
+        sb.append(", permissionClass=").append(permissionClass);
         sb.append(", status=").append(status);
         sb.append(", remarks=").append(remarks);
         sb.append(", createTime=").append(createTime);

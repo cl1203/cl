@@ -3,6 +3,7 @@ package com.cl.service;
 import com.cl.bean.req.PulldownMenuReqBean;
 import com.cl.bean.res.DictItem;
 import com.cl.bean.res.PulldownMenuResBean;
+import com.cl.bean.res.SysPermissionResBean;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.SingleParam;
 
@@ -77,4 +78,10 @@ public interface IPulldownMenuService {
      * @return
      */
     boolean checkBlankSpace(String str);
+
+    /**
+     * 给菜单list按父id查询对应的所有子菜单
+     * @param sysPermissionResBeanList
+     */
+    void queryPermissionByParentId(List<SysPermissionResBean> sysPermissionResBeanList);
 }

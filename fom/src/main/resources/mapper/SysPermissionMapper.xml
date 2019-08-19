@@ -9,6 +9,7 @@
     <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="sort_no" jdbcType="TINYINT" property="sortNo" />
     <result column="target_page" jdbcType="VARCHAR" property="targetPage" />
+    <result column="permission_class" jdbcType="VARCHAR" property="permissionClass" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -75,8 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, `name`, permission_type, parent_id, url, sort_no, target_page, `status`, remarks, 
-    create_time, create_user, last_update_time, last_update_user
+    id, `name`, permission_type, parent_id, url, sort_no, target_page, permission_class, 
+    `status`, remarks, create_time, create_user, last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.SysPermissionEntityExample" resultMap="BaseResultMap">
     select
@@ -119,14 +120,14 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysPermissionEntity" useGeneratedKeys="true">
     insert into sys_permission (`name`, permission_type, parent_id, 
       url, sort_no, target_page, 
-      `status`, remarks, create_time, 
-      create_user, last_update_time, last_update_user
-      )
+      permission_class, `status`, remarks, 
+      create_time, create_user, last_update_time, 
+      last_update_user)
     values (#{name,jdbcType=VARCHAR}, #{permissionType,jdbcType=TINYINT}, #{parentId,jdbcType=BIGINT}, 
       #{url,jdbcType=VARCHAR}, #{sortNo,jdbcType=TINYINT}, #{targetPage,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
-      )
+      #{permissionClass,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateUser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysPermissionEntity" useGeneratedKeys="true">
     insert into sys_permission
@@ -148,6 +149,9 @@
       </if>
       <if test="targetPage != null">
         target_page,
+      </if>
+      <if test="permissionClass != null">
+        permission_class,
       </if>
       <if test="status != null">
         `status`,
@@ -186,6 +190,9 @@
       </if>
       <if test="targetPage != null">
         #{targetPage,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionClass != null">
+        #{permissionClass,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
@@ -237,6 +244,9 @@
       <if test="record.targetPage != null">
         target_page = #{record.targetPage,jdbcType=VARCHAR},
       </if>
+      <if test="record.permissionClass != null">
+        permission_class = #{record.permissionClass,jdbcType=VARCHAR},
+      </if>
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=TINYINT},
       </if>
@@ -269,6 +279,7 @@
       url = #{record.url,jdbcType=VARCHAR},
       sort_no = #{record.sortNo,jdbcType=TINYINT},
       target_page = #{record.targetPage,jdbcType=VARCHAR},
+      permission_class = #{record.permissionClass,jdbcType=VARCHAR},
       `status` = #{record.status,jdbcType=TINYINT},
       remarks = #{record.remarks,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -300,6 +311,9 @@
       <if test="targetPage != null">
         target_page = #{targetPage,jdbcType=VARCHAR},
       </if>
+      <if test="permissionClass != null">
+        permission_class = #{permissionClass,jdbcType=VARCHAR},
+      </if>
       <if test="status != null">
         `status` = #{status,jdbcType=TINYINT},
       </if>
@@ -329,6 +343,7 @@
       url = #{url,jdbcType=VARCHAR},
       sort_no = #{sortNo,jdbcType=TINYINT},
       target_page = #{targetPage,jdbcType=VARCHAR},
+      permission_class = #{permissionClass,jdbcType=VARCHAR},
       `status` = #{status,jdbcType=TINYINT},
       remarks = #{remarks,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

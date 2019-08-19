@@ -575,6 +575,76 @@ public class SysPermissionEntityExample {
             return (Criteria) this;
         }
 
+        public Criteria andPermissionClassIsNull() {
+            addCriterion("permission_class is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissionClassIsNotNull() {
+            addCriterion("permission_class is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissionClassEqualTo(String value) {
+            addCriterion("permission_class =", value, "permissionClass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissionClassNotEqualTo(String value) {
+            addCriterion("permission_class <>", value, "permissionClass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissionClassGreaterThan(String value) {
+            addCriterion("permission_class >", value, "permissionClass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissionClassGreaterThanOrEqualTo(String value) {
+            addCriterion("permission_class >=", value, "permissionClass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissionClassLessThan(String value) {
+            addCriterion("permission_class <", value, "permissionClass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissionClassLessThanOrEqualTo(String value) {
+            addCriterion("permission_class <=", value, "permissionClass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissionClassLike(String value) {
+            addCriterion("permission_class like", value, "permissionClass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissionClassNotLike(String value) {
+            addCriterion("permission_class not like", value, "permissionClass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissionClassIn(List<String> values) {
+            addCriterion("permission_class in", values, "permissionClass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissionClassNotIn(List<String> values) {
+            addCriterion("permission_class not in", values, "permissionClass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissionClassBetween(String value1, String value2) {
+            addCriterion("permission_class between", value1, value2, "permissionClass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPermissionClassNotBetween(String value1, String value2) {
+            addCriterion("permission_class not between", value1, value2, "permissionClass");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("`status` is null");
             return (Criteria) this;

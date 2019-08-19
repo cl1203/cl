@@ -9,6 +9,7 @@ import com.cl.dao.SysOrgMapper;
 import com.cl.dao.SysRoleMapper;
 import com.cl.entity.SysOrgEntity;
 import com.cl.entity.SysRoleEntity;
+import com.cl.service.IPulldownMenuService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,6 +31,9 @@ public class SysRoleTransform extends AbstractObjectTransformer<SysRoleEntity , 
     @Resource
     private SysRoleMapper sysRoleMapper;
 
+    @Resource
+    private IPulldownMenuService pulldownMenuService;
+
     @Override
     public SysRoleResBean transform(SysRoleEntity sysRoleEntity) {
         if(null == sysRoleEntity){
@@ -43,7 +47,7 @@ public class SysRoleTransform extends AbstractObjectTransformer<SysRoleEntity , 
             sysRoleResBean.setOrgName(sysOrgEntity.getName());
         }
         sysRoleResBean.setName(sysRoleEntity.getName());
-        if(null != sysRoleEntity.getParentId()){
+        if(!(Long.valueOf(DictionaryConstants.ALL_BUSINESS_ZERO).equals(sysRoleEntity.getParentId()))){
             sysRoleResBean.setParentId(sysRoleEntity.getParentId());
             SysRoleEntity sysRoleEntityById = this.sysRoleMapper.selectByPrimaryKey(sysRoleEntity.getParentId());
             if(null != sysRoleEntityById && sysRoleEntityById.getStatus() == DictionaryConstants.AVAILABLE){
@@ -58,6 +62,7 @@ public class SysRoleTransform extends AbstractObjectTransformer<SysRoleEntity , 
         sysRoleResBean.setUserList(sysUserResBeanList);
         //绑定的菜单权限list
         List<SysPermissionResBean> sysPermissionResBeanList = this.sysRoleMapper.selectPermissionByRoleId(sysRoleEntity.getId());
+        this.pulldownMenuService.queryPermissionByParentId(sysPermissionResBeanList);
         sysRoleResBean.setPermissionList(sysPermissionResBeanList);
         return sysRoleResBean;
     }
