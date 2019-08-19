@@ -118,4 +118,15 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
             sysPermissionResBean.setSysPermissionResBeanList(sysPermissionResBeanListByParentId);
         });
     }
+
+    @Override
+    public List<SysPermissionResBean> queryPermissionAll() {
+        SysPermissionEntityExample sysPermissionEntityExample = new SysPermissionEntityExample();
+        SysPermissionEntityExample.Criteria criteria = sysPermissionEntityExample.createCriteria();
+        criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
+        List<SysPermissionEntity> sysPermissionEntityList = this.sysPermissionMapper.selectByExample(sysPermissionEntityExample);
+        List<SysPermissionResBean> sysPermissionResBeanList = this.sysPermissionTransform.transform(sysPermissionEntityList);
+        this.queryPermissionByParentId(sysPermissionResBeanList);
+        return sysPermissionResBeanList;
+    }
 }

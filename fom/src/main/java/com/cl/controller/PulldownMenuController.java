@@ -4,6 +4,7 @@ import com.cl.aop.LoggerManage;
 import com.cl.bean.req.PulldownMenuReqBean;
 import com.cl.bean.res.DictItem;
 import com.cl.bean.res.PulldownMenuResBean;
+import com.cl.bean.res.SysPermissionResBean;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.ResponseBeanModel;
 import com.cl.comm.model.SingleParam;
@@ -13,7 +14,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -121,5 +121,20 @@ public class PulldownMenuController {
     public ResponseBeanModel<List<DictItem>> queryDictItemList(@RequestBody  RequestBeanModel<DictItem> requestBeanModel){
         List<DictItem> dictItemList = this.pulldownMenuService.queryDictItemList(requestBeanModel);
         return new ResponseBeanModel<>(dictItemList);
+    }
+
+    /**
+     * @Author 陈龙
+     * @Description 查询所有菜单包括对应的所有子菜单
+     * @Date 18:26 2019/8/19
+     * @Param []
+     * @return com.cl.comm.model.ResponseBeanModel<java.util.List<com.cl.bean.res.SysPermissionResBean>>
+     **/
+    @PostMapping("/queryPermissionAll")
+    @ApiOperation(value = "查询所有菜单包括对应的所有子菜单" , notes = "查询所有菜单包括对应的所有子菜单")
+    @LoggerManage(description = "查询所有菜单包括对应的所有子菜单")
+    public ResponseBeanModel<List<SysPermissionResBean>> queryPermissionAll(){
+        List<SysPermissionResBean> sysPermissionResBeanList = this.pulldownMenuService.queryPermissionAll();
+        return new ResponseBeanModel<>(sysPermissionResBeanList);
     }
 }

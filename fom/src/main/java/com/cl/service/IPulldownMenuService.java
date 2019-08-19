@@ -84,4 +84,10 @@ public interface IPulldownMenuService {
      * @param sysPermissionResBeanList
      */
     void queryPermissionByParentId(List<SysPermissionResBean> sysPermissionResBeanList);
+
+    /**
+     * 查询所有菜单包括对应的所有子菜单
+     * @return
+     */
+    List<SysPermissionResBean> queryPermissionAll();
 }
