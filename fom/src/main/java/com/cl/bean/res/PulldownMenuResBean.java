@@ -33,6 +33,20 @@ public class PulldownMenuResBean implements Serializable{
     @ApiModelProperty(value = "真实名称")
     private String realName;
 
+    /**
+     * 父id
+     */
+    @ApiModelProperty(value = "父id")
+    private Long parentId;
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
     public String getRealName() {
         return realName;
     }
