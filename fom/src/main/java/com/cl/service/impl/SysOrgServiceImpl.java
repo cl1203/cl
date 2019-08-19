@@ -69,7 +69,7 @@ public class SysOrgServiceImpl implements ISysOrgService {
     @Override
     public void insertSysOrg(RequestBeanModel<SysOrgReqBean> reqBeanModel) {
         SysOrgEntity sysOrgEntity = this.checkOrgReqBean(reqBeanModel);
-        sysOrgEntity.setCreateUser(reqBeanModel.getUsername());
+        sysOrgEntity.setCreateUser(reqBeanModel.getUserId());
         int i = this.sysOrgMapper.insertSelective(sysOrgEntity);
         Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE  , "新增组织失败!");
     }

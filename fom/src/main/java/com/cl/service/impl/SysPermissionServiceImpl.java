@@ -95,6 +95,9 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         SysPermissionEntityExample.Criteria criteriaBySortNo = sysPermissionEntityExampleBySortNo.createCriteria();
         Byte permissionType = sysPermissionReqBean.getPermissionType();
         Assert.notNull(permissionType , "权限类型不能为空!");
+        if(permissionType != DictionaryConstants.PERMISSION_TYPE_ZERO && permissionType != DictionaryConstants.PERMISSION_TYPE_ONE && permissionType != DictionaryConstants.PERMISSION_TYPE_TWO && permissionType != DictionaryConstants.PERMISSION_TYPE_THREE ){
+            throw new BusinessException("未知权限类型");
+        }
         Byte sortNo = sysPermissionReqBean.getSortNo();
         Assert.notNull(sortNo , "排列序号不能为空!");
         Long parentId = sysPermissionReqBean.getParentId();
@@ -103,8 +106,6 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         if(null != parentId){
             criteriaBySortNo.andParentIdEqualTo(parentId);
             sysPermissionEntity.setParentId(parentId);
-        }else{
-            criteriaBySortNo.andParentIdEqualTo(null);
         }
         if(null != sysPermissionReqBean.getId()){
             criteria.andIdNotEqualTo(sysPermissionReqBean.getId());

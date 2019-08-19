@@ -78,7 +78,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
         Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
         //入参校验  并转换为entity
         SysRoleEntity sysRoleEntity = this.checkRoleReqBean(reqBeanModel , orgId);
-        sysRoleEntity.setCreateUser(reqBeanModel.getUsername());
+        sysRoleEntity.setCreateUser(reqBeanModel.getUserId());
         sysRoleEntity.setOrgId(orgId);
         Integer i = this.sysRoleMapper.insertSelective(sysRoleEntity);
         Assert.isTrue(i == 1 , "新增角色失败!");
