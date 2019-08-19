@@ -73,14 +73,32 @@
 			   case when (t.actual_cut_quantity != null) then t.actual_cut_quantity else om.order_quantity end as number
 		from order_manage om
 			left join tailor t on t.order_no = om.order_no
-		where om.order_time between #{startDate} and #{endDate}
+		where 1 = 1
+		<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
+			and om.order_time between #{startDate} and #{endDate}
+		</if>
+		<if test="startDate != null and startDate != '' and (endDate == null or endDate == '')">
+			and om.order_time = #{startDate}
+		</if>
+		<if test="producerOrgId != null and producerOrgId > 0">
+			and om.producer_org_id = #{producerOrgId}
+		</if>
+		<if test="producer != null and producer != ''">
+			and om.producer = #{producer}
+		</if>
+		<if test="statusList != null and statusList.size > 0">
+			and om.order_status in
+			<foreach collection="statusList" item="status" open="(" close=")" separator=",">
+				#{status}
+			</foreach>
+		</if>
 		order by om.order_time
 	) a
 	group by order_date
   </select>
   
   <select id="selectDashBoardDetailByParams" parameterType="java.util.Map" resultType="com.cl.bean.res.DashBoardDetailResBean">
-  	select om.order_no as orderNo,om.sku,
+  	select om.order_no as orderNo,om.sku,om.order_img_url as imgUrl,
   		   case when (t.actual_cut_quantity != null) then t.actual_cut_quantity else om.order_quantity end as tailorQuantity,
 		   date_format(om.order_time,'%Y-%m-%d') as orderDate,om.remarks as remark
 	from order_manage om 

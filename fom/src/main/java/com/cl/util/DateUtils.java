@@ -1210,12 +1210,4 @@ public class DateUtils {
     	return hour;
     }
     
-    public static void main(String[] args) throws ParseException {
-		String startDate = "2019-07-03 15:50:20";
-		String endDate = "2019-07-15 00:00:00";
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		long day = dayDifference(sdf.parse(startDate).getTime(), sdf.parse(endDate).getTime());
-		long hour = hourDifference(sdf.parse(startDate).getTime(), sdf.parse(endDate).getTime());
-		System.out.println("day:" + day + ",hour:" + hour);
-	}
 }
