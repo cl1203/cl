@@ -115,7 +115,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         criteriaBySortNo.andParentIdEqualTo(parentId);
         sysPermissionEntity.setParentId(parentId);
         if(null != sysPermissionReqBean.getId()){
-            criteria.andIdNotEqualTo(sysPermissionReqBean.getId());
+            criteriaBySortNo.andIdNotEqualTo(sysPermissionReqBean.getId());
         }
         List<SysPermissionEntity> sysPermissionEntityListBySortNo = this.sysPermissionMapper.selectByExample(sysPermissionEntityExampleBySortNo);
         Assert.isTrue(sysPermissionEntityListBySortNo.size() == DictionaryConstants.ALL_BUSINESS_ZERO , "同样的权限类型,同样的权限等级已经存在此排序号!");
