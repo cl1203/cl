@@ -109,6 +109,8 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
             if(!(Long.valueOf(DictionaryConstants.ALL_BUSINESS_ZERO).equals(sysPermissionEntityById.getParentId()))){
                 throw new BusinessException("上级菜单只能是一级菜单!");
             }
+        }else{
+            sysPermissionEntity.setPermissionClass(sysPermissionReqBean.getPermissionClass());
         }
         criteriaBySortNo.andSortNoEqualTo(sortNo);
         criteriaBySortNo.andPermissionTypeEqualTo(permissionType);

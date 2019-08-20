@@ -70,6 +70,20 @@ public class SysPermissionReqBean implements Serializable {
     @NotNull(message = "页码大小不能为空!")
     private Integer pageNum;
 
+    /**
+     * 权限图标样式
+     */
+    @ApiModelProperty(value = "权限图标样式")
+    private String permissionClass;
+
+    public String getPermissionClass() {
+        return permissionClass;
+    }
+
+    public void setPermissionClass(String permissionClass) {
+        this.permissionClass = permissionClass;
+    }
+
     public Integer getPageSize() {
         return pageSize;
     }

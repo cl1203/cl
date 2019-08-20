@@ -73,7 +73,7 @@ public class SysPermissionController {
     @LoggerManage(description = "修改菜单信息")
     public ResponseBeanModel<Void> updateSysPermission(@RequestBody RequestBeanModel<SysPermissionReqBean> reqBeanModel) {
         this.sysPermissionService.updateSysPermission(reqBeanModel);
-        return new ResponseBeanModel<>("新增菜单成功!");
+        return new ResponseBeanModel<>("修改菜单成功!");
     }
 
     /**
@@ -88,6 +88,6 @@ public class SysPermissionController {
     @LoggerManage(description = "删除菜单")
     public ResponseBeanModel<Void> deleteSysPermission(@RequestBody RequestBeanModel<List<SingleParam>> reqBeanModel){
         this.sysPermissionService.deleteSysPermission(reqBeanModel);
-        return new ResponseBeanModel<>("删除用户成功!");
+        return new ResponseBeanModel<>("删除菜单成功!");
     }
 }
