@@ -29,6 +29,7 @@
         <result column="url" jdbcType="VARCHAR" property="url" />
         <result column="sort_no" jdbcType="TINYINT" property="sortNo" />
         <result column="target_page" jdbcType="VARCHAR" property="targetPage" />
+        <result column="permission_class" jdbcType="VARCHAR" property="permissionClass" />
     </resultMap>
     <select id="selectPermissionListByUserId" parameterType="java.lang.Long" resultMap="PermissionResultMap">
     SELECT
@@ -38,7 +39,8 @@
         sp.parent_id,
         sp.url,
         sp.sort_no,
-        sp.target_page
+        sp.target_page,
+        sp.permission_class
     FROM
         sys_permission sp
     LEFT JOIN sys_role_permission srp ON sp.id = srp.permission_id
@@ -59,7 +61,8 @@
         sp.parent_id,
         sp.url,
         sp.sort_no,
-        sp.target_page
+        sp.target_page,
+        sp.permission_class
     </select>
 
 </mapper>
