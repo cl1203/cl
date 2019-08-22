@@ -90,7 +90,7 @@ public class PullOrderJob {
 	@Autowired
 	private CommonConfig config;
 	
-	@Scheduled(cron = "0 */2 * * * *")
+	@Scheduled(cron = "0 */10 * * * *")
 	@Transactional(rollbackFor = Exception.class)
 	public void pullOrder() throws Exception {
 		SysParameterEntityExample example = new SysParameterEntityExample();
