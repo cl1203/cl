@@ -10,6 +10,7 @@
           sys_org
         WHERE
           status = 1
+        AND id != 1
         <if test="name != null  and name !='' ">
             AND name = #{name}
         </if>

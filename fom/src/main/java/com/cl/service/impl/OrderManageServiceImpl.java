@@ -82,7 +82,7 @@ public class OrderManageServiceImpl implements IOrderManageService {
         orderManageEntity.setLastUpdateTime(new Date());
         orderManageEntity.setLastUpdateUser(reqBeanModel.getUsername());
         for(Long orderId : orderIdList){
-            OrderManageEntity orderManageEntityByOrderId = this.orderManageMapper.selectProducer(orderId);
+            OrderManageEntity orderManageEntityByOrderId = this.orderManageMapper.selectByPrimaryKey(orderId);
             Assert.notNull(orderManageEntityByOrderId , "订单数据错误!");
             orderManageEntity.setId(orderId);
             int i = this.orderManageMapper.updateByPrimaryKeySelective(orderManageEntity);

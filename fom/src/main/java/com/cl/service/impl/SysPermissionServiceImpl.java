@@ -126,6 +126,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         sysPermissionEntity.setSortNo(sortNo);
         sysPermissionEntity.setTargetPage(sysPermissionReqBean.getTargetPage());
         sysPermissionEntity.setRemarks(sysPermissionReqBean.getRemarks());
+        sysPermissionEntity.setPermissionClass(sysPermissionReqBean.getPermissionClass());
         SysUserEntity sysUserEntity = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(reqBeanModel.getUserId()));
         sysPermissionEntity.setLastUpdateUser(sysUserEntity.getRealName());
         return sysPermissionEntity;
