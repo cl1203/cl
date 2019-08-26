@@ -15,4 +15,6 @@ public class DashBoardConstants {
 	public static final Byte IS_NOT_EXCEED = 0;
 	
 	public static final String TODAY = "今天";
+	
+	public static final Integer REMARK_MAX_LENGTH = 128;
 }

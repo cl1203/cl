@@ -9,6 +9,9 @@ public class DashBoardReqBean implements Serializable {
 
 	private static final long serialVersionUID = 2274018417274330897L;
 
+	@ApiModelProperty(value = "订单编号")
+	private String orderNo;                   //订单编号
+
 	@ApiModelProperty(value = "生产方")
 	private String producer;                  //生产方
 	
@@ -33,6 +36,25 @@ public class DashBoardReqBean implements Serializable {
 	@ApiModelProperty(value = "页数")
 	private Integer pageNum;                  //页数
 	
+	@ApiModelProperty(value = "订单备注")
+	private String remark;                    //订单备注
+	
+	public String getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
 	public String getStartDate() {
 		return startDate;
 	}

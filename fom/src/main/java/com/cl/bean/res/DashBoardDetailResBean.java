@@ -10,6 +10,8 @@ public class DashBoardDetailResBean implements Serializable {
 	
 	private String sku;                                //SKU编号
 	
+	private String imgUrl;                             //订单图片
+	
 	private Integer tailorQuantity;                    //裁剪数量
 	
 	private String orderDate;                          //下单日期
@@ -21,6 +23,14 @@ public class DashBoardDetailResBean implements Serializable {
 	private Byte isExceed;                             //是否超期 1:超期 0:未超期
 	
 	private String remark;                             //备注
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
 
 	public String getOrderNo() {
 		return orderNo;
