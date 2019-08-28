@@ -256,63 +256,73 @@ public class TailorEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andTailorUserIdIsNull() {
-            addCriterion("tailor_user_id is null");
+        public Criteria andTailorNameIsNull() {
+            addCriterion("tailor_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andTailorUserIdIsNotNull() {
-            addCriterion("tailor_user_id is not null");
+        public Criteria andTailorNameIsNotNull() {
+            addCriterion("tailor_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTailorUserIdEqualTo(Long value) {
-            addCriterion("tailor_user_id =", value, "tailorUserId");
+        public Criteria andTailorNameEqualTo(String value) {
+            addCriterion("tailor_name =", value, "tailorName");
             return (Criteria) this;
         }
 
-        public Criteria andTailorUserIdNotEqualTo(Long value) {
-            addCriterion("tailor_user_id <>", value, "tailorUserId");
+        public Criteria andTailorNameNotEqualTo(String value) {
+            addCriterion("tailor_name <>", value, "tailorName");
             return (Criteria) this;
         }
 
-        public Criteria andTailorUserIdGreaterThan(Long value) {
-            addCriterion("tailor_user_id >", value, "tailorUserId");
+        public Criteria andTailorNameGreaterThan(String value) {
+            addCriterion("tailor_name >", value, "tailorName");
             return (Criteria) this;
         }
 
-        public Criteria andTailorUserIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("tailor_user_id >=", value, "tailorUserId");
+        public Criteria andTailorNameGreaterThanOrEqualTo(String value) {
+            addCriterion("tailor_name >=", value, "tailorName");
             return (Criteria) this;
         }
 
-        public Criteria andTailorUserIdLessThan(Long value) {
-            addCriterion("tailor_user_id <", value, "tailorUserId");
+        public Criteria andTailorNameLessThan(String value) {
+            addCriterion("tailor_name <", value, "tailorName");
             return (Criteria) this;
         }
 
-        public Criteria andTailorUserIdLessThanOrEqualTo(Long value) {
-            addCriterion("tailor_user_id <=", value, "tailorUserId");
+        public Criteria andTailorNameLessThanOrEqualTo(String value) {
+            addCriterion("tailor_name <=", value, "tailorName");
             return (Criteria) this;
         }
 
-        public Criteria andTailorUserIdIn(List<Long> values) {
-            addCriterion("tailor_user_id in", values, "tailorUserId");
+        public Criteria andTailorNameLike(String value) {
+            addCriterion("tailor_name like", value, "tailorName");
             return (Criteria) this;
         }
 
-        public Criteria andTailorUserIdNotIn(List<Long> values) {
-            addCriterion("tailor_user_id not in", values, "tailorUserId");
+        public Criteria andTailorNameNotLike(String value) {
+            addCriterion("tailor_name not like", value, "tailorName");
             return (Criteria) this;
         }
 
-        public Criteria andTailorUserIdBetween(Long value1, Long value2) {
-            addCriterion("tailor_user_id between", value1, value2, "tailorUserId");
+        public Criteria andTailorNameIn(List<String> values) {
+            addCriterion("tailor_name in", values, "tailorName");
             return (Criteria) this;
         }
 
-        public Criteria andTailorUserIdNotBetween(Long value1, Long value2) {
-            addCriterion("tailor_user_id not between", value1, value2, "tailorUserId");
+        public Criteria andTailorNameNotIn(List<String> values) {
+            addCriterion("tailor_name not in", values, "tailorName");
+            return (Criteria) this;
+        }
+
+        public Criteria andTailorNameBetween(String value1, String value2) {
+            addCriterion("tailor_name between", value1, value2, "tailorName");
+            return (Criteria) this;
+        }
+
+        public Criteria andTailorNameNotBetween(String value1, String value2) {
+            addCriterion("tailor_name not between", value1, value2, "tailorName");
             return (Criteria) this;
         }
 
@@ -553,6 +563,66 @@ public class TailorEntityExample {
 
         public Criteria andConsumingTimeNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("consuming_time not between", value1, value2, "consumingTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalIsNull() {
+            addCriterion("is_exist_abnormal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalIsNotNull() {
+            addCriterion("is_exist_abnormal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalEqualTo(Byte value) {
+            addCriterion("is_exist_abnormal =", value, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalNotEqualTo(Byte value) {
+            addCriterion("is_exist_abnormal <>", value, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalGreaterThan(Byte value) {
+            addCriterion("is_exist_abnormal >", value, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_exist_abnormal >=", value, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalLessThan(Byte value) {
+            addCriterion("is_exist_abnormal <", value, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalLessThanOrEqualTo(Byte value) {
+            addCriterion("is_exist_abnormal <=", value, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalIn(List<Byte> values) {
+            addCriterion("is_exist_abnormal in", values, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalNotIn(List<Byte> values) {
+            addCriterion("is_exist_abnormal not in", values, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalBetween(Byte value1, Byte value2) {
+            addCriterion("is_exist_abnormal between", value1, value2, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_exist_abnormal not between", value1, value2, "isExistAbnormal");
             return (Criteria) this;
         }
 

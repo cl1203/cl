@@ -20,9 +20,9 @@ public class TailorEntity implements Serializable {
     private String orderNo;
 
     /**
-     * 裁剪员工ID
+     * 裁剪小组名称
      */
-    private Long tailorUserId;
+    private String tailorName;
 
     /**
      * 应裁数量
@@ -43,6 +43,11 @@ public class TailorEntity implements Serializable {
      * 裁剪耗时
      */
     private BigDecimal consumingTime;
+
+    /**
+     * 是否存在异常表 0:不存在,1:存在
+     */
+    private Byte isExistAbnormal;
 
     /**
      * 状态 0:已删除 1:戴裁剪 2:已裁剪
@@ -92,12 +97,12 @@ public class TailorEntity implements Serializable {
         this.orderNo = orderNo;
     }
 
-    public Long getTailorUserId() {
-        return tailorUserId;
+    public String getTailorName() {
+        return tailorName;
     }
 
-    public void setTailorUserId(Long tailorUserId) {
-        this.tailorUserId = tailorUserId;
+    public void setTailorName(String tailorName) {
+        this.tailorName = tailorName;
     }
 
     public Integer getAnswerCutQuantity() {
@@ -130,6 +135,14 @@ public class TailorEntity implements Serializable {
 
     public void setConsumingTime(BigDecimal consumingTime) {
         this.consumingTime = consumingTime;
+    }
+
+    public Byte getIsExistAbnormal() {
+        return isExistAbnormal;
+    }
+
+    public void setIsExistAbnormal(Byte isExistAbnormal) {
+        this.isExistAbnormal = isExistAbnormal;
     }
 
     public Byte getTailoStatus() {
@@ -194,11 +207,12 @@ public class TailorEntity implements Serializable {
         TailorEntity other = (TailorEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getOrderNo() == null ? other.getOrderNo() == null : this.getOrderNo().equals(other.getOrderNo()))
-            && (this.getTailorUserId() == null ? other.getTailorUserId() == null : this.getTailorUserId().equals(other.getTailorUserId()))
+            && (this.getTailorName() == null ? other.getTailorName() == null : this.getTailorName().equals(other.getTailorName()))
             && (this.getAnswerCutQuantity() == null ? other.getAnswerCutQuantity() == null : this.getAnswerCutQuantity().equals(other.getAnswerCutQuantity()))
             && (this.getActualCutQuantity() == null ? other.getActualCutQuantity() == null : this.getActualCutQuantity().equals(other.getActualCutQuantity()))
             && (this.getMonovalent() == null ? other.getMonovalent() == null : this.getMonovalent().equals(other.getMonovalent()))
             && (this.getConsumingTime() == null ? other.getConsumingTime() == null : this.getConsumingTime().equals(other.getConsumingTime()))
+            && (this.getIsExistAbnormal() == null ? other.getIsExistAbnormal() == null : this.getIsExistAbnormal().equals(other.getIsExistAbnormal()))
             && (this.getTailoStatus() == null ? other.getTailoStatus() == null : this.getTailoStatus().equals(other.getTailoStatus()))
             && (this.getRemarks() == null ? other.getRemarks() == null : this.getRemarks().equals(other.getRemarks()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -213,11 +227,12 @@ public class TailorEntity implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getOrderNo() == null) ? 0 : getOrderNo().hashCode());
-        result = prime * result + ((getTailorUserId() == null) ? 0 : getTailorUserId().hashCode());
+        result = prime * result + ((getTailorName() == null) ? 0 : getTailorName().hashCode());
         result = prime * result + ((getAnswerCutQuantity() == null) ? 0 : getAnswerCutQuantity().hashCode());
         result = prime * result + ((getActualCutQuantity() == null) ? 0 : getActualCutQuantity().hashCode());
         result = prime * result + ((getMonovalent() == null) ? 0 : getMonovalent().hashCode());
         result = prime * result + ((getConsumingTime() == null) ? 0 : getConsumingTime().hashCode());
+        result = prime * result + ((getIsExistAbnormal() == null) ? 0 : getIsExistAbnormal().hashCode());
         result = prime * result + ((getTailoStatus() == null) ? 0 : getTailoStatus().hashCode());
         result = prime * result + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -235,11 +250,12 @@ public class TailorEntity implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", orderNo=").append(orderNo);
-        sb.append(", tailorUserId=").append(tailorUserId);
+        sb.append(", tailorName=").append(tailorName);
         sb.append(", answerCutQuantity=").append(answerCutQuantity);
         sb.append(", actualCutQuantity=").append(actualCutQuantity);
         sb.append(", monovalent=").append(monovalent);
         sb.append(", consumingTime=").append(consumingTime);
+        sb.append(", isExistAbnormal=").append(isExistAbnormal);
         sb.append(", tailoStatus=").append(tailoStatus);
         sb.append(", remarks=").append(remarks);
         sb.append(", createTime=").append(createTime);

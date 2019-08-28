@@ -22,6 +22,7 @@
     <result column="actual_pick_total" jdbcType="DECIMAL" property="actualPickTotal" />
     <result column="single_amount_kg" jdbcType="DECIMAL" property="singleAmountKg" />
     <result column="consuming_time" jdbcType="DECIMAL" property="consumingTime" />
+    <result column="is_exist_abnormal" jdbcType="TINYINT" property="isExistAbnormal" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
@@ -90,8 +91,8 @@
     id, order_no, purchase_no, purchase_time, supplier_name, supplier_code, supplier_color_number, 
     purchase_status, materiel_sku, materiel_type_code, materiel_name, materiel_color, 
     answer_pick_quantity, answer_pick_monovalent, answer_pick_total, actual_pick_quantity, 
-    actual_pick_monovalent, actual_pick_total, single_amount_kg, consuming_time, remarks, 
-    create_time, create_user, last_update_time, last_update_user
+    actual_pick_monovalent, actual_pick_total, single_amount_kg, consuming_time, is_exist_abnormal, 
+    remarks, create_time, create_user, last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.PurchaseEntityExample" resultMap="BaseResultMap">
     select
@@ -139,8 +140,9 @@
       answer_pick_monovalent, answer_pick_total, 
       actual_pick_quantity, actual_pick_monovalent, 
       actual_pick_total, single_amount_kg, consuming_time, 
-      remarks, create_time, create_user, 
-      last_update_time, last_update_user)
+      is_exist_abnormal, remarks, create_time, 
+      create_user, last_update_time, last_update_user
+      )
     values (#{orderNo,jdbcType=VARCHAR}, #{purchaseNo,jdbcType=VARCHAR}, #{purchaseTime,jdbcType=TIMESTAMP}, 
       #{supplierName,jdbcType=VARCHAR}, #{supplierCode,jdbcType=VARCHAR}, #{supplierColorNumber,jdbcType=VARCHAR}, 
       #{purchaseStatus,jdbcType=TINYINT}, #{materielSku,jdbcType=VARCHAR}, #{materielTypeCode,jdbcType=VARCHAR}, 
@@ -148,8 +150,9 @@
       #{answerPickMonovalent,jdbcType=DECIMAL}, #{answerPickTotal,jdbcType=DECIMAL}, 
       #{actualPickQuantity,jdbcType=INTEGER}, #{actualPickMonovalent,jdbcType=DECIMAL}, 
       #{actualPickTotal,jdbcType=DECIMAL}, #{singleAmountKg,jdbcType=DECIMAL}, #{consumingTime,jdbcType=DECIMAL}, 
-      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
-      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR})
+      #{isExistAbnormal,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.PurchaseEntity" useGeneratedKeys="true">
     insert into purchase
@@ -211,14 +214,21 @@
       <if test="consumingTime != null">
         consuming_time,
       </if>
+      <if test="isExistAbnormal != null">
+        is_exist_abnormal,
+      </if>
       <if test="remarks != null">
         remarks,
       </if>
-      create_time,
+      <if test="createTime != null">
+        create_time,
+      </if>
       <if test="createUser != null">
         create_user,
       </if>
-      last_update_time,
+      <if test="lastUpdateTime != null">
+        last_update_time,
+      </if>
       <if test="lastUpdateUser != null">
         last_update_user,
       </if>
@@ -281,14 +291,21 @@
       <if test="consumingTime != null">
         #{consumingTime,jdbcType=DECIMAL},
       </if>
+      <if test="isExistAbnormal != null">
+        #{isExistAbnormal,jdbcType=TINYINT},
+      </if>
       <if test="remarks != null">
         #{remarks,jdbcType=VARCHAR},
       </if>
-      now(),
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="createUser != null">
         #{createUser,jdbcType=VARCHAR},
       </if>
-      now(),
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="lastUpdateUser != null">
         #{lastUpdateUser,jdbcType=VARCHAR},
       </if>
@@ -363,6 +380,9 @@
       <if test="record.consumingTime != null">
         consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
       </if>
+      <if test="record.isExistAbnormal != null">
+        is_exist_abnormal = #{record.isExistAbnormal,jdbcType=TINYINT},
+      </if>
       <if test="record.remarks != null">
         remarks = #{record.remarks,jdbcType=VARCHAR},
       </if>
@@ -405,6 +425,7 @@
       actual_pick_total = #{record.actualPickTotal,jdbcType=DECIMAL},
       single_amount_kg = #{record.singleAmountKg,jdbcType=DECIMAL},
       consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
+      is_exist_abnormal = #{record.isExistAbnormal,jdbcType=TINYINT},
       remarks = #{record.remarks,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_user = #{record.createUser,jdbcType=VARCHAR},
@@ -474,6 +495,9 @@
       <if test="consumingTime != null">
         consuming_time = #{consumingTime,jdbcType=DECIMAL},
       </if>
+      <if test="isExistAbnormal != null">
+        is_exist_abnormal = #{isExistAbnormal,jdbcType=TINYINT},
+      </if>
       <if test="remarks != null">
         remarks = #{remarks,jdbcType=VARCHAR},
       </if>
@@ -513,6 +537,7 @@
       actual_pick_total = #{actualPickTotal,jdbcType=DECIMAL},
       single_amount_kg = #{singleAmountKg,jdbcType=DECIMAL},
       consuming_time = #{consumingTime,jdbcType=DECIMAL},
+      is_exist_abnormal = #{isExistAbnormal,jdbcType=TINYINT},
       remarks = #{remarks,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=VARCHAR},

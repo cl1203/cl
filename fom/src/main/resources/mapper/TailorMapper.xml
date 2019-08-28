@@ -4,11 +4,12 @@
   <resultMap id="BaseResultMap" type="com.cl.entity.TailorEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
-    <result column="tailor_user_id" jdbcType="BIGINT" property="tailorUserId" />
+    <result column="tailor_name" jdbcType="VARCHAR" property="tailorName" />
     <result column="answer_cut_quantity" jdbcType="INTEGER" property="answerCutQuantity" />
     <result column="actual_cut_quantity" jdbcType="INTEGER" property="actualCutQuantity" />
     <result column="monovalent" jdbcType="DECIMAL" property="monovalent" />
     <result column="consuming_time" jdbcType="DECIMAL" property="consumingTime" />
+    <result column="is_exist_abnormal" jdbcType="TINYINT" property="isExistAbnormal" />
     <result column="tailo_status" jdbcType="TINYINT" property="tailoStatus" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -75,9 +76,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_no, tailor_user_id, answer_cut_quantity, actual_cut_quantity, monovalent, 
-    consuming_time, tailo_status, remarks, create_time, create_user, last_update_time, 
-    last_update_user
+    id, order_no, tailor_name, answer_cut_quantity, actual_cut_quantity, monovalent, 
+    consuming_time, is_exist_abnormal, tailo_status, remarks, create_time, create_user, 
+    last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.TailorEntityExample" resultMap="BaseResultMap">
     select
@@ -118,16 +119,16 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.TailorEntity" useGeneratedKeys="true">
-    insert into tailor (order_no, tailor_user_id, answer_cut_quantity, 
+    insert into tailor (order_no, tailor_name, answer_cut_quantity, 
       actual_cut_quantity, monovalent, consuming_time, 
-      tailo_status, remarks, create_time, 
-      create_user, last_update_time, last_update_user
-      )
-    values (#{orderNo,jdbcType=VARCHAR}, #{tailorUserId,jdbcType=BIGINT}, #{answerCutQuantity,jdbcType=INTEGER}, 
+      is_exist_abnormal, tailo_status, remarks, 
+      create_time, create_user, last_update_time, 
+      last_update_user)
+    values (#{orderNo,jdbcType=VARCHAR}, #{tailorName,jdbcType=VARCHAR}, #{answerCutQuantity,jdbcType=INTEGER}, 
       #{actualCutQuantity,jdbcType=INTEGER}, #{monovalent,jdbcType=DECIMAL}, #{consumingTime,jdbcType=DECIMAL}, 
-      #{tailoStatus,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
-      )
+      #{isExistAbnormal,jdbcType=TINYINT}, #{tailoStatus,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateUser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.TailorEntity" useGeneratedKeys="true">
     insert into tailor
@@ -135,8 +136,8 @@
       <if test="orderNo != null">
         order_no,
       </if>
-      <if test="tailorUserId != null">
-        tailor_user_id,
+      <if test="tailorName != null">
+        tailor_name,
       </if>
       <if test="answerCutQuantity != null">
         answer_cut_quantity,
@@ -149,6 +150,9 @@
       </if>
       <if test="consumingTime != null">
         consuming_time,
+      </if>
+      <if test="isExistAbnormal != null">
+        is_exist_abnormal,
       </if>
       <if test="tailoStatus != null">
         tailo_status,
@@ -173,8 +177,8 @@
       <if test="orderNo != null">
         #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="tailorUserId != null">
-        #{tailorUserId,jdbcType=BIGINT},
+      <if test="tailorName != null">
+        #{tailorName,jdbcType=VARCHAR},
       </if>
       <if test="answerCutQuantity != null">
         #{answerCutQuantity,jdbcType=INTEGER},
@@ -187,6 +191,9 @@
       </if>
       <if test="consumingTime != null">
         #{consumingTime,jdbcType=DECIMAL},
+      </if>
+      <if test="isExistAbnormal != null">
+        #{isExistAbnormal,jdbcType=TINYINT},
       </if>
       <if test="tailoStatus != null">
         #{tailoStatus,jdbcType=TINYINT},
@@ -223,8 +230,8 @@
       <if test="record.orderNo != null">
         order_no = #{record.orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.tailorUserId != null">
-        tailor_user_id = #{record.tailorUserId,jdbcType=BIGINT},
+      <if test="record.tailorName != null">
+        tailor_name = #{record.tailorName,jdbcType=VARCHAR},
       </if>
       <if test="record.answerCutQuantity != null">
         answer_cut_quantity = #{record.answerCutQuantity,jdbcType=INTEGER},
@@ -237,6 +244,9 @@
       </if>
       <if test="record.consumingTime != null">
         consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isExistAbnormal != null">
+        is_exist_abnormal = #{record.isExistAbnormal,jdbcType=TINYINT},
       </if>
       <if test="record.tailoStatus != null">
         tailo_status = #{record.tailoStatus,jdbcType=TINYINT},
@@ -265,11 +275,12 @@
     update tailor
     set id = #{record.id,jdbcType=BIGINT},
       order_no = #{record.orderNo,jdbcType=VARCHAR},
-      tailor_user_id = #{record.tailorUserId,jdbcType=BIGINT},
+      tailor_name = #{record.tailorName,jdbcType=VARCHAR},
       answer_cut_quantity = #{record.answerCutQuantity,jdbcType=INTEGER},
       actual_cut_quantity = #{record.actualCutQuantity,jdbcType=INTEGER},
       monovalent = #{record.monovalent,jdbcType=DECIMAL},
       consuming_time = #{record.consumingTime,jdbcType=DECIMAL},
+      is_exist_abnormal = #{record.isExistAbnormal,jdbcType=TINYINT},
       tailo_status = #{record.tailoStatus,jdbcType=TINYINT},
       remarks = #{record.remarks,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -286,8 +297,8 @@
       <if test="orderNo != null">
         order_no = #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="tailorUserId != null">
-        tailor_user_id = #{tailorUserId,jdbcType=BIGINT},
+      <if test="tailorName != null">
+        tailor_name = #{tailorName,jdbcType=VARCHAR},
       </if>
       <if test="answerCutQuantity != null">
         answer_cut_quantity = #{answerCutQuantity,jdbcType=INTEGER},
@@ -300,6 +311,9 @@
       </if>
       <if test="consumingTime != null">
         consuming_time = #{consumingTime,jdbcType=DECIMAL},
+      </if>
+      <if test="isExistAbnormal != null">
+        is_exist_abnormal = #{isExistAbnormal,jdbcType=TINYINT},
       </if>
       <if test="tailoStatus != null">
         tailo_status = #{tailoStatus,jdbcType=TINYINT},
@@ -325,11 +339,12 @@
   <update id="updateByPrimaryKey" parameterType="com.cl.entity.TailorEntity">
     update tailor
     set order_no = #{orderNo,jdbcType=VARCHAR},
-      tailor_user_id = #{tailorUserId,jdbcType=BIGINT},
+      tailor_name = #{tailorName,jdbcType=VARCHAR},
       answer_cut_quantity = #{answerCutQuantity,jdbcType=INTEGER},
       actual_cut_quantity = #{actualCutQuantity,jdbcType=INTEGER},
       monovalent = #{monovalent,jdbcType=DECIMAL},
       consuming_time = #{consumingTime,jdbcType=DECIMAL},
+      is_exist_abnormal = #{isExistAbnormal,jdbcType=TINYINT},
       tailo_status = #{tailoStatus,jdbcType=TINYINT},
       remarks = #{remarks,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

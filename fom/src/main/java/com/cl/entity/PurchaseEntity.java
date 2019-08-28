@@ -55,7 +55,7 @@ public class PurchaseEntity implements Serializable {
     private String materielSku;
 
     /**
-     * 物料分类
+     * 物料分类code
      */
     private String materielTypeCode;
 
@@ -108,6 +108,11 @@ public class PurchaseEntity implements Serializable {
      * 采购耗时
      */
     private BigDecimal consumingTime;
+
+    /**
+     * 是否存在异常表 0:不存在,1:存在
+     */
+    private Byte isExistAbnormal;
 
     /**
      * 备注
@@ -296,6 +301,14 @@ public class PurchaseEntity implements Serializable {
         this.consumingTime = consumingTime;
     }
 
+    public Byte getIsExistAbnormal() {
+        return isExistAbnormal;
+    }
+
+    public void setIsExistAbnormal(Byte isExistAbnormal) {
+        this.isExistAbnormal = isExistAbnormal;
+    }
+
     public String getRemarks() {
         return remarks;
     }
@@ -368,6 +381,7 @@ public class PurchaseEntity implements Serializable {
             && (this.getActualPickTotal() == null ? other.getActualPickTotal() == null : this.getActualPickTotal().equals(other.getActualPickTotal()))
             && (this.getSingleAmountKg() == null ? other.getSingleAmountKg() == null : this.getSingleAmountKg().equals(other.getSingleAmountKg()))
             && (this.getConsumingTime() == null ? other.getConsumingTime() == null : this.getConsumingTime().equals(other.getConsumingTime()))
+            && (this.getIsExistAbnormal() == null ? other.getIsExistAbnormal() == null : this.getIsExistAbnormal().equals(other.getIsExistAbnormal()))
             && (this.getRemarks() == null ? other.getRemarks() == null : this.getRemarks().equals(other.getRemarks()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
@@ -399,6 +413,7 @@ public class PurchaseEntity implements Serializable {
         result = prime * result + ((getActualPickTotal() == null) ? 0 : getActualPickTotal().hashCode());
         result = prime * result + ((getSingleAmountKg() == null) ? 0 : getSingleAmountKg().hashCode());
         result = prime * result + ((getConsumingTime() == null) ? 0 : getConsumingTime().hashCode());
+        result = prime * result + ((getIsExistAbnormal() == null) ? 0 : getIsExistAbnormal().hashCode());
         result = prime * result + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
@@ -433,6 +448,7 @@ public class PurchaseEntity implements Serializable {
         sb.append(", actualPickTotal=").append(actualPickTotal);
         sb.append(", singleAmountKg=").append(singleAmountKg);
         sb.append(", consumingTime=").append(consumingTime);
+        sb.append(", isExistAbnormal=").append(isExistAbnormal);
         sb.append(", remarks=").append(remarks);
         sb.append(", createTime=").append(createTime);
         sb.append(", createUser=").append(createUser);

@@ -13,6 +13,7 @@ import com.cl.dao.SysUserRoleMapper;
 import com.cl.entity.*;
 import com.cl.service.IPulldownMenuService;
 import com.cl.service.ISysUserService;
+import com.cl.util.MD5Util;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,7 +71,8 @@ public class SysUserServiceImpl implements ISysUserService {
         //校验reqBean 并转entity
         SysUserEntity sysUserEntity = this.checkUserReqBean(reqBeanModel);
         sysUserEntity.setCreateUser(reqBeanModel.getUserId());
-        sysUserEntity.setPassword(DictionaryConstants.PASS_WORD);
+        byte[] passwordByte = MD5Util.hexStringToByte(DictionaryConstants.PASS_WORD);
+        sysUserEntity.setPassword(passwordByte.toString());
         sysUserEntity.setOrgId(orgId);
         Integer i = this.sysUserMapper.insertSelective(sysUserEntity);
         Assert.isTrue( i == DictionaryConstants.ALL_BUSINESS_ONE , "新增用户失败!");

@@ -13,6 +13,7 @@ import com.cl.entity.SysUserEntity;
 import com.cl.entity.SysUserEntityExample;
 import com.cl.service.ILoginService;
 import com.cl.service.IPulldownMenuService;
+import com.cl.util.MD5Util;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -96,10 +97,13 @@ public class LoginServiceImpl implements ILoginService{
      * @return
      */
     private List<SysUserEntity> checkUser(LoginReqBean loginReqBean){
+        String userName = loginReqBean.getUserName();
+        String password = loginReqBean.getPassword();
+        password = MD5Util.hexStringToByte(password).toString();
         SysUserEntityExample sysUserEntityExample = new SysUserEntityExample();
         SysUserEntityExample.Criteria criteria = sysUserEntityExample.createCriteria();
-        criteria.andUserNameEqualTo(loginReqBean.getUserName());
-        criteria.andPasswordEqualTo(loginReqBean.getPassword());
+        criteria.andUserNameEqualTo(userName);
+        criteria.andPasswordEqualTo(password);
         List<SysUserEntity> sysUserEntityList = this.sysUserMapper.selectByExample(sysUserEntityExample);
         Assert.notEmpty(sysUserEntityList , "用户名和密码不匹配!");
         return  sysUserEntityList;

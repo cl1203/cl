@@ -1416,6 +1416,66 @@ public class PurchaseEntityExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsExistAbnormalIsNull() {
+            addCriterion("is_exist_abnormal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalIsNotNull() {
+            addCriterion("is_exist_abnormal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalEqualTo(Byte value) {
+            addCriterion("is_exist_abnormal =", value, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalNotEqualTo(Byte value) {
+            addCriterion("is_exist_abnormal <>", value, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalGreaterThan(Byte value) {
+            addCriterion("is_exist_abnormal >", value, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_exist_abnormal >=", value, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalLessThan(Byte value) {
+            addCriterion("is_exist_abnormal <", value, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalLessThanOrEqualTo(Byte value) {
+            addCriterion("is_exist_abnormal <=", value, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalIn(List<Byte> values) {
+            addCriterion("is_exist_abnormal in", values, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalNotIn(List<Byte> values) {
+            addCriterion("is_exist_abnormal not in", values, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalBetween(Byte value1, Byte value2) {
+            addCriterion("is_exist_abnormal between", value1, value2, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistAbnormalNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_exist_abnormal not between", value1, value2, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
         public Criteria andRemarksIsNull() {
             addCriterion("remarks is null");
             return (Criteria) this;
