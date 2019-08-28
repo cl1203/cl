@@ -139,7 +139,7 @@ public class TailorServiceImpl implements ITailorService {
             tailorEntity.setMonovalent(new BigDecimal(tailorReqBean.getMonovalent()));//单价
         }
         tailorEntity.setId(tailorReqBean.getId());//id
-        tailorEntity.setTailorUserId(Long.valueOf(tailorReqBean.getTailorName()));//裁剪人员
+        tailorEntity.setTailorName(tailorReqBean.getTailorName());//裁剪人员
         return tailorEntity;
     }
 
