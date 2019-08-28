@@ -11,8 +11,7 @@
     <result column="consuming_time" jdbcType="DECIMAL" property="consumingTime" />
     <result column="tailo_status" jdbcType="TINYINT" property="tailorStatusCode" />
     <result column="producer" jdbcType="VARCHAR" property="producer" />
-    <result column="producer_org_id" jdbcType="BIGINT" property="producerOrgId" />
-    <result column="tailoring_user_name" jdbcType="VARCHAR" property="tailorUserName" />
+    <result column="tailor_name" jdbcType="VARCHAR" property="tailorName" />
     <collection property="secondaryProcessResBeanList" resultMap="secondaryProcessResultMap" javaType="list" />
   </resultMap>
 
@@ -32,8 +31,7 @@
         o.sku sku,
         scd.value tailo_status,
         o.producer producer,
-        o.producer_org_id producer_org_id,
-        su.real_name tailoring_user_name,
+        t.tailor_name tailor_name,
         t.answer_cut_quantity answer_cut_quantity,
         t.actual_cut_quantity actual_cut_quantity,
         t.monovalent monovalent,
@@ -48,7 +46,6 @@
         tailor t
     LEFT JOIN order_manage o ON t.order_no = o.order_no
     LEFT JOIN secondary_process sp ON sp.order_no = o.order_no
-    LEFT JOIN sys_user su on t.tailor_user_id = su.id
     LEFT JOIN sys_code_detail scd on t.tailo_status = scd.code
     LEFT JOIN sys_code sc on sc.id = scd.sys_code_id
     WHERE
@@ -68,14 +65,11 @@
       <if test="sku !=null and sku !='' ">
         AND o.sku = #{sku}
       </if>
-      <if test="producerOrgId != null ">
-        AND o.producer_org_id = #{producerOrgId}
-      </if>
-      <if test="producerOrgId == null and producer !=null and producer != '' ">
+      <if test="producer !=null and producer != '' ">
         AND o.producer = #{producer}
       </if>
-      <if test="tailorUserNameId != null">
-        AND t.tailor_user_id = #{tailorUserNameId}
+      <if test="tailorName != null and tailorName != ''">
+        AND t.tailor_user_id = #{tailorName}
       </if>
     order by t.last_update_time desc
   </select>

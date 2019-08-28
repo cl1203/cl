@@ -49,16 +49,10 @@ public class TailorResBean implements Serializable{
     private String producer;
 
     /**
-     * 指定生产方组织ID(不为空时以此生产方为准)
-     */
-    @ApiModelProperty(value = "指定生产方组织ID(不为空时以此生产方为准)")
-    private Long producerOrgId;
-
-    /**
      * 裁剪员工
      */
-    @ApiModelProperty(value = "裁剪员工")
-    private String tailorUserName;
+    @ApiModelProperty(value = "裁剪小组")
+    private String tailorName;
 
     /**
      * 应裁数量
@@ -90,13 +84,6 @@ public class TailorResBean implements Serializable{
     @ApiModelProperty(value = "二次工艺")
     private List<SecondaryProcessResBean> secondaryProcessResBeanList;
 
-    public Long getProducerOrgId() {
-        return producerOrgId;
-    }
-
-    public void setProducerOrgId(Long producerOrgId) {
-        this.producerOrgId = producerOrgId;
-    }
 
     public Long getId() {
         return id;
@@ -146,12 +133,12 @@ public class TailorResBean implements Serializable{
         this.producer = producer;
     }
 
-    public String getTailorUserName() {
-        return tailorUserName;
+    public String getTailorName() {
+        return tailorName;
     }
 
-    public void setTailorUserName(String tailorUserName) {
-        this.tailorUserName = tailorUserName;
+    public void setTailorName(String tailorName) {
+        this.tailorName = tailorName;
     }
 
     public Integer getAnswerCutQuantity() {

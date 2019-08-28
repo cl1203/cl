@@ -46,20 +46,15 @@ public class TailorReqBean implements Serializable{
     /**
      * 生产方
      */
-    @ApiModelProperty(value = "生成方")
+    @ApiModelProperty(value = "生产方")
     private String producer;
 
-    /**
-     * 指定生产方组织ID(不为空时以此生产方为准)
-     */
-    @ApiModelProperty(value = "指定生产方组织ID(不为空时以此生产方为准)")
-    private Long producerOrgId;
 
     /**
-     * 裁剪员工
+     * 裁剪小组
      */
-    @ApiModelProperty(value = "裁剪员工")
-    private String tailorUserNameId;
+    @ApiModelProperty(value = "裁剪小组")
+    private String tailorName;
 
     /**
      * 实裁数量
@@ -151,20 +146,12 @@ public class TailorReqBean implements Serializable{
         this.producer = producer;
     }
 
-    public Long getProducerOrgId() {
-        return producerOrgId;
+    public String getTailorName() {
+        return tailorName;
     }
 
-    public void setProducerOrgId(Long producerOrgId) {
-        this.producerOrgId = producerOrgId;
-    }
-
-    public String getTailorUserNameId() {
-        return tailorUserNameId;
-    }
-
-    public void setTailorUserNameId(String tailorUserNameId) {
-        this.tailorUserNameId = tailorUserNameId;
+    public void setTailorName(String tailorName) {
+        this.tailorName = tailorName;
     }
 
     public String getActualCutQuantity() {

@@ -255,66 +255,6 @@ public class OrderManageEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andOrderStatusIsNull() {
-            addCriterion("order_status is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderStatusIsNotNull() {
-            addCriterion("order_status is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderStatusEqualTo(Byte value) {
-            addCriterion("order_status =", value, "orderStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderStatusNotEqualTo(Byte value) {
-            addCriterion("order_status <>", value, "orderStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderStatusGreaterThan(Byte value) {
-            addCriterion("order_status >", value, "orderStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderStatusGreaterThanOrEqualTo(Byte value) {
-            addCriterion("order_status >=", value, "orderStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderStatusLessThan(Byte value) {
-            addCriterion("order_status <", value, "orderStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderStatusLessThanOrEqualTo(Byte value) {
-            addCriterion("order_status <=", value, "orderStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderStatusIn(List<Byte> values) {
-            addCriterion("order_status in", values, "orderStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderStatusNotIn(List<Byte> values) {
-            addCriterion("order_status not in", values, "orderStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderStatusBetween(Byte value1, Byte value2) {
-            addCriterion("order_status between", value1, value2, "orderStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderStatusNotBetween(Byte value1, Byte value2) {
-            addCriterion("order_status not between", value1, value2, "orderStatus");
-            return (Criteria) this;
-        }
-
         public Criteria andOrderQuantityIsNull() {
             addCriterion("order_quantity is null");
             return (Criteria) this;
@@ -635,66 +575,6 @@ public class OrderManageEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andProducerOrgIdIsNull() {
-            addCriterion("producer_org_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andProducerOrgIdIsNotNull() {
-            addCriterion("producer_org_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andProducerOrgIdEqualTo(Long value) {
-            addCriterion("producer_org_id =", value, "producerOrgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andProducerOrgIdNotEqualTo(Long value) {
-            addCriterion("producer_org_id <>", value, "producerOrgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andProducerOrgIdGreaterThan(Long value) {
-            addCriterion("producer_org_id >", value, "producerOrgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andProducerOrgIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("producer_org_id >=", value, "producerOrgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andProducerOrgIdLessThan(Long value) {
-            addCriterion("producer_org_id <", value, "producerOrgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andProducerOrgIdLessThanOrEqualTo(Long value) {
-            addCriterion("producer_org_id <=", value, "producerOrgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andProducerOrgIdIn(List<Long> values) {
-            addCriterion("producer_org_id in", values, "producerOrgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andProducerOrgIdNotIn(List<Long> values) {
-            addCriterion("producer_org_id not in", values, "producerOrgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andProducerOrgIdBetween(Long value1, Long value2) {
-            addCriterion("producer_org_id between", value1, value2, "producerOrgId");
-            return (Criteria) this;
-        }
-
-        public Criteria andProducerOrgIdNotBetween(Long value1, Long value2) {
-            addCriterion("producer_org_id not between", value1, value2, "producerOrgId");
-            return (Criteria) this;
-        }
-
         public Criteria andProducerIsNull() {
             addCriterion("producer is null");
             return (Criteria) this;
@@ -952,6 +832,66 @@ public class OrderManageEntityExample {
 
         public Criteria andTailoringTimeNotBetween(Integer value1, Integer value2) {
             addCriterion("tailoring_time not between", value1, value2, "tailoringTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderStatusIsNull() {
+            addCriterion("order_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderStatusIsNotNull() {
+            addCriterion("order_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderStatusEqualTo(Byte value) {
+            addCriterion("order_status =", value, "orderStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderStatusNotEqualTo(Byte value) {
+            addCriterion("order_status <>", value, "orderStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderStatusGreaterThan(Byte value) {
+            addCriterion("order_status >", value, "orderStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderStatusGreaterThanOrEqualTo(Byte value) {
+            addCriterion("order_status >=", value, "orderStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderStatusLessThan(Byte value) {
+            addCriterion("order_status <", value, "orderStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderStatusLessThanOrEqualTo(Byte value) {
+            addCriterion("order_status <=", value, "orderStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderStatusIn(List<Byte> values) {
+            addCriterion("order_status in", values, "orderStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderStatusNotIn(List<Byte> values) {
+            addCriterion("order_status not in", values, "orderStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderStatusBetween(Byte value1, Byte value2) {
+            addCriterion("order_status between", value1, value2, "orderStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderStatusNotBetween(Byte value1, Byte value2) {
+            addCriterion("order_status not between", value1, value2, "orderStatus");
             return (Criteria) this;
         }
 

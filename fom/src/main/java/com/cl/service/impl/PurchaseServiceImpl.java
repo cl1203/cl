@@ -8,11 +8,15 @@ import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.transformer.IObjectTransformer;
 import com.cl.dao.OrderManageMapper;
 import com.cl.dao.PurchaseMapper;
+import com.cl.dao.SysOrgMapper;
 import com.cl.entity.OrderManageEntity;
 import com.cl.entity.PurchaseEntity;
+import com.cl.entity.SysOrgEntity;
 import com.cl.entity.TailorEntity;
+import com.cl.service.IPulldownMenuService;
 import com.cl.service.IPurchaseService;
 import com.cl.service.ITailorService;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -23,6 +27,7 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,6 +54,11 @@ public class PurchaseServiceImpl implements IPurchaseService {
     @Resource
     private IObjectTransformer<PurchaseEntity , PurchaseResBean> purchaseTransformer;
 
+    @Resource
+    private IPulldownMenuService pulldownMenuService;
+
+    @Resource
+    private SysOrgMapper sysOrgMapper;
 
     @Override
     public PageInfo<PurchaseResBean> queryPurchaseList(RequestBeanModel<PurchaseReqBean> reqBeanModel) {
@@ -56,11 +66,17 @@ public class PurchaseServiceImpl implements IPurchaseService {
         if(purchaseReqBean.getPageNum() < DictionaryConstants.ALL_BUSINESS_ONE || purchaseReqBean.getPageSize() < DictionaryConstants.ALL_BUSINESS_ONE){
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
-        //分页查询
-        PageInfo<PurchaseEntity> purchaseEntityPageInfo = this.purchaseMapper.selectPurchasePageInfo(purchaseReqBean);
-        //entity转resBean
-        PageInfo<PurchaseResBean> purchaseResBeanPageInfo = this.purchaseTransformer.transform(purchaseEntityPageInfo);
-        return purchaseResBeanPageInfo;
+        //根据用户id查询对应的组织
+        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(Long.valueOf(reqBeanModel.getUserId())));
+        if(!orgId.equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
+            SysOrgEntity sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orgId);
+            Assert.notNull(sysOrgEntity , "用户ID对应的组织信息不存在!");
+            purchaseReqBean.setOrgName(sysOrgEntity.getName());
+        }
+        List<PurchaseEntity> purchaseEntityList = this.purchaseMapper.selectPurchaseList(purchaseReqBean);
+        List<PurchaseResBean> purchaseResBeanList = this.purchaseTransformer.transform(purchaseEntityList);
+        PageHelper.startPage(purchaseReqBean.getPageNum() , purchaseReqBean.getPageSize());
+        return new PageInfo<>(purchaseResBeanList);
     }
 
     /**
@@ -123,6 +139,9 @@ public class PurchaseServiceImpl implements IPurchaseService {
         tailorEntity.setOrderNo(purchaseReqBean.getOrderNo());//订单号
         //根据订单号查询物料分类为面料的采购单
         PurchaseEntity purchaseEntityByOrderNo = this.purchaseMapper.selectPurchaseListByOrderNo(purchaseReqBean.getOrderNo());
+        if(null == purchaseEntityByOrderNo){
+            throw new BusinessException("订单号: " + purchaseReqBean.getOrderNo() + ",没有存在物料没面料的采购单,无法计算应裁数量!");
+        }
         BigDecimal singleAmountKg = purchaseEntityByOrderNo.getSingleAmountKg();//单件用量
         if(null != singleAmountKg){
             Integer actualPickQuantity = purchaseEntityByOrderNo.getActualPickQuantity();//实采数量

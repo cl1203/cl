@@ -91,6 +91,20 @@ public class PurchaseReqBean implements Serializable {
     @NotNull(message = "页码大小不能为空!")
     private Integer pageNum;
 
+    /**
+     * 组织名称
+     */
+    @ApiModelProperty(value = "组织名称")
+    private String orgName;
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
     public String getOrderNo() {
         return orderNo;
     }

@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cl.dao.PurchaseMapper">
+
+  <select id="selectPurchaseList" parameterType="com.cl.bean.req.PurchaseReqBean" resultMap="BaseResultMap">
+    select
+    p.id id,
+    p.purchase_no purchase_no,
+    p.purchase_status purchase_status,
+    p.order_no order_no,
+    p.materiel_name materiel_name,
+    p.materiel_color materiel_color,
+    p.answer_pick_quantity answer_pick_quantity,
+    p.actual_pick_quantity actual_pick_quantity,
+    p.answer_pick_monovalent answer_pick_monovalent,
+    p.answer_pick_total answer_pick_total,
+    p.actual_pick_monovalent actual_pick_monovalent,
+    p.actual_pick_total actual_pick_total,
+    p.supplier_name supplier_name,
+    p.consuming_time consuming_time
+    from purchase p
+    left join order_manage o on p.order_no = o.order_no
+    where p.purchase_status in (1 , 2)
+    and o.producer = #{orgName}
+    <if test="purchaseNo != null and purchaseNo != ''">
+      and p.purchase_no = #{purchaseNo}
+    </if>
+    <if test="purchaseStatus != null and purchaseStatus != ''">
+      and p.purchase_status = #{purchaseStatus}
+    </if>
+    <if test="purchaseTime != null and purchaseTime != ''">
+      and p.purchase_time = #{purchaseTime}
+    </if>
+    <if test="materielType != null and materielType != ''">
+      and p.materiel_type_code = #{materielType}
+    </if>
+    <if test="supplierName != null and supplierName != ''">
+      and p.supplier_name = #{supplierName}
+    </if>
+  </select>
+
   <select id="selectPurchaseNumByOrderNo" resultType="java.lang.Integer">
     SELECT
       count(1)
@@ -15,7 +53,6 @@
       AND purchase_status = 2
     </if>
   </select>
-
 
   <update id="updatePurchaseStatusByOrderNo" parameterType="string">
     UPDATE purchase
@@ -49,7 +86,6 @@
     <result column="order_img_url" jdbcType="VARCHAR" property="orderImgUrl" />
     <result column="sku" jdbcType="VARCHAR" property="sku" />
     <result column="is_first" jdbcType="TINYINT" property="isFirst" />
-    <result column="producer_org_id" jdbcType="BIGINT" property="producerOrgId" />
     <result column="producer" jdbcType="VARCHAR" property="producer" />
     <result column="surplus_time" jdbcType="VARCHAR" property="surplusTime" />
     <result column="purchase_time" jdbcType="INTEGER" property="purchaseTime" />
@@ -61,45 +97,9 @@
     <result column="last_update_user" jdbcType="VARCHAR" property="lastUpdateUser" />
   </resultMap>
 
-  <resultMap id="PurchaseResultMap" type="com.cl.entity.PurchaseEntity">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
-    <result column="purchase_no" jdbcType="VARCHAR" property="purchaseNo" />
-    <result column="purchase_time" jdbcType="TIMESTAMP" property="purchaseTime" />
-    <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
-    <result column="supplier_code" jdbcType="VARCHAR" property="supplierCode" />
-    <result column="supplier_color_number" jdbcType="VARCHAR" property="supplierColorNumber" />
-    <result column="purchase_status" jdbcType="TINYINT" property="purchaseStatus" />
-    <result column="materiel_sku" jdbcType="VARCHAR" property="materielSku" />
-    <result column="materiel_type_code" jdbcType="VARCHAR" property="materielTypeCode" />
-    <result column="materiel_name" jdbcType="VARCHAR" property="materielName" />
-    <result column="materiel_color" jdbcType="VARCHAR" property="materielColor" />
-    <result column="answer_pick_quantity" jdbcType="INTEGER" property="answerPickQuantity" />
-    <result column="answer_pick_monovalent" jdbcType="DECIMAL" property="answerPickMonovalent" />
-    <result column="answer_pick_total" jdbcType="DECIMAL" property="answerPickTotal" />
-    <result column="actual_pick_quantity" jdbcType="INTEGER" property="actualPickQuantity" />
-    <result column="actual_pick_monovalent" jdbcType="DECIMAL" property="actualPickMonovalent" />
-    <result column="actual_pick_total" jdbcType="DECIMAL" property="actualPickTotal" />
-    <result column="single_amount_kg" jdbcType="DECIMAL" property="singleAmountKg" />
-    <result column="consuming_time" jdbcType="DECIMAL" property="consumingTime" />
-    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
-    <result column="last_update_user" jdbcType="VARCHAR" property="lastUpdateUser" />
-  </resultMap>
-
-  <sql id="Purchase_Column_List">
-    id, order_no, purchase_no, purchase_time, supplier_name, supplier_code, supplier_color_number,
-    purchase_status, materiel_sku, materiel_type_code, materiel_name, materiel_color,
-    answer_pick_quantity, answer_pick_monovalent, answer_pick_total, actual_pick_quantity,
-    actual_pick_monovalent, actual_pick_total, single_amount_kg, consuming_time, remarks,
-    create_time, create_user, last_update_time, last_update_user
-  </sql>
-
-  <select id="selectPurchaseListByOrderNo" parameterType="string" resultMap="PurchaseResultMap">
+  <select id="selectPurchaseListByOrderNo" parameterType="string" resultMap="BaseResultMap">
     SELECT
-    <include refid="Purchase_Column_List" />
+    <include refid="Base_Column_List" />
     FROM
       purchase
     WHERE
@@ -107,7 +107,7 @@
     AND
       purchase_status !=0
     AND
-      materiel_type_code = 'fabric'
+      materiel_type_code = '面料'
   </select>
 
   <select id="selectTailorBySku" resultType="decimal" parameterType="string">
