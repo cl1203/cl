@@ -20,7 +20,7 @@ import java.util.List;
 @Repository
 public interface SysUserMapper extends MyBatisBaseDao<SysUserEntity, Long, SysUserEntityExample> {
 
-    default PageInfo<SysUserEntity> selectSysUserPageInfo(SysUserReqBean sysUserReqBean){
+    default PageInfo<SysUserEntity> selectSysUserPageInfo(SysUserReqBean sysUserReqBean , Long orgId){
         Page<SysUserEntity> page = PageHelper.startPage(sysUserReqBean.getPageNum() , sysUserReqBean.getPageSize() , "last_update_time DESC");
         SysUserEntityExample sysUserEntityExample = new SysUserEntityExample();
         SysUserEntityExample.Criteria criteria = sysUserEntityExample.createCriteria();
@@ -31,7 +31,7 @@ public interface SysUserMapper extends MyBatisBaseDao<SysUserEntity, Long, SysUs
             criteria.andRealNameEqualTo(sysUserReqBean.getRealName());
         }
         criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
-        if(sysUserReqBean.getOrgId() != Long.valueOf(DictionaryConstants.ADMIN_ORG_ID)){
+        if(!orgId.equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
             criteria.andOrgIdEqualTo((sysUserReqBean.getOrgId()));
         }
         List<SysUserEntity> sysUserEntityList = this.selectByExample(sysUserEntityExample);

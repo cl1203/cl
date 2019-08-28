@@ -10,7 +10,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,14 +20,14 @@ import java.util.List;
 @Repository
 public interface SysRoleMapper extends MyBatisBaseDao<SysRoleEntity, Long, SysRoleEntityExample> {
 
-    default PageInfo<SysRoleEntity> selectSysRolePageInfo(SysRoleReqBean sysRoleReqBean){
+    default PageInfo<SysRoleEntity> selectSysRolePageInfo(SysRoleReqBean sysRoleReqBean , Long orgId){
         Page<SysRoleEntity> page = PageHelper.startPage(sysRoleReqBean.getPageNum() , sysRoleReqBean.getPageSize() , "last_update_time DESC");
         SysRoleEntityExample sysRoleEntityExample = new SysRoleEntityExample();
         SysRoleEntityExample.Criteria criteria = sysRoleEntityExample.createCriteria();
         if(StringUtils.isNotBlank(sysRoleReqBean.getName())){
             criteria.andNameEqualTo(sysRoleReqBean.getName());
         }
-        if(!sysRoleReqBean.getOrgId().equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
+        if(!orgId.equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
             criteria.andOrgIdEqualTo((sysRoleReqBean.getOrgId()));
         }
         criteria.andStatusEqualTo(Byte.valueOf(DictionaryConstants.ALL_BUSINESS_ONE + ""));

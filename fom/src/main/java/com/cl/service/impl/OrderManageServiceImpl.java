@@ -15,6 +15,7 @@ import com.cl.dao.SysOrgMapper;
 import com.cl.entity.OrderManageEntity;
 import com.cl.entity.SysOrgEntity;
 import com.cl.service.IOrderManageService;
+import com.cl.service.IPulldownMenuService;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
@@ -45,14 +46,24 @@ public class OrderManageServiceImpl implements IOrderManageService {
     @Resource
     private IObjectTransformer<OrderManageEntity , OrderManageResBean> orderManageTransformer;
 
+    @Resource
+    private IPulldownMenuService pulldownMenuService;
+
     @Override
     public PageInfo<OrderManageResBean> queryOrderList(RequestBeanModel<OrderManageReqBean> reqBeanModel) {
         OrderManageReqBean orderManageReqBean = reqBeanModel.getReqData();
         if(orderManageReqBean.getPageNum() < DictionaryConstants.ALL_BUSINESS_ONE || orderManageReqBean.getPageSize() < DictionaryConstants.ALL_BUSINESS_ONE){
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
+        //根据用户id查询对应的组织
+        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(Long.valueOf(reqBeanModel.getUserId())));
+        SysOrgEntity sysOrgEntity = new SysOrgEntity();
+        if(!orgId.equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
+            sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orgId);
+            Assert.notNull(sysOrgEntity , "用户ID对应的组织信息不存在!");
+        }
         //分页查询
-        PageInfo<OrderManageEntity> orderManageEntityPageInfo = this.orderManageMapper.selectOrderManagePageInfo(orderManageReqBean);
+        PageInfo<OrderManageEntity> orderManageEntityPageInfo = this.orderManageMapper.selectOrderManagePageInfo(orderManageReqBean , sysOrgEntity);
         //entity转resBean
         PageInfo<OrderManageResBean> orderManageResBeanPageInfo = this.orderManageTransformer.transform(orderManageEntityPageInfo);
         List<OrderManageResBean> orderManageResBeanList = orderManageResBeanPageInfo.getList();
@@ -72,13 +83,18 @@ public class OrderManageServiceImpl implements IOrderManageService {
 
     @Override
     public void distributionOrder(RequestBeanModel<DistributionOrderReqBean> reqBeanModel) {
+        //根据用户id查询对应的组织
+        Long orgIdByUserId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(Long.valueOf(reqBeanModel.getUserId())));
+        if(!orgIdByUserId.equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
+            throw new BusinessException("只有系统管理员用户才能重新分单");
+        }
         OrderManageEntity orderManageEntity = new OrderManageEntity();
         List<Long> orderIdList = reqBeanModel.getReqData().getOrderIdList();
         Long orgId = reqBeanModel.getReqData().getOrgId();
         SysOrgEntity sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orgId);
         Assert.notNull(sysOrgEntity , "生产方不存在!");
         Assert.isTrue(sysOrgEntity.getStatus() == DictionaryConstants.AVAILABLE , "生产方已被删除!");
-        orderManageEntity.setProducerOrgId(orgId);
+        orderManageEntity.setProducer(sysOrgEntity.getName());
         orderManageEntity.setLastUpdateTime(new Date());
         orderManageEntity.setLastUpdateUser(reqBeanModel.getUsername());
         for(Long orderId : orderIdList){
@@ -90,24 +106,15 @@ public class OrderManageServiceImpl implements IOrderManageService {
         }
     }
 
-
-
     @Override
     public String queryProducer(RequestBeanModel<SingleParam> reqBeanModel) {
         String orderId = reqBeanModel.getReqData().getParam();
         Assert.hasText(orderId , "请选择一条记录!");
         OrderManageEntity orderManageEntity = this.orderManageMapper.selectProducer(Long.valueOf(orderId));
-        String producer;
         if(null == orderManageEntity){
             return null;
         }
-        if(null != orderManageEntity.getProducerOrgId()){
-            //根据组织ID查询组织名称
-            SysOrgEntity sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orderManageEntity.getProducerOrgId());
-            producer = sysOrgEntity.getName();
-        }else{
-            producer = orderManageEntity.getProducer();
-        }
+        String producer = orderManageEntity.getProducer();
         return producer;
     }
 }

@@ -58,15 +58,7 @@ public class SysUserServiceImpl implements ISysUserService {
         }
         //根据用户id查询对应的组织
         Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
-        if(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID) == orgId){//如果是管理员
-            if(null == sysUserReqBean.getOrgId()){//没选择组织
-                //根据用户id查询对应的组织
-                sysUserReqBean.setOrgId(orgId);//默认全部  否则查对应的组织
-            }
-        }else{
-            sysUserReqBean.setOrgId(orgId);//如果不是管理员 根据登录用户判断组织
-        }
-        PageInfo<SysUserEntity> sysUserEntityPageInfo = this.sysUserMapper.selectSysUserPageInfo(sysUserReqBean);
+        PageInfo<SysUserEntity> sysUserEntityPageInfo = this.sysUserMapper.selectSysUserPageInfo(sysUserReqBean , orgId);
         PageInfo<SysUserResBean> sysUserResBeanList = this.sysUserTransform.transform(sysUserEntityPageInfo);
         return sysUserResBeanList;
     }

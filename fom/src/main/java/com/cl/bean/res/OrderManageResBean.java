@@ -70,12 +70,6 @@ public class OrderManageResBean implements Serializable {
 	private Byte isFirst;
 
 	/**
-	 * 指定生产方组织ID(不为空时以此生产方为准)
-	 */
-	@ApiModelProperty(value = "指定生产方组织ID(不为空时以此生产方为准)")
-	private Long producerOrgId;
-
-	/**
 	 * 生产方
 	 */
 	@ApiModelProperty(value = "生产方")
@@ -87,11 +81,11 @@ public class OrderManageResBean implements Serializable {
 	@ApiModelProperty(value = "剩余时间")
 	private String surplusTime;
 
-    /**
-     * 二次工艺
-     */
+	/**
+	 * 二次工艺
+	 */
 	@ApiModelProperty(value = "二次工艺")
-    private List<SecondaryProcessResBean> secondaryProcessResBeanList;
+	private List<SecondaryProcessResBean> secondaryProcessResBeanList;
 
 	@ApiModelProperty(value = "下单数量")
 	private List<OrderQuantityResBean> orderQuantityResBeanList;
@@ -166,14 +160,6 @@ public class OrderManageResBean implements Serializable {
 
 	public void setIsFirst(Byte isFirst) {
 		this.isFirst = isFirst;
-	}
-
-	public Long getProducerOrgId() {
-		return producerOrgId;
-	}
-
-	public void setProducerOrgId(Long producerOrgId) {
-		this.producerOrgId = producerOrgId;
 	}
 
 	public String getProducer() {

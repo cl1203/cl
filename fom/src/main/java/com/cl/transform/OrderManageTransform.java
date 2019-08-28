@@ -2,12 +2,8 @@ package com.cl.transform;
 
 import com.cl.bean.res.OrderManageResBean;
 import com.cl.comm.transformer.AbstractObjectTransformer;
-import com.cl.dao.SysOrgMapper;
 import com.cl.entity.OrderManageEntity;
-import com.cl.entity.SysOrgEntity;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * @ClassName OrderManageTransform
@@ -18,9 +14,6 @@ import javax.annotation.Resource;
  **/
 @Service
 public class OrderManageTransform extends AbstractObjectTransformer<OrderManageEntity , OrderManageResBean> {
-
-    @Resource
-    private SysOrgMapper sysOrgMapper;
 
     @Override
     public OrderManageResBean transform(OrderManageEntity orderManageEntity) {
@@ -50,17 +43,9 @@ public class OrderManageTransform extends AbstractObjectTransformer<OrderManageE
         }
         orderManageResBean.setOrderImgUrl(orderManageEntity.getOrderImgUrl());//图片url
         orderManageResBean.setSku(orderManageEntity.getSku());//sku
-        orderManageResBean.setIsFirst(orderManageEntity.getIsFirst());
-        orderManageResBean.setOrderQuantity(orderManageEntity.getOrderQuantity());
-        if(null != orderManageEntity.getProducerOrgId()){//生产方
-            //根据组织ID查询组织名称
-            SysOrgEntity sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orderManageEntity.getProducerOrgId());
-            if(null != sysOrgEntity){
-                orderManageResBean.setProducer(sysOrgEntity.getName());
-            }
-        }else{
-            orderManageResBean.setProducer(orderManageEntity.getProducer());
-        }
+        orderManageResBean.setIsFirst(orderManageEntity.getIsFirst());//是否首单
+        orderManageResBean.setOrderQuantity(orderManageEntity.getOrderQuantity());//订单件数
+        orderManageResBean.setProducer(orderManageEntity.getProducer());//生产方
         return orderManageResBean;
     }
 }

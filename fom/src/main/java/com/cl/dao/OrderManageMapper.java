@@ -1,11 +1,5 @@
 package com.cl.dao;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Repository;
-
 import com.cl.bean.req.DashBoardReqBean;
 import com.cl.bean.req.OrderManageReqBean;
 import com.cl.bean.res.DashBoardDetailResBean;
@@ -15,10 +9,16 @@ import com.cl.bean.res.SecondaryProcessResBean;
 import com.cl.comm.constants.DictionaryConstants;
 import com.cl.entity.OrderManageEntity;
 import com.cl.entity.OrderManageEntityExample;
+import com.cl.entity.SysOrgEntity;
 import com.cl.util.DateUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * OrderManageMapper继承基类
@@ -33,7 +33,7 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
      * @Param [reqBeanModel]
      * @return com.github.pagehelper.PageInfo<com.cl.entity.OrderManageEntity>
      **/
-    default PageInfo<OrderManageEntity> selectOrderManagePageInfo(OrderManageReqBean orderManageReqBean){
+    default PageInfo<OrderManageEntity> selectOrderManagePageInfo(OrderManageReqBean orderManageReqBean , SysOrgEntity sysOrgEntity){
         Page<OrderManageEntity> page = PageHelper.startPage(orderManageReqBean.getPageNum() , orderManageReqBean.getPageSize() , "last_update_time DESC");
         OrderManageEntityExample orderManageEntityExample = new OrderManageEntityExample();
         OrderManageEntityExample.Criteria criteria = orderManageEntityExample.createCriteria();
@@ -50,6 +50,9 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
         }
         if(StringUtils.isNotBlank(orderManageReqBean.getOrderTime())){
             criteria.andOrderTimeEqualTo(DateUtils.getDateToString(orderManageReqBean.getOrderTime() , DateUtils.DATESHOWFORMAT));
+        }
+        if(null != sysOrgEntity){
+            criteria.andProducerEqualTo(sysOrgEntity.getName());
         }
         List<OrderManageEntity> orderManageEntityList = this.selectByExample(orderManageEntityExample);
         PageInfo<OrderManageEntity> orderManageEntityPageInfo = new PageInfo<>(page);
@@ -86,7 +89,7 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
 
     List<OrderManageEntity> selectByParams(Map<String,Object> params);
 
-	List<DashBoardResBean> selectDashBoardByParams(DashBoardReqBean reqBean);
-	
-	List<DashBoardDetailResBean> selectDashBoardDetailByParams(Map<String,Object> params);
+    List<DashBoardResBean> selectDashBoardByParams(DashBoardReqBean reqBean);
+
+    List<DashBoardDetailResBean> selectDashBoardDetailByParams(Map<String,Object> params);
 }
