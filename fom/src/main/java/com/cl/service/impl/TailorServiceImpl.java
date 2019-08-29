@@ -57,9 +57,6 @@ public class TailorServiceImpl implements ITailorService {
         if(tailorReqBean.getPageNum() < DictionaryConstants.ALL_BUSINESS_ONE || tailorReqBean.getPageSize() < DictionaryConstants.ALL_BUSINESS_ONE){
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
-        //分页查询
-        PageHelper.startPage(tailorReqBean.getPageNum() , tailorReqBean.getPageSize());
-        PageHelper.orderBy("last_update_time desc");
         //根据用户id查询对应的组织
         Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(Long.valueOf(reqBeanModel.getUserId())));
         if(!orgId.equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
@@ -67,6 +64,9 @@ public class TailorServiceImpl implements ITailorService {
             Assert.notNull(sysOrgEntity , "用户ID对应的组织信息不存在!");
             tailorReqBean.setProducer(sysOrgEntity.getName());
         }
+        //分页查询
+        PageHelper.startPage(tailorReqBean.getPageNum() , tailorReqBean.getPageSize());
+        PageHelper.orderBy("t.last_update_time desc");
         List<TailorResBean> tailorResBeanList = this.tailorMapper.queryTailorList(tailorReqBean);
         return new PageInfo<>(tailorResBeanList);
     }

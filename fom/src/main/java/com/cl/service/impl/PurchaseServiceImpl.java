@@ -66,14 +66,14 @@ public class PurchaseServiceImpl implements IPurchaseService {
         if(purchaseReqBean.getPageNum() < DictionaryConstants.ALL_BUSINESS_ONE || purchaseReqBean.getPageSize() < DictionaryConstants.ALL_BUSINESS_ONE){
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
-        PageHelper.startPage(purchaseReqBean.getPageNum() , purchaseReqBean.getPageSize() , "last_update_time desc");
         //根据用户id查询对应的组织
-        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(Long.valueOf(reqBeanModel.getUserId())));
+        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
         if(!orgId.equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
             SysOrgEntity sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orgId);
             Assert.notNull(sysOrgEntity , "用户ID对应的组织信息不存在!");
             purchaseReqBean.setOrgName(sysOrgEntity.getName());
         }
+        PageHelper.startPage(purchaseReqBean.getPageNum() , purchaseReqBean.getPageSize() , "p.last_update_time desc");
         List<PurchaseEntity> purchaseEntityList = this.purchaseMapper.selectPurchaseList(purchaseReqBean);
         List<PurchaseResBean> purchaseResBeanList = this.purchaseTransformer.transform(purchaseEntityList);
         return new PageInfo<>(purchaseResBeanList);
@@ -89,7 +89,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
     private static boolean match(String regex, String str) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(str);
-        return matcher.matches();
+        return !matcher.matches();
     }
 
     @Override
@@ -108,7 +108,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
         OrderManageEntity updateOrderEntity = new OrderManageEntity();
         updateOrderEntity.setId(orderManageEntity.getId());
         //判断采购对应的订单状态是否变为采购中 如果没有  则修改订单状态为采购中
-        if(orderManageEntity.getOrderStatus() == DictionaryConstants.ORDER_STATUS_WAIT_PURCHASE){
+        if(orderManageEntity.getOrderStatus().equals(DictionaryConstants.ORDER_STATUS_WAIT_PURCHASE)){
             updateOrderEntity.setOrderStatus(DictionaryConstants.ORDER_STATUS_ALREADY_PURCHASE);
             int k = this.orderManageMapper.updateByPrimaryKeySelective(updateOrderEntity);
             Assert.isTrue(k > DictionaryConstants.ALL_BUSINESS_ZERO , "修改订单状态失败!");
@@ -117,7 +117,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
         Integer purchaseNum = this.purchaseMapper.selectPurchaseNumByOrderNo(purchaseReqBean.getOrderNo() , DictionaryConstants.ALL_BUSINESS_ONE.byteValue());
         //此订单号对应的采购中的所有采购单数量
         Integer purchaseNumIng = this.purchaseMapper.selectPurchaseNumByOrderNo(purchaseReqBean.getOrderNo() , DictionaryConstants.ALL_BUSINESS_ZERO.byteValue());
-        if(purchaseNum == purchaseNumIng){
+        if(purchaseNum.equals(purchaseNumIng)){
             int j = this.purchaseMapper.updatePurchaseStatusByOrderNo(purchaseReqBean.getOrderNo());//修改为采购已完成
             Assert.isTrue(j > DictionaryConstants.ALL_BUSINESS_ZERO , "修改采购单状态失败!");
             updateOrderEntity.setOrderStatus(DictionaryConstants.ORDER_STATUS_WAIT_TAILOR);//修改订单为待裁剪
@@ -173,7 +173,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
         Assert.hasText(purchaseReqBean.getOrderNo() , "订单号不能为空!");
         Assert.hasText(purchaseReqBean.getActualPickQuantity() , "实采数量不能为空,用来计算应裁数!");
         String actualPickQuantityRegexp = "^[1-9][0-9]{0,8}$";
-        if(!match(actualPickQuantityRegexp , purchaseReqBean.getActualPickQuantity())) {
+        if(match(actualPickQuantityRegexp , purchaseReqBean.getActualPickQuantity())) {
             throw new BusinessException("实采数量格式规则: 必须是整数在0-999999999之间! ");
         }
         purchaseEntity.setActualPickQuantity(Integer.valueOf(purchaseReqBean.getActualPickQuantity()));//实采数量
@@ -194,7 +194,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
         }
         if(StringUtils.isNotBlank(purchaseReqBean.getActualPickMonovalent())){
             String actualPickMonovalentRegexp = "(^[+]{0,1}(0|([1-9]\\d{0,9}))(\\.\\d{1,2}){0,1}$){0,1}";
-            if(!match(actualPickMonovalentRegexp , purchaseReqBean.getActualPickMonovalent())) {
+            if(match(actualPickMonovalentRegexp , purchaseReqBean.getActualPickMonovalent())) {
                 throw new BusinessException("实采单价规则:整数位最多10位,小数位最多2位! ");
             }
             //实采单价
@@ -202,7 +202,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
         }
         if(StringUtils.isNotBlank(purchaseReqBean.getActualPickTotal())){
             String actualPickTotalRegexp = "(^[+]{0,1}(0|([1-9]\\d{0,9}))(\\.\\d{1,2}){0,1}$){0,1}";
-            if(!match(actualPickTotalRegexp , purchaseReqBean.getActualPickTotal())) {
+            if(match(actualPickTotalRegexp , purchaseReqBean.getActualPickTotal())) {
                 throw new BusinessException("实采总额规则:整数位最多10位,小数位最多2位! ");
             }
             //实采总额
