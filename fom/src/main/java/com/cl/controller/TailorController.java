@@ -56,7 +56,7 @@ public class TailorController {
     @PostMapping("/updateTailor")
     @ApiOperation(value = "修改裁剪数据" , notes = "根据条件修改裁剪数据")
     @LoggerManage(description = "修改裁剪数据")
-    public ResponseBeanModel<Void> updateTailor(@RequestBody @Valid RequestBeanModel<TailorReqBean> reqBeanModel){
+    public ResponseBeanModel<Void> updateTailor(@RequestBody RequestBeanModel<TailorReqBean> reqBeanModel){
         this.iTailorService.updateTailor(reqBeanModel);
         return new ResponseBeanModel<>("修改裁剪数据成功!");
     }

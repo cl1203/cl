@@ -9,10 +9,8 @@ import com.cl.comm.transformer.IObjectTransformer;
 import com.cl.dao.OrderManageMapper;
 import com.cl.dao.PurchaseMapper;
 import com.cl.dao.SysOrgMapper;
-import com.cl.entity.OrderManageEntity;
-import com.cl.entity.PurchaseEntity;
-import com.cl.entity.SysOrgEntity;
-import com.cl.entity.TailorEntity;
+import com.cl.dao.TailorMapper;
+import com.cl.entity.*;
 import com.cl.service.IPulldownMenuService;
 import com.cl.service.IPurchaseService;
 import com.cl.service.ITailorService;
@@ -59,6 +57,9 @@ public class PurchaseServiceImpl implements IPurchaseService {
 
     @Resource
     private SysOrgMapper sysOrgMapper;
+
+    @Resource
+    private TailorMapper tailorMapper;
 
     @Override
     public PageInfo<PurchaseResBean> queryPurchaseList(RequestBeanModel<PurchaseReqBean> reqBeanModel) {
@@ -113,18 +114,35 @@ public class PurchaseServiceImpl implements IPurchaseService {
             int k = this.orderManageMapper.updateByPrimaryKeySelective(updateOrderEntity);
             Assert.isTrue(k > DictionaryConstants.ALL_BUSINESS_ZERO , "修改订单状态失败!");
         }
-        //此订单号对应的待采购和采购中的所有采购单数量 1:查询待采购和采购中所有采购单  0:查询采购中的所有采购单
+        //此订单号对应的待采购和采购中的所有采购单数量 1:查询待采购和采购中所有采购单  2:查询采购中的所有采购单
         Integer purchaseNum = this.purchaseMapper.selectPurchaseNumByOrderNo(purchaseReqBean.getOrderNo() , DictionaryConstants.ALL_BUSINESS_ONE.byteValue());
         //此订单号对应的采购中的所有采购单数量
         Integer purchaseNumIng = this.purchaseMapper.selectPurchaseNumByOrderNo(purchaseReqBean.getOrderNo() , DictionaryConstants.ALL_BUSINESS_ZERO.byteValue());
         if(purchaseNum.equals(purchaseNumIng)){
-            int j = this.purchaseMapper.updatePurchaseStatusByOrderNo(purchaseReqBean.getOrderNo());//修改为采购已完成
-            Assert.isTrue(j > DictionaryConstants.ALL_BUSINESS_ZERO , "修改采购单状态失败!");
-            updateOrderEntity.setOrderStatus(DictionaryConstants.ORDER_STATUS_WAIT_TAILOR);//修改订单为待裁剪
-            int k = this.orderManageMapper.updateByPrimaryKeySelective(updateOrderEntity);
-            Assert.isTrue(k > DictionaryConstants.ALL_BUSINESS_ZERO , "修改订单状态失败!");
-            //调用生成裁剪数据接口
-            this.insertTailor(purchaseReqBean , orderManageEntity , reqBeanModel);
+            TailorEntityExample tailorEntityExample = new TailorEntityExample();
+            TailorEntityExample.Criteria criteria = tailorEntityExample.createCriteria();
+            criteria.andOrderNoEqualTo(purchaseReqBean.getOrderNo());
+            List<TailorEntity> tailorEntityList = this.tailorMapper.selectByExample(tailorEntityExample);
+            if(tailorEntityList.size() == DictionaryConstants.ALL_BUSINESS_ZERO){
+                int j = this.purchaseMapper.updatePurchaseStatusByOrderNo(purchaseReqBean.getOrderNo());//修改为采购已完成
+                Assert.isTrue(j > DictionaryConstants.ALL_BUSINESS_ZERO , "修改采购单状态失败!");
+                updateOrderEntity.setOrderStatus(DictionaryConstants.ORDER_STATUS_WAIT_TAILOR);//修改订单为待裁剪
+                int k = this.orderManageMapper.updateByPrimaryKeySelective(updateOrderEntity);
+                Assert.isTrue(k > DictionaryConstants.ALL_BUSINESS_ZERO , "修改订单状态失败!");
+                //调用生成裁剪数据接口
+                this.insertTailor(purchaseReqBean , orderManageEntity , reqBeanModel);
+            }else{
+                //根据ID查询此采购单
+                PurchaseEntity purchaseEntityById = this.purchaseMapper.selectByPrimaryKey(purchaseReqBean.getId());
+                if(purchaseEntityById.getMaterielTypeCode().equalsIgnoreCase("面料A")) {
+                    //计算应裁数
+                    BigDecimal answerCutQuantity = this.CalculationAnswerCutQuantity(purchaseReqBean.getOrderNo());
+                    TailorEntity tailorEntity = tailorEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
+                    tailorEntity.setAnswerCutQuantity(answerCutQuantity.intValue());
+                    Integer l = this.tailorMapper.updateByPrimaryKeySelective(tailorEntity);
+                    Assert.isTrue(l.equals(DictionaryConstants.ALL_BUSINESS_ONE) , "修改应裁数失败!");
+                }
+            }
         }
     }
 
@@ -137,17 +155,9 @@ public class PurchaseServiceImpl implements IPurchaseService {
     private void insertTailor(PurchaseReqBean purchaseReqBean ,OrderManageEntity orderManageEntity , RequestBeanModel<PurchaseReqBean> reqBeanModel){
         TailorEntity tailorEntity = new TailorEntity();
         tailorEntity.setOrderNo(purchaseReqBean.getOrderNo());//订单号
-        //根据订单号查询物料分类为面料的采购单
-        PurchaseEntity purchaseEntityByOrderNo = this.purchaseMapper.selectPurchaseListByOrderNo(purchaseReqBean.getOrderNo());
-        if(null == purchaseEntityByOrderNo){
-            throw new BusinessException("订单号: " + purchaseReqBean.getOrderNo() + ",没有存在物料没面料的采购单,无法计算应裁数量!");
-        }
-        BigDecimal singleAmountKg = purchaseEntityByOrderNo.getSingleAmountKg();//单件用量
-        if(null != singleAmountKg){
-            Integer actualPickQuantity = purchaseEntityByOrderNo.getActualPickQuantity();//实采数量
-            BigDecimal answerCutQuantity = (new BigDecimal(String.valueOf(actualPickQuantity))).divide(singleAmountKg , DictionaryConstants.ALL_BUSINESS_ZERO , BigDecimal.ROUND_HALF_UP);//应裁数量
-            tailorEntity.setAnswerCutQuantity(answerCutQuantity.intValue());
-        }
+        //计算应裁数
+        BigDecimal answerCutQuantity = this.CalculationAnswerCutQuantity(purchaseReqBean.getOrderNo());
+        tailorEntity.setAnswerCutQuantity(answerCutQuantity.intValue());
         //根据订单ID 查询最近的同样sku的订单信息
         OrderManageEntity orderManageEntityOrderBy = this.orderManageMapper.selectProducer(orderManageEntity.getId());
         if(null != orderManageEntityOrderBy){
@@ -160,6 +170,23 @@ public class PurchaseServiceImpl implements IPurchaseService {
         tailorEntity.setLastUpdateUser(reqBeanModel.getUsername());//修改人
         tailorEntity.setCreateUser(reqBeanModel.getUsername());//新增人
         this.iTailorService.insertTailor(tailorEntity);
+    }
+
+    /**
+     * 计算应裁数
+     * @param orderNo
+     */
+    private BigDecimal CalculationAnswerCutQuantity(String orderNo){
+        //根据订单号查询物料分类为面料的采购单
+        PurchaseEntity purchaseEntityByOrderNo = this.purchaseMapper.selectPurchaseListByOrderNo(orderNo);
+        if(null == purchaseEntityByOrderNo){
+            throw new BusinessException("订单号: " + orderNo + ",没有存在物料没面料A的采购单,无法计算应裁数量!");
+        }
+        BigDecimal singleAmountKg = purchaseEntityByOrderNo.getSingleAmountKg();//单件用量
+        Assert.notNull(singleAmountKg , "单件用量为空!无法计算应裁数量!");
+        Integer actualPickQuantity = purchaseEntityByOrderNo.getActualPickQuantity();//实采数量
+        BigDecimal answerCutQuantity = (new BigDecimal(String.valueOf(actualPickQuantity))).divide(singleAmountKg , DictionaryConstants.ALL_BUSINESS_ZERO , BigDecimal.ROUND_HALF_UP);//应裁数量
+        return answerCutQuantity;
     }
 
 
