@@ -90,7 +90,7 @@ public class LoginServiceImpl implements ILoginService{
         SysUserEntity sysUserEntity = sysUserEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
         sysUserEntity.setPassword(loginReqBean.getNewPassword());
         Integer i = this.sysUserMapper.updateByPrimaryKeySelective(sysUserEntity);
-        Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "修改密码失败!");
+        Assert.isTrue(i.equals(DictionaryConstants.ALL_BUSINESS_ONE), "修改密码失败!");
     }
 
     /**
@@ -111,9 +111,7 @@ public class LoginServiceImpl implements ILoginService{
         try {
             boolean flag = MD5Util.validPassword(password , pwdInDb);
             Assert.isTrue(flag , "用户名和密码不匹配!");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return  sysUserEntityList;

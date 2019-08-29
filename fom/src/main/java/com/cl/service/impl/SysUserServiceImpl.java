@@ -62,8 +62,7 @@ public class SysUserServiceImpl implements ISysUserService {
         //根据用户id查询对应的组织
         Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
         PageInfo<SysUserEntity> sysUserEntityPageInfo = this.sysUserMapper.selectSysUserPageInfo(sysUserReqBean , orgId);
-        PageInfo<SysUserResBean> sysUserResBeanList = this.sysUserTransform.transform(sysUserEntityPageInfo);
-        return sysUserResBeanList;
+        return this.sysUserTransform.transform(sysUserEntityPageInfo);
     }
 
     @Override
@@ -76,15 +75,13 @@ public class SysUserServiceImpl implements ISysUserService {
         String password = null;
         try {
             password = MD5Util.getEncryptedPwd(DictionaryConstants.PASS_WORD);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         sysUserEntity.setPassword(password);
         sysUserEntity.setOrgId(orgId);
         Integer i = this.sysUserMapper.insertSelective(sysUserEntity);
-        Assert.isTrue( i == DictionaryConstants.ALL_BUSINESS_ONE , "新增用户失败!");
+        Assert.isTrue(i.equals(DictionaryConstants.ALL_BUSINESS_ONE), "新增用户失败!");
         //绑定角色
         this.insertSysUserRole(sysUserEntity.getId() , reqBeanModel , orgId);
     }
@@ -94,7 +91,7 @@ public class SysUserServiceImpl implements ISysUserService {
      * @param userId
      * @param reqBeanModel
      */
-    public void insertSysUserRole(Long userId , RequestBeanModel<SysUserReqBean> reqBeanModel , Long orgId ){
+    private void insertSysUserRole(Long userId, RequestBeanModel<SysUserReqBean> reqBeanModel, Long orgId){
         List<Long> roleIdList = reqBeanModel.getReqData().getRoleIdList();
         Assert.notEmpty(roleIdList , "请选择需要绑定的角色!");
         SysUserRoleEntity sysUserRoleEntity = new SysUserRoleEntity();
@@ -104,11 +101,11 @@ public class SysUserServiceImpl implements ISysUserService {
         roleIdList.forEach(roleId ->{
             SysRoleEntity sysRoleEntity = this.sysRoleMapper.selectByPrimaryKey(roleId);
             Assert.notNull(sysRoleEntity , "角色ID: \" + roleId + \",对应的角色不存在!");
-            Assert.isTrue(sysRoleEntity.getStatus() == DictionaryConstants.AVAILABLE , "该角色已被删除!");
-            Assert.isTrue(sysRoleEntity.getOrgId() == orgId , "该角色不属于该用户对应的组织!");
+            Assert.isTrue(sysRoleEntity.getStatus().equals(DictionaryConstants.AVAILABLE), "该角色已被删除!");
+            Assert.isTrue(sysRoleEntity.getOrgId().equals(orgId), "该角色不属于该用户对应的组织!");
             sysUserRoleEntity.setRoleId(roleId);
             Integer i = this.sysUserRoleMapper.insertSelective(sysUserRoleEntity);
-            Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "绑定角色失败! roleId: " + roleId);
+            Assert.isTrue(i.equals(DictionaryConstants.ALL_BUSINESS_ONE), "绑定角色失败! roleId: " + roleId);
         });
     }
 
@@ -167,7 +164,7 @@ public class SysUserServiceImpl implements ISysUserService {
         Assert.notNull(id , "请选择一条数据,主键ID不能为空!");
         SysUserEntity sysUserEntity = this.sysUserMapper.selectByPrimaryKey(id);
         Assert.notNull(sysUserEntity , "此id对应的数据不存在!");
-        Assert.isTrue(sysUserEntity.getStatus() == DictionaryConstants.AVAILABLE , "此id对应的数据已被删除!");
+        Assert.isTrue(sysUserEntity.getStatus().equals(DictionaryConstants.AVAILABLE), "此id对应的数据已被删除!");
         //根据用户id查询对应的组织
         Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
         //校验reqBean 并转entity
@@ -175,7 +172,7 @@ public class SysUserServiceImpl implements ISysUserService {
         sysUserEntity.setLastUpdateTime(new Date());
         sysUserEntity.setId(id);
         Integer i = this.sysUserMapper.updateByPrimaryKeySelective(sysUserEntity);
-        Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "修改用户失败!");
+        Assert.isTrue(i.equals(DictionaryConstants.ALL_BUSINESS_ONE), "修改用户失败!");
         //根据用户id删除用户角色关系表
         this.deleteUserRole(id);
         //绑定角色
@@ -208,7 +205,7 @@ public class SysUserServiceImpl implements ISysUserService {
         userIdList.forEach(singleParam ->{
             sysUserEntity.setId(Long.valueOf(singleParam.getParam()));
             Integer i = this.sysUserMapper.updateByPrimaryKeySelective(sysUserEntity);
-            Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "删除用户数据失败!");
+            Assert.isTrue(i.equals(DictionaryConstants.ALL_BUSINESS_ONE), "删除用户数据失败!");
             //根据用户id删除用户角色关系表
             this.deleteUserRole(Long.valueOf(singleParam.getParam()));
         });

@@ -7,8 +7,8 @@ import com.github.pagehelper.PageInfo;
 
 public interface IStockService {
 
-	public PageInfo<StockResBean> queryStockList(RequestBeanModel<StockReqBean> reqBeanModel);
+	PageInfo<StockResBean> queryStockList(RequestBeanModel<StockReqBean> reqBeanModel);
 
-	public void updateStock(RequestBeanModel<StockReqBean> reqBeanModel);
+	void updateStock(RequestBeanModel<StockReqBean> reqBeanModel);
 
 }

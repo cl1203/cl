@@ -50,7 +50,7 @@ public class SysRoleTransform extends AbstractObjectTransformer<SysRoleEntity , 
         if(!(Long.valueOf(DictionaryConstants.ALL_BUSINESS_ZERO).equals(sysRoleEntity.getParentId()))){
             sysRoleResBean.setParentId(sysRoleEntity.getParentId());
             SysRoleEntity sysRoleEntityById = this.sysRoleMapper.selectByPrimaryKey(sysRoleEntity.getParentId());
-            if(null != sysRoleEntityById && sysRoleEntityById.getStatus() == DictionaryConstants.AVAILABLE){
+            if(null != sysRoleEntityById && sysRoleEntityById.getStatus().equals(DictionaryConstants.AVAILABLE)){
                 sysRoleResBean.setSuperiorRoleName(sysRoleEntityById.getName());//上级角色名
             }
         }

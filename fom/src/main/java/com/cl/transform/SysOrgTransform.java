@@ -2,10 +2,7 @@ package com.cl.transform;
 
 import com.cl.bean.res.SysOrgResBean;
 import com.cl.comm.transformer.AbstractObjectTransformer;
-import com.cl.dao.SysUserMapper;
 import com.cl.entity.SysOrgEntity;
-import com.cl.entity.SysUserEntity;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -58,7 +58,7 @@ public class TailorServiceImpl implements ITailorService {
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
         //根据用户id查询对应的组织
-        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(Long.valueOf(reqBeanModel.getUserId())));
+        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
         if(!orgId.equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
             SysOrgEntity sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orgId);
             Assert.notNull(sysOrgEntity , "用户ID对应的组织信息不存在!");
@@ -87,8 +87,8 @@ public class TailorServiceImpl implements ITailorService {
         OrderManageEntity updateOrderManageEntity = new OrderManageEntity();
         updateOrderManageEntity.setId(orderManageEntity.getId());
         updateOrderManageEntity.setOrderStatus(DictionaryConstants.ORDER_STATUS_ALREADY_TAILOR);
-        int j = this.orderManageMapper.updateByPrimaryKeySelective(updateOrderManageEntity);
-        Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE  , "修改订单状态失败!");
+        Integer j = this.orderManageMapper.updateByPrimaryKeySelective(updateOrderManageEntity);
+        Assert.isTrue(j.equals(DictionaryConstants.ALL_BUSINESS_ONE), "修改订单状态失败!");
     }
 
     /**
@@ -101,7 +101,7 @@ public class TailorServiceImpl implements ITailorService {
     private static boolean match(String regex, String str) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(str);
-        return matcher.matches();
+        return !matcher.matches();
     }
 
     /**
@@ -114,7 +114,7 @@ public class TailorServiceImpl implements ITailorService {
         Assert.hasText(tailorReqBean.getOrderNo() , "订单号不能为空!");
         if(StringUtils.isNotBlank(tailorReqBean.getActualCutQuantity())){
             String actualCutQuantityRegexp = "^[1-9][0-9]{0,8}$";
-            if(!match(actualCutQuantityRegexp , tailorReqBean.getActualCutQuantity())) {
+            if(match(actualCutQuantityRegexp , tailorReqBean.getActualCutQuantity())) {
                 throw new BusinessException("实裁数量格式规则: 必须是整数在0-999999999之间! ");
             }
             tailorEntity.setActualCutQuantity(Integer.valueOf(tailorReqBean.getActualCutQuantity()));//实裁剪数量
@@ -131,7 +131,7 @@ public class TailorServiceImpl implements ITailorService {
         }
         if(StringUtils.isNotBlank(tailorReqBean.getMonovalent())){
             String monvalentRegexp =  "(^[+]{0,1}(0|([1-9]\\d{0,9}))(\\.\\d{1,2}){0,1}$){0,1}";
-            if(!match(monvalentRegexp ,tailorReqBean.getMonovalent())){
+            if(match(monvalentRegexp ,tailorReqBean.getMonovalent())){
                 throw new BusinessException("单价规则:整数位最多10位,小数位最多2位! ");
             }
             tailorEntity.setMonovalent(new BigDecimal(tailorReqBean.getMonovalent()));//单价

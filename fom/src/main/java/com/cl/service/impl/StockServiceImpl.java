@@ -33,7 +33,7 @@ public class StockServiceImpl implements IStockService {
 	public PageInfo<StockResBean> queryStockList(RequestBeanModel<StockReqBean> reqBeanModel) {
 		StockReqBean stockReqBean = reqBeanModel.getReqData();
         validateParams(stockReqBean);
-        Map<String,Object> params = new HashMap<String,Object>();
+        Map<String,Object> params = new HashMap<>();
         if(StringUtils.isNotBlank(stockReqBean.getSku())) {
         	params.put("sku", stockReqBean.getSku());
         }
@@ -42,8 +42,7 @@ public class StockServiceImpl implements IStockService {
         params.put("limit", stockReqBean.getPageSize());
         List<String> orderNoList = stockMapper.selectOrderNoByParams(params);
         List<StockResBean> stockList = stockMapper.selectByOrderNoList(orderNoList);
-        PageInfo<StockResBean> stockResBeanPageInfo = new PageInfo<>(stockList);
-        return stockResBeanPageInfo;
+		return new PageInfo<>(stockList);
 	}
 	
 	@Override

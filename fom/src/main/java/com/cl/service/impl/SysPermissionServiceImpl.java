@@ -56,8 +56,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
         PageInfo<SysPermissionEntity> sysPermissionEntityPageInfo = this.sysPermissionMapper.selectSysPermissionPageInfo(sysPermissionReqBean);
-        PageInfo<SysPermissionResBean> sysPermissionResBeanPageInfo = this.sysPermissionTransform.transform(sysPermissionEntityPageInfo);
-        return sysPermissionResBeanPageInfo;
+        return this.sysPermissionTransform.transform(sysPermissionEntityPageInfo);
     }
 
     @Override
@@ -66,7 +65,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         SysPermissionEntity sysPermissionEntity = this.checkSysPermissionReqBean(reqBeanModel);
         sysPermissionEntity.setCreateUser(reqBeanModel.getUserId());
         Integer i = this.sysPermissionMapper.insertSelective(sysPermissionEntity);
-        Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "新增菜单失败!");
+        Assert.isTrue(i.equals(DictionaryConstants.ALL_BUSINESS_ONE), "新增菜单失败!");
     }
 
     /**
@@ -95,7 +94,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         SysPermissionEntityExample.Criteria criteriaBySortNo = sysPermissionEntityExampleBySortNo.createCriteria();
         Byte permissionType = sysPermissionReqBean.getPermissionType();
         Assert.notNull(permissionType , "权限类型不能为空!");
-        if(permissionType != DictionaryConstants.PERMISSION_TYPE_ZERO && permissionType != DictionaryConstants.PERMISSION_TYPE_ONE && permissionType != DictionaryConstants.PERMISSION_TYPE_TWO && permissionType != DictionaryConstants.PERMISSION_TYPE_THREE ){
+        if(!permissionType.equals(DictionaryConstants.PERMISSION_TYPE_ZERO) && permissionType != DictionaryConstants.PERMISSION_TYPE_ONE && permissionType != DictionaryConstants.PERMISSION_TYPE_TWO && permissionType != DictionaryConstants.PERMISSION_TYPE_THREE ){
             throw new BusinessException("权限类型不存在!");
         }
         Byte sortNo = sysPermissionReqBean.getSortNo();
@@ -141,7 +140,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         sysPermissionEntity.setLastUpdateTime(new Date());
         sysPermissionEntity.setId(id);
         Integer i = this.sysPermissionMapper.updateByPrimaryKeySelective(sysPermissionEntity);
-        Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "修改菜单失败!");
+        Assert.isTrue(i.equals(DictionaryConstants.ALL_BUSINESS_ONE), "修改菜单失败!");
     }
 
     @Override
@@ -165,7 +164,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
             Long id = Long.valueOf(singleParam.getParam());
             sysPermissionEntity.setId(id);
             Integer i = this.sysPermissionMapper.updateByPrimaryKeySelective(sysPermissionEntity);
-            Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "删除数据失败!");
+            Assert.isTrue(i.equals(DictionaryConstants.ALL_BUSINESS_ONE), "删除数据失败!");
             criteria.andPermissionIdEqualTo(id);
             this.sysRolePermissionMapper.updateByExample(sysRolePermissionEntity , sysRolePermissionEntityExample);
         });

@@ -60,8 +60,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
         }
         Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
         PageInfo<SysRoleEntity> pageInfo = this.sysRoleMapper.selectSysRolePageInfo(sysRoleReqBean , orgId);
-        PageInfo<SysRoleResBean> roleResBeanPageInfo = this.sysRoleTransform.transform(pageInfo);
-        return roleResBeanPageInfo;
+        return this.sysRoleTransform.transform(pageInfo);
     }
 
     @Override
@@ -92,7 +91,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
         sysRolePermissionEntity.setLastUpdateUser(reqBeanModel.getUserId());
         permissionIdList.forEach(permissionId ->{
             SysPermissionEntity sysPermissionEntity = this.sysPermissionMapper.selectByPrimaryKey(permissionId);
-            if(null != sysPermissionEntity && sysPermissionEntity.getStatus() == DictionaryConstants.AVAILABLE){
+            if(null != sysPermissionEntity && sysPermissionEntity.getStatus().equals(DictionaryConstants.AVAILABLE)){
                 sysRolePermissionEntity.setPermissionId(permissionId);
                 Integer i = this.sysRolePermissionMapper.insertSelective(sysRolePermissionEntity);
                 Assert.isTrue(i == 1 , "新增角色和菜单权限关系表失败! 菜单id: " + permissionId);
@@ -131,7 +130,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
         if(null != sysRoleReqBean.getParentId() && !(Long.valueOf(DictionaryConstants.ALL_BUSINESS_ZERO).equals(sysRoleEntity.getParentId()))){
             SysRoleEntity sysRoleEntityByParentId = this.sysRoleMapper.selectByPrimaryKey(sysRoleReqBean.getParentId());
             Assert.notNull(sysRoleEntityByParentId , "上级角色不存在,请重新选择!");
-            Assert.isTrue(sysRoleEntityByParentId.getStatus() == DictionaryConstants.AVAILABLE , "上级角色不存在,请重新选择!");
+            Assert.isTrue(sysRoleEntityByParentId.getStatus().equals(DictionaryConstants.AVAILABLE), "上级角色不存在,请重新选择!");
             sysRoleEntity.setParentId(sysRoleReqBean.getParentId());
         }
         sysRoleEntity.setName(roleName);
@@ -147,7 +146,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
         Assert.notNull(id , "请选择一条数据,主键ID不能为空!");
         SysRoleEntity sysRoleEntity = this.sysRoleMapper.selectByPrimaryKey(id);
         Assert.notNull(sysRoleEntity , "此id对应的数据不存在!");
-        Assert.isTrue(sysRoleEntity.getStatus() == DictionaryConstants.AVAILABLE , "此id对应的数据已被删除!");
+        Assert.isTrue(sysRoleEntity.getStatus().equals(DictionaryConstants.AVAILABLE), "此id对应的数据已被删除!");
         //根据用户id查询对应的组织
         Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
         //入参校验  并转换为entity
@@ -155,7 +154,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
         sysRoleEntity.setLastUpdateTime(new Date());
         sysRoleEntity.setId(id);
         Integer i = this.sysRoleMapper.updateByPrimaryKeySelective(sysRoleEntity);
-        Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "修改角色失败!");
+        Assert.isTrue(i.equals(DictionaryConstants.ALL_BUSINESS_ONE), "修改角色失败!");
         //删除角色绑定的权限
         SysRolePermissionEntityExample sysRolePermissionEntityExample = new SysRolePermissionEntityExample();
         SysRolePermissionEntityExample.Criteria criteria = sysRolePermissionEntityExample.createCriteria();
@@ -193,7 +192,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
         roleIdList.forEach(singleParam ->{
             sysRoleEntity.setId(Long.valueOf(singleParam.getParam()));
             Integer i = this.sysRoleMapper.updateByPrimaryKeySelective(sysRoleEntity);
-            Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "删除角色数据失败!");
+            Assert.isTrue(i.equals(DictionaryConstants.ALL_BUSINESS_ONE), "删除角色数据失败!");
             criteriaByUserRole.andRoleIdEqualTo(sysRoleEntity.getId());
             this.sysUserRoleMapper.updateByExampleSelective(sysUserRoleEntity , sysUserRoleEntityExample);
             criteriaByRolePermission.andRoleIdEqualTo(sysRoleEntity.getId());

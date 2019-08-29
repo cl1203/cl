@@ -62,8 +62,7 @@ public class SysOrgServiceImpl implements ISysOrgService {
         //分页查询
         PageInfo<SysOrgEntity> sysOrgEntityPageInfo = this.sysOrgMapper.selectSysOrgPageInfo(sysOrgReqBean);
         //entity转resBean
-        PageInfo<SysOrgResBean> sysOrgResBeanPageInfo = this.sysOrgTransformer.transform(sysOrgEntityPageInfo);
-        return sysOrgResBeanPageInfo;
+        return this.sysOrgTransformer.transform(sysOrgEntityPageInfo);
     }
 
     @Override
@@ -139,8 +138,7 @@ public class SysOrgServiceImpl implements ISysOrgService {
         SysRoleEntityExample.Criteria criteria = sysRoleEntityExample.createCriteria();
         criteria.andOrgIdEqualTo(orgId);
         criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
-        List<SysRoleEntity> sysRoleEntityList = this.sysRoleMapper.selectByExample(sysRoleEntityExample);
-        return sysRoleEntityList;
+        return this.sysRoleMapper.selectByExample(sysRoleEntityExample);
     }
 
     /**

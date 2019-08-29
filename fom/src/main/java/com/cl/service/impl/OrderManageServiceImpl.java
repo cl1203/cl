@@ -26,6 +26,8 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
+import static com.cl.comm.constants.DictionaryConstants.ADMIN_ORG_ID;
+
 /**
  * @ClassName OrderManageServiceImpl
  * @Description 订单管理业务实现类
@@ -56,9 +58,9 @@ public class OrderManageServiceImpl implements IOrderManageService {
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
         //根据用户id查询对应的组织
-        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(Long.valueOf(reqBeanModel.getUserId())));
+        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
         SysOrgEntity sysOrgEntity = null;
-        if(!orgId.equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
+        if(!Long.valueOf(ADMIN_ORG_ID).equals(orgId)){
             sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orgId);
             Assert.notNull(sysOrgEntity , "用户ID对应的组织信息不存在!");
         }
@@ -84,8 +86,8 @@ public class OrderManageServiceImpl implements IOrderManageService {
     @Override
     public void distributionOrder(RequestBeanModel<DistributionOrderReqBean> reqBeanModel) {
         //根据用户id查询对应的组织
-        Long orgIdByUserId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(Long.valueOf(reqBeanModel.getUserId())));
-        if(!orgIdByUserId.equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
+        Long orgIdByUserId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
+        if(!orgIdByUserId.equals(Long.valueOf(ADMIN_ORG_ID))){
             throw new BusinessException("只有系统管理员用户才能重新分单");
         }
         OrderManageEntity orderManageEntity = new OrderManageEntity();
@@ -93,7 +95,7 @@ public class OrderManageServiceImpl implements IOrderManageService {
         Long orgId = reqBeanModel.getReqData().getOrgId();
         SysOrgEntity sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orgId);
         Assert.notNull(sysOrgEntity , "生产方不存在!");
-        Assert.isTrue(sysOrgEntity.getStatus() == DictionaryConstants.AVAILABLE , "生产方已被删除!");
+        Assert.isTrue(sysOrgEntity.getStatus().equals(DictionaryConstants.AVAILABLE), "生产方已被删除!");
         orderManageEntity.setProducer(sysOrgEntity.getName());
         orderManageEntity.setLastUpdateTime(new Date());
         orderManageEntity.setLastUpdateUser(reqBeanModel.getUsername());
@@ -114,7 +116,6 @@ public class OrderManageServiceImpl implements IOrderManageService {
         if(null == orderManageEntity){
             return null;
         }
-        String producer = orderManageEntity.getProducer();
-        return producer;
+        return orderManageEntity.getProducer();
     }
 }

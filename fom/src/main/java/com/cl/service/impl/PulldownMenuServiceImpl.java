@@ -48,8 +48,7 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     @Override
     public List<PulldownMenuResBean> queryOrgPulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel) {
         PulldownMenuReqBean pulldownMenuReqBean = requestBeanModel.getReqData();
-        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryOrgPulldownMenu(pulldownMenuReqBean);
-        return pulldownMenuResBeanList;
+        return this.pulldownMenuMapper.queryOrgPulldownMenu(pulldownMenuReqBean);
     }
 
     @Override
@@ -57,15 +56,13 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
         PulldownMenuReqBean pulldownMenuReqBean = requestBeanModel.getReqData();
         Long orgId = this.selectOrgIdByUserId(Long.valueOf(requestBeanModel.getUserId()));
         pulldownMenuReqBean.setOrgId(orgId);
-        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryUserPulldownMenu(pulldownMenuReqBean);
-        return pulldownMenuResBeanList;
+        return this.pulldownMenuMapper.queryUserPulldownMenu(pulldownMenuReqBean);
     }
 
     @Override
     public List<PulldownMenuResBean> queryPermissionPulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel) {
         PulldownMenuReqBean pulldownMenuReqBean = requestBeanModel.getReqData();
-        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryPermissionPulldownMenu(pulldownMenuReqBean);
-        return pulldownMenuResBeanList;
+        return this.pulldownMenuMapper.queryPermissionPulldownMenu(pulldownMenuReqBean);
     }
 
     @Override
@@ -73,21 +70,18 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
         PulldownMenuReqBean pulldownMenuReqBean = requestBeanModel.getReqData();
         Long orgId = this.selectOrgIdByUserId(Long.valueOf(requestBeanModel.getUserId()));
         pulldownMenuReqBean.setOrgId(orgId);
-        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuMapper.queryRolePulldownMenu(pulldownMenuReqBean);
-        return pulldownMenuResBeanList;
+        return this.pulldownMenuMapper.queryRolePulldownMenu(pulldownMenuReqBean);
     }
 
     @Override
     public List<SingleParam> queryInputSupplierName() {
-        List<SingleParam> supplierNameList = this.pulldownMenuMapper.queryInputSupplierName();
-        return supplierNameList;
+        return this.pulldownMenuMapper.queryInputSupplierName();
     }
 
     @Override
     public List<DictItem> queryDictItemList(RequestBeanModel<DictItem> requestBeanModel) {
         DictItem dictItem = requestBeanModel.getReqData();
-        List<DictItem> dictItemList = this.pulldownMenuMapper.queryDictItemList(dictItem);
-        return dictItemList;
+        return this.pulldownMenuMapper.queryDictItemList(dictItem);
     }
 
     @Override
@@ -102,8 +96,7 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     @Override
     public boolean checkBlankSpace(String str) {
         int i = str.indexOf(" ");
-        if(i==-1)return true;
-        return false;
+        return i == -1;
     }
 
     @Override
