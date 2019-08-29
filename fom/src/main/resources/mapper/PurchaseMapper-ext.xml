@@ -21,7 +21,9 @@
     from purchase p
     left join order_manage o on p.order_no = o.order_no
     where p.purchase_status in (1 , 2)
-    and o.producer = #{orgName}
+    <if test="orgName != null and orgName != ''">
+      and o.producer = #{orgName}
+    </if>
     <if test="purchaseNo != null and purchaseNo != ''">
       and p.purchase_no = #{purchaseNo}
     </if>

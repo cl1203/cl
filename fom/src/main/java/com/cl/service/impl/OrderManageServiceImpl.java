@@ -57,7 +57,7 @@ public class OrderManageServiceImpl implements IOrderManageService {
         }
         //根据用户id查询对应的组织
         Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(Long.valueOf(reqBeanModel.getUserId())));
-        SysOrgEntity sysOrgEntity = new SysOrgEntity();
+        SysOrgEntity sysOrgEntity = null;
         if(!orgId.equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
             sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orgId);
             Assert.notNull(sysOrgEntity , "用户ID对应的组织信息不存在!");

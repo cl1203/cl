@@ -20,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -71,8 +73,15 @@ public class SysUserServiceImpl implements ISysUserService {
         //校验reqBean 并转entity
         SysUserEntity sysUserEntity = this.checkUserReqBean(reqBeanModel);
         sysUserEntity.setCreateUser(reqBeanModel.getUserId());
-        byte[] passwordByte = MD5Util.hexStringToByte(DictionaryConstants.PASS_WORD);
-        sysUserEntity.setPassword(passwordByte.toString());
+        String password = null;
+        try {
+            password = MD5Util.getEncryptedPwd(DictionaryConstants.PASS_WORD);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        sysUserEntity.setPassword(password);
         sysUserEntity.setOrgId(orgId);
         Integer i = this.sysUserMapper.insertSelective(sysUserEntity);
         Assert.isTrue( i == DictionaryConstants.ALL_BUSINESS_ONE , "新增用户失败!");

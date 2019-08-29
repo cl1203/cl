@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -99,13 +101,21 @@ public class LoginServiceImpl implements ILoginService{
     private List<SysUserEntity> checkUser(LoginReqBean loginReqBean){
         String userName = loginReqBean.getUserName();
         String password = loginReqBean.getPassword();
-        password = MD5Util.hexStringToByte(password).toString();
         SysUserEntityExample sysUserEntityExample = new SysUserEntityExample();
         SysUserEntityExample.Criteria criteria = sysUserEntityExample.createCriteria();
         criteria.andUserNameEqualTo(userName);
-        criteria.andPasswordEqualTo(password);
         List<SysUserEntity> sysUserEntityList = this.sysUserMapper.selectByExample(sysUserEntityExample);
-        Assert.notEmpty(sysUserEntityList , "用户名和密码不匹配!");
+        Assert.notEmpty(sysUserEntityList , "该用户名不存在!");
+        SysUserEntity sysUserEntity = sysUserEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
+        String pwdInDb = sysUserEntity.getPassword();
+        try {
+            boolean flag = MD5Util.validPassword(password , pwdInDb);
+            Assert.isTrue(flag , "用户名和密码不匹配!");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         return  sysUserEntityList;
     }
 }

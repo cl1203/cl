@@ -1,8 +1,6 @@
 package com.cl.service.impl;
 
-import com.cl.bean.req.PulldownMenuReqBean;
 import com.cl.bean.req.TailorReqBean;
-import com.cl.bean.res.PulldownMenuResBean;
 import com.cl.bean.res.TailorResBean;
 import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.exception.BusinessException;
@@ -15,7 +13,6 @@ import com.cl.service.IPulldownMenuService;
 import com.cl.service.ITailorService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,6 +59,7 @@ public class TailorServiceImpl implements ITailorService {
         }
         //分页查询
         PageHelper.startPage(tailorReqBean.getPageNum() , tailorReqBean.getPageSize());
+        PageHelper.orderBy("last_update_time desc");
         //根据用户id查询对应的组织
         Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(Long.valueOf(reqBeanModel.getUserId())));
         if(!orgId.equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){

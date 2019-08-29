@@ -9,7 +9,7 @@
     <result column="actual_cut_quantity" jdbcType="INTEGER" property="actualCutQuantity" />
     <result column="monovalent" jdbcType="DECIMAL" property="monovalent" />
     <result column="consuming_time" jdbcType="DECIMAL" property="consumingTime" />
-    <result column="tailo_status" jdbcType="TINYINT" property="tailorStatusCode" />
+    <result column="tailo_status" jdbcType="VARCHAR" property="tailorStatus" />
     <result column="producer" jdbcType="VARCHAR" property="producer" />
     <result column="tailor_name" jdbcType="VARCHAR" property="tailorName" />
     <collection property="secondaryProcessResBeanList" resultMap="secondaryProcessResultMap" javaType="list" />
@@ -71,6 +71,5 @@
       <if test="tailorName != null and tailorName != ''">
         AND t.tailor_user_id = #{tailorName}
       </if>
-    order by t.last_update_time desc
   </select>
 </mapper>

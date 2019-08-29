@@ -27,7 +27,7 @@ public interface PurchaseMapper extends MyBatisBaseDao<PurchaseEntity, Long, Pur
      * @param purchaseReqBean
      * @return
      */
-    List<PurchaseEntity> selectPurchaseList(@Param("purchaseReqBean") PurchaseReqBean purchaseReqBean);
+    List<PurchaseEntity> selectPurchaseList(PurchaseReqBean purchaseReqBean);
 
     /**
      * 查询不同状态的采购单数量

@@ -66,6 +66,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
         if(purchaseReqBean.getPageNum() < DictionaryConstants.ALL_BUSINESS_ONE || purchaseReqBean.getPageSize() < DictionaryConstants.ALL_BUSINESS_ONE){
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
+        PageHelper.startPage(purchaseReqBean.getPageNum() , purchaseReqBean.getPageSize() , "last_update_time desc");
         //根据用户id查询对应的组织
         Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(Long.valueOf(reqBeanModel.getUserId())));
         if(!orgId.equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
@@ -75,7 +76,6 @@ public class PurchaseServiceImpl implements IPurchaseService {
         }
         List<PurchaseEntity> purchaseEntityList = this.purchaseMapper.selectPurchaseList(purchaseReqBean);
         List<PurchaseResBean> purchaseResBeanList = this.purchaseTransformer.transform(purchaseEntityList);
-        PageHelper.startPage(purchaseReqBean.getPageNum() , purchaseReqBean.getPageSize());
         return new PageInfo<>(purchaseResBeanList);
     }
 
