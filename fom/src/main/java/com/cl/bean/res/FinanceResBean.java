@@ -147,6 +147,20 @@ public class FinanceResBean implements Serializable {
     @ApiModelProperty(value = "备注")
     private String remarks;
 
+    /**
+     * 图片地址
+     */
+    @ApiModelProperty(value = "图片地址")
+    private String imgUrl;
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     public String getRemarks() {
         return remarks;
     }

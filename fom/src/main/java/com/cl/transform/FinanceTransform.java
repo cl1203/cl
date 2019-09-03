@@ -2,11 +2,18 @@ package com.cl.transform;
 
 import com.cl.bean.res.FinanceResBean;
 import com.cl.comm.transformer.AbstractObjectTransformer;
+import com.cl.dao.PurchaseMapper;
 import com.cl.entity.FinanceEntity;
+import com.cl.entity.OrderManageEntity;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 @Service
 public class FinanceTransform extends AbstractObjectTransformer<FinanceEntity, FinanceResBean> {
+    @Resource
+    private PurchaseMapper purchaseMapper;
+
     @Override
     public FinanceResBean transform(FinanceEntity financeEntity) {
         if(null == financeEntity){
@@ -36,6 +43,9 @@ public class FinanceTransform extends AbstractObjectTransformer<FinanceEntity, F
         financeResBean.setOtherUser(financeEntity.getOtherUser());
         financeResBean.setStatus(financeEntity.getStatus());
         financeResBean.setRemarks(financeEntity.getRemarks());
+        //根据订单编号获取对应的订单对象
+        OrderManageEntity orderManageEntity = this.purchaseMapper.selectOrder(financeEntity.getOrderNo());
+        financeResBean.setImgUrl(orderManageEntity.getOrderImgUrl());
         return financeResBean;
     }
 }
