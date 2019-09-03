@@ -46,10 +46,18 @@ public class DashBoardController {
     }
     
     @PostMapping("/queryAbnormalList")
-    @ApiOperation(value = "预报看板" , notes = "根据条件查询预报看板")
-    @LoggerManage(description = "预报看板")
+    @ApiOperation(value = "异常看板" , notes = "根据条件查询异常看板")
+    @LoggerManage(description = "异常看板")
     public ResponseBeanModel<PageInfo<AbnormalResBean>> queryAbnormalList(@RequestBody RequestBeanModel<AbnormalReqBean> reqBeanModel) throws Exception{
     	PageInfo<AbnormalResBean> resBean = dashBoardService.queryAbnormalList(reqBeanModel);
     	return new ResponseBeanModel<>(resBean);
+    }
+    
+    @PostMapping("/updateAbnormal")
+    @ApiOperation(value = "修改异常信息" , notes = "修改异常信息")
+    @LoggerManage(description = "修改异常信息")
+    public ResponseBeanModel<Void> updateAbnormal(@RequestBody RequestBeanModel<AbnormalReqBean> reqBeanModel){
+    	dashBoardService.updateAbnormal(reqBeanModel);
+    	return new ResponseBeanModel<>("修改成功");
     }
 }

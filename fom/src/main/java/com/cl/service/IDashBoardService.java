@@ -14,5 +14,7 @@ public interface IDashBoardService {
 	void updateOrderRemark(RequestBeanModel<DashBoardReqBean> reqBeanModel);
 
 	PageInfo<AbnormalResBean> queryAbnormalList(RequestBeanModel<AbnormalReqBean> reqBeanModel);
+
+	void updateAbnormal(RequestBeanModel<AbnormalReqBean> reqBeanModel);
 	
 }

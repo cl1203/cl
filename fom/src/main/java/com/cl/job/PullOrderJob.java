@@ -242,8 +242,8 @@ public class PullOrderJob {
 		//应采数量 = 单件用量 * 订单件数
 		entity.setAnswerPickQuantity(Integer.valueOf(pb.getSimpleUse().multiply(BigDecimal.valueOf(Double.valueOf(order.getQuantity() + ""))).setScale(0, BigDecimal.ROUND_HALF_UP).toString()));
 		entity.setAnswerPickMonovalent(pb.getPrice());
-//		entity.setAnswerPickTotal(answerPickTotal);
-//		entity.setS
+		entity.setAnswerPickTotal(BigDecimal.valueOf(Double.valueOf(entity.getActualPickQuantity())).multiply(entity.getAnswerPickMonovalent()));
+		entity.setSingleAmountKg(pb.getSingleAmountKg());
 		entity.setCreateUser(ApiConstants.API_USER);
 		entity.setCreateTime(now);
 		entity.setLastUpdateUser(ApiConstants.API_USER);
@@ -435,7 +435,13 @@ public class PullOrderJob {
 		entity.setOrderImgUrl(order.getPic());
 		entity.setSku(order.getSku());
 		entity.setIsFirst(order.getIsFirst().equals(ApiConstants.INF_IS_FIRST) ? Byte.valueOf("1") : Byte.valueOf("0"));
-		entity.setProducer(order.getProducer());
+		if(order.getProducer().indexOf("/") > 0) {
+			String[] producerArr = order.getProducer().split("/");
+			String producer = producerArr[0];
+			entity.setProducer(producer);
+		}else {
+			entity.setProducer(order.getProducer());
+		}
 		entity.setOrderStatus(ApiConstants.ORDER_STATUS_WAIT_PURCHASE);
 		entity.setCreateUser(ApiConstants.API_USER);
 		entity.setCreateTime(now);

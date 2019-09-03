@@ -1,6 +1,5 @@
 package com.cl.service.impl;
 
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,8 +28,12 @@ import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.Status;
 import com.cl.config.CommonConfig;
+import com.cl.dao.AbnormalMapper;
 import com.cl.dao.OrderManageMapper;
 import com.cl.dao.SysOrgMapper;
+import com.cl.entity.AbnormalEntity;
+import com.cl.entity.AbnormalEntityExample;
+import com.cl.entity.AbnormalEntityExample.Criteria;
 import com.cl.entity.OrderManageEntity;
 import com.cl.entity.SysOrgEntity;
 import com.cl.entity.SysOrgEntityExample;
@@ -46,6 +49,9 @@ public class DashBoardServiceImpl implements IDashBoardService {
 	
 	@Autowired
 	private OrderManageMapper orderManageMapper;
+	
+	@Autowired
+	private AbnormalMapper abnormalMapper;
 	
 	@Autowired
 	private CommonConfig config;
@@ -110,6 +116,51 @@ public class DashBoardServiceImpl implements IDashBoardService {
 		orderManageMapper.updateByPrimaryKeySelective(order);
 	}
 	
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void updateAbnormal(RequestBeanModel<AbnormalReqBean> reqBeanModel) {
+		AbnormalReqBean reqBean = reqBeanModel.getReqData();
+		validateUpdateAbnormalReqBean(reqBean);
+		AbnormalEntity entity;
+		AbnormalEntityExample example = new AbnormalEntityExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andAbnormalTypeEqualTo(reqBean.getQueryType());
+		criteria.andOrderNoEqualTo(reqBean.getOrderNo());
+		if(reqBean.getQueryType().equals(DashBoardConstants.QUERY_PURCHASE)){
+			criteria.andPurchaseNoEqualTo(reqBean.getPurchaseNo());
+		}
+		List<AbnormalEntity> entityList = abnormalMapper.selectByExample(example);
+		if(CollectionUtils.isEmpty(entityList)) {
+			throw new BusinessException("orderNo:" + reqBean.getOrderNo() + ",purchaseNo:" + reqBean.getPurchaseNo() + "查询异常数据不存在！");
+		}
+		entity = entityList.get(0);
+		entity.setAbnormalRemarks(reqBean.getRemark());
+		entity.setIsApproval(reqBean.getApprovalStatus());
+		entity.setLastUpdateUser(reqBeanModel.getUsername());
+		entity.setLastUpdateTime(new Date());
+		abnormalMapper.updateByPrimaryKeySelective(entity);
+	}
+	
+	private void validateUpdateAbnormalReqBean(AbnormalReqBean reqBean) {
+		if(reqBean == null) {
+    		throw new BusinessException(Status.NOT_VALID_PARAMS);
+    	}
+		if(reqBean.getQueryType() == null) {
+			throw new BusinessException("修改类型不能为空！");
+		}
+		if(!reqBean.getQueryType().equals(DashBoardConstants.QUERY_PURCHASE)
+				&& !reqBean.getQueryType().equals(DashBoardConstants.QUERY_TAILOR)) {
+			throw new BusinessException(Status.NOT_VALID_PARAMS);
+		}
+		if(StringUtils.isBlank(reqBean.getOrderNo())) {
+			throw new BusinessException("订单号不能为空！");
+		}
+		if(reqBean.getQueryType().equals(DashBoardConstants.QUERY_PURCHASE)
+				&& StringUtils.isBlank(reqBean.getPurchaseNo())){
+			throw new BusinessException("采购单号不能为空！");
+		}
+	}
+
 	private void validateReqBean(DashBoardReqBean reqBean) {
 		if(reqBean == null) {
     		throw new BusinessException(Status.NOT_VALID_PARAMS);
@@ -210,8 +261,42 @@ public class DashBoardServiceImpl implements IDashBoardService {
 
 	@Override
 	public PageInfo<AbnormalResBean> queryAbnormalList(RequestBeanModel<AbnormalReqBean> reqBeanModel) {
-		
-		return null;
+		AbnormalReqBean reqBean = reqBeanModel.getReqData();
+		validateReqBean(reqBean);
+		List<AbnormalResBean> abnormalList;
+		if(reqBean.getQueryType().equals(DashBoardConstants.QUERY_PURCHASE)){
+			abnormalList = abnormalMapper.selectAbnormalPurchaseList(reqBean);
+		}else {
+			abnormalList = abnormalMapper.selectAbnormalTailorList(reqBean);
+		}
+		PageInfo<AbnormalResBean> resBean = new PageInfo<>(abnormalList);
+		return resBean;
+	}
+
+	private void validateReqBean(AbnormalReqBean reqBean) {
+		if(reqBean == null) {
+    		throw new BusinessException(Status.NOT_VALID_PARAMS);
+    	}
+		if(reqBean.getQueryType() == null) {
+			throw new BusinessException("查询类型不能为空！");
+		}
+		if(!reqBean.getQueryType().equals(DashBoardConstants.QUERY_PURCHASE)
+				&& !reqBean.getQueryType().equals(DashBoardConstants.QUERY_TAILOR)) {
+			throw new BusinessException(Status.NOT_VALID_PARAMS);
+		}
+		if(reqBean.getPageNum() == null || reqBean.getPageNum() < 1) {
+			reqBean.setPageNum(ApiConstants.DEFAULT_PAGE_NUM);
+		}
+		if(reqBean.getPageSize() == null || reqBean.getPageSize() < 1) {
+			reqBean.setPageSize(ApiConstants.DEFAULT_PAGE_SIZE);
+		}
+		int offset = (reqBean.getPageNum() - 1) * reqBean.getPageSize();
+		reqBean.setOffset(offset);
+		reqBean.setLimit(reqBean.getPageSize());
+		if(reqBean.getApprovalStatus() != null && reqBean.getApprovalStatus() != DashBoardConstants.REQ_IS_APPROVAL
+				&& reqBean.getApprovalStatus() != DashBoardConstants.REQ_IS_NOT_APPROVAL) {
+			throw new BusinessException(Status.NOT_VALID_PARAMS);
+		}
 	}
 
 }

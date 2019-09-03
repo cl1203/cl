@@ -17,4 +17,16 @@ public class DashBoardConstants {
 	public static final String TODAY = "今天";
 	
 	public static final Integer REMARK_MAX_LENGTH = 128;
+	
+	//已审批
+	public static final Byte REQ_IS_APPROVAL = 1;
+	
+	//未审批
+	public static final Byte REQ_IS_NOT_APPROVAL = 0;
+	
+	//查询采购单异常
+	public static final Byte QUERY_PURCHASE = 1;
+	
+	//查询裁减异常
+	public static final Byte QUERY_TAILOR = 2;
 }
