@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.dao.FinanceMapper">
+
+  <select id="selectFinanceList" resultMap="BaseResultMap" parameterType="com.cl.bean.req.FinanceReqBean">
+    select
+    f.id id, f.order_no order_no,
+    f.quantity_total quantity_total,
+    f.flatcar_price flatcar_price, f.flatcar_user flatcar_user,
+    f.cart_price cart_price, f.cart_user cart_user,
+    f.edgers_price edgers_price, f.edgers_user edgers_user,
+    f.great_ironing_price great_ironing_price, f.great_ironing_user great_ironing_user,
+    f.check_goods_price check_goods_price,f.check_goods_user check_goods_user,
+    f.trimming_price trimming_price, f.trimming_user trimming_user,
+    f.packaging_price packaging_price, f.packaging_user packaging_user,
+    f.rework_price rework_price, f.rework_user rework_user, f.other_price other_price,
+    f.other_user other_user, f.status status, f.remarks remarks, f.create_time create_time,
+    f.create_user create_user, f.last_update_time last_update_time, f.last_update_user last_update_user
+    from finance f
+    left join order_manage o on f.order_no = o.order_no
+    where o.order_status = 4
+    <if test="orgName != null and orgName != ''">
+        and o.producer = #{orgName}
+    </if>
+    <if test="orderNo != null and orderNo !='' ">
+        and o.orderNo = #{orderNo}
+    </if>
+    <if test="status != null">
+        and f.status = #{status}
+    </if>
+  </select>
+
+</mapper>

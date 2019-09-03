@@ -219,21 +219,20 @@ public class PurchaseServiceImpl implements IPurchaseService {
         if(null == purchaseEntityById.getPurchaseTime()){
             purchaseEntity.setPurchaseTime(new Date());//采购日期
         }
+        String regexp = "(^[+]{0,1}(0|([1-9]\\d{0,9}))(\\.\\d{1,2}){0,1}$){0,1}";
         if(StringUtils.isNotBlank(purchaseReqBean.getActualPickMonovalent())){
-            String actualPickMonovalentRegexp = "(^[+]{0,1}(0|([1-9]\\d{0,9}))(\\.\\d{1,2}){0,1}$){0,1}";
-            if(match(actualPickMonovalentRegexp , purchaseReqBean.getActualPickMonovalent())) {
+            if(match(regexp , purchaseReqBean.getActualPickMonovalent())) {
                 throw new BusinessException("实采单价规则:整数位最多10位,小数位最多2位! ");
             }
             //实采单价
-            purchaseEntity.setActualPickMonovalent(new BigDecimal(purchaseReqBean.getActualPickMonovalent()).setScale(2 , RoundingMode.HALF_UP));
+            purchaseEntity.setActualPickMonovalent(new BigDecimal(purchaseReqBean.getActualPickMonovalent()));
         }
         if(StringUtils.isNotBlank(purchaseReqBean.getActualPickTotal())){
-            String actualPickTotalRegexp = "(^[+]{0,1}(0|([1-9]\\d{0,9}))(\\.\\d{1,2}){0,1}$){0,1}";
-            if(match(actualPickTotalRegexp , purchaseReqBean.getActualPickTotal())) {
+            if(match(regexp , purchaseReqBean.getActualPickTotal())) {
                 throw new BusinessException("实采总额规则:整数位最多10位,小数位最多2位! ");
             }
             //实采总额
-            purchaseEntity.setActualPickTotal(new BigDecimal(purchaseReqBean.getActualPickTotal()).setScale(2 , RoundingMode.HALF_UP));
+            purchaseEntity.setActualPickTotal(new BigDecimal(purchaseReqBean.getActualPickTotal()));
         }
         purchaseEntity.setId(purchaseReqBean.getId());//id
         return purchaseEntity;

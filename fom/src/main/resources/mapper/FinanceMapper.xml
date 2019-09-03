@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.dao.FinanceMapper">
+  <resultMap id="BaseResultMap" type="com.cl.entity.FinanceEntity">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="quantity_total" jdbcType="INTEGER" property="quantityTotal" />
+    <result column="flatcar_price" jdbcType="DECIMAL" property="flatcarPrice" />
+    <result column="flatcar_user" jdbcType="VARCHAR" property="flatcarUser" />
+    <result column="cart_price" jdbcType="DECIMAL" property="cartPrice" />
+    <result column="cart_user" jdbcType="VARCHAR" property="cartUser" />
+    <result column="edgers_price" jdbcType="DECIMAL" property="edgersPrice" />
+    <result column="edgers_user" jdbcType="VARCHAR" property="edgersUser" />
+    <result column="great_ironing_price" jdbcType="DECIMAL" property="greatIroningPrice" />
+    <result column="great_ironing_user" jdbcType="VARCHAR" property="greatIroningUser" />
+    <result column="check_goods_price" jdbcType="DECIMAL" property="checkGoodsPrice" />
+    <result column="check_goods_user" jdbcType="VARCHAR" property="checkGoodsUser" />
+    <result column="trimming_price" jdbcType="DECIMAL" property="trimmingPrice" />
+    <result column="trimming_user" jdbcType="VARCHAR" property="trimmingUser" />
+    <result column="packaging_price" jdbcType="DECIMAL" property="packagingPrice" />
+    <result column="packaging_user" jdbcType="VARCHAR" property="packagingUser" />
+    <result column="rework_price" jdbcType="DECIMAL" property="reworkPrice" />
+    <result column="rework_user" jdbcType="VARCHAR" property="reworkUser" />
+    <result column="other_price" jdbcType="DECIMAL" property="otherPrice" />
+    <result column="other_user" jdbcType="VARCHAR" property="otherUser" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="last_update_user" jdbcType="VARCHAR" property="lastUpdateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, order_no, quantity_total, flatcar_price, flatcar_user, cart_price, cart_user, 
+    edgers_price, edgers_user, great_ironing_price, great_ironing_user, check_goods_price, 
+    check_goods_user, trimming_price, trimming_user, packaging_price, packaging_user, 
+    rework_price, rework_user, other_price, other_user, `status`, remarks, create_time, 
+    create_user, last_update_time, last_update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.cl.entity.FinanceEntityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from finance
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from finance
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from finance
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cl.entity.FinanceEntityExample">
+    delete from finance
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.FinanceEntity" useGeneratedKeys="true">
+    insert into finance (order_no, quantity_total, flatcar_price, 
+      flatcar_user, cart_price, cart_user, 
+      edgers_price, edgers_user, great_ironing_price, 
+      great_ironing_user, check_goods_price, check_goods_user, 
+      trimming_price, trimming_user, packaging_price, 
+      packaging_user, rework_price, rework_user, 
+      other_price, other_user, `status`, 
+      remarks, create_time, create_user, 
+      last_update_time, last_update_user)
+    values (#{orderNo,jdbcType=VARCHAR}, #{quantityTotal,jdbcType=INTEGER}, #{flatcarPrice,jdbcType=DECIMAL}, 
+      #{flatcarUser,jdbcType=VARCHAR}, #{cartPrice,jdbcType=DECIMAL}, #{cartUser,jdbcType=VARCHAR}, 
+      #{edgersPrice,jdbcType=DECIMAL}, #{edgersUser,jdbcType=VARCHAR}, #{greatIroningPrice,jdbcType=DECIMAL}, 
+      #{greatIroningUser,jdbcType=VARCHAR}, #{checkGoodsPrice,jdbcType=DECIMAL}, #{checkGoodsUser,jdbcType=VARCHAR}, 
+      #{trimmingPrice,jdbcType=DECIMAL}, #{trimmingUser,jdbcType=VARCHAR}, #{packagingPrice,jdbcType=DECIMAL}, 
+      #{packagingUser,jdbcType=VARCHAR}, #{reworkPrice,jdbcType=DECIMAL}, #{reworkUser,jdbcType=VARCHAR}, 
+      #{otherPrice,jdbcType=DECIMAL}, #{otherUser,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.FinanceEntity" useGeneratedKeys="true">
+    insert into finance
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="quantityTotal != null">
+        quantity_total,
+      </if>
+      <if test="flatcarPrice != null">
+        flatcar_price,
+      </if>
+      <if test="flatcarUser != null">
+        flatcar_user,
+      </if>
+      <if test="cartPrice != null">
+        cart_price,
+      </if>
+      <if test="cartUser != null">
+        cart_user,
+      </if>
+      <if test="edgersPrice != null">
+        edgers_price,
+      </if>
+      <if test="edgersUser != null">
+        edgers_user,
+      </if>
+      <if test="greatIroningPrice != null">
+        great_ironing_price,
+      </if>
+      <if test="greatIroningUser != null">
+        great_ironing_user,
+      </if>
+      <if test="checkGoodsPrice != null">
+        check_goods_price,
+      </if>
+      <if test="checkGoodsUser != null">
+        check_goods_user,
+      </if>
+      <if test="trimmingPrice != null">
+        trimming_price,
+      </if>
+      <if test="trimmingUser != null">
+        trimming_user,
+      </if>
+      <if test="packagingPrice != null">
+        packaging_price,
+      </if>
+      <if test="packagingUser != null">
+        packaging_user,
+      </if>
+      <if test="reworkPrice != null">
+        rework_price,
+      </if>
+      <if test="reworkUser != null">
+        rework_user,
+      </if>
+      <if test="otherPrice != null">
+        other_price,
+      </if>
+      <if test="otherUser != null">
+        other_user,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time,
+      </if>
+      <if test="lastUpdateUser != null">
+        last_update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="quantityTotal != null">
+        #{quantityTotal,jdbcType=INTEGER},
+      </if>
+      <if test="flatcarPrice != null">
+        #{flatcarPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="flatcarUser != null">
+        #{flatcarUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cartPrice != null">
+        #{cartPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="cartUser != null">
+        #{cartUser,jdbcType=VARCHAR},
+      </if>
+      <if test="edgersPrice != null">
+        #{edgersPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="edgersUser != null">
+        #{edgersUser,jdbcType=VARCHAR},
+      </if>
+      <if test="greatIroningPrice != null">
+        #{greatIroningPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="greatIroningUser != null">
+        #{greatIroningUser,jdbcType=VARCHAR},
+      </if>
+      <if test="checkGoodsPrice != null">
+        #{checkGoodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="checkGoodsUser != null">
+        #{checkGoodsUser,jdbcType=VARCHAR},
+      </if>
+      <if test="trimmingPrice != null">
+        #{trimmingPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="trimmingUser != null">
+        #{trimmingUser,jdbcType=VARCHAR},
+      </if>
+      <if test="packagingPrice != null">
+        #{packagingPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="packagingUser != null">
+        #{packagingUser,jdbcType=VARCHAR},
+      </if>
+      <if test="reworkPrice != null">
+        #{reworkPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="reworkUser != null">
+        #{reworkUser,jdbcType=VARCHAR},
+      </if>
+      <if test="otherPrice != null">
+        #{otherPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="otherUser != null">
+        #{otherUser,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null">
+        #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cl.entity.FinanceEntityExample" resultType="java.lang.Long">
+    select count(*) from finance
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update finance
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quantityTotal != null">
+        quantity_total = #{record.quantityTotal,jdbcType=INTEGER},
+      </if>
+      <if test="record.flatcarPrice != null">
+        flatcar_price = #{record.flatcarPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.flatcarUser != null">
+        flatcar_user = #{record.flatcarUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cartPrice != null">
+        cart_price = #{record.cartPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cartUser != null">
+        cart_user = #{record.cartUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.edgersPrice != null">
+        edgers_price = #{record.edgersPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.edgersUser != null">
+        edgers_user = #{record.edgersUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.greatIroningPrice != null">
+        great_ironing_price = #{record.greatIroningPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.greatIroningUser != null">
+        great_ironing_user = #{record.greatIroningUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkGoodsPrice != null">
+        check_goods_price = #{record.checkGoodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.checkGoodsUser != null">
+        check_goods_user = #{record.checkGoodsUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trimmingPrice != null">
+        trimming_price = #{record.trimmingPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.trimmingUser != null">
+        trimming_user = #{record.trimmingUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packagingPrice != null">
+        packaging_price = #{record.packagingPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.packagingUser != null">
+        packaging_user = #{record.packagingUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reworkPrice != null">
+        rework_price = #{record.reworkPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reworkUser != null">
+        rework_user = #{record.reworkUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otherPrice != null">
+        other_price = #{record.otherPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.otherUser != null">
+        other_user = #{record.otherUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateTime != null">
+        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateUser != null">
+        last_update_user = #{record.lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update finance
+    set id = #{record.id,jdbcType=BIGINT},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      quantity_total = #{record.quantityTotal,jdbcType=INTEGER},
+      flatcar_price = #{record.flatcarPrice,jdbcType=DECIMAL},
+      flatcar_user = #{record.flatcarUser,jdbcType=VARCHAR},
+      cart_price = #{record.cartPrice,jdbcType=DECIMAL},
+      cart_user = #{record.cartUser,jdbcType=VARCHAR},
+      edgers_price = #{record.edgersPrice,jdbcType=DECIMAL},
+      edgers_user = #{record.edgersUser,jdbcType=VARCHAR},
+      great_ironing_price = #{record.greatIroningPrice,jdbcType=DECIMAL},
+      great_ironing_user = #{record.greatIroningUser,jdbcType=VARCHAR},
+      check_goods_price = #{record.checkGoodsPrice,jdbcType=DECIMAL},
+      check_goods_user = #{record.checkGoodsUser,jdbcType=VARCHAR},
+      trimming_price = #{record.trimmingPrice,jdbcType=DECIMAL},
+      trimming_user = #{record.trimmingUser,jdbcType=VARCHAR},
+      packaging_price = #{record.packagingPrice,jdbcType=DECIMAL},
+      packaging_user = #{record.packagingUser,jdbcType=VARCHAR},
+      rework_price = #{record.reworkPrice,jdbcType=DECIMAL},
+      rework_user = #{record.reworkUser,jdbcType=VARCHAR},
+      other_price = #{record.otherPrice,jdbcType=DECIMAL},
+      other_user = #{record.otherUser,jdbcType=VARCHAR},
+      `status` = #{record.status,jdbcType=TINYINT},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      last_update_user = #{record.lastUpdateUser,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.FinanceEntity">
+    update finance
+    <set>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="quantityTotal != null">
+        quantity_total = #{quantityTotal,jdbcType=INTEGER},
+      </if>
+      <if test="flatcarPrice != null">
+        flatcar_price = #{flatcarPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="flatcarUser != null">
+        flatcar_user = #{flatcarUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cartPrice != null">
+        cart_price = #{cartPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="cartUser != null">
+        cart_user = #{cartUser,jdbcType=VARCHAR},
+      </if>
+      <if test="edgersPrice != null">
+        edgers_price = #{edgersPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="edgersUser != null">
+        edgers_user = #{edgersUser,jdbcType=VARCHAR},
+      </if>
+      <if test="greatIroningPrice != null">
+        great_ironing_price = #{greatIroningPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="greatIroningUser != null">
+        great_ironing_user = #{greatIroningUser,jdbcType=VARCHAR},
+      </if>
+      <if test="checkGoodsPrice != null">
+        check_goods_price = #{checkGoodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="checkGoodsUser != null">
+        check_goods_user = #{checkGoodsUser,jdbcType=VARCHAR},
+      </if>
+      <if test="trimmingPrice != null">
+        trimming_price = #{trimmingPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="trimmingUser != null">
+        trimming_user = #{trimmingUser,jdbcType=VARCHAR},
+      </if>
+      <if test="packagingPrice != null">
+        packaging_price = #{packagingPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="packagingUser != null">
+        packaging_user = #{packagingUser,jdbcType=VARCHAR},
+      </if>
+      <if test="reworkPrice != null">
+        rework_price = #{reworkPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="reworkUser != null">
+        rework_user = #{reworkUser,jdbcType=VARCHAR},
+      </if>
+      <if test="otherPrice != null">
+        other_price = #{otherPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="otherUser != null">
+        other_user = #{otherUser,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null">
+        last_update_user = #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cl.entity.FinanceEntity">
+    update finance
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      quantity_total = #{quantityTotal,jdbcType=INTEGER},
+      flatcar_price = #{flatcarPrice,jdbcType=DECIMAL},
+      flatcar_user = #{flatcarUser,jdbcType=VARCHAR},
+      cart_price = #{cartPrice,jdbcType=DECIMAL},
+      cart_user = #{cartUser,jdbcType=VARCHAR},
+      edgers_price = #{edgersPrice,jdbcType=DECIMAL},
+      edgers_user = #{edgersUser,jdbcType=VARCHAR},
+      great_ironing_price = #{greatIroningPrice,jdbcType=DECIMAL},
+      great_ironing_user = #{greatIroningUser,jdbcType=VARCHAR},
+      check_goods_price = #{checkGoodsPrice,jdbcType=DECIMAL},
+      check_goods_user = #{checkGoodsUser,jdbcType=VARCHAR},
+      trimming_price = #{trimmingPrice,jdbcType=DECIMAL},
+      trimming_user = #{trimmingUser,jdbcType=VARCHAR},
+      packaging_price = #{packagingPrice,jdbcType=DECIMAL},
+      packaging_user = #{packagingUser,jdbcType=VARCHAR},
+      rework_price = #{reworkPrice,jdbcType=DECIMAL},
+      rework_user = #{reworkUser,jdbcType=VARCHAR},
+      other_price = #{otherPrice,jdbcType=DECIMAL},
+      other_user = #{otherUser,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=TINYINT},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      last_update_user = #{lastUpdateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

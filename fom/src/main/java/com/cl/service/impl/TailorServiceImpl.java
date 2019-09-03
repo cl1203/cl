@@ -6,9 +6,8 @@ import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.dao.*;
-import com.cl.entity.OrderManageEntity;
-import com.cl.entity.SysOrgEntity;
-import com.cl.entity.TailorEntity;
+import com.cl.entity.*;
+import com.cl.service.IFinanceService;
 import com.cl.service.IPulldownMenuService;
 import com.cl.service.ITailorService;
 import com.github.pagehelper.PageHelper;
@@ -51,6 +50,12 @@ public class TailorServiceImpl implements ITailorService {
     @Resource
     private SysOrgMapper sysOrgMapper;
 
+    @Resource
+    private IFinanceService financeService;
+
+    @Resource
+    private FinanceMapper financeMapper;
+
     @Override
     public PageInfo<TailorResBean> queryTailorList(RequestBeanModel<TailorReqBean> reqBeanModel) {
         TailorReqBean tailorReqBean = reqBeanModel.getReqData();
@@ -83,12 +88,29 @@ public class TailorServiceImpl implements ITailorService {
         Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE  , "修改裁剪数据失败!");
         //根据订单编号获取对应的订单对象
         OrderManageEntity orderManageEntity = this.purchaseMapper.selectOrder(tailorReqBean.getOrderNo());
-        //修改订单状态
-        OrderManageEntity updateOrderManageEntity = new OrderManageEntity();
-        updateOrderManageEntity.setId(orderManageEntity.getId());
-        updateOrderManageEntity.setOrderStatus(DictionaryConstants.ORDER_STATUS_ALREADY_TAILOR);
-        Integer j = this.orderManageMapper.updateByPrimaryKeySelective(updateOrderManageEntity);
-        Assert.isTrue(j.equals(DictionaryConstants.ALL_BUSINESS_ONE), "修改订单状态失败!");
+        if(StringUtils.isNotBlank(tailorReqBean.getActualCutQuantity())){
+            if(!orderManageEntity.getOrderStatus().equals(DictionaryConstants.ORDER_STATUS_ALREADY_TAILOR)){
+                //修改订单状态
+                OrderManageEntity updateOrderManageEntity = new OrderManageEntity();
+                updateOrderManageEntity.setId(orderManageEntity.getId());
+                updateOrderManageEntity.setOrderStatus(DictionaryConstants.ORDER_STATUS_ALREADY_TAILOR);
+                Integer j = this.orderManageMapper.updateByPrimaryKeySelective(updateOrderManageEntity);
+                Assert.isTrue(j.equals(DictionaryConstants.ALL_BUSINESS_ONE), "修改订单状态失败!");
+                //查询此订单号是否生成了财务数据
+                FinanceEntityExample financeEntityExample = new FinanceEntityExample();
+                FinanceEntityExample.Criteria criteria = financeEntityExample.createCriteria();
+                criteria.andOrderNoEqualTo(tailorReqBean.getOrderNo());
+                List<FinanceEntity> financeEntityList = this.financeMapper.selectByExample(financeEntityExample);
+                if(financeEntityList.size() == DictionaryConstants.ALL_BUSINESS_ZERO){
+                    //生成财务数据
+                    FinanceEntity financeEntity = new FinanceEntity();
+                    financeEntity.setOrderNo(tailorReqBean.getOrderNo());
+                    financeEntity.setCreateUser(reqBeanModel.getUserId());
+                    financeEntity.setLastUpdateUser(reqBeanModel.getUserId());
+                    this.financeService.insertFinance(financeEntity);
+                }
+            }
+        }
     }
 
     /**

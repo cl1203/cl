@@ -17,7 +17,12 @@
     p.actual_pick_monovalent actual_pick_monovalent,
     p.actual_pick_total actual_pick_total,
     p.supplier_name supplier_name,
-    p.consuming_time consuming_time
+    p.consuming_time consuming_time,
+    p.remarks remarks,
+    p.create_time create_time,
+    p.create_user create_user,
+    p.last_update_time last_update_time,
+    p.last_update_user last_update_user
     from purchase p
     left join order_manage o on p.order_no = o.order_no
     where p.purchase_status in (1 , 2)
@@ -75,7 +80,7 @@
 
   <sql id="Order_Base_Column_List">
     id, order_no, order_status, order_quantity, order_time, order_img_url, sku, is_first,
-    producer_org_id, producer, surplus_time, purchase_time, tailoring_time, remarks,
+    producer, surplus_time, purchase_time, tailoring_time, remarks,
     create_time, create_user, last_update_time, last_update_user
   </sql>
 
