@@ -58,19 +58,15 @@ public class SysRoleServiceImpl implements ISysRoleService {
         if(sysRoleReqBean.getPageNum() < DictionaryConstants.ALL_BUSINESS_ONE || sysRoleReqBean.getPageSize() < DictionaryConstants.ALL_BUSINESS_ONE){
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
-        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
-        PageInfo<SysRoleEntity> pageInfo = this.sysRoleMapper.selectSysRolePageInfo(sysRoleReqBean , orgId);
+        PageInfo<SysRoleEntity> pageInfo = this.sysRoleMapper.selectSysRolePageInfo(sysRoleReqBean);
         return this.sysRoleTransform.transform(pageInfo);
     }
 
     @Override
     public void insertSysRole(RequestBeanModel<SysRoleReqBean> reqBeanModel) {
-        //根据用户id查询对应的组织
-        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
         //入参校验  并转换为entity
-        SysRoleEntity sysRoleEntity = this.checkRoleReqBean(reqBeanModel , orgId);
+        SysRoleEntity sysRoleEntity = this.checkRoleReqBean(reqBeanModel);
         sysRoleEntity.setCreateUser(reqBeanModel.getUserId());
-        sysRoleEntity.setOrgId(orgId);
         Integer i = this.sysRoleMapper.insertSelective(sysRoleEntity);
         Assert.isTrue(i == 1 , "新增角色失败!");
         //新增角色和菜单权限关系表数据
@@ -104,10 +100,9 @@ public class SysRoleServiceImpl implements ISysRoleService {
     /**
      * 校验reqBean 并转换entity
      * @param reqBeanModel 请求对象
-     * @param orgId 组织id
      * @return
      */
-    private SysRoleEntity checkRoleReqBean(RequestBeanModel<SysRoleReqBean> reqBeanModel , Long orgId ){
+    private SysRoleEntity checkRoleReqBean(RequestBeanModel<SysRoleReqBean> reqBeanModel){
         SysRoleReqBean sysRoleReqBean = reqBeanModel.getReqData();
         SysRoleEntity sysRoleEntity = new SysRoleEntity();
         String roleName = sysRoleReqBean.getName();
@@ -122,17 +117,9 @@ public class SysRoleServiceImpl implements ISysRoleService {
         if(null != sysRoleReqBean.getId()){
             criteria.andIdNotEqualTo(sysRoleReqBean.getId());
         }
-        criteria.andOrgIdEqualTo(orgId);
         criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
         List<SysRoleEntity> sysRoleEntityList = this.sysRoleMapper.selectByExample(sysRoleEntityExample);
-        Assert.isTrue(sysRoleEntityList.size() == DictionaryConstants.ALL_BUSINESS_ZERO , "该组织下已有相同角色名,请修改!");
-        //查询上级角色是否存在
-        if(null != sysRoleReqBean.getParentId() && !(Long.valueOf(DictionaryConstants.ALL_BUSINESS_ZERO).equals(sysRoleEntity.getParentId()))){
-            SysRoleEntity sysRoleEntityByParentId = this.sysRoleMapper.selectByPrimaryKey(sysRoleReqBean.getParentId());
-            Assert.notNull(sysRoleEntityByParentId , "上级角色不存在,请重新选择!");
-            Assert.isTrue(sysRoleEntityByParentId.getStatus().equals(DictionaryConstants.AVAILABLE), "上级角色不存在,请重新选择!");
-            sysRoleEntity.setParentId(sysRoleReqBean.getParentId());
-        }
+        Assert.isTrue(sysRoleEntityList.size() == DictionaryConstants.ALL_BUSINESS_ZERO , "角色名已经存在!");
         sysRoleEntity.setName(roleName);
         sysRoleEntity.setRemark(sysRoleReqBean.getRemark());
         SysUserEntity sysUserEntity = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(reqBeanModel.getUserId()));
@@ -147,10 +134,8 @@ public class SysRoleServiceImpl implements ISysRoleService {
         SysRoleEntity sysRoleEntity = this.sysRoleMapper.selectByPrimaryKey(id);
         Assert.notNull(sysRoleEntity , "此id对应的数据不存在!");
         Assert.isTrue(sysRoleEntity.getStatus().equals(DictionaryConstants.AVAILABLE), "此id对应的数据已被删除!");
-        //根据用户id查询对应的组织
-        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
         //入参校验  并转换为entity
-        sysRoleEntity = this.checkRoleReqBean(reqBeanModel , orgId);
+        sysRoleEntity = this.checkRoleReqBean(reqBeanModel);
         sysRoleEntity.setLastUpdateTime(new Date());
         sysRoleEntity.setId(id);
         Integer i = this.sysRoleMapper.updateByPrimaryKeySelective(sysRoleEntity);

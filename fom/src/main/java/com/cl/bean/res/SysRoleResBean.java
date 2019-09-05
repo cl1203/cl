@@ -25,35 +25,12 @@ public class SysRoleResBean implements Serializable{
     @ApiModelProperty(value = "角色ID")
     private Long id;
 
-    /**
-     * 组织ID
-     */
-    @ApiModelProperty(value = "组织ID")
-    private Long orgId;
-
-    /**
-     * 组织名称
-     */
-    @ApiModelProperty(value = "组织名称")
-    private String orgName;
 
     /**
      * 角色名
      */
     @ApiModelProperty(value = "角色名")
     private String name;
-
-    /**
-     * 父ID
-     */
-    @ApiModelProperty(value = "父ID")
-    private Long parentId;
-
-    /**
-     * 上级角色
-     */
-    @ApiModelProperty(value = "上级角色名称")
-    private String superiorRoleName;
 
     /**
      * 备注信息
@@ -101,44 +78,12 @@ public class SysRoleResBean implements Serializable{
         this.id = id;
     }
 
-    public Long getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
-    }
-
-    public String getOrgName() {
-        return orgName;
-    }
-
-    public void setOrgName(String orgName) {
-        this.orgName = orgName;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getSuperiorRoleName() {
-        return superiorRoleName;
-    }
-
-    public void setSuperiorRoleName(String superiorRoleName) {
-        this.superiorRoleName = superiorRoleName;
     }
 
     public String getRemark() {

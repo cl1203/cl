@@ -147,12 +147,13 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
     public void deleteSysPermission(RequestBeanModel<List<SingleParam>> reqBeanModel) {
         List<SingleParam> singleParamList = reqBeanModel.getReqData();
         Assert.notEmpty(singleParamList , "请至少选择一条数据!");
+        //删除菜单
         SysPermissionEntity sysPermissionEntity = new SysPermissionEntity();
         sysPermissionEntity.setStatus(DictionaryConstants.DETELE);
         sysPermissionEntity.setLastUpdateTime(new Date());
         SysUserEntity sysUserEntityByid = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(reqBeanModel.getUserId()));
         sysPermissionEntity.setLastUpdateUser(sysUserEntityByid.getRealName());
-
+        //删除菜单角色关系表
         SysRolePermissionEntity sysRolePermissionEntity = new SysRolePermissionEntity();
         sysRolePermissionEntity.setStatus(DictionaryConstants.DETELE);
         sysRolePermissionEntity.setLastUpdateTime(new Date());

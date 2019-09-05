@@ -4,12 +4,14 @@
   <resultMap id="UserResultMap" type="com.cl.bean.res.SysUserResBean">
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
   </resultMap>
 
   <select id="selectUserByRoleId" parameterType="java.lang.Long" resultMap="UserResultMap">
     SELECT
       su.real_name ,
-      su.mobile
+      su.mobile ,
+      su.remarks
     FROM
       sys_user su
     LEFT JOIN
@@ -30,11 +32,13 @@
   <resultMap id="PermissionResultMap" type="com.cl.bean.res.SysPermissionResBean">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
   </resultMap>
   <select id="selectPermissionByRoleId" parameterType="long" resultMap="PermissionResultMap">
     SELECT
       sp.id ,
-      sp.name
+      sp.name,
+      sp.remarks
     FROM
       sys_permission sp
     LEFT JOIN

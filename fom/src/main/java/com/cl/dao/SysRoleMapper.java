@@ -20,17 +20,14 @@ import java.util.List;
 @Repository
 public interface SysRoleMapper extends MyBatisBaseDao<SysRoleEntity, Long, SysRoleEntityExample> {
 
-    default PageInfo<SysRoleEntity> selectSysRolePageInfo(SysRoleReqBean sysRoleReqBean , Long orgId){
+    default PageInfo<SysRoleEntity> selectSysRolePageInfo(SysRoleReqBean sysRoleReqBean){
         Page<SysRoleEntity> page = PageHelper.startPage(sysRoleReqBean.getPageNum() , sysRoleReqBean.getPageSize() , "last_update_time DESC");
         SysRoleEntityExample sysRoleEntityExample = new SysRoleEntityExample();
         SysRoleEntityExample.Criteria criteria = sysRoleEntityExample.createCriteria();
         if(StringUtils.isNotBlank(sysRoleReqBean.getName())){
             criteria.andNameEqualTo(sysRoleReqBean.getName());
         }
-        if(!orgId.equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
-            criteria.andOrgIdEqualTo((sysRoleReqBean.getOrgId()));
-        }
-        criteria.andStatusEqualTo(Byte.valueOf(DictionaryConstants.ALL_BUSINESS_ONE + ""));
+        criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
         List<SysRoleEntity> sysRoleEntityList = this.selectByExample(sysRoleEntityExample);
         PageInfo<SysRoleEntity> pageInfo = new PageInfo<>(page);
         pageInfo.setList(sysRoleEntityList);

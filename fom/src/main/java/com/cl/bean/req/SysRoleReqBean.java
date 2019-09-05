@@ -31,18 +31,6 @@ public class SysRoleReqBean implements Serializable {
     private String name;
 
     /**
-     * 组织ID
-     */
-    @ApiModelProperty(value = "组织ID")
-    private Long orgId;
-
-    /**
-     * 父ID
-     */
-    @ApiModelProperty(value = "父ID")
-    private Long parentId;
-
-    /**
      * 备注信息
      */
     @ApiModelProperty(value = "备注信息")
@@ -88,22 +76,6 @@ public class SysRoleReqBean implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
     }
 
     public String getRemark() {

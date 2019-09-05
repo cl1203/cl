@@ -41,19 +41,7 @@ public class SysRoleTransform extends AbstractObjectTransformer<SysRoleEntity , 
         }
         SysRoleResBean sysRoleResBean = new SysRoleResBean();
         sysRoleResBean.setId(sysRoleEntity.getId());
-        sysRoleResBean.setOrgId(sysRoleEntity.getOrgId());
-        SysOrgEntity sysOrgEntity = sysOrgMapper.selectByPrimaryKey(sysRoleEntity.getOrgId());
-        if(null != sysOrgEntity){
-            sysRoleResBean.setOrgName(sysOrgEntity.getName());
-        }
         sysRoleResBean.setName(sysRoleEntity.getName());
-        if(!(Long.valueOf(DictionaryConstants.ALL_BUSINESS_ZERO).equals(sysRoleEntity.getParentId()))){
-            sysRoleResBean.setParentId(sysRoleEntity.getParentId());
-            SysRoleEntity sysRoleEntityById = this.sysRoleMapper.selectByPrimaryKey(sysRoleEntity.getParentId());
-            if(null != sysRoleEntityById && sysRoleEntityById.getStatus().equals(DictionaryConstants.AVAILABLE)){
-                sysRoleResBean.setSuperiorRoleName(sysRoleEntityById.getName());//上级角色名
-            }
-        }
         sysRoleResBean.setRemark(sysRoleEntity.getRemark());
         sysRoleResBean.setLastUpdateUser(sysRoleEntity.getLastUpdateUser());
         sysRoleResBean.setLastUpdateTime(sysRoleEntity.getLastUpdateTime());
