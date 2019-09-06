@@ -12,7 +12,6 @@ import com.cl.entity.*;
 import com.cl.service.IPulldownMenuService;
 import com.cl.service.ISysOrgService;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -36,16 +35,7 @@ public class SysOrgServiceImpl implements ISysOrgService {
     private SysOrgMapper sysOrgMapper;
 
     @Resource
-    private SysRoleMapper sysRoleMapper;
-
-    @Resource
     private SysUserMapper sysUserMapper;
-
-    @Resource
-    private SysUserRoleMapper sysUserRoleMapper;
-
-    @Resource
-    private SysRolePermissionMapper sysRolePermissionMapper;
 
     @Resource
     private IPulldownMenuService pulldownMenuService;
@@ -116,36 +106,23 @@ public class SysOrgServiceImpl implements ISysOrgService {
             //删除组织
             sysOrgEntity.setId(orgId);
             int i = this.sysOrgMapper.updateByPrimaryKeySelective(sysOrgEntity);
-            Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE ,"删除组织失败!");
-            //根据组织ID查询绑定的所有角色
+            Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE ,"删除组织失败! 组织id: " + orgId);
+           /* //根据组织ID查询绑定的所有角色
             List<SysRoleEntity> sysRoleEntityList = this.selectRoleByOrgId(orgId);
             if(CollectionUtils.isNotEmpty(sysRoleEntityList)){
                 //根据id删除所有角色  并删除该组织下所有角色和所有用户的关系表 删除角色绑定的菜单权限关系表
                 this.deleteRoleAndUserRoleByOrgId(sysRoleEntityList , reqBeanModel);
-            }
+            }*/
             //根据组织ID删除对应的所有用户
             this.deleteUserByOrgId(orgId , reqBeanModel);
         });
     }
 
     /**
-     * 查询组织id对应的所有角色
-     * @param orgId
-     * @return
-     */
-    private List<SysRoleEntity> selectRoleByOrgId(Long orgId){
-        SysRoleEntityExample sysRoleEntityExample = new SysRoleEntityExample();
-        SysRoleEntityExample.Criteria criteria = sysRoleEntityExample.createCriteria();
-        criteria.andOrgIdEqualTo(orgId);
-        criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
-        return this.sysRoleMapper.selectByExample(sysRoleEntityExample);
-    }
-
-    /**
      * 根据id删除所有角色  并删除该组织下所有角色和所有用户的关系表
      * @param
      */
-    private void deleteRoleAndUserRoleByOrgId(List<SysRoleEntity> sysRoleEntityList , RequestBeanModel<List<SingleParam>> reqBeanModel){
+    /*private void deleteRoleAndUserRoleByOrgId(List<SysRoleEntity> sysRoleEntityList , RequestBeanModel<List<SingleParam>> reqBeanModel){
         SysUserRoleEntity sysUserRoleEntity = new SysUserRoleEntity();
         sysUserRoleEntity.setStatus(DictionaryConstants.DETELE);
         sysUserRoleEntity.setLastUpdateUser(reqBeanModel.getUserId());
@@ -167,7 +144,7 @@ public class SysOrgServiceImpl implements ISysOrgService {
             criteriaByRolePermission.andRoleIdEqualTo(sysRoleEntity.getId());
             this.sysRolePermissionMapper.updateByExampleSelective(sysRolePermissionEntity , sysRolePermissionEntityExample);
         });
-    }
+    }*/
 
     /**
      * 根据组织ID删除对应的所有用户
@@ -193,6 +170,6 @@ public class SysOrgServiceImpl implements ISysOrgService {
         sysOrgEntity.setId(sysOrgReqBean.getId());
         sysOrgEntity.setLastUpdateTime(new Date());
         int i = this.sysOrgMapper.updateByPrimaryKeySelective(sysOrgEntity);
-        Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "修改失败!");
+        Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "修改组织失败!");
     }
 }

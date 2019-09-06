@@ -5,8 +5,6 @@ import com.cl.comm.transformer.AbstractObjectTransformer;
 import com.cl.entity.SysOrgEntity;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-
 /**
  * @ClassName SysOrgTransform
  * @Description 组织 entity转resBean

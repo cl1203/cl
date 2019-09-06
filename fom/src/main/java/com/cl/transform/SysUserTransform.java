@@ -11,7 +11,6 @@ import com.cl.entity.SysDepartmentEntity;
 import com.cl.entity.SysOrgEntity;
 import com.cl.entity.SysUserEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.List;
