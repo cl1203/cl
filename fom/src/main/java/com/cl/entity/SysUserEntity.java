@@ -19,6 +19,11 @@ public class SysUserEntity implements Serializable {
     private Long orgId;
 
     /**
+     * 部门ID
+     */
+    private Long departmentId;
+
+    /**
      * 用户名
      */
     private String userName;
@@ -84,6 +89,14 @@ public class SysUserEntity implements Serializable {
 
     public void setOrgId(Long orgId) {
         this.orgId = orgId;
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
     }
 
     public String getUserName() {
@@ -180,6 +193,7 @@ public class SysUserEntity implements Serializable {
         SysUserEntity other = (SysUserEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getOrgId() == null ? other.getOrgId() == null : this.getOrgId().equals(other.getOrgId()))
+            && (this.getDepartmentId() == null ? other.getDepartmentId() == null : this.getDepartmentId().equals(other.getDepartmentId()))
             && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
             && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()))
@@ -198,6 +212,7 @@ public class SysUserEntity implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getOrgId() == null) ? 0 : getOrgId().hashCode());
+        result = prime * result + ((getDepartmentId() == null) ? 0 : getDepartmentId().hashCode());
         result = prime * result + ((getUserName() == null) ? 0 : getUserName().hashCode());
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         result = prime * result + ((getRealName() == null) ? 0 : getRealName().hashCode());
@@ -219,6 +234,7 @@ public class SysUserEntity implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", orgId=").append(orgId);
+        sb.append(", departmentId=").append(departmentId);
         sb.append(", userName=").append(userName);
         sb.append(", password=").append(password);
         sb.append(", realName=").append(realName);

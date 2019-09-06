@@ -34,6 +34,9 @@ public interface SysUserMapper extends MyBatisBaseDao<SysUserEntity, Long, SysUs
         if(!orgId.equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
             criteria.andOrgIdEqualTo((sysUserReqBean.getOrgId()));
         }
+        if(null != sysUserReqBean.getDepartmentId()){
+            criteria.andDepartmentIdEqualTo(sysUserReqBean.getDepartmentId());
+        }
         List<SysUserEntity> sysUserEntityList = this.selectByExample(sysUserEntityExample);
         PageInfo<SysUserEntity> sysUserEntityPageInfo = new PageInfo<>(page);
         sysUserEntityPageInfo.setList(sysUserEntityList);

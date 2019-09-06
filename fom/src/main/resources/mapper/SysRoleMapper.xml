@@ -3,9 +3,7 @@
 <mapper namespace="com.cl.dao.SysRoleMapper">
   <resultMap id="BaseResultMap" type="com.cl.entity.SysRoleEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="org_id" jdbcType="BIGINT" property="orgId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
@@ -72,8 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, org_id, `name`, parent_id, `status`, remark, create_user, create_time, last_update_user, 
-    last_update_time
+    id, `name`, `status`, remark, create_user, create_time, last_update_user, last_update_time
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.SysRoleEntityExample" resultMap="BaseResultMap">
     select
@@ -114,26 +111,18 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysRoleEntity" useGeneratedKeys="true">
-    insert into sys_role (org_id, `name`, parent_id, 
-      `status`, remark, create_user, 
-      create_time, last_update_user, last_update_time
-      )
-    values (#{orgId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, 
-      #{status,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}
-      )
+    insert into sys_role (`name`, `status`, remark, 
+      create_user, create_time, last_update_user, 
+      last_update_time)
+    values (#{name,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysRoleEntity" useGeneratedKeys="true">
     insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="orgId != null">
-        org_id,
-      </if>
       <if test="name != null">
         `name`,
-      </if>
-      <if test="parentId != null">
-        parent_id,
       </if>
       <if test="status != null">
         `status`,
@@ -155,14 +144,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="orgId != null">
-        #{orgId,jdbcType=BIGINT},
-      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=BIGINT},
       </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
@@ -196,14 +179,8 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.orgId != null">
-        org_id = #{record.orgId,jdbcType=BIGINT},
-      </if>
       <if test="record.name != null">
         `name` = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.parentId != null">
-        parent_id = #{record.parentId,jdbcType=BIGINT},
       </if>
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=TINYINT},
@@ -231,9 +208,7 @@
   <update id="updateByExample" parameterType="map">
     update sys_role
     set id = #{record.id,jdbcType=BIGINT},
-      org_id = #{record.orgId,jdbcType=BIGINT},
       `name` = #{record.name,jdbcType=VARCHAR},
-      parent_id = #{record.parentId,jdbcType=BIGINT},
       `status` = #{record.status,jdbcType=TINYINT},
       remark = #{record.remark,jdbcType=VARCHAR},
       create_user = #{record.createUser,jdbcType=VARCHAR},
@@ -247,14 +222,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.SysRoleEntity">
     update sys_role
     <set>
-      <if test="orgId != null">
-        org_id = #{orgId,jdbcType=BIGINT},
-      </if>
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=BIGINT},
       </if>
       <if test="status != null">
         `status` = #{status,jdbcType=TINYINT},
@@ -279,9 +248,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cl.entity.SysRoleEntity">
     update sys_role
-    set org_id = #{orgId,jdbcType=BIGINT},
-      `name` = #{name,jdbcType=VARCHAR},
-      parent_id = #{parentId,jdbcType=BIGINT},
+    set `name` = #{name,jdbcType=VARCHAR},
       `status` = #{status,jdbcType=TINYINT},
       remark = #{remark,jdbcType=VARCHAR},
       create_user = #{createUser,jdbcType=VARCHAR},

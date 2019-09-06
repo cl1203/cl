@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cl.dao.SysUserMapper">
-  <resultMap id="BaseResultMap" type="com.cl.entity.SysUserEntity">
+<mapper namespace="com.cl.dao.SysDepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.cl.entity.SysDepartmentEntity">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="org_id" jdbcType="BIGINT" property="orgId" />
-    <result column="department_id" jdbcType="BIGINT" property="departmentId" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="real_name" jdbcType="VARCHAR" property="realName" />
-    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="grade" jdbcType="TINYINT" property="grade" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -75,16 +72,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, org_id, department_id, user_name, `password`, real_name, mobile, `status`, remarks, 
-    create_time, create_user, last_update_time, last_update_user
+    id, `name`, parent_id, grade, `status`, remarks, create_time, create_user, last_update_time, 
+    last_update_user
   </sql>
-  <select id="selectByExample" parameterType="com.cl.entity.SysUserEntityExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cl.entity.SysDepartmentEntityExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from sys_user
+    from sys_department
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -103,51 +100,40 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from sys_user
+    from sys_department
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from sys_user
+    delete from sys_department
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cl.entity.SysUserEntityExample">
-    delete from sys_user
+  <delete id="deleteByExample" parameterType="com.cl.entity.SysDepartmentEntityExample">
+    delete from sys_department
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysUserEntity" useGeneratedKeys="true">
-    insert into sys_user (org_id, department_id, user_name, 
-      `password`, real_name, mobile, 
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysDepartmentEntity" useGeneratedKeys="true">
+    insert into sys_department (`name`, parent_id, grade, 
       `status`, remarks, create_time, 
       create_user, last_update_time, last_update_user
       )
-    values (#{orgId,jdbcType=BIGINT}, #{departmentId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+    values (#{name,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{grade,jdbcType=TINYINT}, 
       #{status,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysUserEntity" useGeneratedKeys="true">
-    insert into sys_user
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.SysDepartmentEntity" useGeneratedKeys="true">
+    insert into sys_department
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="orgId != null">
-        org_id,
+      <if test="name != null">
+        `name`,
       </if>
-      <if test="departmentId != null">
-        department_id,
+      <if test="parentId != null">
+        parent_id,
       </if>
-      <if test="userName != null">
-        user_name,
-      </if>
-      <if test="password != null">
-        `password`,
-      </if>
-      <if test="realName != null">
-        real_name,
-      </if>
-      <if test="mobile != null">
-        mobile,
+      <if test="grade != null">
+        grade,
       </if>
       <if test="status != null">
         `status`,
@@ -169,23 +155,14 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="orgId != null">
-        #{orgId,jdbcType=BIGINT},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="departmentId != null">
-        #{departmentId,jdbcType=BIGINT},
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
       </if>
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="realName != null">
-        #{realName,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null">
-        #{mobile,jdbcType=VARCHAR},
+      <if test="grade != null">
+        #{grade,jdbcType=TINYINT},
       </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
@@ -207,35 +184,26 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cl.entity.SysUserEntityExample" resultType="java.lang.Long">
-    select count(*) from sys_user
+  <select id="countByExample" parameterType="com.cl.entity.SysDepartmentEntityExample" resultType="java.lang.Long">
+    select count(*) from sys_department
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update sys_user
+    update sys_department
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.orgId != null">
-        org_id = #{record.orgId,jdbcType=BIGINT},
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.departmentId != null">
-        department_id = #{record.departmentId,jdbcType=BIGINT},
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=BIGINT},
       </if>
-      <if test="record.userName != null">
-        user_name = #{record.userName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null">
-        `password` = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.realName != null">
-        real_name = #{record.realName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.mobile != null">
-        mobile = #{record.mobile,jdbcType=VARCHAR},
+      <if test="record.grade != null">
+        grade = #{record.grade,jdbcType=TINYINT},
       </if>
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=TINYINT},
@@ -261,14 +229,11 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update sys_user
+    update sys_department
     set id = #{record.id,jdbcType=BIGINT},
-      org_id = #{record.orgId,jdbcType=BIGINT},
-      department_id = #{record.departmentId,jdbcType=BIGINT},
-      user_name = #{record.userName,jdbcType=VARCHAR},
-      `password` = #{record.password,jdbcType=VARCHAR},
-      real_name = #{record.realName,jdbcType=VARCHAR},
-      mobile = #{record.mobile,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=BIGINT},
+      grade = #{record.grade,jdbcType=TINYINT},
       `status` = #{record.status,jdbcType=TINYINT},
       remarks = #{record.remarks,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -279,26 +244,17 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.SysUserEntity">
-    update sys_user
+  <update id="updateByPrimaryKeySelective" parameterType="com.cl.entity.SysDepartmentEntity">
+    update sys_department
     <set>
-      <if test="orgId != null">
-        org_id = #{orgId,jdbcType=BIGINT},
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="departmentId != null">
-        department_id = #{departmentId,jdbcType=BIGINT},
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=BIGINT},
       </if>
-      <if test="userName != null">
-        user_name = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        `password` = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="realName != null">
-        real_name = #{realName,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null">
-        mobile = #{mobile,jdbcType=VARCHAR},
+      <if test="grade != null">
+        grade = #{grade,jdbcType=TINYINT},
       </if>
       <if test="status != null">
         `status` = #{status,jdbcType=TINYINT},
@@ -321,14 +277,11 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cl.entity.SysUserEntity">
-    update sys_user
-    set org_id = #{orgId,jdbcType=BIGINT},
-      department_id = #{departmentId,jdbcType=BIGINT},
-      user_name = #{userName,jdbcType=VARCHAR},
-      `password` = #{password,jdbcType=VARCHAR},
-      real_name = #{realName,jdbcType=VARCHAR},
-      mobile = #{mobile,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.cl.entity.SysDepartmentEntity">
+    update sys_department
+    set `name` = #{name,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      grade = #{grade,jdbcType=TINYINT},
       `status` = #{status,jdbcType=TINYINT},
       remarks = #{remarks,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

@@ -68,7 +68,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
         SysRoleEntity sysRoleEntity = this.checkRoleReqBean(reqBeanModel);
         sysRoleEntity.setCreateUser(reqBeanModel.getUserId());
         Integer i = this.sysRoleMapper.insertSelective(sysRoleEntity);
-        Assert.isTrue(i == 1 , "新增角色失败!");
+        Assert.isTrue(i.equals(DictionaryConstants.ALL_BUSINESS_ONE) , "新增角色失败!");
         //新增角色和菜单权限关系表数据
         this.insertSysRoelPermission(sysRoleEntity.getId() , reqBeanModel);
     }

@@ -55,6 +55,12 @@ public class SysUserReqBean implements Serializable {
     private Long orgId;
 
     /**
+     * 部门ID
+     */
+    @ApiModelProperty(value = "部门ID")
+    private Long departmentId;
+
+    /**
      * 每页数量
      */
     @NotNull(message = "每页查询数量大小不能为空!")
@@ -71,6 +77,14 @@ public class SysUserReqBean implements Serializable {
      */
     @ApiModelProperty(value = "用户需要绑定的角色")
     private List<Long> roleIdList;
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+    }
 
     public Long getOrgId() {
         return orgId;
