@@ -14,6 +14,7 @@ import com.cl.util.DateUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
@@ -44,7 +45,7 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
         if(StringUtils.isNotBlank(orderManageReqBean.getSku())){
             criteria.andSkuEqualTo(orderManageReqBean.getSku());
         }
-        if(orderManageReqBean.getOrderStatusList().size() > DictionaryConstants.ALL_BUSINESS_ZERO){
+        if(CollectionUtils.isNotEmpty(orderManageReqBean.getOrderStatusList())){
             criteria.andOrderStatusIn(orderManageReqBean.getOrderStatusList());
         }else{
             criteria.andOrderStatusNotEqualTo(DictionaryConstants.ORDER_STATUS_DELETED);
