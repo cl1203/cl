@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 订单  reqBean
@@ -26,13 +27,25 @@ public class OrderManageReqBean implements Serializable{
      * 订单状态1:待采购 2:采购中 3:待裁剪 4:已裁剪
      */
 	@ApiModelProperty(value = "订单状态1:待采购 2:采购中 3:待裁剪 4:已裁剪")
-    private String orderStatus;
-    
+    private List<Byte> orderStatusList;
+
+	 /**
+	 * 生产方
+	 */
+	@ApiModelProperty(value = "生产方")
+	private String producer;
+
     /**
      * 下单时间
      */
-    @ApiModelProperty(value = "下单时间")
-    private String orderTime;
+    @ApiModelProperty(value = "下单起始日期")
+    private String startDate;
+
+	/**
+	 * 下单时间
+	 */
+	@ApiModelProperty(value = "下单结束日期")
+	private String endDate;
     
     /**
      * SKU
@@ -52,6 +65,14 @@ public class OrderManageReqBean implements Serializable{
 	@NotNull(message = "页码大小不能为空!")
 	private Integer pageNum;
 
+	public String getProducer() {
+		return producer;
+	}
+
+	public void setProducer(String producer) {
+		this.producer = producer;
+	}
+
 	public String getOrderNo() {
 		return orderNo;
 	}
@@ -60,20 +81,28 @@ public class OrderManageReqBean implements Serializable{
 		this.orderNo = orderNo;
 	}
 
-	public String getOrderStatus() {
-		return orderStatus;
+	public List<Byte> getOrderStatusList() {
+		return orderStatusList;
 	}
 
-	public void setOrderStatus(String orderStatus) {
-		this.orderStatus = orderStatus;
+	public void setOrderStatusList(List<Byte> orderStatusList) {
+		this.orderStatusList = orderStatusList;
 	}
 
-	public String getOrderTime() {
-		return orderTime;
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public void setOrderTime(String orderTime) {
-		this.orderTime = orderTime;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
 	public String getSku() {

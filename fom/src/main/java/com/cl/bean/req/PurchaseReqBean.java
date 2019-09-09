@@ -31,6 +31,18 @@ public class PurchaseReqBean implements Serializable {
     private String purchaseStatus;
 
     /**
+     * 下单时间
+     */
+    @ApiModelProperty(value = "下单起始日期")
+    private String startDate;
+
+    /**
+     * 下单时间
+     */
+    @ApiModelProperty(value = "下单结束日期")
+    private String endDate;
+
+    /**
      * 采购日期 (录入实采日期)
      */
     @ApiModelProperty(value = "录入实采日期")
@@ -96,6 +108,22 @@ public class PurchaseReqBean implements Serializable {
      */
     @ApiModelProperty(value = "组织名称")
     private String orgName;
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
 
     public String getOrgName() {
         return orgName;

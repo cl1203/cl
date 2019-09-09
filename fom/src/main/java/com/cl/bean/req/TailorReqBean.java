@@ -38,6 +38,18 @@ public class TailorReqBean implements Serializable{
     private String tailorStatus;
 
     /**
+     * 下单时间
+     */
+    @ApiModelProperty(value = "下单起始日期")
+    private String startDate;
+
+    /**
+     * 下单时间
+     */
+    @ApiModelProperty(value = "下单结束日期")
+    private String endDate;
+
+    /**
      * SKU
      */
     @ApiModelProperty(value = "sku")
@@ -208,5 +220,21 @@ public class TailorReqBean implements Serializable{
 
     public void setMonovalent(String monovalent) {
         this.monovalent = monovalent;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 }

@@ -71,5 +71,9 @@
       <if test="tailorName != null and tailorName != ''">
         AND t.tailor_user_id = #{tailorName}
       </if>
+      <if test="startDate !=null and startDate !='' and endDate != null and endDate !=''">
+          and o.order_time &gt;= #{startDate}
+          and o.order_time &lt;= #{startDate}
+      </if>
   </select>
 </mapper>

@@ -26,6 +26,9 @@
     from purchase p
     left join order_manage o on p.order_no = o.order_no
     where p.purchase_status in (1 , 2)
+    <if test="orderNo !=null and orderNo !='' ">
+      and o.order_no = #{orderNo}
+    </if>
     <if test="orgName != null and orgName != ''">
       and o.producer = #{orgName}
     </if>
@@ -43,6 +46,10 @@
     </if>
     <if test="supplierName != null and supplierName != ''">
       and p.supplier_name = #{supplierName}
+    </if>
+    <if test="startDate !=null and startDate !='' and endDate != null and endDate !=''">
+      and o.order_time &gt;= #{startDate}
+      and o.order_time &lt;= #{startDate}
     </if>
   </select>
 

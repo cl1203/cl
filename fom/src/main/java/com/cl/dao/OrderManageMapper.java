@@ -17,6 +17,7 @@ import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -43,13 +44,18 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
         if(StringUtils.isNotBlank(orderManageReqBean.getSku())){
             criteria.andSkuEqualTo(orderManageReqBean.getSku());
         }
-        if(StringUtils.isNotBlank(orderManageReqBean.getOrderStatus())){
-            criteria.andOrderStatusEqualTo(Byte.valueOf(orderManageReqBean.getOrderStatus()));
+        if(orderManageReqBean.getOrderStatusList().size() > DictionaryConstants.ALL_BUSINESS_ZERO){
+            criteria.andOrderStatusIn(orderManageReqBean.getOrderStatusList());
         }else{
             criteria.andOrderStatusNotEqualTo(DictionaryConstants.ORDER_STATUS_DELETED);
         }
-        if(StringUtils.isNotBlank(orderManageReqBean.getOrderTime())){
-            criteria.andOrderTimeEqualTo(DateUtils.getDateToString(orderManageReqBean.getOrderTime() , DateUtils.DATESHOWFORMAT));
+        if(StringUtils.isNotBlank(orderManageReqBean.getStartDate()) && StringUtils.isNotBlank(orderManageReqBean.getEndDate())){
+            Date startDate = DateUtils.getDateToString(orderManageReqBean.getStartDate() , DateUtils.DATESHOWFORMAT);
+            Date endDate = DateUtils.getDateToString(orderManageReqBean.getEndDate() , DateUtils.DATESHOWFORMAT);
+            criteria.andOrderTimeBetween(startDate , endDate);
+        }
+        if(StringUtils.isNotBlank(orderManageReqBean.getProducer())){
+            criteria.andProducerEqualTo(orderManageReqBean.getProducer());
         }
         if(null != sysOrgEntity){
             criteria.andProducerEqualTo(sysOrgEntity.getName());
