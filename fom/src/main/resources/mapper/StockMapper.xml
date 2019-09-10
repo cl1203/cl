@@ -141,11 +141,15 @@
       <if test="status != null">
         `status`,
       </if>
-      create_time,
+      <if test="createTime != null">
+        create_time,
+      </if>
       <if test="createUser != null">
         create_user,
       </if>
-      last_update_time,
+      <if test="lastUpdateTime != null">
+        last_update_time,
+      </if>
       <if test="lastUpdateUser != null">
         last_update_user,
       </if>
@@ -166,11 +170,15 @@
       <if test="status != null">
         #{status,jdbcType=TINYINT},
       </if>
-      now(),
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="createUser != null">
         #{createUser,jdbcType=VARCHAR},
       </if>
-      now(),
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="lastUpdateUser != null">
         #{lastUpdateUser,jdbcType=VARCHAR},
       </if>

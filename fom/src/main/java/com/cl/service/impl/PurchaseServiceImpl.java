@@ -133,7 +133,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
             }else{
                 //根据ID查询此采购单
                 PurchaseEntity purchaseEntityById = this.purchaseMapper.selectByPrimaryKey(purchaseReqBean.getId());
-                if(purchaseEntityById.getMaterielTypeCode().equalsIgnoreCase("面料A")) {
+                if(purchaseEntityById.getPurchaseType().equalsIgnoreCase("面料A")) {
                     //计算应裁数
                     BigDecimal answerCutQuantity = this.CalculationAnswerCutQuantity(purchaseReqBean.getOrderNo());
                     TailorEntity tailorEntity = tailorEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
@@ -181,10 +181,10 @@ public class PurchaseServiceImpl implements IPurchaseService {
         if(null == purchaseEntityByOrderNo){
             throw new BusinessException("订单号: " + orderNo + ",没有存在物料没面料A的采购单,无法计算应裁数量!");
         }
-        BigDecimal singleAmountKg = purchaseEntityByOrderNo.getSingleAmountKg();//单件用量
-        Assert.notNull(singleAmountKg , "单件用量为空!无法计算应裁数量!");
+        BigDecimal singleUse = purchaseEntityByOrderNo.getSimpleUse();//单件用量
+        Assert.notNull(singleUse , "单件用量为空!无法计算应裁数量!");
         Integer actualPickQuantity = purchaseEntityByOrderNo.getActualPickQuantity();//实采数量
-        BigDecimal answerCutQuantity = (new BigDecimal(String.valueOf(actualPickQuantity))).divide(singleAmountKg , DictionaryConstants.ALL_BUSINESS_ZERO , BigDecimal.ROUND_HALF_UP);//应裁数量
+        BigDecimal answerCutQuantity = (new BigDecimal(String.valueOf(actualPickQuantity))).divide(singleUse , DictionaryConstants.ALL_BUSINESS_ZERO , BigDecimal.ROUND_HALF_UP);//应裁数量
         return answerCutQuantity;
     }
 

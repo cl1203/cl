@@ -386,6 +386,76 @@ public class PurchaseEntityExample {
             return (Criteria) this;
         }
 
+        public Criteria andPurchaseTypeIsNull() {
+            addCriterion("purchase_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeIsNotNull() {
+            addCriterion("purchase_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeEqualTo(String value) {
+            addCriterion("purchase_type =", value, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeNotEqualTo(String value) {
+            addCriterion("purchase_type <>", value, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeGreaterThan(String value) {
+            addCriterion("purchase_type >", value, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("purchase_type >=", value, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeLessThan(String value) {
+            addCriterion("purchase_type <", value, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeLessThanOrEqualTo(String value) {
+            addCriterion("purchase_type <=", value, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeLike(String value) {
+            addCriterion("purchase_type like", value, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeNotLike(String value) {
+            addCriterion("purchase_type not like", value, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeIn(List<String> values) {
+            addCriterion("purchase_type in", values, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeNotIn(List<String> values) {
+            addCriterion("purchase_type not in", values, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeBetween(String value1, String value2) {
+            addCriterion("purchase_type between", value1, value2, "purchaseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseTypeNotBetween(String value1, String value2) {
+            addCriterion("purchase_type not between", value1, value2, "purchaseType");
+            return (Criteria) this;
+        }
+
         public Criteria andSupplierNameIsNull() {
             addCriterion("supplier_name is null");
             return (Criteria) this;
@@ -596,66 +666,6 @@ public class PurchaseEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseStatusIsNull() {
-            addCriterion("purchase_status is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPurchaseStatusIsNotNull() {
-            addCriterion("purchase_status is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPurchaseStatusEqualTo(Byte value) {
-            addCriterion("purchase_status =", value, "purchaseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andPurchaseStatusNotEqualTo(Byte value) {
-            addCriterion("purchase_status <>", value, "purchaseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andPurchaseStatusGreaterThan(Byte value) {
-            addCriterion("purchase_status >", value, "purchaseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andPurchaseStatusGreaterThanOrEqualTo(Byte value) {
-            addCriterion("purchase_status >=", value, "purchaseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andPurchaseStatusLessThan(Byte value) {
-            addCriterion("purchase_status <", value, "purchaseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andPurchaseStatusLessThanOrEqualTo(Byte value) {
-            addCriterion("purchase_status <=", value, "purchaseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andPurchaseStatusIn(List<Byte> values) {
-            addCriterion("purchase_status in", values, "purchaseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andPurchaseStatusNotIn(List<Byte> values) {
-            addCriterion("purchase_status not in", values, "purchaseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andPurchaseStatusBetween(Byte value1, Byte value2) {
-            addCriterion("purchase_status between", value1, value2, "purchaseStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andPurchaseStatusNotBetween(Byte value1, Byte value2) {
-            addCriterion("purchase_status not between", value1, value2, "purchaseStatus");
-            return (Criteria) this;
-        }
-
         public Criteria andMaterielSkuIsNull() {
             addCriterion("materiel_sku is null");
             return (Criteria) this;
@@ -726,73 +736,73 @@ public class PurchaseEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeCodeIsNull() {
-            addCriterion("materiel_type_code is null");
+        public Criteria andMaterielTypeIsNull() {
+            addCriterion("materiel_type is null");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeCodeIsNotNull() {
-            addCriterion("materiel_type_code is not null");
+        public Criteria andMaterielTypeIsNotNull() {
+            addCriterion("materiel_type is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeCodeEqualTo(String value) {
-            addCriterion("materiel_type_code =", value, "materielTypeCode");
+        public Criteria andMaterielTypeEqualTo(String value) {
+            addCriterion("materiel_type =", value, "materielType");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeCodeNotEqualTo(String value) {
-            addCriterion("materiel_type_code <>", value, "materielTypeCode");
+        public Criteria andMaterielTypeNotEqualTo(String value) {
+            addCriterion("materiel_type <>", value, "materielType");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeCodeGreaterThan(String value) {
-            addCriterion("materiel_type_code >", value, "materielTypeCode");
+        public Criteria andMaterielTypeGreaterThan(String value) {
+            addCriterion("materiel_type >", value, "materielType");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeCodeGreaterThanOrEqualTo(String value) {
-            addCriterion("materiel_type_code >=", value, "materielTypeCode");
+        public Criteria andMaterielTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("materiel_type >=", value, "materielType");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeCodeLessThan(String value) {
-            addCriterion("materiel_type_code <", value, "materielTypeCode");
+        public Criteria andMaterielTypeLessThan(String value) {
+            addCriterion("materiel_type <", value, "materielType");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeCodeLessThanOrEqualTo(String value) {
-            addCriterion("materiel_type_code <=", value, "materielTypeCode");
+        public Criteria andMaterielTypeLessThanOrEqualTo(String value) {
+            addCriterion("materiel_type <=", value, "materielType");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeCodeLike(String value) {
-            addCriterion("materiel_type_code like", value, "materielTypeCode");
+        public Criteria andMaterielTypeLike(String value) {
+            addCriterion("materiel_type like", value, "materielType");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeCodeNotLike(String value) {
-            addCriterion("materiel_type_code not like", value, "materielTypeCode");
+        public Criteria andMaterielTypeNotLike(String value) {
+            addCriterion("materiel_type not like", value, "materielType");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeCodeIn(List<String> values) {
-            addCriterion("materiel_type_code in", values, "materielTypeCode");
+        public Criteria andMaterielTypeIn(List<String> values) {
+            addCriterion("materiel_type in", values, "materielType");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeCodeNotIn(List<String> values) {
-            addCriterion("materiel_type_code not in", values, "materielTypeCode");
+        public Criteria andMaterielTypeNotIn(List<String> values) {
+            addCriterion("materiel_type not in", values, "materielType");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeCodeBetween(String value1, String value2) {
-            addCriterion("materiel_type_code between", value1, value2, "materielTypeCode");
+        public Criteria andMaterielTypeBetween(String value1, String value2) {
+            addCriterion("materiel_type between", value1, value2, "materielType");
             return (Criteria) this;
         }
 
-        public Criteria andMaterielTypeCodeNotBetween(String value1, String value2) {
-            addCriterion("materiel_type_code not between", value1, value2, "materielTypeCode");
+        public Criteria andMaterielTypeNotBetween(String value1, String value2) {
+            addCriterion("materiel_type not between", value1, value2, "materielType");
             return (Criteria) this;
         }
 
@@ -1296,6 +1306,66 @@ public class PurchaseEntityExample {
             return (Criteria) this;
         }
 
+        public Criteria andSimpleUseIsNull() {
+            addCriterion("simple_use is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSimpleUseIsNotNull() {
+            addCriterion("simple_use is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSimpleUseEqualTo(BigDecimal value) {
+            addCriterion("simple_use =", value, "simpleUse");
+            return (Criteria) this;
+        }
+
+        public Criteria andSimpleUseNotEqualTo(BigDecimal value) {
+            addCriterion("simple_use <>", value, "simpleUse");
+            return (Criteria) this;
+        }
+
+        public Criteria andSimpleUseGreaterThan(BigDecimal value) {
+            addCriterion("simple_use >", value, "simpleUse");
+            return (Criteria) this;
+        }
+
+        public Criteria andSimpleUseGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("simple_use >=", value, "simpleUse");
+            return (Criteria) this;
+        }
+
+        public Criteria andSimpleUseLessThan(BigDecimal value) {
+            addCriterion("simple_use <", value, "simpleUse");
+            return (Criteria) this;
+        }
+
+        public Criteria andSimpleUseLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("simple_use <=", value, "simpleUse");
+            return (Criteria) this;
+        }
+
+        public Criteria andSimpleUseIn(List<BigDecimal> values) {
+            addCriterion("simple_use in", values, "simpleUse");
+            return (Criteria) this;
+        }
+
+        public Criteria andSimpleUseNotIn(List<BigDecimal> values) {
+            addCriterion("simple_use not in", values, "simpleUse");
+            return (Criteria) this;
+        }
+
+        public Criteria andSimpleUseBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("simple_use between", value1, value2, "simpleUse");
+            return (Criteria) this;
+        }
+
+        public Criteria andSimpleUseNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("simple_use not between", value1, value2, "simpleUse");
+            return (Criteria) this;
+        }
+
         public Criteria andSingleAmountKgIsNull() {
             addCriterion("single_amount_kg is null");
             return (Criteria) this;
@@ -1473,6 +1543,66 @@ public class PurchaseEntityExample {
 
         public Criteria andIsExistAbnormalNotBetween(Byte value1, Byte value2) {
             addCriterion("is_exist_abnormal not between", value1, value2, "isExistAbnormal");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseStatusIsNull() {
+            addCriterion("purchase_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseStatusIsNotNull() {
+            addCriterion("purchase_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseStatusEqualTo(Byte value) {
+            addCriterion("purchase_status =", value, "purchaseStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseStatusNotEqualTo(Byte value) {
+            addCriterion("purchase_status <>", value, "purchaseStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseStatusGreaterThan(Byte value) {
+            addCriterion("purchase_status >", value, "purchaseStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseStatusGreaterThanOrEqualTo(Byte value) {
+            addCriterion("purchase_status >=", value, "purchaseStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseStatusLessThan(Byte value) {
+            addCriterion("purchase_status <", value, "purchaseStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseStatusLessThanOrEqualTo(Byte value) {
+            addCriterion("purchase_status <=", value, "purchaseStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseStatusIn(List<Byte> values) {
+            addCriterion("purchase_status in", values, "purchaseStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseStatusNotIn(List<Byte> values) {
+            addCriterion("purchase_status not in", values, "purchaseStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseStatusBetween(Byte value1, Byte value2) {
+            addCriterion("purchase_status between", value1, value2, "purchaseStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andPurchaseStatusNotBetween(Byte value1, Byte value2) {
+            addCriterion("purchase_status not between", value1, value2, "purchaseStatus");
             return (Criteria) this;
         }
 
