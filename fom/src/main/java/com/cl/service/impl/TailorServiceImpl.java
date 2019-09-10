@@ -13,6 +13,7 @@ import com.cl.service.ITailorService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.auth.BasicUserPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -56,6 +57,9 @@ public class TailorServiceImpl implements ITailorService {
     @Resource
     private FinanceMapper financeMapper;
 
+    @Resource
+    private StockMapper stockMapper;
+
     @Override
     public PageInfo<TailorResBean> queryTailorList(RequestBeanModel<TailorReqBean> reqBeanModel) {
         TailorReqBean tailorReqBean = reqBeanModel.getReqData();
@@ -88,6 +92,8 @@ public class TailorServiceImpl implements ITailorService {
         Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE  , "修改裁剪数据失败!");
         //根据订单编号获取对应的订单对象
         OrderManageEntity orderManageEntity = this.purchaseMapper.selectOrder(tailorReqBean.getOrderNo());
+        //扣除库存
+        this.updateStock(orderManageEntity , tailorReqBean.getActualCutQuantity());
         if(StringUtils.isNotBlank(tailorReqBean.getActualCutQuantity())){
             if(!orderManageEntity.getOrderStatus().equals(DictionaryConstants.ORDER_STATUS_ALREADY_TAILOR)){
                 //修改订单状态
@@ -113,6 +119,41 @@ public class TailorServiceImpl implements ITailorService {
         }
     }
 
+    /**
+     * 扣除库存
+     * @param orderManageEntity
+     */
+    private void updateStock(OrderManageEntity orderManageEntity , String actualCutQuantity){
+        StockEntityExample stockEntityExample = new StockEntityExample();
+        StockEntityExample.Criteria criteria = stockEntityExample.createCriteria();
+        criteria.andSkuEqualTo(orderManageEntity.getSku());
+        criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
+        //根据订单sku获取对应的所有库存数据
+        List<StockEntity> stockEntityList = this.stockMapper.selectByExample(stockEntityExample);
+        Assert.notEmpty(stockEntityList , "此裁剪单对应的订单没有库存数据无法扣除!");
+        for(StockEntity stockEntity : stockEntityList){
+            PurchaseEntityExample purchaseEntityExample = new PurchaseEntityExample();
+            PurchaseEntityExample.Criteria criteriaPurchase = purchaseEntityExample.createCriteria();
+            criteriaPurchase.andOrderNoEqualTo(orderManageEntity.getOrderNo());
+            criteriaPurchase.andMaterielSkuEqualTo(stockEntity.getMaterialSku());
+            criteriaPurchase.andPurchaseStatusNotEqualTo(DictionaryConstants.DETELE);
+            //根据订单号和库存对应的物料sku获取采购单信息
+            List<PurchaseEntity> purchaseEntityList = this.purchaseMapper.selectByExample(purchaseEntityExample);
+            Assert.notEmpty(purchaseEntityList , "此订单号和对应的库存物料sku未找到采购单号,无法获取单件用量!");
+            PurchaseEntity purchaseEntity = purchaseEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
+            Assert.notNull(purchaseEntity.getSimpleUse() , "此订单号和物料sku获取的采购单号对应的单件用量为空!");
+            //单件用量*实裁数
+            Integer tailorStock = Integer.valueOf(purchaseEntity.getSimpleUse().toString())*Integer.valueOf(actualCutQuantity);
+            Integer stock = stockEntity.getStock();
+            if(stock - tailorStock < 0){
+                throw new BusinessException("实裁录入错误, 录入后库存小于0!");
+            }else{
+                stockEntity.setStock(stock - tailorStock);
+                int i = this.stockMapper.updateByPrimaryKeySelective(stockEntity);
+                Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "修改库存失败!");
+            }
+        }
+    }
     /**
      * @param regex
      * 正则表达式字符串
@@ -150,6 +191,8 @@ public class TailorServiceImpl implements ITailorService {
             long m = (date.getTime() - createTime.getTime())/DictionaryConstants.H;
             BigDecimal consumingTime = new BigDecimal((double) m);
             tailorEntity.setConsumingTime(consumingTime);//耗时
+        }else{
+            throw new BusinessException("实裁数量不能为空!");
         }
         if(StringUtils.isNotBlank(tailorReqBean.getMonovalent())){
             String monvalentRegexp =  "(^[+]{0,1}(0|([1-9]\\d{0,9}))(\\.\\d{1,2}){0,1}$){0,1}";

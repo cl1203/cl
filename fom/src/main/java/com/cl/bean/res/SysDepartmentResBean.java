@@ -27,6 +27,12 @@ public class SysDepartmentResBean implements Serializable {
     private Long parentId;
 
     /**
+     * 上级部门名称
+     */
+    @ApiModelProperty(value = "上级部门名称")
+    private String parentName;
+
+    /**
      * 部门等级
      */
     @ApiModelProperty(value = "部门等级")
@@ -90,5 +96,13 @@ public class SysDepartmentResBean implements Serializable {
 
     public void setLastUpdateUser(String lastUpdateUser) {
         this.lastUpdateUser = lastUpdateUser;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
     }
 }

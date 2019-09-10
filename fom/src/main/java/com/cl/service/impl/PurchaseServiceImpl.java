@@ -6,10 +6,7 @@ import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.transformer.IObjectTransformer;
-import com.cl.dao.OrderManageMapper;
-import com.cl.dao.PurchaseMapper;
-import com.cl.dao.SysOrgMapper;
-import com.cl.dao.TailorMapper;
+import com.cl.dao.*;
 import com.cl.entity.*;
 import com.cl.service.IPulldownMenuService;
 import com.cl.service.IPurchaseService;
@@ -60,6 +57,9 @@ public class PurchaseServiceImpl implements IPurchaseService {
     @Resource
     private TailorMapper tailorMapper;
 
+    @Resource
+    private StockMapper stockMapper;
+
     @Override
     public PageInfo<PurchaseResBean> queryPurchaseList(RequestBeanModel<PurchaseReqBean> reqBeanModel) {
         PurchaseReqBean purchaseReqBean = reqBeanModel.getReqData();
@@ -99,11 +99,14 @@ public class PurchaseServiceImpl implements IPurchaseService {
         OrderManageEntity orderManageEntity = this.purchaseMapper.selectOrder(purchaseReqBean.getOrderNo());
         //校验修改的参数
         PurchaseEntity purchaseEntity = this.checkParameter(purchaseReqBean , orderManageEntity);
+        PurchaseEntity purchaseEntityById = this.purchaseMapper.selectByPrimaryKey(purchaseReqBean.getId());
         purchaseEntity.setLastUpdateTime(new Date());//最后修改时间
         purchaseEntity.setLastUpdateUser(reqBeanModel.getUsername());//最后修改人
         //修改采购表
         int i = this.purchaseMapper.updateByPrimaryKeySelective(purchaseEntity);
         Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "修改采购数据失败!");
+        //录入实采 更新库存
+        this.updateStock(orderManageEntity , purchaseEntityById , purchaseReqBean.getActualPickQuantity());
         //修改订单的entity
         OrderManageEntity updateOrderEntity = new OrderManageEntity();
         updateOrderEntity.setId(orderManageEntity.getId());
@@ -131,8 +134,6 @@ public class PurchaseServiceImpl implements IPurchaseService {
                 //调用生成裁剪数据接口
                 this.insertTailor(purchaseReqBean , orderManageEntity , reqBeanModel);
             }else{
-                //根据ID查询此采购单
-                PurchaseEntity purchaseEntityById = this.purchaseMapper.selectByPrimaryKey(purchaseReqBean.getId());
                 if(purchaseEntityById.getPurchaseType().equalsIgnoreCase("面料A")) {
                     //计算应裁数
                     BigDecimal answerCutQuantity = this.CalculationAnswerCutQuantity(purchaseReqBean.getOrderNo());
@@ -144,6 +145,29 @@ public class PurchaseServiceImpl implements IPurchaseService {
             }
         }
     }
+
+    /**
+     * 更新库存
+     * @param orderManageEntity
+     * @param purchaseEntityById
+     */
+    private void updateStock(OrderManageEntity orderManageEntity , PurchaseEntity purchaseEntityById , String actualPickQuantity){
+        StockEntityExample stockEntityExample = new StockEntityExample();
+        StockEntityExample.Criteria criteriaStock = stockEntityExample.createCriteria();
+        criteriaStock.andSkuEqualTo(orderManageEntity.getSku());
+        criteriaStock.andMaterialSkuEqualTo(purchaseEntityById.getMaterielSku());
+        criteriaStock.andStatusEqualTo(DictionaryConstants.AVAILABLE);
+        List<StockEntity> stockEntityList = this.stockMapper.selectByExample(stockEntityExample);
+        Assert.notEmpty(stockEntityList , "此采购单对应的物料sku没有对应的库存数据,无法更新!");
+        StockEntity stockEntity = stockEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
+        Integer stock = stockEntity.getStock();
+        stock = stock + Integer.valueOf(actualPickQuantity);
+        stockEntity.setStock(stock);
+        int i = this.stockMapper.updateByPrimaryKeySelective(stockEntity);
+        Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "修改库存失败!");
+    }
+
+
 
     /**
      * 新增裁剪数据
