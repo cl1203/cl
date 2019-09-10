@@ -14,19 +14,14 @@ public class StockEntity implements Serializable {
     private Long id;
 
     /**
-     * 订单编号
-     */
-    private String orderNo;
-
-    /**
      * SKU编号
      */
     private String sku;
 
     /**
-     * 采购单编码
+     * 物料SKU
      */
-    private String purchaseCode;
+    private String materialSku;
 
     /**
      * 库存数量
@@ -68,14 +63,6 @@ public class StockEntity implements Serializable {
         this.id = id;
     }
 
-    public String getOrderNo() {
-        return orderNo;
-    }
-
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
-    }
-
     public String getSku() {
         return sku;
     }
@@ -84,12 +71,12 @@ public class StockEntity implements Serializable {
         this.sku = sku;
     }
 
-    public String getPurchaseCode() {
-        return purchaseCode;
+    public String getMaterialSku() {
+        return materialSku;
     }
 
-    public void setPurchaseCode(String purchaseCode) {
-        this.purchaseCode = purchaseCode;
+    public void setMaterialSku(String materialSku) {
+        this.materialSku = materialSku;
     }
 
     public Integer getStock() {
@@ -153,9 +140,8 @@ public class StockEntity implements Serializable {
         }
         StockEntity other = (StockEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getOrderNo() == null ? other.getOrderNo() == null : this.getOrderNo().equals(other.getOrderNo()))
             && (this.getSku() == null ? other.getSku() == null : this.getSku().equals(other.getSku()))
-            && (this.getPurchaseCode() == null ? other.getPurchaseCode() == null : this.getPurchaseCode().equals(other.getPurchaseCode()))
+            && (this.getMaterialSku() == null ? other.getMaterialSku() == null : this.getMaterialSku().equals(other.getMaterialSku()))
             && (this.getStock() == null ? other.getStock() == null : this.getStock().equals(other.getStock()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -169,9 +155,8 @@ public class StockEntity implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getOrderNo() == null) ? 0 : getOrderNo().hashCode());
         result = prime * result + ((getSku() == null) ? 0 : getSku().hashCode());
-        result = prime * result + ((getPurchaseCode() == null) ? 0 : getPurchaseCode().hashCode());
+        result = prime * result + ((getMaterialSku() == null) ? 0 : getMaterialSku().hashCode());
         result = prime * result + ((getStock() == null) ? 0 : getStock().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -188,9 +173,8 @@ public class StockEntity implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", orderNo=").append(orderNo);
         sb.append(", sku=").append(sku);
-        sb.append(", purchaseCode=").append(purchaseCode);
+        sb.append(", materialSku=").append(materialSku);
         sb.append(", stock=").append(stock);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);

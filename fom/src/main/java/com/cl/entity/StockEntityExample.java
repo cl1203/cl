@@ -185,76 +185,6 @@ public class StockEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andOrderNoIsNull() {
-            addCriterion("order_no is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderNoIsNotNull() {
-            addCriterion("order_no is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderNoEqualTo(String value) {
-            addCriterion("order_no =", value, "orderNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderNoNotEqualTo(String value) {
-            addCriterion("order_no <>", value, "orderNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderNoGreaterThan(String value) {
-            addCriterion("order_no >", value, "orderNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderNoGreaterThanOrEqualTo(String value) {
-            addCriterion("order_no >=", value, "orderNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderNoLessThan(String value) {
-            addCriterion("order_no <", value, "orderNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderNoLessThanOrEqualTo(String value) {
-            addCriterion("order_no <=", value, "orderNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderNoLike(String value) {
-            addCriterion("order_no like", value, "orderNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderNoNotLike(String value) {
-            addCriterion("order_no not like", value, "orderNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderNoIn(List<String> values) {
-            addCriterion("order_no in", values, "orderNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderNoNotIn(List<String> values) {
-            addCriterion("order_no not in", values, "orderNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderNoBetween(String value1, String value2) {
-            addCriterion("order_no between", value1, value2, "orderNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andOrderNoNotBetween(String value1, String value2) {
-            addCriterion("order_no not between", value1, value2, "orderNo");
-            return (Criteria) this;
-        }
-
         public Criteria andSkuIsNull() {
             addCriterion("sku is null");
             return (Criteria) this;
@@ -325,73 +255,73 @@ public class StockEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseCodeIsNull() {
-            addCriterion("purchase_code is null");
+        public Criteria andMaterialSkuIsNull() {
+            addCriterion("material_sku is null");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseCodeIsNotNull() {
-            addCriterion("purchase_code is not null");
+        public Criteria andMaterialSkuIsNotNull() {
+            addCriterion("material_sku is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseCodeEqualTo(String value) {
-            addCriterion("purchase_code =", value, "purchaseCode");
+        public Criteria andMaterialSkuEqualTo(String value) {
+            addCriterion("material_sku =", value, "materialSku");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseCodeNotEqualTo(String value) {
-            addCriterion("purchase_code <>", value, "purchaseCode");
+        public Criteria andMaterialSkuNotEqualTo(String value) {
+            addCriterion("material_sku <>", value, "materialSku");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseCodeGreaterThan(String value) {
-            addCriterion("purchase_code >", value, "purchaseCode");
+        public Criteria andMaterialSkuGreaterThan(String value) {
+            addCriterion("material_sku >", value, "materialSku");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseCodeGreaterThanOrEqualTo(String value) {
-            addCriterion("purchase_code >=", value, "purchaseCode");
+        public Criteria andMaterialSkuGreaterThanOrEqualTo(String value) {
+            addCriterion("material_sku >=", value, "materialSku");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseCodeLessThan(String value) {
-            addCriterion("purchase_code <", value, "purchaseCode");
+        public Criteria andMaterialSkuLessThan(String value) {
+            addCriterion("material_sku <", value, "materialSku");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseCodeLessThanOrEqualTo(String value) {
-            addCriterion("purchase_code <=", value, "purchaseCode");
+        public Criteria andMaterialSkuLessThanOrEqualTo(String value) {
+            addCriterion("material_sku <=", value, "materialSku");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseCodeLike(String value) {
-            addCriterion("purchase_code like", value, "purchaseCode");
+        public Criteria andMaterialSkuLike(String value) {
+            addCriterion("material_sku like", value, "materialSku");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseCodeNotLike(String value) {
-            addCriterion("purchase_code not like", value, "purchaseCode");
+        public Criteria andMaterialSkuNotLike(String value) {
+            addCriterion("material_sku not like", value, "materialSku");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseCodeIn(List<String> values) {
-            addCriterion("purchase_code in", values, "purchaseCode");
+        public Criteria andMaterialSkuIn(List<String> values) {
+            addCriterion("material_sku in", values, "materialSku");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseCodeNotIn(List<String> values) {
-            addCriterion("purchase_code not in", values, "purchaseCode");
+        public Criteria andMaterialSkuNotIn(List<String> values) {
+            addCriterion("material_sku not in", values, "materialSku");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseCodeBetween(String value1, String value2) {
-            addCriterion("purchase_code between", value1, value2, "purchaseCode");
+        public Criteria andMaterialSkuBetween(String value1, String value2) {
+            addCriterion("material_sku between", value1, value2, "materialSku");
             return (Criteria) this;
         }
 
-        public Criteria andPurchaseCodeNotBetween(String value1, String value2) {
-            addCriterion("purchase_code not between", value1, value2, "purchaseCode");
+        public Criteria andMaterialSkuNotBetween(String value1, String value2) {
+            addCriterion("material_sku not between", value1, value2, "materialSku");
             return (Criteria) this;
         }
 
