@@ -26,7 +26,7 @@
 			from stock s 
 			where s.status = 1
 			<if test="sku != null and sku != ''">
-				s.sku = #{sku}
+				and s.sku = #{sku}
 			</if>
 			order by s.last_update_time desc
 			<if test="offset != null and limit != null and limit > 0">

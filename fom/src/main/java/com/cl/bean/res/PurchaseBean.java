@@ -17,6 +17,8 @@ public class PurchaseBean implements Serializable {
 	
 	private String materialType;                   //物料分类
 	
+	private String purchaseType;                   //物料项目
+	
 	private BigDecimal price;                      //单价
 	
 	private BigDecimal simpleUse;                  //单件用量
@@ -38,6 +40,14 @@ public class PurchaseBean implements Serializable {
 	private BigDecimal weight;                     //克重
 	
 	private BigDecimal width;                      //幅宽
+
+	public String getPurchaseType() {
+		return purchaseType;
+	}
+
+	public void setPurchaseType(String purchaseType) {
+		this.purchaseType = purchaseType;
+	}
 
 	public String getPurchaseCode() {
 		return purchaseCode;

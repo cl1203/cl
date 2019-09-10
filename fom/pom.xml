@@ -60,13 +60,11 @@
 		<dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
             <scope>test</scope>
         </dependency>
 		<dependency>
 		    <groupId>org.junit.platform</groupId>
 		    <artifactId>junit-platform-launcher</artifactId>
-		    <version>1.5.1</version>
 		    <scope>test</scope>
 		</dependency>
 		        
@@ -128,13 +126,11 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<version>RELEASE</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot</artifactId>
-			<version>2.1.6.RELEASE</version>
 		</dependency>
 		<!-- swagger  -->
 		<dependency>
@@ -212,7 +208,6 @@
 		<dependency>
 		    <groupId>org.apache.httpcomponents</groupId>
 		    <artifactId>httpclient</artifactId>
-		    <version>4.5.2</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>

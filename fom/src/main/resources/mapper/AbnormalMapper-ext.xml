@@ -23,7 +23,8 @@
 	</select>
 	
 	<select id="selectAbnormalTailorList" parameterType="com.cl.bean.req.AbnormalReqBean" resultType="com.cl.bean.res.AbnormalResBean">
-		select a.order_no,t.answer_cut_quantity,t.actual_cut_quantity,tailor_name,a.abnormal_remarks,a.is_approval
+		select a.order_no orderNo,t.answer_cut_quantity as answerCutQuantity,t.actual_cut_quantity actualCutQuantity,
+			   tailor_name tailor_name,a.abnormal_remarks as remark,a.is_approval as isApproval
 		from abnormal a
 			 inner join tailor t on a.order_no = t.order_no
 		where 1 = 1
