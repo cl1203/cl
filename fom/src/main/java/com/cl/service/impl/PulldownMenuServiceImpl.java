@@ -72,6 +72,14 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     }
 
     @Override
+    public List<PulldownMenuResBean> queryDepartmentPulldownMenuByGrade(RequestBeanModel<PulldownMenuReqBean> requestBeanModel) {
+        PulldownMenuReqBean pulldownMenuReqBean = requestBeanModel.getReqData();
+        Assert.notNull(pulldownMenuReqBean.getGrade() , "部门等级不能为空!");
+        pulldownMenuReqBean.setGrade((byte) (pulldownMenuReqBean.getGrade() - DictionaryConstants.AVAILABLE));
+        return this.pulldownMenuMapper.queryDepartmentPulldownMenuByGrade(pulldownMenuReqBean);
+    }
+
+    @Override
     public List<PulldownMenuResBean> queryRolePulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel) {
         PulldownMenuReqBean pulldownMenuReqBean = requestBeanModel.getReqData();
         return this.pulldownMenuMapper.queryRolePulldownMenu(pulldownMenuReqBean);

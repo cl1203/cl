@@ -101,6 +101,24 @@
         order by sd.last_update_time desc
     </select>
 
+    <select id="queryDepartmentPulldownMenuByGrade" resultType="com.cl.bean.res.PulldownMenuResBean" parameterType="com.cl.bean.req.PulldownMenuReqBean">
+        SELECT
+        sd.id ,
+        sd.name name
+        FROM
+        sys_department sd
+        WHERE
+        sd.status = 1
+        AND sd.grade = #{grade}
+        <if test="name != null  and name !='' ">
+            AND sd.name = #{name}
+        </if>
+        <if test="id !=null  ">
+            AND sd.id = #{id}
+        </if>
+        order by sd.last_update_time desc
+    </select>
+
 
     <resultMap id="SingleParamMap" type="com.cl.comm.model.SingleParam">
         <result column="supplier_name" property="param" jdbcType="VARCHAR" />

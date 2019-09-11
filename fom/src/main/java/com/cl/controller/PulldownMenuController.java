@@ -79,6 +79,21 @@ public class PulldownMenuController {
 
     /**
      * @Author 陈龙
+     * @Description 获取菜单权限下拉菜单 或者根据条件查询
+     * @Date 0:03 2019/7/30
+     * @Param [requestBeanModel]
+     * @return com.cl.comm.model.ResponseBeanModel<java.util.List<com.cl.bean.res.PulldownMenuResBean>>
+     **/
+    @PostMapping("/queryDepartmentPulldownMenuByGrade")
+    @ApiOperation(value = "根据等级获取部门下拉菜单" , notes = "根据等级获取部门下拉菜单")
+    @LoggerManage(description = "根据等级获取部门下拉菜单")
+    public ResponseBeanModel<List<PulldownMenuResBean>> queryDepartmentPulldownMenuByGrade(@RequestBody RequestBeanModel<PulldownMenuReqBean> requestBeanModel){
+        List<PulldownMenuResBean> pulldownMenuResBeanList = this.pulldownMenuService.queryDepartmentPulldownMenuByGrade(requestBeanModel);
+        return new ResponseBeanModel<>(pulldownMenuResBeanList);
+    }
+
+    /**
+     * @Author 陈龙
      * @Description 获取角色下拉菜单 或者根据条件查询
      * @Date 0:03 2019/7/30
      * @Param [requestBeanModel]

@@ -39,6 +39,20 @@ public class PulldownMenuReqBean implements Serializable{
     @ApiModelProperty(value = "组织id")
     private Long orgId;
 
+    /**
+     * 等级
+     */
+    @ApiModelProperty(value = "等级")
+    private Byte grade;
+
+    public Byte getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Byte grade) {
+        this.grade = grade;
+    }
+
     public Long getOrgId() {
         return orgId;
     }

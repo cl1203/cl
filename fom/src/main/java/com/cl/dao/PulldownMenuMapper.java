@@ -63,6 +63,14 @@ public interface PulldownMenuMapper {
      **/
     List<PulldownMenuResBean> queryDepartmentPulldownMenu(PulldownMenuReqBean pulldownMenuReqBean);
 
+    /**
+     * @Author 陈龙
+     * @Description 根据等级获取部门下拉菜单
+     * @Date 14:16 2019/7/22
+     * @Param []
+     * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
+     **/
+    List<PulldownMenuResBean> queryDepartmentPulldownMenuByGrade(PulldownMenuReqBean pulldownMenuReqBean);
 
     /**
      * @Author 陈龙
