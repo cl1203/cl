@@ -138,5 +138,11 @@
     LIMIT 1
   </select>
 
+	<select id="selectByMaterialSku" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from purchase p 
+		where p.materiel_sku = #{materielSku}
+		limit 1
+	</select>
 
 </mapper>

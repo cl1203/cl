@@ -6,10 +6,10 @@ public class MaterialResBean implements Serializable {
 
 	private static final long serialVersionUID = 6541433230121746427L;
 
-	/**
-     * 采购单编码
+    /**
+     * 物料SKU
      */
-    private String purchaseNo;
+    private String materielSku;
 
     /**
      * 库存数量
@@ -32,9 +32,14 @@ public class MaterialResBean implements Serializable {
     private String supplierColorNumber;
     
     /**
+     * 物料项目
+     */
+    private String purchaseType;
+    
+    /**
      * 物料分类
      */
-    private String materielTypeCode;
+    private String materielType;
 
     /**
      * 物料名称
@@ -46,12 +51,28 @@ public class MaterialResBean implements Serializable {
      */
     private String materielColor;
 
-	public String getPurchaseNo() {
-		return purchaseNo;
+	public String getPurchaseType() {
+		return purchaseType;
 	}
 
-	public void setPurchaseNo(String purchaseNo) {
-		this.purchaseNo = purchaseNo;
+	public void setPurchaseType(String purchaseType) {
+		this.purchaseType = purchaseType;
+	}
+
+	public String getMaterielType() {
+		return materielType;
+	}
+
+	public void setMaterielType(String materielType) {
+		this.materielType = materielType;
+	}
+
+	public String getMaterielSku() {
+		return materielSku;
+	}
+
+	public void setMaterielSku(String materielSku) {
+		this.materielSku = materielSku;
 	}
 
 	public Integer getStock() {
@@ -84,14 +105,6 @@ public class MaterialResBean implements Serializable {
 
 	public void setSupplierColorNumber(String supplierColorNumber) {
 		this.supplierColorNumber = supplierColorNumber;
-	}
-
-	public String getMaterielTypeCode() {
-		return materielTypeCode;
-	}
-
-	public void setMaterielTypeCode(String materielTypeCode) {
-		this.materielTypeCode = materielTypeCode;
 	}
 
 	public String getMaterielName() {

@@ -58,4 +58,6 @@ public interface PurchaseMapper extends MyBatisBaseDao<PurchaseEntity, Long, Pur
      * @return
      */
     BigDecimal selectTailorBySku(String sku);
+
+	PurchaseEntity selectByMaterialSku(String materielSku);
 }

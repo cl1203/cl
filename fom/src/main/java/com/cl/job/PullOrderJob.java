@@ -209,15 +209,14 @@ public class PullOrderJob {
 			StockEntityExample stockExample = new StockEntityExample();
 			StockEntityExample.Criteria stockCriteria = stockExample.createCriteria();
 			stockCriteria.andSkuEqualTo(order.getSku());
-			stockCriteria.andPurchaseCodeEqualTo(pb.getPurchaseCode());
+			stockCriteria.andMaterialSkuEqualTo(pb.getMaterialSku());
 			List<StockEntity> existsStock = stockMapper.selectByExample(stockExample);
 			if(CollectionUtils.isNotEmpty(existsStock)) {
 				continue;
 			}
 			StockEntity stock = new StockEntity();
-			stock.setOrderNo(order.getProduceOrderId());
 			stock.setSku(order.getSku());
-			stock.setPurchaseCode(pb.getPurchaseCode());
+			stock.setMaterialSku(pb.getMaterialSku());
 			stock.setStock(ApiConstants.DEFAULT_STOCK);
 			stock.setCreateUser(ApiConstants.API_USER);
 			stock.setCreateTime(now);
@@ -244,6 +243,7 @@ public class PullOrderJob {
 		entity.setAnswerPickQuantity(Integer.valueOf(pb.getSimpleUse().multiply(BigDecimal.valueOf(Double.valueOf(order.getQuantity() + ""))).setScale(0, BigDecimal.ROUND_HALF_UP).toString()));
 		entity.setAnswerPickMonovalent(pb.getPrice());
 		entity.setAnswerPickTotal(BigDecimal.valueOf(Double.valueOf(entity.getAnswerPickQuantity())).multiply(entity.getAnswerPickMonovalent()));
+		entity.setSimpleUse(pb.getSimpleUse());
 		entity.setSingleAmountKg(pb.getSingleAmountKg());
 		entity.setCreateUser(ApiConstants.API_USER);
 		entity.setCreateTime(now);

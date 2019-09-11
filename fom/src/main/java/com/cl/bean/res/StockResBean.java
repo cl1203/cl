@@ -13,11 +13,6 @@ public class StockResBean implements Serializable {
     private String sku;
     
     /**
-     * 订单编号
-     */
-    private String orderNo;
-    
-    /**
      * 订单图片URL
      */
     private String orderImgUrl;
@@ -41,14 +36,6 @@ public class StockResBean implements Serializable {
 
 	public void setOrderImgUrl(String orderImgUrl) {
 		this.orderImgUrl = orderImgUrl;
-	}
-
-	public String getOrderNo() {
-		return orderNo;
-	}
-
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
 	}
 
 	public String getSku() {

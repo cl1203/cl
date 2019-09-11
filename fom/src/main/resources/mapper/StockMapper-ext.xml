@@ -3,26 +3,24 @@
 <mapper namespace="com.cl.dao.StockMapper">
 
 	<resultMap id="stockResBeanResultMap" type="com.cl.bean.res.StockResBean">
-		<result column="order_no" property="orderNo" />
 		<result column="sku" property="sku" />
-		<result column="order_img_url" property="orderImgUrl" />
 		<collection property="materiaList" javaType="list" resultMap="materiaListResultMap" />
 	</resultMap>
 	<resultMap id="materiaListResultMap" type="com.cl.bean.res.MaterialResBean">
-		<result column="purchase_no" property="purchaseNo" />
+		<result column="material_sku" property="materielSku" />
 		<result column="stock" property="stock" />
-		<result column="supplier_name" property="supplierName" />
+		<!-- <result column="supplier_name" property="supplierName" />
 		<result column="supplier_code" property="supplierCode" />
 		<result column="supplier_color_number" property="supplierColorNumber" />
 		<result column="materiel_type_code" property="materielTypeCode" />
 		<result column="materiel_name" property="materielName" />
-		<result column="materiel_color" property="materielColor" />
+		<result column="materiel_color" property="materielColor" /> -->
 	</resultMap>
 
-	<select id="selectOrderNoByParams" parameterType="java.util.Map" resultType="java.lang.String">
-		select distinct(order_no)
+	<select id="selectSkuByParams" parameterType="java.util.Map" resultType="java.lang.String">
+		select distinct(sku)
 		from (
-			select distinct(order_no),last_update_time
+			select distinct(sku),last_update_time
 			from stock s 
 			where s.status = 1
 			<if test="sku != null and sku != ''">
@@ -35,15 +33,12 @@
 		) a
 	</select>
 
-	<select id="selectByOrderNoList" parameterType="java.util.Map" resultMap="stockResBeanResultMap">
-		select s.order_no,om.order_img_url,s.sku,p.purchase_no,s.stock,p.supplier_name,p.supplier_code,p.supplier_color_number,
-			   p.materiel_type_code,p.materiel_name,p.materiel_color
-		from stock s 
-			inner join order_manage om on s.sku = om.sku and s.order_no = om.order_no
-			inner join purchase p on s.purchase_code = p.purchase_no
+	<select id="selectBySkuList" parameterType="java.util.Map" resultMap="stockResBeanResultMap">
+		select s.sku,s.material_sku,s.stock
+		from stock s
 		where s.status = 1
 		<if test="list != null and list.size > 0">
-			and s.order_no in
+			and s.sku in
 			<foreach collection="list" item="item" open="(" close=")" separator=",">
 				#{item}
 			</foreach>

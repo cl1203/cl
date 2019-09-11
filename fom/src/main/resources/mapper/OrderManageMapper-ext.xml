@@ -64,6 +64,12 @@
   	<if test="orderNo != null and orderNo != ''">
   		and order_no = #{orderNo}
   	</if>
+  	<if test="sku != null and sku != ''">
+  		and sku = #{sku}
+  	</if>
+  	<if test="offset != null and limit != null and limit > 0">
+  		limit #{offset},#{limit}
+  	</if>
   </select>
   
   <select id="selectDashBoardByParams" parameterType="com.cl.bean.req.DashBoardReqBean" resultType="com.cl.bean.res.DashBoardResBean">

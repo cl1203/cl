@@ -2,26 +2,33 @@ package com.cl.bean.req;
 
 import java.io.Serializable;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class StockReqBean implements Serializable {
 
 	private static final long serialVersionUID = -2802523055119658649L;
 
+	@ApiModelProperty(value = "SKU")
 	private String sku;
 	
-	private String purchaseNo;
+	@ApiModelProperty(value = "物料SKU")
+	private String materialSku;
 	
+	@ApiModelProperty(value = "库存数")
 	private Integer stock;
 	
+	@ApiModelProperty(value = "每页条数")
 	private Integer pageSize;
 
+	@ApiModelProperty(value = "页数")
 	private Integer pageNum;
 
-	public String getPurchaseNo() {
-		return purchaseNo;
+	public String getMaterialSku() {
+		return materialSku;
 	}
 
-	public void setPurchaseNo(String purchaseNo) {
-		this.purchaseNo = purchaseNo;
+	public void setMaterialSku(String materialSku) {
+		this.materialSku = materialSku;
 	}
 
 	public Integer getStock() {
