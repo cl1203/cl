@@ -46,8 +46,7 @@ public class SysDepartmentServiceImpl implements ISysDepartmentService {
             throw new BusinessException("页码信息错误,请填入大于0的整数!");
         }
         PageInfo<SysDepartmentEntity> sysDepartmentEntityPageInfo = this.sysDepartmentMapper.selectSysRolePageInfo(sysDepartmentReqBean);
-        PageInfo<SysDepartmentResBean> sysDepartmentResBeanPageInfo = this.sysDepartmentTransform.transform(sysDepartmentEntityPageInfo);
-        return sysDepartmentResBeanPageInfo;
+        return this.sysDepartmentTransform.transform(sysDepartmentEntityPageInfo);
     }
 
     @Override
@@ -82,12 +81,14 @@ public class SysDepartmentServiceImpl implements ISysDepartmentService {
         List<SysDepartmentEntity> sysDepartmentEntityList = this.sysDepartmentMapper.selectByExample(sysDepartmentEntityExample);
         Assert.isTrue(sysDepartmentEntityList.size() == DictionaryConstants.ALL_BUSINESS_ZERO , "角色名已经存在!");
         sysDepartmentEntity.setName(name);
-        if(null != sysDepartmentReqBean.getParentId()){
+        Assert.notNull(sysDepartmentReqBean.getGrade() , "部门等级不能为空!");
+        if(!sysDepartmentReqBean.getGrade().equals(DictionaryConstants.AVAILABLE)){
+            Assert.notNull(sysDepartmentReqBean.getParentId() , "不是一级部门的时候, 上级部门不能为空!");
+            Assert.isTrue(sysDepartmentReqBean.getParentId()>DictionaryConstants.DETELE , "不是一级部门的时候, 上级部门ID不能为0!");
             SysDepartmentEntity sysDepartmentEntityByParentId = this.sysDepartmentMapper.selectByPrimaryKey(sysDepartmentReqBean.getParentId());
             Assert.notNull(sysDepartmentEntityByParentId , "选择的上级部门不存在!");
             sysDepartmentEntity.setParentId(sysDepartmentReqBean.getParentId());
         }
-        Assert.notNull(sysDepartmentReqBean.getGrade() , "部门等级不能为空!");
         sysDepartmentEntity.setGrade(sysDepartmentReqBean.getGrade());
         sysDepartmentEntity.setRemarks(sysDepartmentReqBean.getRemarks());
         SysUserEntity sysUserEntity = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(reqBeanModel.getUserId()));
