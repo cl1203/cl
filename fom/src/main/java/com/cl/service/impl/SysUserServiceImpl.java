@@ -78,7 +78,11 @@ public class SysUserServiceImpl implements ISysUserService {
             e.printStackTrace();
         }
         sysUserEntity.setPassword(password);
-        sysUserEntity.setOrgId(orgId);
+        if(null != reqBeanModel.getReqData().getOrgId()){
+            sysUserEntity.setOrgId(reqBeanModel.getReqData().getOrgId());
+        }else{
+            sysUserEntity.setOrgId(orgId);
+        }
         sysUserEntity.setCreateUser(reqBeanModel.getUserId());
         Integer i = this.sysUserMapper.insertSelective(sysUserEntity);
         Assert.isTrue(i.equals(DictionaryConstants.ALL_BUSINESS_ONE), "新增用户失败! 用户名: " + sysUserEntity.getUserName());

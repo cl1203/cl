@@ -66,10 +66,14 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     }
 
     @Override
+    public List<PulldownMenuResBean> queryDepartmentPulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel) {
+        PulldownMenuReqBean pulldownMenuReqBean = requestBeanModel.getReqData();
+        return this.pulldownMenuMapper.queryDepartmentPulldownMenu(pulldownMenuReqBean);
+    }
+
+    @Override
     public List<PulldownMenuResBean> queryRolePulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel) {
         PulldownMenuReqBean pulldownMenuReqBean = requestBeanModel.getReqData();
-        Long orgId = this.selectOrgIdByUserId(Long.valueOf(requestBeanModel.getUserId()));
-        pulldownMenuReqBean.setOrgId(orgId);
         return this.pulldownMenuMapper.queryRolePulldownMenu(pulldownMenuReqBean);
     }
 

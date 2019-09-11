@@ -73,12 +73,8 @@
         sr.name name
         FROM
         sys_role sr
-        LEFT JOIN sys_org so on so.id = sr.org_id
         WHERE
         sr.status = 1
-        AND
-          so.status = 1
-        AND so.id = #{orgId}
         <if test="name != null  and name !='' ">
             AND sr.name = #{name}
         </if>
@@ -86,6 +82,23 @@
             AND sr.id = #{id}
         </if>
         order by sr.last_update_time desc
+    </select>
+
+    <select id="queryDepartmentPulldownMenu" resultType="com.cl.bean.res.PulldownMenuResBean" parameterType="com.cl.bean.req.PulldownMenuReqBean">
+        SELECT
+        sd.id ,
+        sd.name name
+        FROM
+        sys_department sd
+        WHERE
+        sd.status = 1
+        <if test="name != null  and name !='' ">
+            AND sd.name = #{name}
+        </if>
+        <if test="id !=null  ">
+            AND sd.id = #{id}
+        </if>
+        order by sd.last_update_time desc
     </select>
 
 

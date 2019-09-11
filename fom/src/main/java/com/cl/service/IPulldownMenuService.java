@@ -42,6 +42,13 @@ public interface IPulldownMenuService {
     List<PulldownMenuResBean> queryPermissionPulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel);
 
     /**
+     * 获部门下拉菜单 或者根据条件查询
+     * @param requestBeanModel
+     * @return
+     */
+    List<PulldownMenuResBean> queryDepartmentPulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel);
+
+    /**
      * 获取角色下拉菜单 或者根据条件查询
      * @param requestBeanModel
      * @return
