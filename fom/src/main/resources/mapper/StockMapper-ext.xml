@@ -43,6 +43,7 @@
 				#{item}
 			</foreach>
 		</if>
+		order by s.stock desc,sku
 	</select>
 
 </mapper>
