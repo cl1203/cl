@@ -129,6 +129,7 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
         SysPermissionEntityExample sysPermissionEntityExample = new SysPermissionEntityExample();
         SysPermissionEntityExample.Criteria criteria = sysPermissionEntityExample.createCriteria();
         criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
+        criteria.andParentIdEqualTo(Long.valueOf(DictionaryConstants.ALL_BUSINESS_ZERO));
         List<SysPermissionEntity> sysPermissionEntityList = this.sysPermissionMapper.selectByExample(sysPermissionEntityExample);
         List<SysPermissionResBean> sysPermissionResBeanList = this.sysPermissionTransform.transform(sysPermissionEntityList);
         this.queryPermissionByParentId(sysPermissionResBeanList);
