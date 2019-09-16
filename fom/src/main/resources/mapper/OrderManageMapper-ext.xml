@@ -86,9 +86,6 @@
 		<if test="startDate != null and startDate != '' and (endDate == null or endDate == '')">
 			and om.order_time = #{startDate}
 		</if>
-		<if test="producerOrgId != null and producerOrgId > 0">
-			and om.producer_org_id = #{producerOrgId}
-		</if>
 		<if test="producer != null and producer != ''">
 			and om.producer = #{producer}
 		</if>
