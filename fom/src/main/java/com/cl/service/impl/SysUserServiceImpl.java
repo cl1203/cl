@@ -148,7 +148,10 @@ public class SysUserServiceImpl implements ISysUserService {
         Assert.notNull(sysUserReqBean.getDepartmentId() , "请选择部门, 用户所属部门不能为空!");
         sysUserEntity.setDepartmentId(sysUserReqBean.getDepartmentId());
         if(StringUtils.isNotBlank(sysUserReqBean.getMobile())){
-
+            String mobileRegex = "/^1(3|4|5|7|8)\\d{9}$/;/";
+            if(!match(mobileRegex , sysUserReqBean.getMobile())) {
+                throw new BusinessException("手机号码不符合规则,请修改! ");
+            }
             sysUserEntity.setMobile(sysUserReqBean.getMobile());
         }
         sysUserEntity.setRemarks(sysUserReqBean.getRemarks());
