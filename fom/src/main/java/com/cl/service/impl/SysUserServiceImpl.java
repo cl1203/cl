@@ -15,6 +15,7 @@ import com.cl.service.IPulldownMenuService;
 import com.cl.service.ISysUserService;
 import com.cl.util.MD5Util;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -121,8 +122,11 @@ public class SysUserServiceImpl implements ISysUserService {
     private SysUserEntity checkUserReqBean(RequestBeanModel<SysUserReqBean> reqBeanModel){
         SysUserReqBean sysUserReqBean = reqBeanModel.getReqData();
         SysUserEntity sysUserEntity = new SysUserEntity();
-        Assert.hasText(sysUserReqBean.getUserName() , "用户名不能为空!");
-        Assert.isTrue(sysUserReqBean.getUserName().length() <= 20 ,"用户名太长,请修改!");
+        String userName = sysUserReqBean.getUserName();
+        Assert.hasText(userName , "用户名不能为空!");
+        if(userName.length() < 3 || userName.length() > 15){
+            throw new BusinessException("用户名长度应该在3-15位之间,请修改!");
+        }
         boolean flag = this.pulldownMenuService.checkBlankSpace(sysUserReqBean.getUserName());
         Assert.isTrue(flag , "用户名不能包含空格!");
         String regex = "^[a-z0-9A-Z]+$";
@@ -143,7 +147,10 @@ public class SysUserServiceImpl implements ISysUserService {
         sysUserEntity.setRealName(sysUserReqBean.getRealName());
         Assert.notNull(sysUserReqBean.getDepartmentId() , "请选择部门, 用户所属部门不能为空!");
         sysUserEntity.setDepartmentId(sysUserReqBean.getDepartmentId());
-        sysUserEntity.setMobile(sysUserReqBean.getMobile());
+        if(StringUtils.isNotBlank(sysUserReqBean.getMobile())){
+
+            sysUserEntity.setMobile(sysUserReqBean.getMobile());
+        }
         sysUserEntity.setRemarks(sysUserReqBean.getRemarks());
         SysUserEntity sysUserEntityByid = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(reqBeanModel.getUserId()));
         sysUserEntity.setLastUpdateUser(sysUserEntityByid.getRealName());

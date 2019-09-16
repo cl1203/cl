@@ -69,7 +69,7 @@
         AND o.producer = #{producer}
       </if>
       <if test="tailorName != null and tailorName != ''">
-        AND t.tailor_user_id = #{tailorName}
+        AND t.tailor_name = #{tailorName}
       </if>
       <if test="startDate !=null and startDate !='' and endDate != null and endDate !=''">
           and o.order_time &gt;= #{startDate}

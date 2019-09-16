@@ -121,7 +121,7 @@
     AND
       purchase_status !=0
     AND
-      materiel_type_code = '面料A'
+      purchase_type = '面料A'
   </select>
 
   <select id="selectTailorBySku" resultType="decimal" parameterType="string">

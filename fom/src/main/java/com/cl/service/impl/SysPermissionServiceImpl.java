@@ -78,7 +78,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         SysPermissionReqBean sysPermissionReqBean = reqBeanModel.getReqData();
         String name = sysPermissionReqBean.getName();
         Assert.hasText(name , "菜单名称不能为空");
-        Assert.isTrue(name.length() <= 20 ,"菜单名太长,请修改!");
+        Assert.isTrue(name.length() <= 10 ,"菜单名太长,请修改!");
         boolean flag = this.pulldownMenuService.checkBlankSpace(name);
         Assert.isTrue(flag , "菜单名不能包含空格!");
         SysPermissionEntityExample sysPermissionEntityExample = new SysPermissionEntityExample();
@@ -158,16 +158,17 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         sysRolePermissionEntity.setStatus(DictionaryConstants.DETELE);
         sysRolePermissionEntity.setLastUpdateTime(new Date());
         sysRolePermissionEntity.setLastUpdateUser(reqBeanModel.getUserId());
-        SysRolePermissionEntityExample sysRolePermissionEntityExample = new SysRolePermissionEntityExample();
-        SysRolePermissionEntityExample.Criteria criteria = sysRolePermissionEntityExample.createCriteria();
-        criteria.andLastUpdateTimeEqualTo(new Date());
-        singleParamList.forEach(singleParam -> {
+
+        for(SingleParam singleParam : singleParamList){
+            SysRolePermissionEntityExample sysRolePermissionEntityExample = new SysRolePermissionEntityExample();
+            SysRolePermissionEntityExample.Criteria criteria = sysRolePermissionEntityExample.createCriteria();
+            criteria.andLastUpdateTimeEqualTo(new Date());
             Long id = Long.valueOf(singleParam.getParam());
             sysPermissionEntity.setId(id);
             Integer i = this.sysPermissionMapper.updateByPrimaryKeySelective(sysPermissionEntity);
             Assert.isTrue(i.equals(DictionaryConstants.ALL_BUSINESS_ONE), "删除数据失败!");
             criteria.andPermissionIdEqualTo(id);
             this.sysRolePermissionMapper.updateByExample(sysRolePermissionEntity , sysRolePermissionEntityExample);
-        });
+        }
     }
 }
