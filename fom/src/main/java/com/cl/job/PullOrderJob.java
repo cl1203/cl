@@ -295,6 +295,9 @@ public class PullOrderJob {
 		if(StringUtils.isBlank(order.getAcceptOrderTime())) {
 			sb.append("接单时间不能为空！");
 		}
+		if(StringUtils.isBlank(order.getPlaceOrderTime())) {
+			sb.append("下单时间不能为空！");
+		}
 		Pattern pattern = Pattern.compile(ApiConstants.DATETIME_REG);
 		if(StringUtils.isNotBlank(order.getAcceptOrderTime())) {
 			Matcher matcher = pattern.matcher(order.getAcceptOrderTime());
@@ -308,10 +311,6 @@ public class PullOrderJob {
 				sb.append("下单时间不符合规则！");
 			}
 		}
-		if(StringUtils.isBlank(order.getPlaceOrderTime())) {
-			sb.append("下单时间不能为空！");
-		}
-		
 		if(StringUtils.isBlank(order.getDeliveryTime())) {
 			sb.append("目标交期不能为空！");
 		}
@@ -326,7 +325,7 @@ public class PullOrderJob {
 			sb.append("订单图片不能为空！");
 		}
 		if(StringUtils.isBlank(order.getProducer())) {
-			sb.append("生产方不能为空！");
+			order.setProducer("欧丝丹");
 		}
 		if(order.getQuantity() <= ApiConstants.ZERO) {
 			sb.append("数量必须大于0");
@@ -418,9 +417,9 @@ public class PullOrderJob {
 		if(StringUtils.isBlank(sp.getProcessName())) {
 			sb.append("工艺名称不能为空！");
 		}
-		if(StringUtils.isBlank(sp.getSupplierName())) {
-			sb.append("供应商名称不能为空！");
-		}
+//		if(StringUtils.isBlank(sp.getSupplierName())) {
+//			sb.append("供应商名称不能为空！");
+//		}
 		if(sp.getUnitPrice() == null || sp.getUnitPrice().compareTo(new BigDecimal(0)) <= ApiConstants.ZERO) {
 			sb.append("单价必须大于0！");
 		}

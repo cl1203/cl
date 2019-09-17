@@ -41,6 +41,33 @@ public final class HttpClientUtils {
 
 	private final static boolean alwaysClose = true;
 	
+//	public static void main(String[] args) throws Exception {
+//		Map<String,String> params = new HashMap<String, String>();
+//		params.put("startTime", "2019-09-16 11:40:31");
+//		params.put("endTime", "2019-09-16 11:50:00");
+//		Map<String,String> headerParams = new HashMap<>();
+//		String appId = "F0005FqG*bC";
+//		String appSecure = "vvjfBa#8XR";
+//		String uri = "/platform/order/queryProduceOrderInfo";
+//		String privateKey = "MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAoctb4JxWViUVUdTBRH2WE1vLmBqo/tcayUcbG2jwGKNvVfty6SuOEer8onYz2m/SV2HnMkX0i4/1XZCo5t6GTwIDAQABAkAUQOzDdU6pggLlN4jqFf6PddJKvCujmzHTOH+AMua7bqcespYx+FD4C3/xcz9BMJdNaut5nVMdWf5V3FNpNXGhAiEA1p+4x/n88iPzJAApUdjQICL3Xvn1cVQiX7nuDhxsyA0CIQDA/Fq6xMpp/c4oXM1sKlGrhtnXVl7YAjir/GwFFk50ywIgcuUWepetfcMZCpC7jgFPiaSuYL3XU1ADBtP2SL+WzJECICcewLGdlL6ZoYHTFh04EugnZN9e9cjp4l0SxT7ev7azAiEAt09Yog0VBI0OjpF/basZhyqWPPU3iPb//M18rR3He6k=";
+//		headerParams.put("appId", appId);
+//		headerParams.put("appSecure", appSecure);
+//		Date now = new Date();
+//		headerParams.put("timestamp", String.valueOf(now.getTime()));
+//		String content = appId + "," + appSecure + "," + uri + "," + now.getTime();
+//		String sign = RsaUtil.executeSignature(privateKey, content);
+//		headerParams.put("sign", sign);
+//		headerParams.put("uri", uri);
+//		String result = HttpClientUtils.httpPostWithJSON("https://www.020mes.com" + uri, params,headerParams);
+//		System.out.println("result:" + result);
+//		InfResBean resBean = JSONObject.parseObject(result, InfResBean.class);
+//		List<OrderResBean> orderList = resBean.getInfo();
+//		for(OrderResBean order : orderList) {
+//			List<PurchaseBean> purchaseList = order.getPurchaseInfo();
+//			System.out.println(JSONObject.toJSONString(purchaseList));
+//		}
+//	}
+	
 	public static String httpPostWithJSON(String url, Map<String, String> params,Map<String,String> headerParams) throws Exception {
         HttpPost httpPost = new HttpPost(url);
         RequestConfig defaultRequestConfig = RequestConfig.custom()
@@ -64,13 +91,6 @@ public final class HttpClientUtils {
         }
         entity.setContentEncoding("UTF-8");    
         entity.setContentType("application/json");
-//        String appId = "F0005mauBUF";
-//		String appSecure = "nuX8Vj6ZcY";
-//		String privateKey = "MIIBVgIBADANBgkqhkiG9w0BAQEFAASCAUAwggE8AgEAAkEApJ5OxE1EpZVq9bz6BHzsbBEsgIv4Kmn1Ana5jDY3S4ClQvKM3I2eWPP5AlMGg7SsMH8890xjxS9hchGAk5T0jwIDAQABAkEAnV08HMlkewmX4uvQ8SNeenv8V7H1/M2nSsCl5RQazc/XGs4v1YZMgYohVGA/rI6ing7nLut9sMtzLK+VjOHzgQIhANF15Itiqy0eLMEMXnakT/K7nZFBWsYnU3vuKFynwUJBAiEAyTHLz1KS/jj3I4C9F0FYCTBbX/fzUj2HaMDJ7KcT4s8CIQCK/zL0lDuHqziDuxOMo6kyKPJ9C+OTD1HFMduy8Ne8gQIhAJ0uSguudyglWO5jpVaFtkF3hetzyqR1bVRpSVeZL/ABAiBh4S6+k9oInL9TXZcv6lH2pKeovA1zkN/bZZSlcDWEEg==";
-//		Long timestamp = new Date().getTime();
-//		String uri = "/platform/order/queryProduceOrderInfo";
-//		String content = appId + "," + appSecure + "," + uri + "," + timestamp;
-//		String sign = RsaUtil.executeSignature(privateKey, content);
         httpPost.setHeader("appId", headerParams.get("appId"));
         httpPost.setHeader("appSecure", headerParams.get("appSecure"));
         httpPost.setHeader("timestamp", headerParams.get("timestamp"));
