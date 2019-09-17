@@ -250,13 +250,9 @@ public class PurchaseServiceImpl implements IPurchaseService {
             //实采单价
             purchaseEntity.setActualPickMonovalent(new BigDecimal(purchaseReqBean.getActualPickMonovalent()));
         }
-        if(StringUtils.isNotBlank(purchaseReqBean.getActualPickTotal())){
-            if(match(regexp , purchaseReqBean.getActualPickTotal())) {
-                throw new BusinessException("实采总额规则:整数位最多10位,小数位最多2位! ");
-            }
-            //实采总额
-            purchaseEntity.setActualPickTotal(new BigDecimal(purchaseReqBean.getActualPickTotal()));
-        }
+        //实采总额
+        BigDecimal actualPickTotal = new BigDecimal(purchaseReqBean.getActualPickQuantity()).multiply(new BigDecimal(purchaseReqBean.getActualPickMonovalent()));
+        purchaseEntity.setActualPickTotal(actualPickTotal.setScale(DictionaryConstants.PERMISSION_TYPE_TWO , BigDecimal.ROUND_HALF_UP));
         purchaseEntity.setId(purchaseReqBean.getId());//id
         return purchaseEntity;
     }
