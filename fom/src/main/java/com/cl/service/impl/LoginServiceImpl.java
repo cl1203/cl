@@ -81,14 +81,19 @@ public class LoginServiceImpl implements ILoginService{
         if(!(newPassword.length() >= DictionaryConstants.PASSWORD_MIN && newPassword.length() <= DictionaryConstants.PASSWORD_MAX)){
             throw new BusinessException("新密码长度必须在8-20之间!");
         }
-        boolean flag = this.pulldownMenuService.checkBlankSpace(loginReqBean.getNewPassword());
+        boolean flag = this.pulldownMenuService.checkBlankSpace(newPassword);
         Assert.isTrue(flag , "新密码不能包含空格!");
         String regex = "^[a-z0-9A-Z]+$";
         if(!match(regex , loginReqBean.getNewPassword())) {
             throw new BusinessException("密码格式规则: 必须只能包含数字和字母! ");
         }
+        try {
+            newPassword = MD5Util.getEncryptedPwd(DictionaryConstants.PASS_WORD);
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         SysUserEntity sysUserEntity = sysUserEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
-        sysUserEntity.setPassword(loginReqBean.getNewPassword());
+        sysUserEntity.setPassword(newPassword);
         Integer i = this.sysUserMapper.updateByPrimaryKeySelective(sysUserEntity);
         Assert.isTrue(i.equals(DictionaryConstants.ALL_BUSINESS_ONE), "修改密码失败!");
     }

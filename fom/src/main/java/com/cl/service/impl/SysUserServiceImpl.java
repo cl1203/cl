@@ -148,7 +148,7 @@ public class SysUserServiceImpl implements ISysUserService {
         Assert.notNull(sysUserReqBean.getDepartmentId() , "请选择部门, 用户所属部门不能为空!");
         sysUserEntity.setDepartmentId(sysUserReqBean.getDepartmentId());
         if(StringUtils.isNotBlank(sysUserReqBean.getMobile())){
-            String mobileRegex = "/^1(3|4|5|7|8)\\d{9}$/;/";
+            String mobileRegex = "^1(3|4|5|7|8)\\d{9}$";
             if(!match(mobileRegex , sysUserReqBean.getMobile())) {
                 throw new BusinessException("手机号码不符合规则,请修改! ");
             }
@@ -222,5 +222,23 @@ public class SysUserServiceImpl implements ISysUserService {
             //根据用户id删除用户角色关系表
             this.deleteUserRole(Long.valueOf(singleParam.getParam()));
         });
+    }
+
+    @Override
+    public void updateSysUserPassword(RequestBeanModel<SingleParam> reqBeanModel) {
+        SingleParam singleParam = reqBeanModel.getReqData();
+        String userId = singleParam.getParam();
+        Assert.hasText(userId , "用户ID不能为空,请选择需要重置的用户!");
+        SysUserEntity sysUserEntity = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(userId));
+        Assert.notNull(sysUserEntity , "用户id对应的用户不存在,错误数据!");
+        String password = null;
+        try {
+            password = MD5Util.getEncryptedPwd(DictionaryConstants.PASS_WORD);
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        sysUserEntity.setPassword(password);
+        Integer i = this.sysUserMapper.updateByPrimaryKeySelective(sysUserEntity);
+        Assert.isTrue(i.equals(DictionaryConstants.ALL_BUSINESS_ONE), "虫子密码失败! id " + userId);
     }
 }

@@ -41,4 +41,10 @@ public interface ISysUserService {
      * @param reqBeanModel
      */
     void deleteSysUser(RequestBeanModel<List<SingleParam>> reqBeanModel);
+
+    /**
+     * 重置密码
+     * @param reqBeanModel
+     */
+    void updateSysUserPassword(RequestBeanModel<SingleParam> reqBeanModel);
 }

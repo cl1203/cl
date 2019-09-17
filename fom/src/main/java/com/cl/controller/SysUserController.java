@@ -91,4 +91,19 @@ public class SysUserController {
         this.sysUserService.deleteSysUser(reqBeanModel);
         return new ResponseBeanModel<>("删除用户成功!");
     }
+
+    /**
+     * @Author 陈龙
+     * @Description 重置密码
+     * @Date 18:49 2019/8/11
+     * @Param [reqBeanMode]
+     * @return com.cl.comm.model.ResponseBeanModel<com.github.pagehelper.PageInfo<com.cl.bean.res.SysUserResBean>>
+     **/
+    @PostMapping("/updateSysUserPassword")
+    @ApiOperation(value = "重置密码" , notes = "根据用户ID重置密码")
+    @LoggerManage(description = "重置密码")
+    public ResponseBeanModel<Void> updateSysUserPassword(@RequestBody RequestBeanModel<SingleParam> reqBeanModel){
+        this.sysUserService.updateSysUserPassword(reqBeanModel);
+        return new ResponseBeanModel<>("重置密码成功!");
+    }
 }
