@@ -17,6 +17,23 @@
 		<result column="materiel_color" property="materielColor" /> -->
 	</resultMap>
 
+	<select id="selectSkuCountByParams" parameterType="java.util.Map" resultType="java.lang.Long">
+		select count(1)
+		from
+		(
+			select distinct(sku)
+			from (
+				select distinct(sku),last_update_time
+				from stock s 
+				where s.status = 1
+				<if test="sku != null and sku != ''">
+					and s.sku = #{sku}
+				</if>
+				order by s.last_update_time desc
+			) a
+		) b
+	</select>
+
 	<select id="selectSkuByParams" parameterType="java.util.Map" resultType="java.lang.String">
 		select distinct(sku)
 		from (
@@ -32,7 +49,7 @@
 			</if>
 		) a
 	</select>
-
+	
 	<select id="selectBySkuList" parameterType="java.util.Map" resultMap="stockResBeanResultMap">
 		select s.sku,s.material_sku,s.stock
 		from stock s

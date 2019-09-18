@@ -48,6 +48,12 @@ public class StockServiceImpl implements IStockService {
         if(StringUtils.isNotBlank(stockReqBean.getSku())) {
         	params.put("sku", stockReqBean.getSku());
         }
+        PageInfo<StockResBean> stockPageInfo = new PageInfo<>();
+        long total = stockMapper.selectSkuCountByParams(params);
+        stockPageInfo.setTotal(total);
+        if(total < 1) {
+        	return new PageInfo<>();
+        }
         int offset = (stockReqBean.getPageNum() - 1) * stockReqBean.getPageSize();
         params.put("offset", offset);
         params.put("limit", stockReqBean.getPageSize());
@@ -67,7 +73,8 @@ public class StockServiceImpl implements IStockService {
         		getPropertyByMateriaList(materiaList);
         	}
         }
-		return new PageInfo<>(stockList);
+        stockPageInfo.setList(stockList);
+		return stockPageInfo;
 	}
 	
 	private void getPropertyByMateriaList(List<MaterialResBean> materiaList) {
