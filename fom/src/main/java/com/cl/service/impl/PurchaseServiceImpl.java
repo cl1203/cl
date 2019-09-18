@@ -243,13 +243,12 @@ public class PurchaseServiceImpl implements IPurchaseService {
             purchaseEntity.setPurchaseTime(new Date());//采购日期
         }
         String regexp = "(^[+]{0,1}(0|([1-9]\\d{0,9}))(\\.\\d{1,2}){0,1}$){0,1}";
-        if(StringUtils.isNotBlank(purchaseReqBean.getActualPickMonovalent())){
-            if(match(regexp , purchaseReqBean.getActualPickMonovalent())) {
-                throw new BusinessException("实采单价规则:整数位最多10位,小数位最多2位! ");
-            }
-            //实采单价
-            purchaseEntity.setActualPickMonovalent(new BigDecimal(purchaseReqBean.getActualPickMonovalent()));
+        Assert.hasText(purchaseReqBean.getActualPickMonovalent() , "实采单价不能为空!");
+        if(match(regexp , purchaseReqBean.getActualPickMonovalent())) {
+            throw new BusinessException("实采单价规则:整数位最多10位,小数位最多2位! ");
         }
+        //实采单价
+        purchaseEntity.setActualPickMonovalent(new BigDecimal(purchaseReqBean.getActualPickMonovalent()));
         //实采总额
         BigDecimal actualPickTotal = new BigDecimal(purchaseReqBean.getActualPickQuantity()).multiply(new BigDecimal(purchaseReqBean.getActualPickMonovalent()));
         purchaseEntity.setActualPickTotal(actualPickTotal.setScale(DictionaryConstants.PERMISSION_TYPE_TWO , BigDecimal.ROUND_HALF_UP));
