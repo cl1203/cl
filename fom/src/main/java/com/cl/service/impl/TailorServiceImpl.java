@@ -143,7 +143,7 @@ public class TailorServiceImpl implements ITailorService {
             PurchaseEntity purchaseEntity = purchaseEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
             Assert.notNull(purchaseEntity.getSimpleUse() , "此订单号和物料sku获取的采购单号对应的单件用量为空!");
             //单件用量*实裁数
-            Integer tailorStock = Integer.valueOf(purchaseEntity.getSimpleUse().toString())*Integer.valueOf(actualCutQuantity);
+            Integer tailorStock = purchaseEntity.getSimpleUse().multiply(new BigDecimal(actualCutQuantity)).setScale(DictionaryConstants.ALL_BUSINESS_ZERO , BigDecimal.ROUND_UP).intValue();
             Integer stock = stockEntity.getStock();
             if(stock - tailorStock < 0){
                 throw new BusinessException("实裁录入错误, 录入后库存小于0!");

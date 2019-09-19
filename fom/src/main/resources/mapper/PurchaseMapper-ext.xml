@@ -41,8 +41,8 @@
     <if test="purchaseTime != null and purchaseTime != ''">
       and p.purchase_time = #{purchaseTime}
     </if>
-    <if test="materielType != null and materielType != ''">
-      and p.materiel_type_code = #{materielType}
+    <if test="purchaseType != null and purchaseType != ''">
+      and p.purchase_type = #{purchaseType}
     </if>
     <if test="supplierName != null and supplierName != ''">
       and p.supplier_name = #{supplierName}

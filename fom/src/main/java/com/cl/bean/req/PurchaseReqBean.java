@@ -52,7 +52,7 @@ public class PurchaseReqBean implements Serializable {
      * 物料分类
      */
     @ApiModelProperty(value = "物料分类")
-    private String materielType;
+    private String purchaseType;
 
     /**
      * 供应商名称
@@ -181,12 +181,12 @@ public class PurchaseReqBean implements Serializable {
         this.purchaseTime = purchaseTime;
     }
 
-    public String getMaterielType() {
-        return materielType;
+    public String getPurchaseType() {
+        return purchaseType;
     }
 
-    public void setMaterielType(String materielType) {
-        this.materielType = materielType;
+    public void setPurchaseType(String purchaseType) {
+        this.purchaseType = purchaseType;
     }
 
     public String getSupplierName() {
