@@ -44,10 +44,10 @@
 				and s.sku = #{sku}
 			</if>
 			order by s.last_update_time desc
-			<if test="offset != null and limit != null and limit > 0">
-				limit #{offset},#{limit}
-			</if>
 		) a
+		<if test="offset != null and limit != null and limit > 0">
+			limit #{offset},#{limit}
+		</if>
 	</select>
 	
 	<select id="selectBySkuList" parameterType="java.util.Map" resultMap="stockResBeanResultMap">
