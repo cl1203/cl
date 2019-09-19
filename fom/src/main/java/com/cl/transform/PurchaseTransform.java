@@ -43,6 +43,7 @@ public class PurchaseTransform extends AbstractObjectTransformer<PurchaseEntity 
             dictItem = dictItemList.get(0);
             purchaseResBean.setPurchaseStatusName(dictItem.getValue());
         }
+        purchaseResBean.setPurchaseType(purchaseEntity.getPurchaseType());//物料类型
         purchaseResBean.setMaterielName(purchaseEntity.getMaterielName());//物料名称
         purchaseResBean.setMaterielColor(purchaseEntity.getMaterielColor());//物料颜色
         purchaseResBean.setAnswerPickQuantity(purchaseEntity.getAnswerPickQuantity());//应采数量

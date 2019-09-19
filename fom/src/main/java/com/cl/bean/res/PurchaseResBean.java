@@ -106,6 +106,19 @@ public class PurchaseResBean implements Serializable {
     @ApiModelProperty(value = "采购耗时")
     private String consumingTime;
 
+    /**
+     * 物料分类
+     */
+    @ApiModelProperty(value = "物料分类")
+    private String purchaseType;
+
+    public String getPurchaseType() {
+        return purchaseType;
+    }
+
+    public void setPurchaseType(String purchaseType) {
+        this.purchaseType = purchaseType;
+    }
 
     public Byte getPurchaseStatus() {
         return purchaseStatus;
