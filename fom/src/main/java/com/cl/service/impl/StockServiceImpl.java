@@ -113,7 +113,7 @@ public class StockServiceImpl implements IStockService {
         	throw new BusinessException(Status.DUPLICATE_STOCK);
         }
         StockEntity entity = stockList.get(0);
-        entity.setStock(entity.getStock() + stockReqBean.getStock());
+        entity.setStock(stockReqBean.getStock());
         entity.setLastUpdateUser(reqBeanModel.getUsername());
         entity.setLastUpdateTime(new Date());
         stockMapper.updateByPrimaryKeySelective(entity);

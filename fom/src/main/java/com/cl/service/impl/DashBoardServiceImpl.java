@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,12 +62,15 @@ public class DashBoardServiceImpl implements IDashBoardService {
 		DashBoardReqBean reqBean = reqBeanModel.getReqData();
 		validateParams(reqBean);
 		List<DashBoardResBean> resBeanList = orderManageMapper.selectDashBoardByParams(reqBean);
+		List<DashBoardResBean> initResBeanList = init(reqBean);
 		if(CollectionUtils.isEmpty(resBeanList)) {
-			return new PageInfo<>(new ArrayList<DashBoardResBean>());
+			return new PageInfo<>(initResBeanList);
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date now = new Date();
 		String today = sdf.format(now);
+		PageInfo<DashBoardResBean> dashBoardResBeanPageInfo = new PageInfo<>();
+		Map<String,Object> mapBean = new HashMap<>();
 		for(DashBoardResBean bean : resBeanList) {
 			String date = bean.getDate();
 			if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
@@ -90,11 +94,53 @@ public class DashBoardServiceImpl implements IDashBoardService {
 				processDetailDeliveryTime(detail,reqBean,date);
 				bean.setDetail(detail);
 			}
+			mapBean.put(bean.getDate(), bean);
 		}
-		PageInfo<DashBoardResBean> dashBoardResBeanPageInfo = new PageInfo<>(resBeanList);
+		for(DashBoardResBean bean : initResBeanList) {
+			String date = bean.getDate();
+			if(mapBean.get(date) != null) {
+				BeanUtils.copyProperties(mapBean.get(date), bean);
+			}
+		}
+		dashBoardResBeanPageInfo.setList(initResBeanList);
 		return dashBoardResBeanPageInfo;
 	}
 	
+	private List<DashBoardResBean> init(DashBoardReqBean reqBean) throws Exception  {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date now = new Date();
+		String today = sdf.format(now);
+		List<DashBoardResBean> initResBeanList = new ArrayList<>();
+		Calendar c = Calendar.getInstance();
+		c.setTime(now);
+		for(int i = 1; i <= config.getDashBoardShowDay(); i++) {
+			DashBoardResBean bean = new DashBoardResBean();
+			String date = "";
+			if(i == 1) {
+				date = sdf.format(now);
+			}else {
+				date = sdf.format(c.getTime());
+			}
+//			if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
+//				bean.setDate(sdf.format(DateUtils.addDays(sdf.parse(date), config.getPurchaseDifference())));
+//			}else {
+//				bean.setDate(sdf.format(DateUtils.addDays(sdf.parse(date), config.getTailorDifference())));
+//			}
+			bean.setDate(date);
+			if(bean.getDate().equals(today)) {
+				bean.setDayOfWeek(DashBoardConstants.TODAY);
+			}else {
+				String week = DateUtils.dateToWeek(bean.getDate());
+				bean.setDayOfWeek(week);
+			}
+			bean.setOrderQuantity(DashBoardConstants.DEFAULT_ORDER_QUANTITY);
+			bean.setTailorQuantity(DashBoardConstants.DEFAULT_TAILOR_QUANTITY);
+			initResBeanList.add(bean);
+			c.add(Calendar.DAY_OF_MONTH, 1);
+		}
+		return initResBeanList;
+	}
+
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void updateOrderRemark(RequestBeanModel<DashBoardReqBean> reqBeanModel) {

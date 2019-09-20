@@ -29,4 +29,10 @@ public class DashBoardConstants {
 	
 	//查询裁减异常
 	public static final Byte QUERY_TAILOR = 2;
+	
+	//默认订单数量
+	public static final Integer DEFAULT_ORDER_QUANTITY = 0;
+	
+	//默认裁剪数量
+	public static final Integer DEFAULT_TAILOR_QUANTITY = 0;
 }
