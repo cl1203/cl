@@ -27,13 +27,9 @@
         su.real_name real_name
         FROM
         sys_user su
-        LEFT JOIN sys_user_role sur on su.id = sur.user_id
-        LEFT JOIN sys_role sr on sur.role_id = sr.id
-        LEFT JOIN sys_org so on sr.org_id = so.id
+        LEFT JOIN sys_org so on su.org_id = so.id
         WHERE
         su.status = 1
-        AND sur.status = 1
-        AND sr.status = 1
         AND so.status = 1
         <if test="orgId !=null ">
             AND so.id = #{orgId}
@@ -47,7 +43,6 @@
         <if test="id !=null  ">
             AND su.id = #{id}
         </if>
-        GROUP BY su.id , su.user_name
         order by su.last_update_time desc
     </select>
 
