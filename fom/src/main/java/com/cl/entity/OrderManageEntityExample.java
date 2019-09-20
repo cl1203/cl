@@ -835,6 +835,66 @@ public class OrderManageEntityExample {
             return (Criteria) this;
         }
 
+        public Criteria andWaitTailorTimeIsNull() {
+            addCriterion("wait_tailor_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitTailorTimeIsNotNull() {
+            addCriterion("wait_tailor_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitTailorTimeEqualTo(Date value) {
+            addCriterion("wait_tailor_time =", value, "waitTailorTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitTailorTimeNotEqualTo(Date value) {
+            addCriterion("wait_tailor_time <>", value, "waitTailorTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitTailorTimeGreaterThan(Date value) {
+            addCriterion("wait_tailor_time >", value, "waitTailorTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitTailorTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("wait_tailor_time >=", value, "waitTailorTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitTailorTimeLessThan(Date value) {
+            addCriterion("wait_tailor_time <", value, "waitTailorTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitTailorTimeLessThanOrEqualTo(Date value) {
+            addCriterion("wait_tailor_time <=", value, "waitTailorTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitTailorTimeIn(List<Date> values) {
+            addCriterion("wait_tailor_time in", values, "waitTailorTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitTailorTimeNotIn(List<Date> values) {
+            addCriterion("wait_tailor_time not in", values, "waitTailorTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitTailorTimeBetween(Date value1, Date value2) {
+            addCriterion("wait_tailor_time between", value1, value2, "waitTailorTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaitTailorTimeNotBetween(Date value1, Date value2) {
+            addCriterion("wait_tailor_time not between", value1, value2, "waitTailorTime");
+            return (Criteria) this;
+        }
+
         public Criteria andOrderStatusIsNull() {
             addCriterion("order_status is null");
             return (Criteria) this;

@@ -13,6 +13,7 @@
     <result column="surplus_time" jdbcType="VARCHAR" property="surplusTime" />
     <result column="purchase_time" jdbcType="INTEGER" property="purchaseTime" />
     <result column="tailoring_time" jdbcType="INTEGER" property="tailoringTime" />
+    <result column="wait_tailor_time" jdbcType="TIMESTAMP" property="waitTailorTime" />
     <result column="order_status" jdbcType="TINYINT" property="orderStatus" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -80,8 +81,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, order_no, order_quantity, order_time, order_img_url, sku, is_first, producer, 
-    surplus_time, purchase_time, tailoring_time, order_status, remarks, create_time, 
-    create_user, last_update_time, last_update_user
+    surplus_time, purchase_time, tailoring_time, wait_tailor_time, order_status, remarks, 
+    create_time, create_user, last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.OrderManageEntityExample" resultMap="BaseResultMap">
     select
@@ -125,15 +126,15 @@
     insert into order_manage (order_no, order_quantity, order_time, 
       order_img_url, sku, is_first, 
       producer, surplus_time, purchase_time, 
-      tailoring_time, order_status, remarks, 
-      create_time, create_user, last_update_time, 
-      last_update_user)
+      tailoring_time, wait_tailor_time, order_status, 
+      remarks, create_time, create_user, 
+      last_update_time, last_update_user)
     values (#{orderNo,jdbcType=VARCHAR}, #{orderQuantity,jdbcType=INTEGER}, #{orderTime,jdbcType=TIMESTAMP}, 
       #{orderImgUrl,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, #{isFirst,jdbcType=TINYINT}, 
       #{producer,jdbcType=VARCHAR}, #{surplusTime,jdbcType=VARCHAR}, #{purchaseTime,jdbcType=INTEGER}, 
-      #{tailoringTime,jdbcType=INTEGER}, #{orderStatus,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
-      #{lastUpdateUser,jdbcType=VARCHAR})
+      #{tailoringTime,jdbcType=INTEGER}, #{waitTailorTime,jdbcType=TIMESTAMP}, #{orderStatus,jdbcType=TINYINT}, 
+      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.OrderManageEntity" useGeneratedKeys="true">
     insert into order_manage
@@ -167,6 +168,9 @@
       </if>
       <if test="tailoringTime != null">
         tailoring_time,
+      </if>
+      <if test="waitTailorTime != null">
+        wait_tailor_time,
       </if>
       <if test="orderStatus != null">
         order_status,
@@ -217,6 +221,9 @@
       </if>
       <if test="tailoringTime != null">
         #{tailoringTime,jdbcType=INTEGER},
+      </if>
+      <if test="waitTailorTime != null">
+        #{waitTailorTime,jdbcType=TIMESTAMP},
       </if>
       <if test="orderStatus != null">
         #{orderStatus,jdbcType=TINYINT},
@@ -280,6 +287,9 @@
       <if test="record.tailoringTime != null">
         tailoring_time = #{record.tailoringTime,jdbcType=INTEGER},
       </if>
+      <if test="record.waitTailorTime != null">
+        wait_tailor_time = #{record.waitTailorTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="record.orderStatus != null">
         order_status = #{record.orderStatus,jdbcType=TINYINT},
       </if>
@@ -316,6 +326,7 @@
       surplus_time = #{record.surplusTime,jdbcType=VARCHAR},
       purchase_time = #{record.purchaseTime,jdbcType=INTEGER},
       tailoring_time = #{record.tailoringTime,jdbcType=INTEGER},
+      wait_tailor_time = #{record.waitTailorTime,jdbcType=TIMESTAMP},
       order_status = #{record.orderStatus,jdbcType=TINYINT},
       remarks = #{record.remarks,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -359,6 +370,9 @@
       <if test="tailoringTime != null">
         tailoring_time = #{tailoringTime,jdbcType=INTEGER},
       </if>
+      <if test="waitTailorTime != null">
+        wait_tailor_time = #{waitTailorTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="orderStatus != null">
         order_status = #{orderStatus,jdbcType=TINYINT},
       </if>
@@ -392,6 +406,7 @@
       surplus_time = #{surplusTime,jdbcType=VARCHAR},
       purchase_time = #{purchaseTime,jdbcType=INTEGER},
       tailoring_time = #{tailoringTime,jdbcType=INTEGER},
+      wait_tailor_time = #{waitTailorTime,jdbcType=TIMESTAMP},
       order_status = #{orderStatus,jdbcType=TINYINT},
       remarks = #{remarks,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

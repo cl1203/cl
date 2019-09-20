@@ -64,6 +64,11 @@ public class OrderManageEntity implements Serializable {
     private Integer tailoringTime;
 
     /**
+     * 采购完成时间
+     */
+    private Date waitTailorTime;
+
+    /**
      * 订单状态0: 已删除1:待采购 2:采购中 3:待裁剪 4:已裁剪
      */
     private Byte orderStatus;
@@ -183,6 +188,14 @@ public class OrderManageEntity implements Serializable {
         this.tailoringTime = tailoringTime;
     }
 
+    public Date getWaitTailorTime() {
+        return waitTailorTime;
+    }
+
+    public void setWaitTailorTime(Date waitTailorTime) {
+        this.waitTailorTime = waitTailorTime;
+    }
+
     public Byte getOrderStatus() {
         return orderStatus;
     }
@@ -254,6 +267,7 @@ public class OrderManageEntity implements Serializable {
             && (this.getSurplusTime() == null ? other.getSurplusTime() == null : this.getSurplusTime().equals(other.getSurplusTime()))
             && (this.getPurchaseTime() == null ? other.getPurchaseTime() == null : this.getPurchaseTime().equals(other.getPurchaseTime()))
             && (this.getTailoringTime() == null ? other.getTailoringTime() == null : this.getTailoringTime().equals(other.getTailoringTime()))
+            && (this.getWaitTailorTime() == null ? other.getWaitTailorTime() == null : this.getWaitTailorTime().equals(other.getWaitTailorTime()))
             && (this.getOrderStatus() == null ? other.getOrderStatus() == null : this.getOrderStatus().equals(other.getOrderStatus()))
             && (this.getRemarks() == null ? other.getRemarks() == null : this.getRemarks().equals(other.getRemarks()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -277,6 +291,7 @@ public class OrderManageEntity implements Serializable {
         result = prime * result + ((getSurplusTime() == null) ? 0 : getSurplusTime().hashCode());
         result = prime * result + ((getPurchaseTime() == null) ? 0 : getPurchaseTime().hashCode());
         result = prime * result + ((getTailoringTime() == null) ? 0 : getTailoringTime().hashCode());
+        result = prime * result + ((getWaitTailorTime() == null) ? 0 : getWaitTailorTime().hashCode());
         result = prime * result + ((getOrderStatus() == null) ? 0 : getOrderStatus().hashCode());
         result = prime * result + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -303,6 +318,7 @@ public class OrderManageEntity implements Serializable {
         sb.append(", surplusTime=").append(surplusTime);
         sb.append(", purchaseTime=").append(purchaseTime);
         sb.append(", tailoringTime=").append(tailoringTime);
+        sb.append(", waitTailorTime=").append(waitTailorTime);
         sb.append(", orderStatus=").append(orderStatus);
         sb.append(", remarks=").append(remarks);
         sb.append(", createTime=").append(createTime);

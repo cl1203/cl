@@ -129,6 +129,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
                 int j = this.purchaseMapper.updatePurchaseStatusByOrderNo(purchaseReqBean.getOrderNo());//修改为采购已完成
                 Assert.isTrue(j > DictionaryConstants.ALL_BUSINESS_ZERO , "修改采购单状态失败!");
                 updateOrderEntity.setOrderStatus(DictionaryConstants.ORDER_STATUS_WAIT_TAILOR);//修改订单为待裁剪
+                updateOrderEntity.setWaitTailorTime(new Date());
                 int k = this.orderManageMapper.updateByPrimaryKeySelective(updateOrderEntity);
                 Assert.isTrue(k > DictionaryConstants.ALL_BUSINESS_ZERO , "修改订单状态失败!");
                 //调用生成裁剪数据接口
