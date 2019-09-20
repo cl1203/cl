@@ -25,7 +25,7 @@
     p.last_update_user last_update_user
     from purchase p
     left join order_manage o on p.order_no = o.order_no
-    where p.purchase_status in (1 , 2)
+    where p.purchase_status in (1 , 2 , 3)
     <if test="orderNo !=null and orderNo !='' ">
       and o.order_no = #{orderNo}
     </if>
@@ -132,8 +132,8 @@
     LEFT JOIN order_manage o ON t.order_no = o.order_no
     WHERE
         o.sku = #{sku}
-    AND t.status != 0
-    AND o.status != 0
+    AND t.tailo_status != 0
+    AND o.order_status != 0
     ORDER BY t.create_time DESC
     LIMIT 1
   </select>

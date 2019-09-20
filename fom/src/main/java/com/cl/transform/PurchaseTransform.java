@@ -2,6 +2,7 @@ package com.cl.transform;
 
 import com.cl.bean.res.DictItem;
 import com.cl.bean.res.PurchaseResBean;
+import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.transformer.AbstractObjectTransformer;
 import com.cl.entity.PurchaseEntity;
@@ -40,7 +41,7 @@ public class PurchaseTransform extends AbstractObjectTransformer<PurchaseEntity 
             dictItem.setCode(String.valueOf(purchaseEntity.getPurchaseStatus()));
             requestBeanModel.setReqData(dictItem);
             List<DictItem> dictItemList = this.iPulldownMenuService.queryDictItemList(requestBeanModel);
-            dictItem = dictItemList.get(0);
+            dictItem = dictItemList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
             purchaseResBean.setPurchaseStatusName(dictItem.getValue());
         }
         purchaseResBean.setPurchaseType(purchaseEntity.getPurchaseType());//物料类型

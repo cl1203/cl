@@ -35,7 +35,9 @@
         AND sur.status = 1
         AND sr.status = 1
         AND so.status = 1
-        AND so.id = #{orgId}
+        <if test="orgId !=null ">
+            AND so.id = #{orgId}
+        </if>
         <if test="name != null and name !='' ">
             AND su.user_name = #{name}
         </if>

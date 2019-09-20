@@ -55,7 +55,9 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     public List<PulldownMenuResBean> queryUserPulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel) {
         PulldownMenuReqBean pulldownMenuReqBean = requestBeanModel.getReqData();
         Long orgId = this.selectOrgIdByUserId(Long.valueOf(requestBeanModel.getUserId()));
-        pulldownMenuReqBean.setOrgId(orgId);
+        if(!orgId.equals(Long.valueOf(DictionaryConstants.ADMIN_ORG_ID))){
+            pulldownMenuReqBean.setOrgId(orgId);
+        }
         return this.pulldownMenuMapper.queryUserPulldownMenu(pulldownMenuReqBean);
     }
 
