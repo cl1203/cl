@@ -7,6 +7,7 @@ import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.transformer.AbstractObjectTransformer;
 import com.cl.entity.PurchaseEntity;
 import com.cl.service.IPulldownMenuService;
+import com.cl.util.DateUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -34,6 +35,7 @@ public class PurchaseTransform extends AbstractObjectTransformer<PurchaseEntity 
         purchaseResBean.setId(purchaseEntity.getId());//id
         purchaseResBean.setPurchaseNo(purchaseEntity.getPurchaseNo());//采购单号
         purchaseResBean.setOrderNo(purchaseEntity.getOrderNo());//订单号
+        purchaseResBean.setPurchaseTime(DateUtils.getDateString(purchaseEntity.getPurchaseTime() , DateUtils.DATESHOWFORMAT));
         if(null != purchaseEntity.getPurchaseStatus()){//采购单状态
             RequestBeanModel requestBeanModel = new RequestBeanModel();
             DictItem dictItem = new DictItem();
@@ -43,6 +45,7 @@ public class PurchaseTransform extends AbstractObjectTransformer<PurchaseEntity 
             List<DictItem> dictItemList = this.iPulldownMenuService.queryDictItemList(requestBeanModel);
             dictItem = dictItemList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
             purchaseResBean.setPurchaseStatusName(dictItem.getValue());
+            purchaseResBean.setPurchaseStatus(purchaseEntity.getPurchaseStatus());
         }
         purchaseResBean.setPurchaseType(purchaseEntity.getPurchaseType());//物料类型
         purchaseResBean.setMaterielName(purchaseEntity.getMaterielName());//物料名称

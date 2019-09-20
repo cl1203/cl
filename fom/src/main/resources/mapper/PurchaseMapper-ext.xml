@@ -8,6 +8,7 @@
     p.purchase_no purchase_no,
     p.purchase_status purchase_status,
     p.order_no order_no,
+    p.purchase_time purchase_time,
     p.materiel_name materiel_name,
     p.materiel_color materiel_color,
     p.answer_pick_quantity answer_pick_quantity,
@@ -38,9 +39,6 @@
     <if test="purchaseStatus != null and purchaseStatus != ''">
       and p.purchase_status = #{purchaseStatus}
     </if>
-    <if test="purchaseTime != null and purchaseTime != ''">
-      and p.purchase_time = #{purchaseTime}
-    </if>
     <if test="purchaseType != null and purchaseType != ''">
       and p.purchase_type = #{purchaseType}
     </if>
@@ -48,8 +46,8 @@
       and p.supplier_name = #{supplierName}
     </if>
     <if test="startDate !=null and startDate !='' and endDate != null and endDate !=''">
-      and o.order_time &gt;= #{startDate}
-      and o.order_time &lt;= #{startDate}
+      and p.purchase_time &gt;= #{startDate}
+      and p.purchase_time &lt;= #{endDate}
     </if>
   </select>
 
