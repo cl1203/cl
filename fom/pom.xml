@@ -101,6 +101,12 @@
 			<groupId>org.quartz-scheduler</groupId>
 			<artifactId>quartz</artifactId>
 		</dependency>
+		<!-- quartz依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
+		
 		<!--  aop -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -224,6 +230,17 @@
             <artifactId>guava</artifactId>
             <version>19.0</version>
         </dependency>-->
+		<!-- spring-security-->
+		<!--<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		&lt;!&ndash; jwt&ndash;&gt;
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.7.0</version>
+		</dependency>-->
 	</dependencies>
 
 	<build>
