@@ -68,7 +68,7 @@ public interface IPulldownMenuService {
      * @Param [supplierName]
      * @return java.util.List<java.lang.String>
      **/
-    List<SingleParam> queryInputSupplierName();
+    List<SingleParam> queryInputSupplierName(RequestBeanModel<SingleParam> requestBeanModel);
 
     /**
      * @Author 陈龙

@@ -79,7 +79,7 @@ public interface PulldownMenuMapper {
      * @Param [supplierName]
      * @return java.util.List<java.lang.String>
      **/
-    List<SingleParam> queryInputSupplierName();
+    List<SingleParam> queryInputSupplierName(String name);
 
     /**
      * @Author 陈龙
