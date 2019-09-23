@@ -21,8 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -73,11 +71,8 @@ public class SysUserServiceImpl implements ISysUserService {
         //校验reqBean 并转entity
         SysUserEntity sysUserEntity = this.checkUserReqBean(reqBeanModel);
         String password = null;
-        try {
-            password = MD5Util.getEncryptedPwd(DictionaryConstants.PASS_WORD);
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        password = MD5Util.getInstance().encrypt(DictionaryConstants.PASS_WORD);
+        password = MD5Util.getInstance().encryptBySalt(password);
         sysUserEntity.setPassword(password);
         if(null != reqBeanModel.getReqData().getOrgId()){
             sysUserEntity.setOrgId(reqBeanModel.getReqData().getOrgId());
@@ -232,11 +227,8 @@ public class SysUserServiceImpl implements ISysUserService {
         SysUserEntity sysUserEntity = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(userId));
         Assert.notNull(sysUserEntity , "用户id对应的用户不存在,错误数据!");
         String password = null;
-        try {
-            password = MD5Util.getEncryptedPwd(DictionaryConstants.PASS_WORD);
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        password = MD5Util.getInstance().encrypt(DictionaryConstants.PASS_WORD);
+        password = MD5Util.getInstance().encryptBySalt(password);
         sysUserEntity.setPassword(password);
         Integer i = this.sysUserMapper.updateByPrimaryKeySelective(sysUserEntity);
         Assert.isTrue(i.equals(DictionaryConstants.ALL_BUSINESS_ONE), "虫子密码失败! id " + userId);

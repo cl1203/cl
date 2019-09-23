@@ -4,6 +4,7 @@ import com.cl.bean.req.LoginReqBean;
 import com.cl.bean.res.LoginResBean;
 import com.cl.bean.res.SysPermissionResBean;
 import com.cl.bean.res.SysUserResBean;
+import com.cl.comm.model.TokenInfo;
 import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.RequestBeanModel;
@@ -14,13 +15,12 @@ import com.cl.entity.SysUserEntityExample;
 import com.cl.service.ILoginService;
 import com.cl.service.IPulldownMenuService;
 import com.cl.util.MD5Util;
+import com.cl.util.UUIDUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -50,12 +50,21 @@ public class LoginServiceImpl implements ILoginService{
         LoginResBean loginResBean = new LoginResBean();
         LoginReqBean loginReqBean = reqBeanModel.getReqData();
         List<SysUserEntity> sysUserEntityList = this.checkUser(loginReqBean);
+
         SysUserEntity sysUserEntity = sysUserEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
         SysUserResBean sysUserResBean = this.sysUserTransform.transform(sysUserEntity);
         List<SysPermissionResBean> sysPermissionResBeanList = this.sysUserMapper.selectPermissionListByUserId(sysUserEntity.getId());
         this.pulldownMenuService.queryPermissionByParentId(sysPermissionResBeanList);
         loginResBean.setSysUserResBean(sysUserResBean);
         loginResBean.setSysPermissionResBeanList(sysPermissionResBeanList);
+        String token = UUIDUtils.getUUID();
+        // token存入缓存中
+        String userId = sysUserEntity.getId().toString();
+        TokenInfo tokenInfo = new TokenInfo();
+        tokenInfo.setDate(System.currentTimeMillis());
+        tokenInfo.setToken(token);
+        DictionaryConstants.currentLoginTokenMap.put(userId,tokenInfo);
+        loginResBean.setToken(token);
         return loginResBean;
     }
 
@@ -87,11 +96,7 @@ public class LoginServiceImpl implements ILoginService{
         if(!match(regex , loginReqBean.getNewPassword())) {
             throw new BusinessException("密码格式规则: 必须只能包含数字和字母! ");
         }
-        try {
-            newPassword = MD5Util.getEncryptedPwd(DictionaryConstants.PASS_WORD);
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        newPassword = MD5Util.getInstance().encryptBySalt(newPassword);
         SysUserEntity sysUserEntity = sysUserEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
         sysUserEntity.setPassword(newPassword);
         Integer i = this.sysUserMapper.updateByPrimaryKeySelective(sysUserEntity);
@@ -113,12 +118,9 @@ public class LoginServiceImpl implements ILoginService{
         Assert.notEmpty(sysUserEntityList , "该用户名不存在!");
         SysUserEntity sysUserEntity = sysUserEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
         String pwdInDb = sysUserEntity.getPassword();
-        try {
-            boolean flag = MD5Util.validPassword(password , pwdInDb);
-            Assert.isTrue(flag , "用户名和密码不匹配!");
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        password = MD5Util.getInstance().encryptBySalt(password);
+        boolean flag = password.equals(pwdInDb);
+        Assert.isTrue(flag , "用户名和密码不匹配!");
         return  sysUserEntityList;
     }
 }

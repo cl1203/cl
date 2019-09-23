@@ -1,5 +1,9 @@
 package com.cl.comm.constants;
 
+import com.cl.comm.model.TokenInfo;
+
+import java.util.HashMap;
+
 /**
  * @ClassName DictionaryConstants
  * @Description 数据字典公共编码
@@ -34,4 +38,20 @@ public class DictionaryConstants {
     public static final Byte PERMISSION_TYPE_ONE = 1;
     public static final Byte PERMISSION_TYPE_TWO = 2;
     public static final Byte PERMISSION_TYPE_THREE = 3;
+
+    /**
+     * 通用失败状态码
+     */
+    public final static Integer failCode = 55555;
+
+    /**
+     *当前登陆的token以及时间
+     */
+    public  static HashMap<String,TokenInfo> currentLoginTokenMap = new HashMap<>();
+
+    /**
+     * 登陆时间有效性 30 分钟 = 30*60*1000
+     */
+    public static long loginUserfulTime = 1000 * 60 * 30;
+
 }
