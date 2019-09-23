@@ -92,9 +92,7 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     public List<SingleParam> queryInputSupplierName(RequestBeanModel<SingleParam> requestBeanModel) {
         SingleParam singleParam = requestBeanModel.getReqData();
         if(null != singleParam){
-            if(StringUtils.isNotBlank(singleParam.getParam())){
-                return this.pulldownMenuMapper.queryInputSupplierName(singleParam.getParam());
-            }
+            return this.pulldownMenuMapper.queryInputSupplierName(singleParam.getParam());
         }
         return null;
     }
