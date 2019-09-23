@@ -1,3 +1,4 @@
+/*
 package com.cl.util;
 
 import java.io.UnsupportedEncodingException;
@@ -11,11 +12,13 @@ public class MD5Util {
     private static final String HEX_NUMS_STR = "0123456789ABCDEF";
     private static final Integer SALT_LENGTH = 12;
 
-    /**
+    */
+/**
      * 将16进制字符串转换成字节数组
      * @param hex
      * @return
-     */
+     *//*
+
     public static byte[] hexStringToByte(String hex) {
         int len = (hex.length() / 2);
         byte[] result = new byte[len];
@@ -28,12 +31,14 @@ public class MD5Util {
         return result;
     }
 
-    /**
+    */
+/**
      * 将指定byte数组转换成16进制字符串
      *
      * @param b
      * @return
-     */
+     *//*
+
     public static String byteToHexString(byte[] b) {
         StringBuffer hexString = new StringBuffer();
         for (int i = 0; i < b.length; i++) {
@@ -46,7 +51,8 @@ public class MD5Util {
         return hexString.toString();
     }
 
-    /**
+    */
+/**
      * 验证口令是否合法
      *
      * @param password
@@ -54,7 +60,8 @@ public class MD5Util {
      * @return
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
-     */
+     *//*
+
     public static boolean validPassword(String password, String passwordInDb)
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
         //将16进制字符串格式口令转换成字节数组
@@ -86,14 +93,16 @@ public class MD5Util {
     }
 
 
-    /**
+    */
+/**
      * 获得加密后的16进制形式口令
      *
      * @param password
      * @return
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
-     */
+     *//*
+
     public static String getEncryptedPwd(String password)
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
         //声明加密后的口令数组变量
@@ -124,4 +133,75 @@ public class MD5Util {
         return byteToHexString(pwd);
     }
 
+}
+*/
+package com.cl.util;
+
+import java.security.MessageDigest;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: User
+ * Date: 2018/6/8
+ * Time: 13:09
+ * To change this template use File | Settings | File Templates.
+ * Description:
+ */
+public class MD5Util {
+    private static MD5Util  md5Util  = null;
+
+    private static final String MD5_SALT = "QWERTYUIOPASDFGHJKLZXCVBNM0123456789";
+
+    public static synchronized MD5Util getInstance() {
+        if (md5Util == null) {
+            md5Util = new MD5Util();
+        }
+        return md5Util;
+    }
+
+    private MD5Util() {
+
+    }
+
+    public String encrypt(String dataStr) {
+        try {
+            MessageDigest m = MessageDigest.getInstance("MD5");
+            m.update(dataStr.getBytes("UTF8"));
+            byte[] s = m.digest();
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < s.length; i++) {
+                result.append(Integer.toHexString((0x000000FF & s[i]) | 0xFFFFFF00).substring(6));
+            }
+            return result.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+
+    /**
+     * <pre>
+     * md5(md5(str+salt))两次MD5,一次加盐
+     * </pre>
+     * @param dataStr
+     * @return
+     */
+    public String encryptBySalt(String dataStr) {
+        try {
+            dataStr = dataStr + MD5_SALT;
+            MessageDigest m = MessageDigest.getInstance("MD5");
+            m.update(dataStr.getBytes("UTF8"));
+            byte[] s = m.digest();
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < s.length; i++) {
+                result.append(Integer.toHexString((0x000000FF & s[i]) | 0xFFFFFF00).substring(6));
+            }
+            String realResult = encrypt(result.toString()); // 第二次MD5
+            return realResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

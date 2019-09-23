@@ -22,6 +22,16 @@ public class LoginResBean implements Serializable{
     @ApiModelProperty(value = "权限list")
     private List<SysPermissionResBean> sysPermissionResBeanList;
 
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public SysUserResBean getSysUserResBean() {
         return sysUserResBean;
     }

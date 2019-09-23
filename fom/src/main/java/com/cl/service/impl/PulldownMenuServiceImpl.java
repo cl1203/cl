@@ -15,6 +15,7 @@ import com.cl.entity.SysPermissionEntity;
 import com.cl.entity.SysPermissionEntityExample;
 import com.cl.entity.SysUserEntity;
 import com.cl.service.IPulldownMenuService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -88,8 +89,12 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     }
 
     @Override
-    public List<SingleParam> queryInputSupplierName() {
-        return this.pulldownMenuMapper.queryInputSupplierName();
+    public List<SingleParam> queryInputSupplierName(RequestBeanModel<SingleParam> requestBeanModel) {
+        SingleParam singleParam = requestBeanModel.getReqData();
+        if(null != singleParam){
+            return this.pulldownMenuMapper.queryInputSupplierName(singleParam.getParam());
+        }
+        return null;
     }
 
     @Override

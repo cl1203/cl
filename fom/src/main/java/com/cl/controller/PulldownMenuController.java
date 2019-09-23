@@ -132,8 +132,8 @@ public class PulldownMenuController {
     @PostMapping("/queryInputSupplierName")
     @ApiOperation(value = "查询供应商名称下拉菜单" , notes = "查询供应商名称下拉菜单")
     @LoggerManage(description = "查询供应商名称下拉菜单")
-    public ResponseBeanModel<List<SingleParam>> queryInputSupplierName(){
-        List<SingleParam> orderNumList = this.pulldownMenuService.queryInputSupplierName();
+    public ResponseBeanModel<List<SingleParam>> queryInputSupplierName(@RequestBody RequestBeanModel<SingleParam> requestBeanModel){
+        List<SingleParam> orderNumList = this.pulldownMenuService.queryInputSupplierName(requestBeanModel);
         return new ResponseBeanModel<>(orderNumList);
     }
 
