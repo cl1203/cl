@@ -201,10 +201,10 @@ public class PurchaseServiceImpl implements IPurchaseService {
      * @param orderNo
      */
     private BigDecimal CalculationAnswerCutQuantity(String orderNo){
-        //根据订单号查询物料分类为面料的采购单
+        //根据订单号查询物料分类为面料A的采购单
         PurchaseEntity purchaseEntityByOrderNo = this.purchaseMapper.selectPurchaseListByOrderNo(orderNo);
         if(null == purchaseEntityByOrderNo){
-            throw new BusinessException("订单号: " + orderNo + ",没有存在物料没面料A的采购单,无法计算应裁数量!");
+            return new BigDecimal(DictionaryConstants.ALL_BUSINESS_ZERO);
         }
         BigDecimal singleUse = purchaseEntityByOrderNo.getSimpleUse();//单件用量
         Assert.notNull(singleUse , "单件用量为空!无法计算应裁数量!");
