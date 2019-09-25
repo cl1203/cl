@@ -132,7 +132,7 @@ public class PulldownMenuServiceImpl implements IPulldownMenuService{
     }
 
     @Override
-    public List<SysPermissionResBean> queryPermissionAll() {
+    public List<SysPermissionResBean> queryPermissionAll(RequestBeanModel<SingleParam> requestBeanModel) {
         SysPermissionEntityExample sysPermissionEntityExample = new SysPermissionEntityExample();
         SysPermissionEntityExample.Criteria criteria = sysPermissionEntityExample.createCriteria();
         criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);

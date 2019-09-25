@@ -163,8 +163,8 @@ public class PulldownMenuController {
     @PostMapping("/queryPermissionAll")
     @ApiOperation(value = "查询所有菜单包括对应的所有子菜单" , notes = "查询所有菜单包括对应的所有子菜单")
     @LoggerManage(description = "查询所有菜单包括对应的所有子菜单")
-    public ResponseBeanModel<List<SysPermissionResBean>> queryPermissionAll(){
-        List<SysPermissionResBean> sysPermissionResBeanList = this.pulldownMenuService.queryPermissionAll();
+    public ResponseBeanModel<List<SysPermissionResBean>> queryPermissionAll(@RequestBody RequestBeanModel<SingleParam> requestBeanModel){
+        List<SysPermissionResBean> sysPermissionResBeanList = this.pulldownMenuService.queryPermissionAll(requestBeanModel);
         return new ResponseBeanModel<>(sysPermissionResBeanList);
     }
 }
