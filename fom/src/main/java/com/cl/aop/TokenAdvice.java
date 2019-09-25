@@ -97,11 +97,11 @@ public class TokenAdvice {
                 }
             }
             LOGGER.info("token === {}",token);
-            //2. 如果token无效
+            //如果token无效
             if (!checkToken(userId)){
                 throw new BusinessException(DictionaryConstants.failCode,"token无效, 登陆失败!");
             }else{
-                // 1.用户登录唯一检验
+                // 用户登录唯一检验
                 LOGGER.info("current_userId === {}",userId);
                 TokenInfo tokenInfo = DictionaryConstants.currentLoginTokenMap.get(userId);
                 if (!token.equals(tokenInfo.getToken())){
