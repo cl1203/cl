@@ -9,6 +9,7 @@
     p.purchase_status purchase_status,
     p.order_no order_no,
     p.purchase_time purchase_time,
+    p.purchase_type purchase_type,
     p.materiel_name materiel_name,
     p.materiel_color materiel_color,
     p.answer_pick_quantity answer_pick_quantity,
