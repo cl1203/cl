@@ -46,6 +46,7 @@ public class OrderManageTransform extends AbstractObjectTransformer<OrderManageE
         orderManageResBean.setIsFirst(orderManageEntity.getIsFirst());//是否首单
         orderManageResBean.setOrderQuantity(orderManageEntity.getOrderQuantity());//订单件数
         orderManageResBean.setProducer(orderManageEntity.getProducer());//生产方
+        orderManageResBean.setOrderType(orderManageEntity.getOrderType());//订单类型
         return orderManageResBean;
     }
 }

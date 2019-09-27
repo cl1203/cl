@@ -46,6 +46,12 @@ public class OrderManageResBean implements Serializable {
 	private Integer orderQuantity;
 
 	/**
+	 * 订单类型
+	 */
+	@ApiModelProperty(value = "订单类型")
+	private String orderType;
+
+	/**
 	 * 下单时间
 	 */
 	@ApiModelProperty(value = "下单时间")
@@ -89,6 +95,14 @@ public class OrderManageResBean implements Serializable {
 
 	@ApiModelProperty(value = "下单数量")
 	private List<OrderQuantityResBean> orderQuantityResBeanList;
+
+	public String getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
 
 	public Long getId() {
 		return id;

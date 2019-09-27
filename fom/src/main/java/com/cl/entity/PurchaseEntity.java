@@ -55,7 +55,7 @@ public class PurchaseEntity implements Serializable {
     private String materielSku;
 
     /**
-     * 物料分类code
+     * 物料分类
      */
     private String materielType;
 
@@ -72,7 +72,7 @@ public class PurchaseEntity implements Serializable {
     /**
      * 应采数量
      */
-    private Integer answerPickQuantity;
+    private BigDecimal answerPickQuantity;
 
     /**
      * 应采单价
@@ -87,7 +87,7 @@ public class PurchaseEntity implements Serializable {
     /**
      * 实采数量
      */
-    private Integer actualPickQuantity;
+    private BigDecimal actualPickQuantity;
 
     /**
      * 实采单价
@@ -247,11 +247,11 @@ public class PurchaseEntity implements Serializable {
         this.materielColor = materielColor;
     }
 
-    public Integer getAnswerPickQuantity() {
+    public BigDecimal getAnswerPickQuantity() {
         return answerPickQuantity;
     }
 
-    public void setAnswerPickQuantity(Integer answerPickQuantity) {
+    public void setAnswerPickQuantity(BigDecimal answerPickQuantity) {
         this.answerPickQuantity = answerPickQuantity;
     }
 
@@ -271,11 +271,11 @@ public class PurchaseEntity implements Serializable {
         this.answerPickTotal = answerPickTotal;
     }
 
-    public Integer getActualPickQuantity() {
+    public BigDecimal getActualPickQuantity() {
         return actualPickQuantity;
     }
 
-    public void setActualPickQuantity(Integer actualPickQuantity) {
+    public void setActualPickQuantity(BigDecimal actualPickQuantity) {
         this.actualPickQuantity = actualPickQuantity;
     }
 
