@@ -253,6 +253,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
         BigDecimal actualPickTotal = new BigDecimal(purchaseReqBean.getActualPickQuantity()).multiply(new BigDecimal(purchaseReqBean.getActualPickMonovalent()));
         purchaseEntity.setActualPickTotal(actualPickTotal.setScale(DictionaryConstants.PERMISSION_TYPE_TWO , BigDecimal.ROUND_HALF_UP));
         purchaseEntity.setId(purchaseReqBean.getId());//id
+        purchaseEntity.setSupplierName(purchaseReqBean.getSupplierName());//供应商
         return purchaseEntity;
     }
 }
