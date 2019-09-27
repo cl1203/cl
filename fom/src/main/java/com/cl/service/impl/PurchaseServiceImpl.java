@@ -223,6 +223,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
         Assert.notNull(purchaseReqBean.getId() , "请选择一条数据,ID不能为空!");
         Assert.hasText(purchaseReqBean.getOrderNo() , "订单号不能为空!");
         Assert.hasText(purchaseReqBean.getActualPickQuantity() , "实采数量不能为空,用来计算应裁数!");
+        Assert.hasText(purchaseReqBean.getSupplierName() ,"供应商不能为空!");
         String regexp = "(^[+]{0,1}(0|([1-9]\\d{0,9}))(\\.\\d{1,2}){0,1}$){0,1}";
         if(match(regexp , purchaseReqBean.getActualPickQuantity())) {
             throw new BusinessException("实采数量规则:整数位最多10位,小数位最多2位! ");
