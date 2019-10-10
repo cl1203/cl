@@ -55,24 +55,24 @@ public class TokenAdvice {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         //从获取RequestAttributes中获取HttpServletRequest的信息
         HttpServletRequest request = (HttpServletRequest) requestAttributes.resolveReference(RequestAttributes.REFERENCE_REQUEST);
-        //获取目标方法的参数信息
-        Object[] obj = joinPoint.getArgs();
-        RequestBeanModel requestBeanModel = new RequestBeanModel();
-        if(obj.length > DictionaryConstants.ALL_BUSINESS_ZERO){
-            for(Object object : obj){
-                requestBeanModel = (RequestBeanModel) object;
-            }
-            LOGGER.info("登录用户为: " + requestBeanModel.getUsername());
-        }
         String url = request.getRequestURL().toString();
         int i = this.getIndex(url);
         url = url.substring(i);
         //是否需要过滤
         boolean needFilter = isNeedFilter(url);
         if (!needFilter
-                //|| url.startsWith("/fom/webjars/")
+                || url.startsWith("/fom/tailor/exportTailor")
                 ) { //不需要过滤直接传给下一个过滤器
         } else {
+            //获取目标方法的参数信息
+            Object[] obj = joinPoint.getArgs();
+            RequestBeanModel requestBeanModel = new RequestBeanModel();
+            if(obj.length > DictionaryConstants.ALL_BUSINESS_ZERO){
+                for(Object object : obj){
+                    requestBeanModel = (RequestBeanModel) object;
+                }
+                LOGGER.info("登录用户为: " + requestBeanModel.getUsername());
+            }
             String userName = requestBeanModel.getUsername();
             if(StringUtils.isBlank(userName)){
                 throw new BusinessException(DictionaryConstants.failCode,"userName为空, 请求失败!");

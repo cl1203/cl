@@ -32,6 +32,7 @@ public class DictionaryConstants {
     public static final Integer ADMIN_ORG_ID = 1;//超级管理员组织ID
     public static final Integer PASSWORD_MIN = 8;//密码最短长度
     public static final Integer PASSWORD_MAX = 20;//密码最长长度
+    public static final Integer PAGE_SIZE = 10000;//导出10000条
 
     //权限类型
     public static final Byte PERMISSION_TYPE_ZERO = 0;
