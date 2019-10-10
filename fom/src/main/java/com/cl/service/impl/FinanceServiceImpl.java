@@ -8,10 +8,14 @@ import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.transformer.IObjectTransformer;
 import com.cl.dao.FinanceMapper;
 import com.cl.dao.SysOrgMapper;
+import com.cl.dao.SysUserMapper;
 import com.cl.entity.FinanceEntity;
 import com.cl.entity.SysOrgEntity;
+import com.cl.entity.SysUserEntity;
 import com.cl.service.IFinanceService;
 import com.cl.service.IPulldownMenuService;
+import com.cl.util.DateUtils;
+import com.cl.util.ExcelUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -20,7 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -38,6 +45,9 @@ public class FinanceServiceImpl implements IFinanceService {
 
     @Resource
     private FinanceMapper financeMapper;
+
+    @Resource
+    private SysUserMapper sysUserMapper;
 
     @Resource
     private IObjectTransformer<FinanceEntity , FinanceResBean> financeTransformer;
@@ -80,6 +90,48 @@ public class FinanceServiceImpl implements IFinanceService {
         Assert.isTrue(i==DictionaryConstants.ALL_BUSINESS_ONE , "修改财务数据失败!");
     }
 
+    @Override
+    public void exportFinance(HttpServletResponse response, FinanceReqBean financeReqBean, String userId){
+        Assert.hasText(userId , "userId不能为空!");
+        String userIdRegexp = "^[1-9][0-9]{0,8}$";
+        if(match(userIdRegexp , userId)) {
+            throw new BusinessException("userId规则: 必须是整数在0-999999999之间! ");
+        }
+        SysUserEntity sysUserEntity = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(userId));
+        if(null == sysUserEntity){
+            throw new BusinessException(DictionaryConstants.failCode,"userId对应的用户不存在, 请求失败!");
+        }
+        //转码
+        financeReqBean = this.decodeTailorReqBean(financeReqBean);
+        financeReqBean.setPageNum(DictionaryConstants.ALL_BUSINESS_ONE);
+        financeReqBean.setPageSize(DictionaryConstants.PAGE_SIZE);
+        RequestBeanModel requestBeanModel = new RequestBeanModel();
+        requestBeanModel.setReqData(financeReqBean);
+        requestBeanModel.setUserId(userId);
+        //查询结果
+        List<FinanceResBean> financeResBeanList = this.queryFinanceList(requestBeanModel).getList();
+        //表头
+        String[] headers = {"订单编号(orderNo)" , "SKU(sku)" , "总件数(quantityTotal)" , "平车单价(flatcarPrice)" ,"冚车单价(cartPrice)",
+                "打边单价(edgersPrice)" , "大烫单价(greatIroningPrice)", "查货单价(checkGoodsPrice)" , "剪线单价(trimmingPrice)",
+                "包装单价(packagingPrice)" , "返工单价(reworkPrice)", "其他(otherPrice)" , "采购总价(purchaseTotalPrice)",
+                "裁剪总价(tailorTotalPrice)" , "工序总价(workingTotalPrice)", "总价(totalPrice)" , "备注(remarks)" };
+        ExcelUtils.exportExcel("财务列表信息" , headers , financeResBeanList , response , DateUtils.DATESHOWFORMAT);
+    }
+
+    private FinanceReqBean decodeTailorReqBean(FinanceReqBean financeReqBean) {
+        // 编码
+        final String UTF_8 = "UTF-8";
+        try {
+            // 订单号
+            if (StringUtils.isNotBlank(financeReqBean.getOrderNo())) {
+                financeReqBean.setOrderNo(URLDecoder.decode(financeReqBean.getOrderNo(), UTF_8));
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return financeReqBean;
+    }
+
     /**
      * @param regex
      * 正则表达式字符串
@@ -115,63 +167,54 @@ public class FinanceServiceImpl implements IFinanceService {
             }
             financeEntity.setFlatcarPrice(new BigDecimal(financeReqBean.getFlatcarPrice()));
         }
-        financeEntity.setFlatcarUser(financeReqBean.getFlatcarUser());//平车员工
         if(StringUtils.isNotBlank(financeReqBean.getCartPrice())){//冚车单价
             if(match(regexp ,financeReqBean.getCartPrice())){
                 throw new BusinessException("冚车单价规则:整数位最多10位,小数位最多2位! ");
             }
             financeEntity.setCartPrice(new BigDecimal(financeReqBean.getCartPrice()));
         }
-        financeEntity.setCartUser(financeReqBean.getCartUser());//冚车员工
         if(StringUtils.isNotBlank(financeReqBean.getEdgersPrice())){//打边单价
             if(match(regexp ,financeReqBean.getEdgersPrice())){
                 throw new BusinessException("打边单价规则:整数位最多10位,小数位最多2位! ");
             }
             financeEntity.setEdgersPrice(new BigDecimal(financeReqBean.getEdgersPrice()));
         }
-        financeEntity.setEdgersUser(financeReqBean.getEdgersUser());//打边员工
         if(StringUtils.isNotBlank(financeReqBean.getGreatIroningPrice())){//大烫单价
             if(match(regexp ,financeReqBean.getGreatIroningPrice())){
                 throw new BusinessException("大烫单价规则:整数位最多10位,小数位最多2位! ");
             }
             financeEntity.setGreatIroningPrice(new BigDecimal(financeReqBean.getGreatIroningPrice()));
         }
-        financeEntity.setGreatIroningUser(financeReqBean.getGreatIroningUser());//大烫员工
         if(StringUtils.isNotBlank(financeReqBean.getCheckGoodsPrice())){//查货单价
             if(match(regexp ,financeReqBean.getCheckGoodsPrice())){
                 throw new BusinessException("查货单价规则:整数位最多10位,小数位最多2位! ");
             }
             financeEntity.setCheckGoodsPrice(new BigDecimal(financeReqBean.getCheckGoodsPrice()));
         }
-        financeEntity.setCheckGoodsUser(financeReqBean.getCheckGoodsUser());//查货员工
         if(StringUtils.isNotBlank(financeReqBean.getTrimmingPrice())){//剪线单价
             if(match(regexp ,financeReqBean.getTrimmingPrice())){
                 throw new BusinessException("剪线单价规则:整数位最多10位,小数位最多2位! ");
             }
             financeEntity.setTrimmingPrice(new BigDecimal(financeReqBean.getTrimmingPrice()));
         }
-        financeEntity.setTrimmingUser(financeReqBean.getTrimmingUser());//剪线员工
         if(StringUtils.isNotBlank(financeReqBean.getPackagingPrice())){//包装单价
             if(match(regexp ,financeReqBean.getPackagingPrice())){
                 throw new BusinessException("包装单价规则:整数位最多10位,小数位最多2位! ");
             }
             financeEntity.setPackagingPrice(new BigDecimal(financeReqBean.getPackagingPrice()));
         }
-        financeEntity.setPackagingUser(financeReqBean.getPackagingUser());//包装员工
         if(StringUtils.isNotBlank(financeReqBean.getReworkPrice())){//包装单价
             if(match(regexp ,financeReqBean.getReworkPrice())){
                 throw new BusinessException("包装单价规则:整数位最多10位,小数位最多2位! ");
             }
             financeEntity.setReworkPrice(new BigDecimal(financeReqBean.getReworkPrice()));
         }
-        financeEntity.setReworkUser(financeReqBean.getReworkUser());//包装员工
         if(StringUtils.isNotBlank(financeReqBean.getOtherPrice())){//其他单价
             if(match(regexp ,financeReqBean.getOtherPrice())){
                 throw new BusinessException("其他单价规则:整数位最多10位,小数位最多2位! ");
             }
             financeEntity.setOtherPrice(new BigDecimal(financeReqBean.getOtherPrice()));
         }
-        financeEntity.setOtherUser(financeReqBean.getOtherUser());//其他员工
         financeEntity.setStatus(financeReqBean.getStatus());
         financeEntity.setRemarks(financeReqBean.getRemarks());
         return financeEntity;

@@ -62,6 +62,7 @@ public class TokenAdvice {
         boolean needFilter = isNeedFilter(url);
         if (!needFilter
                 || url.startsWith("/fom/tailor/exportTailor")
+                || url.startsWith("/fom/finance/exportFinance")
                 ) { //不需要过滤直接传给下一个过滤器
         } else {
             //获取目标方法的参数信息

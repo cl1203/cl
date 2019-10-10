@@ -57,22 +57,10 @@ public class FinanceReqBean implements Serializable {
     private String flatcarPrice;
 
     /**
-     * 工序: 平车员工
-     */
-    @ApiModelProperty(value = "平车员工")
-    private String flatcarUser;
-
-    /**
      * 工序: 冚车单价
      */
     @ApiModelProperty(value = "冚车单价")
     private String cartPrice;
-
-    /**
-     * 工序:冚车员工
-     */
-    @ApiModelProperty(value = "冚车员工")
-    private String cartUser;
 
     /**
      * 工序:打边单价
@@ -81,22 +69,10 @@ public class FinanceReqBean implements Serializable {
     private String edgersPrice;
 
     /**
-     * 工序:打边员工
-     */
-    @ApiModelProperty(value = "打边员工")
-    private String edgersUser;
-
-    /**
      * 工序:大烫单价
      */
     @ApiModelProperty(value = "大烫单价")
     private String greatIroningPrice;
-
-    /**
-     * 工序: 大烫员工
-     */
-    @ApiModelProperty(value = "大烫员工")
-    private String greatIroningUser;
 
     /**
      * 工序:查货单价
@@ -105,22 +81,10 @@ public class FinanceReqBean implements Serializable {
     private String checkGoodsPrice;
 
     /**
-     * 工序:查货员工
-     */
-    @ApiModelProperty(value = "查货员工")
-    private String checkGoodsUser;
-
-    /**
      * 工序:剪线单价
      */
     @ApiModelProperty(value = "剪线单价")
     private String trimmingPrice;
-
-    /**
-     * 工序:剪线员工
-     */
-    @ApiModelProperty(value = "剪线员工")
-    private String trimmingUser;
 
     /**
      * 工序:包装单价
@@ -129,22 +93,10 @@ public class FinanceReqBean implements Serializable {
     private String packagingPrice;
 
     /**
-     * 工序:包装员工
-     */
-    @ApiModelProperty(value = "包装员工")
-    private String packagingUser;
-
-    /**
      * 返工单价
      */
     @ApiModelProperty(value = "返工单价")
     private String reworkPrice;
-
-    /**
-     * 工序:返工员工
-     */
-    @ApiModelProperty(value = "返工员工")
-    private String reworkUser;
 
     /**
      * 工序: 其他 单价
@@ -153,31 +105,17 @@ public class FinanceReqBean implements Serializable {
     private String otherPrice;
 
     /**
-     * 工序:其他 员工
-     */
-    @ApiModelProperty(value = "其他 员工")
-    private String otherUser;
-
-    /**
      * 备注
      */
     @ApiModelProperty(value = "备注")
     private String remarks;
 
-    public String getRemarks() {
-        return remarks;
+    public Byte getStatus() {
+        return status;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    public String getOrderNo() {
-        return orderNo;
-    }
-
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 
     public String getOrgName() {
@@ -188,12 +126,12 @@ public class FinanceReqBean implements Serializable {
         this.orgName = orgName;
     }
 
-    public Byte getStatus() {
-        return status;
+    public String getOrderNo() {
+        return orderNo;
     }
 
-    public void setStatus(Byte status) {
-        this.status = status;
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 
     public Integer getPageSize() {
@@ -236,28 +174,12 @@ public class FinanceReqBean implements Serializable {
         this.flatcarPrice = flatcarPrice;
     }
 
-    public String getFlatcarUser() {
-        return flatcarUser;
-    }
-
-    public void setFlatcarUser(String flatcarUser) {
-        this.flatcarUser = flatcarUser;
-    }
-
     public String getCartPrice() {
         return cartPrice;
     }
 
     public void setCartPrice(String cartPrice) {
         this.cartPrice = cartPrice;
-    }
-
-    public String getCartUser() {
-        return cartUser;
-    }
-
-    public void setCartUser(String cartUser) {
-        this.cartUser = cartUser;
     }
 
     public String getEdgersPrice() {
@@ -268,28 +190,12 @@ public class FinanceReqBean implements Serializable {
         this.edgersPrice = edgersPrice;
     }
 
-    public String getEdgersUser() {
-        return edgersUser;
-    }
-
-    public void setEdgersUser(String edgersUser) {
-        this.edgersUser = edgersUser;
-    }
-
     public String getGreatIroningPrice() {
         return greatIroningPrice;
     }
 
     public void setGreatIroningPrice(String greatIroningPrice) {
         this.greatIroningPrice = greatIroningPrice;
-    }
-
-    public String getGreatIroningUser() {
-        return greatIroningUser;
-    }
-
-    public void setGreatIroningUser(String greatIroningUser) {
-        this.greatIroningUser = greatIroningUser;
     }
 
     public String getCheckGoodsPrice() {
@@ -300,28 +206,12 @@ public class FinanceReqBean implements Serializable {
         this.checkGoodsPrice = checkGoodsPrice;
     }
 
-    public String getCheckGoodsUser() {
-        return checkGoodsUser;
-    }
-
-    public void setCheckGoodsUser(String checkGoodsUser) {
-        this.checkGoodsUser = checkGoodsUser;
-    }
-
     public String getTrimmingPrice() {
         return trimmingPrice;
     }
 
     public void setTrimmingPrice(String trimmingPrice) {
         this.trimmingPrice = trimmingPrice;
-    }
-
-    public String getTrimmingUser() {
-        return trimmingUser;
-    }
-
-    public void setTrimmingUser(String trimmingUser) {
-        this.trimmingUser = trimmingUser;
     }
 
     public String getPackagingPrice() {
@@ -332,28 +222,12 @@ public class FinanceReqBean implements Serializable {
         this.packagingPrice = packagingPrice;
     }
 
-    public String getPackagingUser() {
-        return packagingUser;
-    }
-
-    public void setPackagingUser(String packagingUser) {
-        this.packagingUser = packagingUser;
-    }
-
     public String getReworkPrice() {
         return reworkPrice;
     }
 
     public void setReworkPrice(String reworkPrice) {
         this.reworkPrice = reworkPrice;
-    }
-
-    public String getReworkUser() {
-        return reworkUser;
-    }
-
-    public void setReworkUser(String reworkUser) {
-        this.reworkUser = reworkUser;
     }
 
     public String getOtherPrice() {
@@ -364,11 +238,11 @@ public class FinanceReqBean implements Serializable {
         this.otherPrice = otherPrice;
     }
 
-    public String getOtherUser() {
-        return otherUser;
+    public String getRemarks() {
+        return remarks;
     }
 
-    public void setOtherUser(String otherUser) {
-        this.otherUser = otherUser;
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 }

@@ -66,6 +66,9 @@ public class TailorServiceImpl implements ITailorService {
     @Resource
     private StockMapper stockMapper;
 
+    @Resource
+    private SysUserMapper sysUserMapper;
+
     @Override
     public PageInfo<TailorResBean> queryTailorList(RequestBeanModel<TailorReqBean> reqBeanModel) {
         TailorReqBean tailorReqBean = reqBeanModel.getReqData();
@@ -219,7 +222,16 @@ public class TailorServiceImpl implements ITailorService {
     }
 
     @Override
-    public void exportTailor(HttpServletResponse response, TailorReqBean tailorReqBean , String userId) throws IOException {
+    public void exportTailor(HttpServletResponse response, TailorReqBean tailorReqBean , String userId) {
+        Assert.hasText(userId , "userId不能为空!");
+        String userIdRegexp = "^[1-9][0-9]{0,8}$";
+        if(match(userIdRegexp , userId)) {
+            throw new BusinessException("userId规则: 必须是整数在0-999999999之间! ");
+        }
+        SysUserEntity sysUserEntity = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(userId));
+        if(null == sysUserEntity){
+            throw new BusinessException(DictionaryConstants.failCode,"userId对应的用户不存在, 请求失败!");
+        }
         //转码
         tailorReqBean = this.decodeTailorReqBean(tailorReqBean);
         tailorReqBean.setPageNum(DictionaryConstants.ALL_BUSINESS_ONE);
