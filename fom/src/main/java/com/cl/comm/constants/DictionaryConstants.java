@@ -54,5 +54,7 @@ public class DictionaryConstants {
      * 登陆时间有效性 30 分钟 = 30*60*1000
      */
     public static long loginUserfulTime = 1000 * 60 * 30;
-
+    //订单类型
+    public static final String ORDER_TPYE_FOB = "FOB";
+    public static final String ORDER_TPYE_CMT = "新CMT";
 }

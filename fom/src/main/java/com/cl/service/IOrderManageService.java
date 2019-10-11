@@ -1,6 +1,7 @@
 package com.cl.service;
 
 import com.cl.bean.req.DistributionOrderReqBean;
+import com.cl.bean.req.OrderManageInsertReqBean;
 import com.cl.bean.req.OrderManageReqBean;
 import com.cl.bean.res.OrderManageResBean;
 import com.cl.comm.model.RequestBeanModel;
@@ -40,4 +41,10 @@ public interface IOrderManageService {
 	 * @return java.lang.String
 	 **/
 	String queryProducer(RequestBeanModel<SingleParam> reqBeanModel);
+
+    /**
+     * 新增订单
+     * @param reqBeanModel
+     */
+	void insertOrder(RequestBeanModel<OrderManageInsertReqBean> reqBeanModel);
 }

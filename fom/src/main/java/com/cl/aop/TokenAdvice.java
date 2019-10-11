@@ -46,7 +46,8 @@ public class TokenAdvice {
 
     //不需要登录就可以访问的路径(比如:登录等)
     private String[] includeUrls = new String[]{
-            "/fom/user/login"
+            "/fom/user/login",
+            "/fom/ftpFile/uploadImg"
     };
 
     @Before("within(com.cl.controller.*)")

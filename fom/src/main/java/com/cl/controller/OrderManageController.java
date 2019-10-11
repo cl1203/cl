@@ -2,6 +2,7 @@ package com.cl.controller;
 
 import com.cl.aop.LoggerManage;
 import com.cl.bean.req.DistributionOrderReqBean;
+import com.cl.bean.req.OrderManageInsertReqBean;
 import com.cl.bean.req.OrderManageReqBean;
 import com.cl.bean.res.OrderManageResBean;
 import com.cl.comm.model.RequestBeanModel;
@@ -71,5 +72,18 @@ public class OrderManageController {
         String producer = this.orderManageService.queryProducer(reqBeanModel);
         singleParam.setParam(producer);
         return new ResponseBeanModel<>(singleParam);
+    }
+
+    /**
+     * 新增订单
+     * @param reqBeanModel
+     * @return
+     */
+    @PostMapping("/insertOrder")
+    @ApiOperation(value = "新增订单" , notes = "新增订单")
+    @LoggerManage(description = "新增订单")
+    public ResponseBeanModel<Void> insertOrder(@RequestBody @Valid RequestBeanModel<OrderManageInsertReqBean> reqBeanModel){
+        this.orderManageService.insertOrder(reqBeanModel);
+        return new ResponseBeanModel<>("新增订单成功!");
     }
 }
