@@ -30,14 +30,8 @@ public class FinanceResBean implements Serializable {
     /**
      * 工序:平车价格
      */
-    @ApiModelProperty(value = "平车价格")
+    @ApiModelProperty(value = "平车单价")
     private BigDecimal flatcarPrice;
-
-    /**
-     * 工序: 平车员工
-     */
-    @ApiModelProperty(value = "平车员工")
-    private String flatcarUser;
 
     /**
      * 工序: 冚车单价
@@ -46,22 +40,10 @@ public class FinanceResBean implements Serializable {
     private BigDecimal cartPrice;
 
     /**
-     * 工序:冚车员工
-     */
-    @ApiModelProperty(value = "冚车员工")
-    private String cartUser;
-
-    /**
      * 工序:打边单价
      */
     @ApiModelProperty(value = "打边单价")
     private BigDecimal edgersPrice;
-
-    /**
-     * 工序:打边员工
-     */
-    @ApiModelProperty(value = "打边员工")
-    private String edgersUser;
 
     /**
      * 工序:大烫单价
@@ -70,22 +52,10 @@ public class FinanceResBean implements Serializable {
     private BigDecimal greatIroningPrice;
 
     /**
-     * 工序: 大烫员工
-     */
-    @ApiModelProperty(value = "大烫员工")
-    private String greatIroningUser;
-
-    /**
      * 工序:查货单价
      */
     @ApiModelProperty(value = "查货单价")
     private BigDecimal checkGoodsPrice;
-
-    /**
-     * 工序:查货员工
-     */
-    @ApiModelProperty(value = "查货员工")
-    private String checkGoodsUser;
 
     /**
      * 工序:剪线单价
@@ -94,22 +64,10 @@ public class FinanceResBean implements Serializable {
     private BigDecimal trimmingPrice;
 
     /**
-     * 工序:剪线员工
-     */
-    @ApiModelProperty(value = "剪线员工")
-    private String trimmingUser;
-
-    /**
      * 工序:包装单价
      */
     @ApiModelProperty(value = "包装单价")
     private BigDecimal packagingPrice;
-
-    /**
-     * 工序:包装员工
-     */
-    @ApiModelProperty(value = "包装员工")
-    private String packagingUser;
 
     /**
      * 返工单价
@@ -118,22 +76,10 @@ public class FinanceResBean implements Serializable {
     private BigDecimal reworkPrice;
 
     /**
-     * 工序:返工员工
-     */
-    @ApiModelProperty(value = "返工员工")
-    private String reworkUser;
-
-    /**
      * 工序: 其他 单价
      */
     @ApiModelProperty(value = "其他 单价")
     private BigDecimal otherPrice;
-
-    /**
-     * 工序:其他 员工
-     */
-    @ApiModelProperty(value = "其他 员工")
-    private String otherUser;
 
     /**
      * 状态 0:已结算 1:未结算
@@ -152,29 +98,74 @@ public class FinanceResBean implements Serializable {
      */
     @ApiModelProperty(value = "图片地址")
     private String imgUrl;
+    /**
+     * sku
+     */
+    @ApiModelProperty(value = "sku")
+    private String sku;
 
-    public String getImgUrl() {
-        return imgUrl;
+    /**
+     * 采购总价
+     */
+    @ApiModelProperty(value = "采购总价")
+    private BigDecimal purchaseTotalPrice;
+
+    /**
+     * 采购总价
+     */
+    @ApiModelProperty(value = "裁剪总价")
+    private BigDecimal tailorTotalPrice;
+
+    /**
+     * 工序总价
+     */
+    @ApiModelProperty(value = "工序总价")
+    private BigDecimal workingTotalPrice;
+
+    /**
+     * 总价
+     */
+    @ApiModelProperty(value = "总价")
+    private BigDecimal totalPrice;
+
+    public BigDecimal getPurchaseTotalPrice() {
+        return purchaseTotalPrice;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setPurchaseTotalPrice(BigDecimal purchaseTotalPrice) {
+        this.purchaseTotalPrice = purchaseTotalPrice;
     }
 
-    public String getRemarks() {
-        return remarks;
+    public BigDecimal getTailorTotalPrice() {
+        return tailorTotalPrice;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
+    public void setTailorTotalPrice(BigDecimal tailorTotalPrice) {
+        this.tailorTotalPrice = tailorTotalPrice;
     }
 
-    public Byte getStatus() {
-        return status;
+    public BigDecimal getWorkingTotalPrice() {
+        return workingTotalPrice;
     }
 
-    public void setStatus(Byte status) {
-        this.status = status;
+    public void setWorkingTotalPrice(BigDecimal workingTotalPrice) {
+        this.workingTotalPrice = workingTotalPrice;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 
     public Long getId() {
@@ -209,28 +200,12 @@ public class FinanceResBean implements Serializable {
         this.flatcarPrice = flatcarPrice;
     }
 
-    public String getFlatcarUser() {
-        return flatcarUser;
-    }
-
-    public void setFlatcarUser(String flatcarUser) {
-        this.flatcarUser = flatcarUser;
-    }
-
     public BigDecimal getCartPrice() {
         return cartPrice;
     }
 
     public void setCartPrice(BigDecimal cartPrice) {
         this.cartPrice = cartPrice;
-    }
-
-    public String getCartUser() {
-        return cartUser;
-    }
-
-    public void setCartUser(String cartUser) {
-        this.cartUser = cartUser;
     }
 
     public BigDecimal getEdgersPrice() {
@@ -241,28 +216,12 @@ public class FinanceResBean implements Serializable {
         this.edgersPrice = edgersPrice;
     }
 
-    public String getEdgersUser() {
-        return edgersUser;
-    }
-
-    public void setEdgersUser(String edgersUser) {
-        this.edgersUser = edgersUser;
-    }
-
     public BigDecimal getGreatIroningPrice() {
         return greatIroningPrice;
     }
 
     public void setGreatIroningPrice(BigDecimal greatIroningPrice) {
         this.greatIroningPrice = greatIroningPrice;
-    }
-
-    public String getGreatIroningUser() {
-        return greatIroningUser;
-    }
-
-    public void setGreatIroningUser(String greatIroningUser) {
-        this.greatIroningUser = greatIroningUser;
     }
 
     public BigDecimal getCheckGoodsPrice() {
@@ -273,28 +232,12 @@ public class FinanceResBean implements Serializable {
         this.checkGoodsPrice = checkGoodsPrice;
     }
 
-    public String getCheckGoodsUser() {
-        return checkGoodsUser;
-    }
-
-    public void setCheckGoodsUser(String checkGoodsUser) {
-        this.checkGoodsUser = checkGoodsUser;
-    }
-
     public BigDecimal getTrimmingPrice() {
         return trimmingPrice;
     }
 
     public void setTrimmingPrice(BigDecimal trimmingPrice) {
         this.trimmingPrice = trimmingPrice;
-    }
-
-    public String getTrimmingUser() {
-        return trimmingUser;
-    }
-
-    public void setTrimmingUser(String trimmingUser) {
-        this.trimmingUser = trimmingUser;
     }
 
     public BigDecimal getPackagingPrice() {
@@ -305,28 +248,12 @@ public class FinanceResBean implements Serializable {
         this.packagingPrice = packagingPrice;
     }
 
-    public String getPackagingUser() {
-        return packagingUser;
-    }
-
-    public void setPackagingUser(String packagingUser) {
-        this.packagingUser = packagingUser;
-    }
-
     public BigDecimal getReworkPrice() {
         return reworkPrice;
     }
 
     public void setReworkPrice(BigDecimal reworkPrice) {
         this.reworkPrice = reworkPrice;
-    }
-
-    public String getReworkUser() {
-        return reworkUser;
-    }
-
-    public void setReworkUser(String reworkUser) {
-        this.reworkUser = reworkUser;
     }
 
     public BigDecimal getOtherPrice() {
@@ -337,11 +264,27 @@ public class FinanceResBean implements Serializable {
         this.otherPrice = otherPrice;
     }
 
-    public String getOtherUser() {
-        return otherUser;
+    public Byte getStatus() {
+        return status;
     }
 
-    public void setOtherUser(String otherUser) {
-        this.otherUser = otherUser;
+    public void setStatus(Byte status) {
+        this.status = status;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }

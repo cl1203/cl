@@ -6,6 +6,9 @@ import com.cl.comm.model.RequestBeanModel;
 import com.cl.entity.FinanceEntity;
 import com.github.pagehelper.PageInfo;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 public interface IFinanceService {
 
     /**
@@ -26,5 +29,13 @@ public interface IFinanceService {
      * @param reqBeanModel
      */
     void updateFinance(RequestBeanModel<FinanceReqBean> reqBeanModel);
+
+    /**
+     * 导出财务
+     * @param response
+     * @param financeReqBean
+     * @throws IOException
+     */
+    void exportFinance(HttpServletResponse response , FinanceReqBean financeReqBean , String userId)throws IOException;
 
 }

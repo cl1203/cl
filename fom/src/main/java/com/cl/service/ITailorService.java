@@ -6,6 +6,9 @@ import com.cl.comm.model.RequestBeanModel;
 import com.cl.entity.TailorEntity;
 import com.github.pagehelper.PageInfo;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 /**
  * @ClassName ITailorService
  * @Description 裁剪service
@@ -41,4 +44,12 @@ public interface ITailorService {
      * @return void
      **/
     void insertTailor(TailorEntity tailorEntity);
+
+    /**
+     * 导出裁剪
+     * @param response
+     * @param tailorReqBean
+     * @throws IOException
+     */
+    void exportTailor(HttpServletResponse response ,TailorReqBean tailorReqBean , String userId)throws IOException;
 }

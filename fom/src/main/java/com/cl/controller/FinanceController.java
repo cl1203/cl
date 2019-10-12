@@ -12,7 +12,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/finance")
@@ -45,5 +47,18 @@ public class FinanceController {
     public ResponseBeanModel<Void> updateFinance(@RequestBody RequestBeanModel<FinanceReqBean> reqBeanModel){
         this.financeService.updateFinance(reqBeanModel);
         return new ResponseBeanModel<>("修改财务数据成功!");
+    }
+
+    /**
+     * @Author 陈龙
+     * @Description 导出
+     * @Date 21:12 2019/7/29
+     * @Param [reqBeanModel]
+     * @return void
+     **/
+    @GetMapping("/exportFinance")
+    @ApiOperation(value = "导出裁剪财务数据" , notes = "根据条件导出财务数据")
+    public void exportFinance(HttpServletResponse response , FinanceReqBean financeReqBean , @RequestParam String userId)throws IOException {
+        this.financeService.exportFinance(response ,financeReqBean , userId);
     }
 }

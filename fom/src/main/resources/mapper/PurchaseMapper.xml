@@ -14,10 +14,10 @@
     <result column="materiel_type" jdbcType="VARCHAR" property="materielType" />
     <result column="materiel_name" jdbcType="VARCHAR" property="materielName" />
     <result column="materiel_color" jdbcType="VARCHAR" property="materielColor" />
-    <result column="answer_pick_quantity" jdbcType="INTEGER" property="answerPickQuantity" />
+    <result column="answer_pick_quantity" jdbcType="DECIMAL" property="answerPickQuantity" />
     <result column="answer_pick_monovalent" jdbcType="DECIMAL" property="answerPickMonovalent" />
     <result column="answer_pick_total" jdbcType="DECIMAL" property="answerPickTotal" />
-    <result column="actual_pick_quantity" jdbcType="INTEGER" property="actualPickQuantity" />
+    <result column="actual_pick_quantity" jdbcType="DECIMAL" property="actualPickQuantity" />
     <result column="actual_pick_monovalent" jdbcType="DECIMAL" property="actualPickMonovalent" />
     <result column="actual_pick_total" jdbcType="DECIMAL" property="actualPickTotal" />
     <result column="simple_use" jdbcType="DECIMAL" property="simpleUse" />
@@ -149,9 +149,9 @@
     values (#{orderNo,jdbcType=VARCHAR}, #{purchaseNo,jdbcType=VARCHAR}, #{purchaseTime,jdbcType=TIMESTAMP}, 
       #{purchaseType,jdbcType=VARCHAR}, #{supplierName,jdbcType=VARCHAR}, #{supplierCode,jdbcType=VARCHAR}, 
       #{supplierColorNumber,jdbcType=VARCHAR}, #{materielSku,jdbcType=VARCHAR}, #{materielType,jdbcType=VARCHAR}, 
-      #{materielName,jdbcType=VARCHAR}, #{materielColor,jdbcType=VARCHAR}, #{answerPickQuantity,jdbcType=INTEGER}, 
+      #{materielName,jdbcType=VARCHAR}, #{materielColor,jdbcType=VARCHAR}, #{answerPickQuantity,jdbcType=DECIMAL}, 
       #{answerPickMonovalent,jdbcType=DECIMAL}, #{answerPickTotal,jdbcType=DECIMAL}, 
-      #{actualPickQuantity,jdbcType=INTEGER}, #{actualPickMonovalent,jdbcType=DECIMAL}, 
+      #{actualPickQuantity,jdbcType=DECIMAL}, #{actualPickMonovalent,jdbcType=DECIMAL}, 
       #{actualPickTotal,jdbcType=DECIMAL}, #{simpleUse,jdbcType=DECIMAL}, #{singleAmountKg,jdbcType=DECIMAL}, 
       #{consumingTime,jdbcType=DECIMAL}, #{isExistAbnormal,jdbcType=TINYINT}, #{purchaseStatus,jdbcType=TINYINT}, 
       #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
@@ -277,7 +277,7 @@
         #{materielColor,jdbcType=VARCHAR},
       </if>
       <if test="answerPickQuantity != null">
-        #{answerPickQuantity,jdbcType=INTEGER},
+        #{answerPickQuantity,jdbcType=DECIMAL},
       </if>
       <if test="answerPickMonovalent != null">
         #{answerPickMonovalent,jdbcType=DECIMAL},
@@ -286,7 +286,7 @@
         #{answerPickTotal,jdbcType=DECIMAL},
       </if>
       <if test="actualPickQuantity != null">
-        #{actualPickQuantity,jdbcType=INTEGER},
+        #{actualPickQuantity,jdbcType=DECIMAL},
       </if>
       <if test="actualPickMonovalent != null">
         #{actualPickMonovalent,jdbcType=DECIMAL},
@@ -372,7 +372,7 @@
         materiel_color = #{record.materielColor,jdbcType=VARCHAR},
       </if>
       <if test="record.answerPickQuantity != null">
-        answer_pick_quantity = #{record.answerPickQuantity,jdbcType=INTEGER},
+        answer_pick_quantity = #{record.answerPickQuantity,jdbcType=DECIMAL},
       </if>
       <if test="record.answerPickMonovalent != null">
         answer_pick_monovalent = #{record.answerPickMonovalent,jdbcType=DECIMAL},
@@ -381,7 +381,7 @@
         answer_pick_total = #{record.answerPickTotal,jdbcType=DECIMAL},
       </if>
       <if test="record.actualPickQuantity != null">
-        actual_pick_quantity = #{record.actualPickQuantity,jdbcType=INTEGER},
+        actual_pick_quantity = #{record.actualPickQuantity,jdbcType=DECIMAL},
       </if>
       <if test="record.actualPickMonovalent != null">
         actual_pick_monovalent = #{record.actualPickMonovalent,jdbcType=DECIMAL},
@@ -438,10 +438,10 @@
       materiel_type = #{record.materielType,jdbcType=VARCHAR},
       materiel_name = #{record.materielName,jdbcType=VARCHAR},
       materiel_color = #{record.materielColor,jdbcType=VARCHAR},
-      answer_pick_quantity = #{record.answerPickQuantity,jdbcType=INTEGER},
+      answer_pick_quantity = #{record.answerPickQuantity,jdbcType=DECIMAL},
       answer_pick_monovalent = #{record.answerPickMonovalent,jdbcType=DECIMAL},
       answer_pick_total = #{record.answerPickTotal,jdbcType=DECIMAL},
-      actual_pick_quantity = #{record.actualPickQuantity,jdbcType=INTEGER},
+      actual_pick_quantity = #{record.actualPickQuantity,jdbcType=DECIMAL},
       actual_pick_monovalent = #{record.actualPickMonovalent,jdbcType=DECIMAL},
       actual_pick_total = #{record.actualPickTotal,jdbcType=DECIMAL},
       simple_use = #{record.simpleUse,jdbcType=DECIMAL},
@@ -495,7 +495,7 @@
         materiel_color = #{materielColor,jdbcType=VARCHAR},
       </if>
       <if test="answerPickQuantity != null">
-        answer_pick_quantity = #{answerPickQuantity,jdbcType=INTEGER},
+        answer_pick_quantity = #{answerPickQuantity,jdbcType=DECIMAL},
       </if>
       <if test="answerPickMonovalent != null">
         answer_pick_monovalent = #{answerPickMonovalent,jdbcType=DECIMAL},
@@ -504,7 +504,7 @@
         answer_pick_total = #{answerPickTotal,jdbcType=DECIMAL},
       </if>
       <if test="actualPickQuantity != null">
-        actual_pick_quantity = #{actualPickQuantity,jdbcType=INTEGER},
+        actual_pick_quantity = #{actualPickQuantity,jdbcType=DECIMAL},
       </if>
       <if test="actualPickMonovalent != null">
         actual_pick_monovalent = #{actualPickMonovalent,jdbcType=DECIMAL},
@@ -558,10 +558,10 @@
       materiel_type = #{materielType,jdbcType=VARCHAR},
       materiel_name = #{materielName,jdbcType=VARCHAR},
       materiel_color = #{materielColor,jdbcType=VARCHAR},
-      answer_pick_quantity = #{answerPickQuantity,jdbcType=INTEGER},
+      answer_pick_quantity = #{answerPickQuantity,jdbcType=DECIMAL},
       answer_pick_monovalent = #{answerPickMonovalent,jdbcType=DECIMAL},
       answer_pick_total = #{answerPickTotal,jdbcType=DECIMAL},
-      actual_pick_quantity = #{actualPickQuantity,jdbcType=INTEGER},
+      actual_pick_quantity = #{actualPickQuantity,jdbcType=DECIMAL},
       actual_pick_monovalent = #{actualPickMonovalent,jdbcType=DECIMAL},
       actual_pick_total = #{actualPickTotal,jdbcType=DECIMAL},
       simple_use = #{simpleUse,jdbcType=DECIMAL},

@@ -956,52 +956,52 @@ public class PurchaseEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andAnswerPickQuantityEqualTo(Integer value) {
+        public Criteria andAnswerPickQuantityEqualTo(BigDecimal value) {
             addCriterion("answer_pick_quantity =", value, "answerPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerPickQuantityNotEqualTo(Integer value) {
+        public Criteria andAnswerPickQuantityNotEqualTo(BigDecimal value) {
             addCriterion("answer_pick_quantity <>", value, "answerPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerPickQuantityGreaterThan(Integer value) {
+        public Criteria andAnswerPickQuantityGreaterThan(BigDecimal value) {
             addCriterion("answer_pick_quantity >", value, "answerPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerPickQuantityGreaterThanOrEqualTo(Integer value) {
+        public Criteria andAnswerPickQuantityGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("answer_pick_quantity >=", value, "answerPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerPickQuantityLessThan(Integer value) {
+        public Criteria andAnswerPickQuantityLessThan(BigDecimal value) {
             addCriterion("answer_pick_quantity <", value, "answerPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerPickQuantityLessThanOrEqualTo(Integer value) {
+        public Criteria andAnswerPickQuantityLessThanOrEqualTo(BigDecimal value) {
             addCriterion("answer_pick_quantity <=", value, "answerPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerPickQuantityIn(List<Integer> values) {
+        public Criteria andAnswerPickQuantityIn(List<BigDecimal> values) {
             addCriterion("answer_pick_quantity in", values, "answerPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerPickQuantityNotIn(List<Integer> values) {
+        public Criteria andAnswerPickQuantityNotIn(List<BigDecimal> values) {
             addCriterion("answer_pick_quantity not in", values, "answerPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerPickQuantityBetween(Integer value1, Integer value2) {
+        public Criteria andAnswerPickQuantityBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("answer_pick_quantity between", value1, value2, "answerPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andAnswerPickQuantityNotBetween(Integer value1, Integer value2) {
+        public Criteria andAnswerPickQuantityNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("answer_pick_quantity not between", value1, value2, "answerPickQuantity");
             return (Criteria) this;
         }
@@ -1136,52 +1136,52 @@ public class PurchaseEntityExample {
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityEqualTo(Integer value) {
+        public Criteria andActualPickQuantityEqualTo(BigDecimal value) {
             addCriterion("actual_pick_quantity =", value, "actualPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityNotEqualTo(Integer value) {
+        public Criteria andActualPickQuantityNotEqualTo(BigDecimal value) {
             addCriterion("actual_pick_quantity <>", value, "actualPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityGreaterThan(Integer value) {
+        public Criteria andActualPickQuantityGreaterThan(BigDecimal value) {
             addCriterion("actual_pick_quantity >", value, "actualPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityGreaterThanOrEqualTo(Integer value) {
+        public Criteria andActualPickQuantityGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("actual_pick_quantity >=", value, "actualPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityLessThan(Integer value) {
+        public Criteria andActualPickQuantityLessThan(BigDecimal value) {
             addCriterion("actual_pick_quantity <", value, "actualPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityLessThanOrEqualTo(Integer value) {
+        public Criteria andActualPickQuantityLessThanOrEqualTo(BigDecimal value) {
             addCriterion("actual_pick_quantity <=", value, "actualPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityIn(List<Integer> values) {
+        public Criteria andActualPickQuantityIn(List<BigDecimal> values) {
             addCriterion("actual_pick_quantity in", values, "actualPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityNotIn(List<Integer> values) {
+        public Criteria andActualPickQuantityNotIn(List<BigDecimal> values) {
             addCriterion("actual_pick_quantity not in", values, "actualPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityBetween(Integer value1, Integer value2) {
+        public Criteria andActualPickQuantityBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("actual_pick_quantity between", value1, value2, "actualPickQuantity");
             return (Criteria) this;
         }
 
-        public Criteria andActualPickQuantityNotBetween(Integer value1, Integer value2) {
+        public Criteria andActualPickQuantityNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("actual_pick_quantity not between", value1, value2, "actualPickQuantity");
             return (Criteria) this;
         }

@@ -1,7 +1,6 @@
 package com.cl.service.impl;
 
-import com.cl.bean.req.DistributionOrderReqBean;
-import com.cl.bean.req.OrderManageReqBean;
+import com.cl.bean.req.*;
 import com.cl.bean.res.OrderManageResBean;
 import com.cl.bean.res.OrderQuantityResBean;
 import com.cl.bean.res.SecondaryProcessResBean;
@@ -11,20 +10,26 @@ import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.SingleParam;
 import com.cl.comm.transformer.IObjectTransformer;
 import com.cl.dao.OrderManageMapper;
+import com.cl.dao.OrderQuantityMapper;
+import com.cl.dao.SecondaryProcessMapper;
 import com.cl.dao.SysOrgMapper;
-import com.cl.entity.OrderManageEntity;
-import com.cl.entity.SysOrgEntity;
+import com.cl.entity.*;
 import com.cl.service.IOrderManageService;
 import com.cl.service.IPulldownMenuService;
+import com.cl.util.DateUtils;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.cl.comm.constants.DictionaryConstants.ADMIN_ORG_ID;
 
@@ -50,6 +55,12 @@ public class OrderManageServiceImpl implements IOrderManageService {
 
     @Resource
     private IPulldownMenuService pulldownMenuService;
+
+    @Resource
+    private SecondaryProcessMapper secondaryProcessMapper;
+
+    @Resource
+    private OrderQuantityMapper orderQuantityMapper;
 
     @Override
     public PageInfo<OrderManageResBean> queryOrderList(RequestBeanModel<OrderManageReqBean> reqBeanModel) {
@@ -117,5 +128,156 @@ public class OrderManageServiceImpl implements IOrderManageService {
             return null;
         }
         return orderManageEntity.getProducer();
+    }
+
+    @Override
+    public void insertOrder(RequestBeanModel<OrderManageInsertReqBean> reqBeanModel) {
+        OrderManageInsertReqBean orderManageInsertReqBean = reqBeanModel.getReqData();
+        //根据用户id查询对应的组织
+        Long orgId = this.pulldownMenuService.selectOrgIdByUserId(Long.valueOf(reqBeanModel.getUserId()));
+        if(!Long.valueOf(ADMIN_ORG_ID).equals(orgId)){
+            SysOrgEntity sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orgId);
+            Assert.notNull(sysOrgEntity , "用户ID对应的组织信息不存在!");
+        }
+        //校验参数
+        this.checkParameter(orderManageInsertReqBean);
+        //新增订单
+        this.insertOrderManage(orderManageInsertReqBean , reqBeanModel.getUserId());
+        //新增二次工艺
+        List<SecondaryProcessReqBean> secondaryProcessReqBeanList = orderManageInsertReqBean.getSecondaryProcessReqBeanList();
+        if(CollectionUtils.isNotEmpty(secondaryProcessReqBeanList)){
+            this.insertSecondaryProcess(secondaryProcessReqBeanList , orderManageInsertReqBean.getOrderNo() , reqBeanModel.getUserId());
+        }
+        //新增下单数量详情
+        List<OrderQuantityReqBean> orderQuantityReqBeanList = orderManageInsertReqBean.getOrderQuantityReqBeanList();
+        if(CollectionUtils.isNotEmpty(orderQuantityReqBeanList)){
+            this.insertOrderQuantity(orderQuantityReqBeanList , orderManageInsertReqBean.getOrderNo() , reqBeanModel.getUserId());
+        }
+    }
+
+    /**
+     * 新增下单数量详情
+     * @param orderQuantityReqBeanList
+     * @param orderNo
+     * @param userId
+     */
+    private void insertOrderQuantity(List<OrderQuantityReqBean> orderQuantityReqBeanList , String orderNo , String userId){
+        for(OrderQuantityReqBean orderQuantityReqBean : orderQuantityReqBeanList){
+            OrderQuantityEntity orderQuantityEntity = new OrderQuantityEntity();
+            orderQuantityEntity.setOrderNo(orderNo);
+            orderQuantityEntity.setSizeName(orderQuantityReqBean.getSizeName());
+            if(StringUtils.isNotBlank(orderQuantityReqBean.getQuantity())){
+                orderQuantityEntity.setQuantity(Integer.valueOf(orderQuantityReqBean.getQuantity()));
+            }
+            orderQuantityEntity.setCreateUser(userId);
+            orderQuantityEntity.setLastUpdateUser(userId);
+            int i = this.orderQuantityMapper.insertSelective(orderQuantityEntity);
+            Assert.isTrue(i ==DictionaryConstants.ALL_BUSINESS_ONE , "新增下单数量详情失败!");
+        }
+    }
+
+    /**
+     * 新增二次工艺
+     * @param secondaryProcessReqBeanList
+     */
+    private void insertSecondaryProcess(List<SecondaryProcessReqBean> secondaryProcessReqBeanList , String orderNo , String userId){
+        for(SecondaryProcessReqBean secondaryProcessReqBean : secondaryProcessReqBeanList){
+            SecondaryProcessEntity secondaryProcessEntity = new SecondaryProcessEntity();
+            secondaryProcessEntity.setOrderNo(orderNo);
+            secondaryProcessEntity.setProcessName(secondaryProcessReqBean.getProcessName());
+            secondaryProcessEntity.setSupplierName(secondaryProcessReqBean.getSupplierName());
+            if(StringUtils.isNotBlank(secondaryProcessReqBean.getUnitPrice())){
+                secondaryProcessEntity.setUnitPrice(new BigDecimal(secondaryProcessReqBean.getUnitPrice()));
+            }
+            secondaryProcessEntity.setSimpleUse(secondaryProcessReqBean.getSimpleUse());
+            secondaryProcessEntity.setCreateUser(userId);
+            secondaryProcessEntity.setLastUpdateUser(userId);
+            int i = this.secondaryProcessMapper.insertSelective(secondaryProcessEntity);
+            Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "新增二次工艺失败!");
+        }
+    }
+
+    /**
+     * 新增订单
+     * @param orderManageInsertReqBean
+     * @param userId
+     */
+    private void insertOrderManage(OrderManageInsertReqBean orderManageInsertReqBean , String userId){
+        OrderManageEntity orderManageEntity = new OrderManageEntity();
+        orderManageEntity.setOrderNo(orderManageInsertReqBean.getOrderNo());//订单编号
+        orderManageEntity.setOrderQuantity(Integer.valueOf(orderManageInsertReqBean.getOrderQuantity()));//下单件数
+        orderManageEntity.setOrderType(orderManageInsertReqBean.getOrderType());//订单类型
+        orderManageEntity.setOrderTime(DateUtils.getDateToString(orderManageInsertReqBean.getOrderTime() , DateUtils.DATETIMESHOWFORMAT));//下单时间
+        orderManageEntity.setOrderImgUrl(orderManageInsertReqBean.getOrderImgUrl());//订单图片
+        orderManageEntity.setSku(orderManageInsertReqBean.getSku());//sku
+        orderManageEntity.setIsFirst(Byte.valueOf(orderManageInsertReqBean.getIsFirst()));//是否首单
+        orderManageEntity.setProducer(orderManageInsertReqBean.getProducer());//生产方
+        orderManageEntity.setSurplusTime(orderManageInsertReqBean.getSurplusTime());//剩余时间
+        orderManageEntity.setOrderStatus(DictionaryConstants.AVAILABLE);//订单状态 默认待采购
+        orderManageEntity.setRemarks(orderManageInsertReqBean.getRemarks());//备注
+        orderManageEntity.setCreateUser(userId);
+        orderManageEntity.setLastUpdateUser(userId);
+        int i = this.orderManageMapper.insertSelective(orderManageEntity);
+        Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "新增订单失败!");
+    }
+
+    /**
+     * 参数校验
+     * @param orderManageInsertReqBean
+     */
+    private void checkParameter(OrderManageInsertReqBean orderManageInsertReqBean){
+        String orderQuantity = orderManageInsertReqBean.getOrderQuantity();//订单件数
+        String orderQuantityRegexp = "^[1-9][0-9]{0,8}$";
+        if(match(orderQuantityRegexp , orderQuantity)) {
+            throw new BusinessException("订单件数格式规则: 必须是整数在0-999999999之间! ");
+        }
+        String orderType = orderManageInsertReqBean.getOrderType();//订单类型
+        if(!(DictionaryConstants.ORDER_TPYE_FOB.equalsIgnoreCase(orderType) || DictionaryConstants.ORDER_TPYE_CMT.equalsIgnoreCase(orderType))){
+            throw new BusinessException("订单类型不存在, 只包括新CMT和FOB两种类型!");
+        }
+        String isFirst = orderManageInsertReqBean.getIsFirst();
+        if(!(isFirst.equalsIgnoreCase(DictionaryConstants.ALL_BUSINESS_ZERO.toString()) || isFirst.equalsIgnoreCase(DictionaryConstants.ALL_BUSINESS_ONE.toString()))) {
+            throw new BusinessException("1:代表是首单 , 0:代表不是首单 , 请勿传其他值!");
+        }
+        String producer = orderManageInsertReqBean.getProducer();
+        SysOrgEntityExample sysOrgEntityExample = new SysOrgEntityExample();
+        SysOrgEntityExample.Criteria criteria = sysOrgEntityExample.createCriteria();
+        criteria.andNameEqualTo(producer);
+        List<SysOrgEntity> sysOrgEntityList = this.sysOrgMapper.selectByExample(sysOrgEntityExample);
+        Assert.notEmpty(sysOrgEntityList , "生产方不存在, 请核对后重新输入!");
+        List<SecondaryProcessReqBean> secondaryProcessReqBeanList = orderManageInsertReqBean.getSecondaryProcessReqBeanList();
+        if(CollectionUtils.isNotEmpty(secondaryProcessReqBeanList)){
+            for(SecondaryProcessReqBean secondaryProcessReqBean : secondaryProcessReqBeanList){
+                String unitPrice = secondaryProcessReqBean.getUnitPrice();
+                if(StringUtils.isNotBlank(unitPrice)){
+                    String unitPriceRegexp =  "(^[+]{0,1}(0|([1-9]\\d{0,9}))(\\.\\d{1,2}){0,1}$){0,1}";
+                    if(match(unitPriceRegexp ,unitPrice)){
+                        throw new BusinessException("价格规则:整数位最多10位,小数位最多2位! ");
+                    }
+                }
+            }
+        }
+        List<OrderQuantityReqBean> orderQuantityReqBeanList = orderManageInsertReqBean.getOrderQuantityReqBeanList();
+        if(CollectionUtils.isNotEmpty(orderQuantityReqBeanList)){
+            for(OrderQuantityReqBean orderQuantityReqBean : orderQuantityReqBeanList){
+                String quantity = orderQuantityReqBean.getQuantity();
+                if(match(orderQuantityRegexp , quantity)) {
+                    throw new BusinessException("数量格式规则: 必须是整数在0-999999999之间! ");
+                }
+            }
+        }
+    }
+
+    /**
+     * @param regex
+     * 正则表达式字符串
+     * @param str
+     * 要匹配的字符串
+     * @return 如果str 符合 regex的正则表达式格式,返回true, 否则返回 false;
+     */
+    private static boolean match(String regex, String str) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(str);
+        return !matcher.matches();
     }
 }

@@ -135,7 +135,7 @@ public class ExcelUtils {
         Row row = sheet.createRow(0);
         row.setHeight((short) (200 * 5));
         for (int i = 0; i < headers.length; i++) {
-            sheet.setColumnWidth(i, 256 * 15);
+            sheet.setColumnWidth(i, 300 * 18);
             int x = headers[i].lastIndexOf("(");
             int y = headers[i].lastIndexOf(")");
             String code = headers[i].substring(x + 1, y);
@@ -237,7 +237,7 @@ public class ExcelUtils {
      */
     public static CellStyle getContentCellStyle(Workbook wb) {
         Font fontStyle = wb.createFont();
-        fontStyle.setFontHeightInPoints((short) 10);
+        fontStyle.setFontHeightInPoints((short) 12);
         CellStyle cellStyle = wb.createCellStyle();
         // cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
         // cellStyle.setFillForegroundColor(HSSFColor.LEMON_CHIFFON.index);
@@ -265,7 +265,7 @@ public class ExcelUtils {
         Font fontStyle = wb.createFont();
         fontStyle.setFontName("宋体");
         fontStyle.setBold(true);
-        fontStyle.setFontHeightInPoints((short) 15);
+        fontStyle.setFontHeightInPoints((short) 18);
         CellStyle cellStyle = wb.createCellStyle();
         // cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
         // cellStyle.setFillForegroundColor(HSSFColor.LIGHT_YELLOW.index);
@@ -303,7 +303,7 @@ public class ExcelUtils {
         while (iterator.hasNext()) {
             index++;
             Row r = sheet.createRow(index);
-            r.setHeight((short) (200 * 2.5));
+            r.setHeight((short) (230 * 2.8));
             T t = iterator.next();
             Class<? extends Object> clazz = t.getClass();
             Field[] fields = clazz.getDeclaredFields();

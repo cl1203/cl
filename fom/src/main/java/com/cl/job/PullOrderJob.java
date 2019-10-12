@@ -240,9 +240,9 @@ public class PullOrderJob {
 		entity.setMaterielName(pb.getMaterialName());
 		entity.setMaterielColor(pb.getMaterialColor());
 		//应采数量 = 单件用量 * 订单件数
-		entity.setAnswerPickQuantity(Integer.valueOf(pb.getSimpleUse().multiply(BigDecimal.valueOf(Double.valueOf(order.getQuantity() + ""))).setScale(0, BigDecimal.ROUND_HALF_UP).toString()));
+		entity.setAnswerPickQuantity(pb.getSimpleUse().multiply(BigDecimal.valueOf(Double.valueOf(order.getQuantity() + ""))).setScale(0, BigDecimal.ROUND_HALF_UP));
 		entity.setAnswerPickMonovalent(pb.getPrice());
-		entity.setAnswerPickTotal(BigDecimal.valueOf(Double.valueOf(entity.getAnswerPickQuantity())).multiply(entity.getAnswerPickMonovalent()));
+		entity.setAnswerPickTotal(entity.getAnswerPickQuantity().multiply(entity.getAnswerPickMonovalent()));
 		entity.setSimpleUse(pb.getSimpleUse());
 		entity.setSingleAmountKg(pb.getSingleAmountKg());
 		entity.setCreateUser(ApiConstants.API_USER);

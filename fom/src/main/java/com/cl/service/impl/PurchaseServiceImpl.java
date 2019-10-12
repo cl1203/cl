@@ -13,7 +13,6 @@ import com.cl.service.IPurchaseService;
 import com.cl.service.ITailorService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -208,8 +207,8 @@ public class PurchaseServiceImpl implements IPurchaseService {
         }
         BigDecimal singleUse = purchaseEntityByOrderNo.getSimpleUse();//单件用量
         Assert.notNull(singleUse , "单件用量为空!无法计算应裁数量!");
-        Integer actualPickQuantity = purchaseEntityByOrderNo.getActualPickQuantity();//实采数量
-        BigDecimal answerCutQuantity = (new BigDecimal(String.valueOf(actualPickQuantity))).divide(singleUse , DictionaryConstants.ALL_BUSINESS_ZERO , BigDecimal.ROUND_HALF_UP);//应裁数量
+        BigDecimal actualPickQuantity = purchaseEntityByOrderNo.getActualPickQuantity();//实采数量
+        BigDecimal answerCutQuantity = (actualPickQuantity.divide(singleUse , DictionaryConstants.ALL_BUSINESS_ZERO , BigDecimal.ROUND_HALF_UP));//应裁数量
         return answerCutQuantity;
     }
 
@@ -223,11 +222,12 @@ public class PurchaseServiceImpl implements IPurchaseService {
         Assert.notNull(purchaseReqBean.getId() , "请选择一条数据,ID不能为空!");
         Assert.hasText(purchaseReqBean.getOrderNo() , "订单号不能为空!");
         Assert.hasText(purchaseReqBean.getActualPickQuantity() , "实采数量不能为空,用来计算应裁数!");
-        String actualPickQuantityRegexp = "^[1-9][0-9]{0,8}$";
-        if(match(actualPickQuantityRegexp , purchaseReqBean.getActualPickQuantity())) {
-            throw new BusinessException("实采数量格式规则: 必须是整数在0-999999999之间! ");
+        Assert.hasText(purchaseReqBean.getSupplierName() ,"供应商不能为空!");
+        String regexp = "(^[+]{0,1}(0|([1-9]\\d{0,9}))(\\.\\d{1,2}){0,1}$){0,1}";
+        if(match(regexp , purchaseReqBean.getActualPickQuantity())) {
+            throw new BusinessException("实采数量规则:整数位最多10位,小数位最多2位! ");
         }
-        purchaseEntity.setActualPickQuantity(Integer.valueOf(purchaseReqBean.getActualPickQuantity()));//实采数量
+        purchaseEntity.setActualPickQuantity(new BigDecimal(purchaseReqBean.getActualPickQuantity()));//实采数量
         Date orderTime = orderManageEntity.getOrderTime();//下单时间
         if(null != orderTime){
             Date date = new Date();
@@ -243,7 +243,6 @@ public class PurchaseServiceImpl implements IPurchaseService {
         if(null == purchaseEntityById.getPurchaseTime()){
             purchaseEntity.setPurchaseTime(new Date());//采购日期
         }
-        String regexp = "(^[+]{0,1}(0|([1-9]\\d{0,9}))(\\.\\d{1,2}){0,1}$){0,1}";
         Assert.hasText(purchaseReqBean.getActualPickMonovalent() , "实采单价不能为空!");
         if(match(regexp , purchaseReqBean.getActualPickMonovalent())) {
             throw new BusinessException("实采单价规则:整数位最多10位,小数位最多2位! ");
@@ -254,6 +253,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
         BigDecimal actualPickTotal = new BigDecimal(purchaseReqBean.getActualPickQuantity()).multiply(new BigDecimal(purchaseReqBean.getActualPickMonovalent()));
         purchaseEntity.setActualPickTotal(actualPickTotal.setScale(DictionaryConstants.PERMISSION_TYPE_TWO , BigDecimal.ROUND_HALF_UP));
         purchaseEntity.setId(purchaseReqBean.getId());//id
+        purchaseEntity.setSupplierName(purchaseReqBean.getSupplierName());//供应商
         return purchaseEntity;
     }
 }

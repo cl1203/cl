@@ -62,13 +62,13 @@ public class PurchaseResBean implements Serializable {
      * 应采数量
      */
     @ApiModelProperty(value = "应采数量")
-    private Integer answerPickQuantity;
+    private BigDecimal answerPickQuantity;
 
     /**
      * 实采数量
      */
     @ApiModelProperty(value = "实采数量")
-    private Integer actualPickQuantity;
+    private BigDecimal actualPickQuantity;
 
     /**
      * 应采单价
@@ -191,19 +191,19 @@ public class PurchaseResBean implements Serializable {
         this.materielColor = materielColor;
     }
 
-    public Integer getAnswerPickQuantity() {
+    public BigDecimal getAnswerPickQuantity() {
         return answerPickQuantity;
     }
 
-    public void setAnswerPickQuantity(Integer answerPickQuantity) {
+    public void setAnswerPickQuantity(BigDecimal answerPickQuantity) {
         this.answerPickQuantity = answerPickQuantity;
     }
 
-    public Integer getActualPickQuantity() {
+    public BigDecimal getActualPickQuantity() {
         return actualPickQuantity;
     }
 
-    public void setActualPickQuantity(Integer actualPickQuantity) {
+    public void setActualPickQuantity(BigDecimal actualPickQuantity) {
         this.actualPickQuantity = actualPickQuantity;
     }
 

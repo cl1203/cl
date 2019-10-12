@@ -12,7 +12,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 
 /**
  * @ClassName TailorController
@@ -59,6 +61,19 @@ public class TailorController {
     public ResponseBeanModel<Void> updateTailor(@RequestBody RequestBeanModel<TailorReqBean> reqBeanModel){
         this.iTailorService.updateTailor(reqBeanModel);
         return new ResponseBeanModel<>("修改裁剪数据成功!");
+    }
+
+    /**
+     * @Author 陈龙
+     * @Description 导出
+     * @Date 21:12 2019/7/29
+     * @Param [reqBeanModel]
+     * @return void
+     **/
+    @GetMapping("/exportTailor")
+    @ApiOperation(value = "导出裁剪数据" , notes = "根据条件导出裁剪数据")
+    public void exportTailor(HttpServletResponse response , TailorReqBean tailorReqBean , @RequestParam String userId)throws IOException{
+        this.iTailorService.exportTailor(response ,tailorReqBean , userId);
     }
 
 }

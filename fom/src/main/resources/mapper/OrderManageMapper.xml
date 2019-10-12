@@ -5,6 +5,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
     <result column="order_quantity" jdbcType="INTEGER" property="orderQuantity" />
+    <result column="order_type" jdbcType="VARCHAR" property="orderType" />
     <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
     <result column="order_img_url" jdbcType="VARCHAR" property="orderImgUrl" />
     <result column="sku" jdbcType="VARCHAR" property="sku" />
@@ -80,9 +81,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_no, order_quantity, order_time, order_img_url, sku, is_first, producer, 
-    surplus_time, purchase_time, tailoring_time, wait_tailor_time, order_status, remarks, 
-    create_time, create_user, last_update_time, last_update_user
+    id, order_no, order_quantity, order_type, order_time, order_img_url, sku, is_first, 
+    producer, surplus_time, purchase_time, tailoring_time, wait_tailor_time, order_status, 
+    remarks, create_time, create_user, last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.OrderManageEntityExample" resultMap="BaseResultMap">
     select
@@ -123,18 +124,20 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.OrderManageEntity" useGeneratedKeys="true">
-    insert into order_manage (order_no, order_quantity, order_time, 
-      order_img_url, sku, is_first, 
-      producer, surplus_time, purchase_time, 
-      tailoring_time, wait_tailor_time, order_status, 
-      remarks, create_time, create_user, 
-      last_update_time, last_update_user)
-    values (#{orderNo,jdbcType=VARCHAR}, #{orderQuantity,jdbcType=INTEGER}, #{orderTime,jdbcType=TIMESTAMP}, 
-      #{orderImgUrl,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, #{isFirst,jdbcType=TINYINT}, 
-      #{producer,jdbcType=VARCHAR}, #{surplusTime,jdbcType=VARCHAR}, #{purchaseTime,jdbcType=INTEGER}, 
-      #{tailoringTime,jdbcType=INTEGER}, #{waitTailorTime,jdbcType=TIMESTAMP}, #{orderStatus,jdbcType=TINYINT}, 
-      #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
-      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR})
+    insert into order_manage (order_no, order_quantity, order_type, 
+      order_time, order_img_url, sku, 
+      is_first, producer, surplus_time, 
+      purchase_time, tailoring_time, wait_tailor_time, 
+      order_status, remarks, create_time, 
+      create_user, last_update_time, last_update_user
+      )
+    values (#{orderNo,jdbcType=VARCHAR}, #{orderQuantity,jdbcType=INTEGER}, #{orderType,jdbcType=VARCHAR}, 
+      #{orderTime,jdbcType=TIMESTAMP}, #{orderImgUrl,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, 
+      #{isFirst,jdbcType=TINYINT}, #{producer,jdbcType=VARCHAR}, #{surplusTime,jdbcType=VARCHAR}, 
+      #{purchaseTime,jdbcType=INTEGER}, #{tailoringTime,jdbcType=INTEGER}, #{waitTailorTime,jdbcType=TIMESTAMP}, 
+      #{orderStatus,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.OrderManageEntity" useGeneratedKeys="true">
     insert into order_manage
@@ -144,6 +147,9 @@
       </if>
       <if test="orderQuantity != null">
         order_quantity,
+      </if>
+      <if test="orderType != null">
+        order_type,
       </if>
       <if test="orderTime != null">
         order_time,
@@ -197,6 +203,9 @@
       </if>
       <if test="orderQuantity != null">
         #{orderQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null">
+        #{orderType,jdbcType=VARCHAR},
       </if>
       <if test="orderTime != null">
         #{orderTime,jdbcType=TIMESTAMP},
@@ -263,6 +272,9 @@
       <if test="record.orderQuantity != null">
         order_quantity = #{record.orderQuantity,jdbcType=INTEGER},
       </if>
+      <if test="record.orderType != null">
+        order_type = #{record.orderType,jdbcType=VARCHAR},
+      </if>
       <if test="record.orderTime != null">
         order_time = #{record.orderTime,jdbcType=TIMESTAMP},
       </if>
@@ -318,6 +330,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       order_no = #{record.orderNo,jdbcType=VARCHAR},
       order_quantity = #{record.orderQuantity,jdbcType=INTEGER},
+      order_type = #{record.orderType,jdbcType=VARCHAR},
       order_time = #{record.orderTime,jdbcType=TIMESTAMP},
       order_img_url = #{record.orderImgUrl,jdbcType=VARCHAR},
       sku = #{record.sku,jdbcType=VARCHAR},
@@ -345,6 +358,9 @@
       </if>
       <if test="orderQuantity != null">
         order_quantity = #{orderQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null">
+        order_type = #{orderType,jdbcType=VARCHAR},
       </if>
       <if test="orderTime != null">
         order_time = #{orderTime,jdbcType=TIMESTAMP},
@@ -398,6 +414,7 @@
     update order_manage
     set order_no = #{orderNo,jdbcType=VARCHAR},
       order_quantity = #{orderQuantity,jdbcType=INTEGER},
+      order_type = #{orderType,jdbcType=VARCHAR},
       order_time = #{orderTime,jdbcType=TIMESTAMP},
       order_img_url = #{orderImgUrl,jdbcType=VARCHAR},
       sku = #{sku,jdbcType=VARCHAR},

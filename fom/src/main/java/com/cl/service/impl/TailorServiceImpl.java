@@ -10,16 +10,20 @@ import com.cl.entity.*;
 import com.cl.service.IFinanceService;
 import com.cl.service.IPulldownMenuService;
 import com.cl.service.ITailorService;
+import com.cl.util.DateUtils;
+import com.cl.util.ExcelUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.auth.BasicUserPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -59,6 +63,9 @@ public class TailorServiceImpl implements ITailorService {
 
     @Resource
     private StockMapper stockMapper;
+
+    @Resource
+    private SysUserMapper sysUserMapper;
 
     @Override
     public PageInfo<TailorResBean> queryTailorList(RequestBeanModel<TailorReqBean> reqBeanModel) {
@@ -210,5 +217,69 @@ public class TailorServiceImpl implements ITailorService {
     public void insertTailor(TailorEntity tailorEntity) {
         int i = this.tailorMapper.insertSelective(tailorEntity);
         Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE  , "新增裁剪数据失败!");
+    }
+
+    @Override
+    public void exportTailor(HttpServletResponse response, TailorReqBean tailorReqBean , String userId) {
+        Assert.hasText(userId , "userId不能为空!");
+        String userIdRegexp = "^[1-9][0-9]{0,8}$";
+        if(match(userIdRegexp , userId)) {
+            throw new BusinessException("userId规则: 必须是整数在0-999999999之间! ");
+        }
+        SysUserEntity sysUserEntity = this.sysUserMapper.selectByPrimaryKey(Long.valueOf(userId));
+        if(null == sysUserEntity){
+            throw new BusinessException(DictionaryConstants.failCode,"userId对应的用户不存在, 请求失败!");
+        }
+        //转码
+        tailorReqBean = this.decodeTailorReqBean(tailorReqBean);
+        tailorReqBean.setPageNum(DictionaryConstants.ALL_BUSINESS_ONE);
+        tailorReqBean.setPageSize(DictionaryConstants.PAGE_SIZE);
+        RequestBeanModel requestBeanModel = new RequestBeanModel();
+        requestBeanModel.setReqData(tailorReqBean);
+        requestBeanModel.setUserId(userId);
+        //查询结果
+        List<TailorResBean> tailorResBeanList = this.queryTailorList(requestBeanModel).getList();
+        //表头
+        String[] headers = {"订单编号(orderNo)" , "SKU(sku)" , "生产方(producer)" , "应裁数量(answerCutQuantity)" ,"实裁数量(actualCutQuantity)",
+                            "裁剪小组名(tailorName)" , "裁剪单价(monovalent)"};
+        ExcelUtils.exportExcel("裁床列表信息" , headers , tailorResBeanList , response , DateUtils.DATESHOWFORMAT);
+    }
+
+    private TailorReqBean decodeTailorReqBean(TailorReqBean tailorReqBean) {
+        // 编码
+        final String UTF_8 = "UTF-8";
+        try {
+            // 订单号
+            if (StringUtils.isNotBlank(tailorReqBean.getOrderNo())) {
+                tailorReqBean.setOrderNo(URLDecoder.decode(tailorReqBean.getOrderNo(), UTF_8));
+            }
+            // sku
+            if (StringUtils.isNotBlank(tailorReqBean.getSku())) {
+                tailorReqBean.setSku(URLDecoder.decode(tailorReqBean.getSku(), UTF_8));
+            }
+            // 生产方
+            if (StringUtils.isNotBlank(tailorReqBean.getProducer())) {
+                tailorReqBean.setProducer(URLDecoder.decode(tailorReqBean.getProducer(), UTF_8));
+            }
+            // 裁剪小组
+            if (StringUtils.isNotBlank(tailorReqBean.getTailorName())) {
+                tailorReqBean.setTailorName(URLDecoder.decode(tailorReqBean.getTailorName(), UTF_8));
+            }
+            // 裁剪状态
+            if (StringUtils.isNotBlank(tailorReqBean.getTailorStatus())) {
+                tailorReqBean.setTailorStatus(URLDecoder.decode(tailorReqBean.getTailorStatus(), UTF_8));
+            }
+            //下单开始时间
+            if (StringUtils.isNotBlank(tailorReqBean.getStartDate())) {
+                tailorReqBean.setStartDate(URLDecoder.decode(tailorReqBean.getStartDate(), UTF_8));
+            }
+            //下单结束时间
+            if (StringUtils.isNotBlank(tailorReqBean.getEndDate())) {
+                tailorReqBean.setEndDate(URLDecoder.decode(tailorReqBean.getEndDate(), UTF_8));
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return tailorReqBean;
     }
 }

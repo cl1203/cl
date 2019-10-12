@@ -46,6 +46,12 @@ public class OrderManageResBean implements Serializable {
 	private Integer orderQuantity;
 
 	/**
+	 * 订单类型
+	 */
+	@ApiModelProperty(value = "订单类型")
+	private String orderType;
+
+	/**
 	 * 下单时间
 	 */
 	@ApiModelProperty(value = "下单时间")
@@ -82,6 +88,12 @@ public class OrderManageResBean implements Serializable {
 	private String surplusTime;
 
 	/**
+	 * 备注
+	 */
+	@ApiModelProperty(value = "备注")
+	private String remarks;
+
+	/**
 	 * 二次工艺
 	 */
 	@ApiModelProperty(value = "二次工艺")
@@ -89,6 +101,22 @@ public class OrderManageResBean implements Serializable {
 
 	@ApiModelProperty(value = "下单数量")
 	private List<OrderQuantityResBean> orderQuantityResBeanList;
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
 
 	public Long getId() {
 		return id;

@@ -24,6 +24,11 @@ public class OrderManageEntity implements Serializable {
     private Integer orderQuantity;
 
     /**
+     * 订单类型
+     */
+    private String orderType;
+
+    /**
      * 下单时间
      */
     private Date orderTime;
@@ -64,7 +69,7 @@ public class OrderManageEntity implements Serializable {
     private Integer tailoringTime;
 
     /**
-     * 采购完成时间
+     * 采购完成，进入待裁剪时间
      */
     private Date waitTailorTime;
 
@@ -122,6 +127,14 @@ public class OrderManageEntity implements Serializable {
 
     public void setOrderQuantity(Integer orderQuantity) {
         this.orderQuantity = orderQuantity;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
     }
 
     public Date getOrderTime() {
@@ -259,6 +272,7 @@ public class OrderManageEntity implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getOrderNo() == null ? other.getOrderNo() == null : this.getOrderNo().equals(other.getOrderNo()))
             && (this.getOrderQuantity() == null ? other.getOrderQuantity() == null : this.getOrderQuantity().equals(other.getOrderQuantity()))
+            && (this.getOrderType() == null ? other.getOrderType() == null : this.getOrderType().equals(other.getOrderType()))
             && (this.getOrderTime() == null ? other.getOrderTime() == null : this.getOrderTime().equals(other.getOrderTime()))
             && (this.getOrderImgUrl() == null ? other.getOrderImgUrl() == null : this.getOrderImgUrl().equals(other.getOrderImgUrl()))
             && (this.getSku() == null ? other.getSku() == null : this.getSku().equals(other.getSku()))
@@ -283,6 +297,7 @@ public class OrderManageEntity implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getOrderNo() == null) ? 0 : getOrderNo().hashCode());
         result = prime * result + ((getOrderQuantity() == null) ? 0 : getOrderQuantity().hashCode());
+        result = prime * result + ((getOrderType() == null) ? 0 : getOrderType().hashCode());
         result = prime * result + ((getOrderTime() == null) ? 0 : getOrderTime().hashCode());
         result = prime * result + ((getOrderImgUrl() == null) ? 0 : getOrderImgUrl().hashCode());
         result = prime * result + ((getSku() == null) ? 0 : getSku().hashCode());
@@ -310,6 +325,7 @@ public class OrderManageEntity implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", orderNo=").append(orderNo);
         sb.append(", orderQuantity=").append(orderQuantity);
+        sb.append(", orderType=").append(orderType);
         sb.append(", orderTime=").append(orderTime);
         sb.append(", orderImgUrl=").append(orderImgUrl);
         sb.append(", sku=").append(sku);
