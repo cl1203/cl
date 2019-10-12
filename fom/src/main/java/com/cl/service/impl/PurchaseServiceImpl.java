@@ -154,7 +154,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
     private void updateStock(OrderManageEntity orderManageEntity , PurchaseEntity purchaseEntityById , String actualPickQuantity){
         StockEntityExample stockEntityExample = new StockEntityExample();
         StockEntityExample.Criteria criteriaStock = stockEntityExample.createCriteria();
-        criteriaStock.andSkuEqualTo(orderManageEntity.getSku());
+        criteriaStock.andOrderNoEqualTo(orderManageEntity.getOrderNo());
         criteriaStock.andMaterialSkuEqualTo(purchaseEntityById.getMaterielSku());
         criteriaStock.andStatusEqualTo(DictionaryConstants.AVAILABLE);
         List<StockEntity> stockEntityList = this.stockMapper.selectByExample(stockEntityExample);

@@ -133,7 +133,7 @@ public class TailorServiceImpl implements ITailorService {
     private void updateStock(OrderManageEntity orderManageEntity , String actualCutQuantity){
         StockEntityExample stockEntityExample = new StockEntityExample();
         StockEntityExample.Criteria criteria = stockEntityExample.createCriteria();
-        criteria.andSkuEqualTo(orderManageEntity.getSku());
+        criteria.andOrderNoEqualTo(orderManageEntity.getOrderNo());
         criteria.andStatusEqualTo(DictionaryConstants.AVAILABLE);
         //根据订单sku获取对应的所有库存数据
         List<StockEntity> stockEntityList = this.stockMapper.selectByExample(stockEntityExample);

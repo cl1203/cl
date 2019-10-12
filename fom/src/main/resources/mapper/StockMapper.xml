@@ -8,6 +8,7 @@
     <result column="material_sku" jdbcType="VARCHAR" property="materialSku" />
     <result column="stock" jdbcType="INTEGER" property="stock" />
     <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
     <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
@@ -72,8 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_no, sku, material_sku, stock, `status`, create_time, create_user, last_update_time, 
-    last_update_user
+    id, order_no, sku, material_sku, stock, `status`, remark, create_time, create_user, 
+    last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.StockEntityExample" resultMap="BaseResultMap">
     select
@@ -115,13 +116,13 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.StockEntity" useGeneratedKeys="true">
     insert into stock (order_no, sku, material_sku, 
-      stock, `status`, create_time, 
-      create_user, last_update_time, last_update_user
-      )
+      stock, `status`, remark, 
+      create_time, create_user, last_update_time, 
+      last_update_user)
     values (#{orderNo,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, #{materialSku,jdbcType=VARCHAR}, 
-      #{stock,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
-      )
+      #{stock,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateUser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.StockEntity" useGeneratedKeys="true">
     insert into stock
@@ -140,6 +141,9 @@
       </if>
       <if test="status != null">
         `status`,
+      </if>
+      <if test="remark != null">
+        remark,
       </if>
       <if test="createTime != null">
         create_time,
@@ -169,6 +173,9 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -211,6 +218,9 @@
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=TINYINT},
       </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -236,6 +246,7 @@
       material_sku = #{record.materialSku,jdbcType=VARCHAR},
       stock = #{record.stock,jdbcType=INTEGER},
       `status` = #{record.status,jdbcType=TINYINT},
+      remark = #{record.remark,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_user = #{record.createUser,jdbcType=VARCHAR},
       last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
@@ -262,6 +273,9 @@
       <if test="status != null">
         `status` = #{status,jdbcType=TINYINT},
       </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -284,6 +298,7 @@
       material_sku = #{materialSku,jdbcType=VARCHAR},
       stock = #{stock,jdbcType=INTEGER},
       `status` = #{status,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=VARCHAR},
       last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
