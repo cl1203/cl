@@ -24,11 +24,25 @@ public class CommonConfig {
 	@Value("${dashboard.show.day}")
 	private Integer dashBoardShowDay;
 	
+	@Value("${dashboard.purchase.show}")
+	private Integer dashBoardPurchaseDay;
+	
+	@Value("${dashboard.tailor.show}")
+	private Integer dashBoardTailorDay;
+	
 	@Value("${dashboard.purchase.difference}")
 	private Integer purchaseDifference;
 	
 	@Value("${dashboard.tailor.difference}")
 	private Integer tailorDifference;
+
+	public Integer getDashBoardShowDay() {
+		return dashBoardShowDay;
+	}
+
+	public void setDashBoardShowDay(Integer dashBoardShowDay) {
+		this.dashBoardShowDay = dashBoardShowDay;
+	}
 
 	public Integer getPurchaseDifference() {
 		return purchaseDifference;
@@ -46,12 +60,20 @@ public class CommonConfig {
 		this.tailorDifference = tailorDifference;
 	}
 
-	public Integer getDashBoardShowDay() {
-		return dashBoardShowDay;
+	public Integer getDashBoardPurchaseDay() {
+		return dashBoardPurchaseDay;
 	}
 
-	public void setDashBoardShowDay(Integer dashBoardShowDay) {
-		this.dashBoardShowDay = dashBoardShowDay;
+	public void setDashBoardPurchaseDay(Integer dashBoardPurchaseDay) {
+		this.dashBoardPurchaseDay = dashBoardPurchaseDay;
+	}
+
+	public Integer getDashBoardTailorDay() {
+		return dashBoardTailorDay;
+	}
+
+	public void setDashBoardTailorDay(Integer dashBoardTailorDay) {
+		this.dashBoardTailorDay = dashBoardTailorDay;
 	}
 
 	public String getUrlPrefix() {

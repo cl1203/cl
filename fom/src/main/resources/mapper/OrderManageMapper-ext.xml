@@ -106,7 +106,12 @@
 		   date_format(om.order_time,'%Y-%m-%d') as orderDate,om.remarks as remark
 	from order_manage om 
 		left join tailor t on t.order_no = om.order_no
-	where om.order_time >= #{startDate} and om.order_time &lt;= #{endDate}
+	where om.order_time >= #{startDate} 
+		  and om.order_time &lt;= #{endDate}
+		  and om.order_status in
+		  <foreach collection="statusList" item="status" open="(" close=")" separator=",">
+				#{status}
+		  </foreach>
 	order by om.order_time
 	limit #{offset},#{limit}
   </select>

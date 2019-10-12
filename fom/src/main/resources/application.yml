@@ -1,5 +1,5 @@
 server:
-  port: 9090
+  port: 8080
   servlet:
     context-path: /fom
 spring:
@@ -77,9 +77,11 @@ dashboard:
   show:
     day: 5
   purchase:
+    show: 5
     difference: 5
   tailor:
-    difference: 3
+    show: 8
+    difference: 8
 
 
 logging:

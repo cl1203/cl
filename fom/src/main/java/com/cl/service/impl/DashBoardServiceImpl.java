@@ -61,8 +61,10 @@ public class DashBoardServiceImpl implements IDashBoardService {
 	public PageInfo<DashBoardResBean> queryForecastInfo(RequestBeanModel<DashBoardReqBean> reqBeanModel) throws Exception {
 		DashBoardReqBean reqBean = reqBeanModel.getReqData();
 		validateParams(reqBean);
-		List<DashBoardResBean> resBeanList = orderManageMapper.selectDashBoardByParams(reqBean);
+		//初始化订单数据，数量为0
 		List<DashBoardResBean> initResBeanList = init(reqBean);
+		//数据库查询订单数据
+		List<DashBoardResBean> resBeanList = orderManageMapper.selectDashBoardByParams(reqBean);
 		if(CollectionUtils.isEmpty(resBeanList)) {
 			return new PageInfo<>(initResBeanList);
 		}
@@ -72,12 +74,14 @@ public class DashBoardServiceImpl implements IDashBoardService {
 		PageInfo<DashBoardResBean> dashBoardResBeanPageInfo = new PageInfo<>();
 		Map<String,Object> mapBean = new HashMap<>();
 		for(DashBoardResBean bean : resBeanList) {
+			//计算表头显示时间
 			String date = bean.getDate();
 			if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
 				bean.setDate(sdf.format(DateUtils.addDays(sdf.parse(date), config.getPurchaseDifference())));
 			}else {
 				bean.setDate(sdf.format(DateUtils.addDays(sdf.parse(date), config.getTailorDifference())));
 			}
+			//计算星期几
 			if(bean.getDate().equals(today)) {
 				bean.setDayOfWeek(DashBoardConstants.TODAY);
 			}else {
@@ -87,6 +91,7 @@ public class DashBoardServiceImpl implements IDashBoardService {
 			Map<String,Object> params = new HashMap<>();
 			params.put("startDate", date + " 00:00:00");
 			params.put("endDate", date + " 23:59:59");
+			params.put("statusList", reqBean.getStatusList());
 	        params.put("offset", (reqBean.getPageNum() - 1) * reqBean.getPageSize());
 	        params.put("limit", reqBean.getPageSize());
 			List<DashBoardDetailResBean> detail = orderManageMapper.selectDashBoardDetailByParams(params);
@@ -225,23 +230,42 @@ public class DashBoardServiceImpl implements IDashBoardService {
 			Calendar c = Calendar.getInstance();
 			orderDate += " 00:00:00";
 			c.setTime(sdf.parse(orderDate));
-			long startTime = System.currentTimeMillis();
+			long currentTime = System.currentTimeMillis();
 			if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
 				c.add(Calendar.DAY_OF_MONTH, config.getPurchaseDifference());
+				long endTime = c.getTimeInMillis();
+				long day = DateUtils.dayDifference(currentTime, endTime);
+				long hour = DateUtils.hourDifference(currentTime, endTime);
+				if(day < 0 || hour < 0) {
+					detail.setIsExceed(DashBoardConstants.IS_EXCEED);
+				}else {
+					detail.setIsExceed(DashBoardConstants.IS_NOT_EXCEED);
+				}
+				detail.setDeliveryDay(Integer.valueOf(day + ""));
+				detail.setDeliveryHour(Integer.valueOf(hour + ""));
 			}
 			if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_TAILOR) {
-				c.add(Calendar.DAY_OF_MONTH, config.getTailorDifference());
+				Map<String,Object> params = new HashMap<>();
+				params.put("orderNo", detail.getOrderNo());
+				OrderManageEntity order = orderManageMapper.selectByParams(params).get(0);
+				//下单当天起5天内未进入待裁剪则超期
+				if(order.getOrderStatus() == ApiConstants.ORDER_STATUS_WAIT_PURCHASE
+						|| order.getOrderStatus() == ApiConstants.ORDER_STATUS_PURCHASING) {
+					c.add(Calendar.DAY_OF_MONTH, config.getPurchaseDifference());
+				}else if(order.getOrderStatus() == ApiConstants.ORDER_STATUS_WAIT_TAILOR) {
+					c.add(Calendar.DAY_OF_MONTH, config.getTailorDifference());
+				}
+				if(currentTime - c.getTimeInMillis() > 0) {
+					detail.setIsExceed(DashBoardConstants.IS_EXCEED);
+				}else {
+					detail.setIsExceed(DashBoardConstants.IS_NOT_EXCEED);
+				}
+				long day = DateUtils.dayDifference(c.getTimeInMillis(), currentTime);
+				long hour = DateUtils.hourDifference(c.getTimeInMillis(), currentTime);
+				detail.setDeliveryDay(Integer.valueOf(day + ""));
+				detail.setDeliveryHour(Integer.valueOf(hour + ""));
 			}
-			long endTime = c.getTimeInMillis();
-			long day = DateUtils.dayDifference(startTime, endTime);
-			long hour = DateUtils.hourDifference(startTime, endTime);
-			if(day < 0 || hour < 0) {
-				detail.setIsExceed(DashBoardConstants.IS_EXCEED);
-			}else {
-				detail.setIsExceed(DashBoardConstants.IS_NOT_EXCEED);
-			}
-			detail.setDeliveryDay(Integer.valueOf(day + ""));
-			detail.setDeliveryHour(Integer.valueOf(hour + ""));
+			
 		}
 	}
 
@@ -260,14 +284,24 @@ public class DashBoardServiceImpl implements IDashBoardService {
     	}
     	Calendar c = Calendar.getInstance();
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    	//判断是否查询某一天的数据，还是查询默认天数的数据，默认天数读取配置文件
+    	//判断是否查询某一天的数据，还是查询默认天数的数据，默认查询过去5天的数据
     	if(StringUtils.isBlank(reqBean.getStartDate())) {
-    		//设置查询的起始时间，结束时间，默认查询过去5天的数据
         	Date now = new Date();
         	c.setTime(now);
-        	c.add(Calendar.DAY_OF_MONTH, -config.getDashBoardShowDay());
+        	//计算列表订单的开始时间
+        	if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
+        		c.add(Calendar.DAY_OF_MONTH, -config.getDashBoardPurchaseDay());
+        	}else {
+        		c.add(Calendar.DAY_OF_MONTH, -config.getDashBoardTailorDay());
+        	}
         	reqBean.setStartDate(sdf.format(c.getTime()));
-        	reqBean.setEndDate(sdf.format(now));
+        	//计算列表订单的结束时间
+        	if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
+        		c.add(Calendar.DAY_OF_MONTH, config.getDashBoardShowDay());
+        	}else {
+        		c.add(Calendar.DAY_OF_MONTH, config.getDashBoardShowDay());
+        	}
+        	reqBean.setEndDate(sdf.format(c.getTime()));
     	}else {
     		Pattern pattern = Pattern.compile(ApiConstants.DATE_REG);
     		Matcher matcher = pattern.matcher(reqBean.getStartDate());
@@ -285,6 +319,8 @@ public class DashBoardServiceImpl implements IDashBoardService {
 			statusList.add(ApiConstants.ORDER_STATUS_WAIT_PURCHASE);
 			statusList.add(ApiConstants.ORDER_STATUS_PURCHASING);
 		}else if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_TAILOR) {
+			statusList.add(ApiConstants.ORDER_STATUS_WAIT_PURCHASE);
+			statusList.add(ApiConstants.ORDER_STATUS_PURCHASING);
 			statusList.add(ApiConstants.ORDER_STATUS_WAIT_TAILOR);
 		}else {
 			throw new BusinessException("参数状态非法！");
