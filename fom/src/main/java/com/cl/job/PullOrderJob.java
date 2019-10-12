@@ -434,6 +434,8 @@ public class PullOrderJob {
 		entity.setOrderTime(sdf.parse(order.getPlaceOrderTime()));
 		entity.setOrderImgUrl(order.getPic());
 		entity.setSku(order.getSku());
+		entity.setSurplusTime(order.getDeliveryTime());
+		entity.setOrderType(order.getOrderType());
 		entity.setIsFirst(order.getIsFirst().equals(ApiConstants.INF_IS_FIRST) ? Byte.valueOf("1") : Byte.valueOf("0"));
 		if(order.getProducer().indexOf("/") > 0) {
 			String[] producerArr = order.getProducer().split("/");
