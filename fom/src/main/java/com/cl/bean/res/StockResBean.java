@@ -7,6 +7,8 @@ public class StockResBean implements Serializable {
 
 	private static final long serialVersionUID = 2474199723343891189L;
 
+	private String orderNo;
+	
     /**
      * SKU编号
      */
@@ -21,6 +23,14 @@ public class StockResBean implements Serializable {
      * 物料集合
      */
     private List<MaterialResBean> materiaList;
+
+	public String getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
 
 	public List<MaterialResBean> getMateriaList() {
 		return materiaList;

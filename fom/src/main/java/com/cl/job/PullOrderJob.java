@@ -90,7 +90,7 @@ public class PullOrderJob {
 	@Autowired
 	private CommonConfig config;
 	
-	@Scheduled(cron = "0 */1 * * * *")
+	@Scheduled(cron = "0 */10 * * * *")
 	@Transactional(rollbackFor = Exception.class)
 	public void pullOrder() throws Exception {
 		SysParameterEntityExample example = new SysParameterEntityExample();
@@ -114,10 +114,8 @@ public class PullOrderJob {
 		c.add(Calendar.MINUTE, -10);
 		String startTime = sdf.format(c.getTime());
 		Map<String,String> params = new HashMap<String, String>();
-//		params.put("startTime", startTime);
-//		params.put("endTime", endTime);
-		params.put("startTime", "2019-09-29 18:10:00");
-		params.put("endTime", "2019-09-29 18:20:00");
+		params.put("startTime", startTime);
+		params.put("endTime", endTime);
 		Map<String,String> headerParams = getHeaderParams(now);
 		String result = HttpClientUtils.httpPostWithJSON(config.getUrlPrefix() + config.getUri(), params,headerParams);
 		if(StringUtils.isBlank(result)) {
@@ -207,9 +205,10 @@ public class PullOrderJob {
 			PurchaseEntity entity = convertFromPurchaseBean(pb,order,now);
 			purchaseMapper.insertSelective(entity);
 			
-			//新增库存数据
+			//新增库存
 			StockEntityExample stockExample = new StockEntityExample();
 			StockEntityExample.Criteria stockCriteria = stockExample.createCriteria();
+			stockCriteria.andOrderNoEqualTo(order.getProduceOrderId());
 			stockCriteria.andSkuEqualTo(order.getSku());
 			stockCriteria.andMaterialSkuEqualTo(pb.getMaterialSku());
 			List<StockEntity> existsStock = stockMapper.selectByExample(stockExample);
@@ -217,6 +216,7 @@ public class PullOrderJob {
 				continue;
 			}
 			StockEntity stock = new StockEntity();
+			stock.setOrderNo(order.getProduceOrderId());
 			stock.setSku(order.getSku());
 			stock.setMaterialSku(pb.getMaterialSku());
 			stock.setStock(ApiConstants.DEFAULT_STOCK);

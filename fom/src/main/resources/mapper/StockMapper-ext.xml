@@ -3,6 +3,7 @@
 <mapper namespace="com.cl.dao.StockMapper">
 
 	<resultMap id="stockResBeanResultMap" type="com.cl.bean.res.StockResBean">
+		<result column="order_no" property="orderNo" />
 		<result column="sku" property="sku" />
 		<collection property="materiaList" javaType="list" resultMap="materiaListResultMap" />
 	</resultMap>
@@ -57,6 +58,22 @@
 			</foreach>
 		</if>
 		order by s.stock desc,sku
+	</select>
+
+	<select id="selectByParams" parameterType="java.util.Map" resultMap="stockResBeanResultMap">
+		select s.sku,s.material_sku,s.stock
+		from stock s
+		where s.status = 1
+		<if test="orderNo != null and orderNo != ''">
+			and s.order_no = #{orderNo}
+		</if>
+		<if test="sku != null and sku != ''">
+			and s.sku = #{sku}
+		</if>
+		order by s.last_update_time desc,s.stock desc
+		<if test="offset != null and limit != null and limit > 0">
+			limit #{offset},#{limit}
+		</if>
 	</select>
 
 </mapper>

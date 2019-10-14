@@ -20,11 +20,22 @@ public class StockReqBean implements Serializable {
 	@ApiModelProperty(value = "库存数")
 	private Integer stock;
 	
+	@ApiModelProperty(value = "备注")
+	private String remark;
+	
 	@ApiModelProperty(value = "每页条数")
 	private Integer pageSize;
 
 	@ApiModelProperty(value = "页数")
 	private Integer pageNum;
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 
 	public String getMaterialSku() {
 		return materialSku;

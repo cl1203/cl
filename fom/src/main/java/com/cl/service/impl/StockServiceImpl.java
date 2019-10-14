@@ -60,8 +60,10 @@ public class StockServiceImpl implements IStockService {
         int offset = (stockReqBean.getPageNum() - 1) * stockReqBean.getPageSize();
         params.put("offset", offset);
         params.put("limit", stockReqBean.getPageSize());
-        List<String> skuList = stockMapper.selectSkuByParams(params);
-        List<StockResBean> stockList = stockMapper.selectBySkuList(skuList);
+        List<StockResBean> stockList = stockMapper.selectByParams(params);
+        stockPageInfo.setList(stockList);
+//        List<String> skuList = stockMapper.selectSkuByParams(params);
+//        List<StockResBean> stockList = stockMapper.selectBySkuList(skuList);
         for(StockResBean bean : stockList) {
         	params.clear();
         	params.put("sku", bean.getSku());
@@ -76,7 +78,6 @@ public class StockServiceImpl implements IStockService {
         		getPropertyByMateriaList(materiaList);
         	}
         }
-        stockPageInfo.setList(stockList);
 		return stockPageInfo;
 	}
 	
@@ -106,6 +107,7 @@ public class StockServiceImpl implements IStockService {
         validateUpdateParams(stockReqBean);
         StockEntityExample example = new StockEntityExample();
         StockEntityExample.Criteria criteria = example.createCriteria();
+        criteria.andOrderNoEqualTo(stockReqBean.getOrderNo());
         criteria.andSkuEqualTo(stockReqBean.getSku());
         criteria.andMaterialSkuEqualTo(stockReqBean.getMaterialSku());
         List<StockEntity> stockList = stockMapper.selectByExample(example);
@@ -119,6 +121,7 @@ public class StockServiceImpl implements IStockService {
         entity.setStock(stockReqBean.getStock());
         entity.setLastUpdateUser(reqBeanModel.getUsername());
         entity.setLastUpdateTime(new Date());
+        entity.setRemark(stockReqBean.getRemark());
         stockMapper.updateByPrimaryKeySelective(entity);
 	}
 
@@ -126,11 +129,17 @@ public class StockServiceImpl implements IStockService {
     	if(stockReqBean == null) {
     		throw new BusinessException(Status.NOT_VALID_PARAMS);
     	}
+    	if(StringUtils.isBlank(stockReqBean.getOrderNo())) {
+    		throw new BusinessException("订单编号不能为空！");
+    	}
     	if(StringUtils.isBlank(stockReqBean.getSku())) {
-    		throw new BusinessException("sku编码不能为空！");
+    		throw new BusinessException("sku编号不能为空！");
     	}
     	if(StringUtils.isBlank(stockReqBean.getMaterialSku())) {
     		throw new BusinessException("物料SKU不能为空！");
+    	}
+    	if(StringUtils.isBlank(stockReqBean.getRemark())) {
+    		throw new BusinessException("备注信息不能为空！");
     	}
     	if(stockReqBean.getStock() == null || stockReqBean.getStock() < 0) {
     		throw new BusinessException("库存不能为空且不能小于0！");

@@ -20,4 +20,6 @@ public interface StockMapper extends MyBatisBaseDao<StockEntity, Long, StockEnti
 	List<String> selectSkuByParams(Map<String, Object> params);
 
 	long selectSkuCountByParams(Map<String, Object> params);
+
+	List<StockResBean> selectByParams(Map<String, Object> params);
 }
