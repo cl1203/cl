@@ -19,19 +19,15 @@
 
 	<select id="selectSkuCountByParams" parameterType="java.util.Map" resultType="java.lang.Long">
 		select count(1)
-		from
-		(
-			select distinct(sku)
-			from (
-				select distinct(sku),last_update_time
-				from stock s 
-				where s.status = 1
-				<if test="sku != null and sku != ''">
-					and s.sku = #{sku}
-				</if>
-				order by s.last_update_time desc
-			) a
-		) b
+		from stock s 
+		where s.status = 1
+		<if test="orderNo != null and orderNo != ''">
+			and s.order_no = #{orderNo}
+		</if>
+		<if test="sku != null and sku != ''">
+			and s.sku = #{sku}
+		</if>
+		order by s.last_update_time desc
 	</select>
 
 	<select id="selectSkuByParams" parameterType="java.util.Map" resultType="java.lang.String">

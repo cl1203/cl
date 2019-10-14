@@ -78,7 +78,7 @@ dashboard:
     day: 5
   purchase:
     show: 5
-    difference: 5
+    difference: 3
   tailor:
     show: 8
     difference: 8

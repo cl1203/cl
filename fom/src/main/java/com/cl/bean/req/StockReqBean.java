@@ -8,6 +8,9 @@ public class StockReqBean implements Serializable {
 
 	private static final long serialVersionUID = -2802523055119658649L;
 
+	@ApiModelProperty(value = "orderNo")
+	private String orderNo;
+	
 	@ApiModelProperty(value = "SKU")
 	private String sku;
 	
@@ -25,6 +28,14 @@ public class StockReqBean implements Serializable {
 
 	public String getMaterialSku() {
 		return materialSku;
+	}
+
+	public String getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
 
 	public void setMaterialSku(String materialSku) {

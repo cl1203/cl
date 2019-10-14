@@ -48,6 +48,9 @@ public class StockServiceImpl implements IStockService {
         if(StringUtils.isNotBlank(stockReqBean.getSku())) {
         	params.put("sku", stockReqBean.getSku());
         }
+        if(StringUtils.isNotBlank(stockReqBean.getOrderNo())) {
+        	params.put("orderNo", stockReqBean.getOrderNo());
+        }
         PageInfo<StockResBean> stockPageInfo = new PageInfo<>();
         long total = stockMapper.selectSkuCountByParams(params);
         stockPageInfo.setTotal(total);

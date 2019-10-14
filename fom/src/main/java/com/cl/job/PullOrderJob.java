@@ -90,7 +90,7 @@ public class PullOrderJob {
 	@Autowired
 	private CommonConfig config;
 	
-	@Scheduled(cron = "0 */10 * * * *")
+	@Scheduled(cron = "0 */1 * * * *")
 	@Transactional(rollbackFor = Exception.class)
 	public void pullOrder() throws Exception {
 		SysParameterEntityExample example = new SysParameterEntityExample();
@@ -114,8 +114,10 @@ public class PullOrderJob {
 		c.add(Calendar.MINUTE, -10);
 		String startTime = sdf.format(c.getTime());
 		Map<String,String> params = new HashMap<String, String>();
-		params.put("startTime", startTime);
-		params.put("endTime", endTime);
+//		params.put("startTime", startTime);
+//		params.put("endTime", endTime);
+		params.put("startTime", "2019-09-29 18:10:00");
+		params.put("endTime", "2019-09-29 18:20:00");
 		Map<String,String> headerParams = getHeaderParams(now);
 		String result = HttpClientUtils.httpPostWithJSON(config.getUrlPrefix() + config.getUri(), params,headerParams);
 		if(StringUtils.isBlank(result)) {
@@ -417,9 +419,6 @@ public class PullOrderJob {
 		if(StringUtils.isBlank(sp.getProcessName())) {
 			sb.append("工艺名称不能为空！");
 		}
-//		if(StringUtils.isBlank(sp.getSupplierName())) {
-//			sb.append("供应商名称不能为空！");
-//		}
 		if(sp.getUnitPrice() == null || sp.getUnitPrice().compareTo(new BigDecimal(0)) <= ApiConstants.ZERO) {
 			sb.append("单价必须大于0！");
 		}
