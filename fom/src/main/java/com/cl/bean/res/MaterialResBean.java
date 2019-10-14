@@ -50,6 +50,19 @@ public class MaterialResBean implements Serializable {
      * 物料颜色
      */
     private String materielColor;
+    
+    /**
+     * 备注
+     */
+    private String remark;
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 
 	public String getPurchaseType() {
 		return purchaseType;

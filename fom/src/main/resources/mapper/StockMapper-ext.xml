@@ -10,6 +10,7 @@
 	<resultMap id="materiaListResultMap" type="com.cl.bean.res.MaterialResBean">
 		<result column="material_sku" property="materielSku" />
 		<result column="stock" property="stock" />
+		<result column="remark" property="remark" />
 		<!-- <result column="supplier_name" property="supplierName" />
 		<result column="supplier_code" property="supplierCode" />
 		<result column="supplier_color_number" property="supplierColorNumber" />
@@ -61,7 +62,7 @@
 	</select>
 
 	<select id="selectByParams" parameterType="java.util.Map" resultMap="stockResBeanResultMap">
-		select s.sku,s.material_sku,s.stock
+		select s.sku,s.material_sku,s.stock,s.remark
 		from stock s
 		where s.status = 1
 		<if test="orderNo != null and orderNo != ''">
