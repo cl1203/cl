@@ -65,6 +65,20 @@ public class OrderManageReqBean implements Serializable{
 	@NotNull(message = "页码大小不能为空!")
 	private Integer pageNum;
 
+	/**
+	 * 订单类型
+	 */
+	@ApiModelProperty(value = "订单类型")
+	private String orderType;
+
+	public String getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
+
 	public String getProducer() {
 		return producer;
 	}

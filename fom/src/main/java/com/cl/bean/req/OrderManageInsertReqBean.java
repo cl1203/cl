@@ -2,7 +2,9 @@ package com.cl.bean.req;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -87,6 +89,19 @@ public class OrderManageInsertReqBean implements Serializable {
 
     @ApiModelProperty(value = "下单数量")
     private List<OrderQuantityReqBean> orderQuantityReqBeanList;
+
+    @ApiModelProperty(value = "采购单")
+    @NotEmpty(message = "至少存在一条采购单")
+    @Valid
+    private List<PurchaseInsertReqBean> purchaseInsertReqBeanList;
+
+    public List<PurchaseInsertReqBean> getPurchaseInsertReqBeanList() {
+        return purchaseInsertReqBeanList;
+    }
+
+    public void setPurchaseInsertReqBeanList(List<PurchaseInsertReqBean> purchaseInsertReqBeanList) {
+        this.purchaseInsertReqBeanList = purchaseInsertReqBeanList;
+    }
 
     public String getRemarks() {
         return remarks;

@@ -71,6 +71,8 @@ public class PurchaseServiceImpl implements IPurchaseService {
             SysOrgEntity sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orgId);
             Assert.notNull(sysOrgEntity , "用户ID对应的组织信息不存在!");
             purchaseReqBean.setOrgName(sysOrgEntity.getName());
+        }else{
+            purchaseReqBean.setOrgName(null);
         }
         PageHelper.startPage(purchaseReqBean.getPageNum() , purchaseReqBean.getPageSize() , "p.last_update_time desc");
         List<PurchaseEntity> purchaseEntityList = this.purchaseMapper.selectPurchaseList(purchaseReqBean);

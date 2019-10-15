@@ -79,6 +79,8 @@ public class TailorServiceImpl implements ITailorService {
             SysOrgEntity sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orgId);
             Assert.notNull(sysOrgEntity , "用户ID对应的组织信息不存在!");
             tailorReqBean.setProducer(sysOrgEntity.getName());
+        }else{
+            tailorReqBean.setProducer(null);
         }
         //分页查询
         PageHelper.startPage(tailorReqBean.getPageNum() , tailorReqBean.getPageSize());

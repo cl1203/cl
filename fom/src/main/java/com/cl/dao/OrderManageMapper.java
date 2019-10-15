@@ -61,6 +61,9 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
         if(null != sysOrgEntity){
             criteria.andProducerEqualTo(sysOrgEntity.getName());
         }
+        if(StringUtils.isNotBlank(orderManageReqBean.getOrderType())){
+            criteria.andOrderTypeEqualTo(orderManageReqBean.getOrderType());
+        }
         List<OrderManageEntity> orderManageEntityList = this.selectByExample(orderManageEntityExample);
         PageInfo<OrderManageEntity> orderManageEntityPageInfo = new PageInfo<>(page);
         orderManageEntityPageInfo.setList(orderManageEntityList);

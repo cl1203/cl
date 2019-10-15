@@ -64,6 +64,8 @@ public class FinanceServiceImpl implements IFinanceService {
             SysOrgEntity sysOrgEntity = this.sysOrgMapper.selectByPrimaryKey(orgId);
             Assert.notNull(sysOrgEntity , "用户ID对应的组织信息不存在!");
             financeReqBean.setOrgName(sysOrgEntity.getName());
+        }else{
+            financeReqBean.setOrgName(null);
         }
         PageHelper.startPage(financeReqBean.getPageNum() , financeReqBean.getPageSize() , "f.last_update_time desc");
         List<FinanceEntity> financeEntityList = this.financeMapper.selectFinanceList(financeReqBean);

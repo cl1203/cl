@@ -9,10 +9,7 @@ import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.model.SingleParam;
 import com.cl.comm.transformer.IObjectTransformer;
-import com.cl.dao.OrderManageMapper;
-import com.cl.dao.OrderQuantityMapper;
-import com.cl.dao.SecondaryProcessMapper;
-import com.cl.dao.SysOrgMapper;
+import com.cl.dao.*;
 import com.cl.entity.*;
 import com.cl.service.IOrderManageService;
 import com.cl.service.IPulldownMenuService;
@@ -61,6 +58,12 @@ public class OrderManageServiceImpl implements IOrderManageService {
 
     @Resource
     private OrderQuantityMapper orderQuantityMapper;
+
+    @Resource
+    private PurchaseMapper purchaseMapper;
+
+    @Resource
+    private StockMapper stockMapper;
 
     @Override
     public PageInfo<OrderManageResBean> queryOrderList(RequestBeanModel<OrderManageReqBean> reqBeanModel) {
@@ -153,6 +156,40 @@ public class OrderManageServiceImpl implements IOrderManageService {
         if(CollectionUtils.isNotEmpty(orderQuantityReqBeanList)){
             this.insertOrderQuantity(orderQuantityReqBeanList , orderManageInsertReqBean.getOrderNo() , reqBeanModel.getUserId());
         }
+        //新增采购单
+        List<PurchaseInsertReqBean> purchaseInsertReqBeanList = orderManageInsertReqBean.getPurchaseInsertReqBeanList();
+        this.insertPurchase(purchaseInsertReqBeanList , orderManageInsertReqBean.getOrderNo() , reqBeanModel.getUserId() , orderManageInsertReqBean.getSku() , orderManageInsertReqBean.getOrderQuantity());
+    }
+
+    private void insertPurchase(List<PurchaseInsertReqBean> purchaseInsertReqBeanList , String orderNo , String userId , String sku , String orderQuantity){
+        for(PurchaseInsertReqBean purchaseInsertReqBean : purchaseInsertReqBeanList){
+            PurchaseEntity purchaseEntity = new PurchaseEntity();
+            purchaseEntity.setPurchaseNo(purchaseInsertReqBean.getPurchaseNo());
+            purchaseEntity.setOrderNo(orderNo);
+            purchaseEntity.setPurchaseType(purchaseInsertReqBean.getPurchaseType());
+            purchaseEntity.setMaterielName(purchaseInsertReqBean.getMaterielName());
+            purchaseEntity.setMaterielColor(purchaseInsertReqBean.getMaterielColor());
+            purchaseEntity.setSimpleUse(new BigDecimal(purchaseInsertReqBean.getSimpleUse()));
+            purchaseEntity.setAnswerPickMonovalent(new BigDecimal(purchaseInsertReqBean.getAnswerPickMonovalent()));
+            BigDecimal answerPickQuantity = new BigDecimal(purchaseInsertReqBean.getSimpleUse()).multiply(new BigDecimal(orderQuantity)).setScale(DictionaryConstants.ALL_BUSINESS_ZERO , BigDecimal.ROUND_HALF_UP);
+            purchaseEntity.setAnswerPickQuantity(answerPickQuantity);
+            purchaseEntity.setAnswerPickTotal(answerPickQuantity.multiply(new BigDecimal(purchaseInsertReqBean.getAnswerPickMonovalent())).setScale(DictionaryConstants.PERMISSION_TYPE_TWO , BigDecimal.ROUND_HALF_UP));
+            purchaseEntity.setSupplierName(purchaseInsertReqBean.getSupplierName());
+            purchaseEntity.setMaterielSku(purchaseInsertReqBean.getMaterielSku());
+            purchaseEntity.setCreateUser(userId);
+            purchaseEntity.setLastUpdateUser(userId);
+            int i = this.purchaseMapper.insertSelective(purchaseEntity);
+            Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "生成采购单失败!");
+            //根据订单号和物料sku初始化库存
+            StockEntity stockEntity = new StockEntity();
+            stockEntity.setOrderNo(orderNo);
+            stockEntity.setSku(sku);
+            stockEntity.setMaterialSku(purchaseInsertReqBean.getMaterielSku());
+            stockEntity.setCreateUser(userId);
+            stockEntity.setLastUpdateUser(userId);
+            int  j = this.stockMapper.insertSelective(stockEntity);
+            Assert.isTrue( j == DictionaryConstants.ADMIN_ORG_ID , "初始化库存失败!");
+        }
     }
 
     /**
@@ -207,7 +244,7 @@ public class OrderManageServiceImpl implements IOrderManageService {
         orderManageEntity.setOrderNo(orderManageInsertReqBean.getOrderNo());//订单编号
         orderManageEntity.setOrderQuantity(Integer.valueOf(orderManageInsertReqBean.getOrderQuantity()));//下单件数
         orderManageEntity.setOrderType(orderManageInsertReqBean.getOrderType());//订单类型
-        orderManageEntity.setOrderTime(DateUtils.getDateToString(orderManageInsertReqBean.getOrderTime() , DateUtils.DATETIMESHOWFORMAT));//下单时间
+        orderManageEntity.setOrderTime(DateUtils.getDateToString(orderManageInsertReqBean.getOrderTime() , DateUtils.DATESHOWFORMAT));//下单时间
         orderManageEntity.setOrderImgUrl(orderManageInsertReqBean.getOrderImgUrl());//订单图片
         orderManageEntity.setSku(orderManageInsertReqBean.getSku());//sku
         orderManageEntity.setIsFirst(Byte.valueOf(orderManageInsertReqBean.getIsFirst()));//是否首单
