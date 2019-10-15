@@ -36,8 +36,8 @@ import java.util.regex.Pattern;
  * 使用@AfterThrowing用来处理当切入内容部分抛出异常之后的处理逻辑
  * 使用ThreadLocal对象来记录请求处理的时间（直接在使用基本类型会有同步问题，所以我们可以引入ThreadLocal对象）
  **/
-/*@Aspect
-@Component*/
+@Aspect
+@Component
 public class TokenAdvice {
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TokenAdvice.class);
 
