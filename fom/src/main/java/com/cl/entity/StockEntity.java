@@ -34,6 +34,11 @@ public class StockEntity implements Serializable {
     private Integer stock;
 
     /**
+     * 修改后数量
+     */
+    private Integer updateStock;
+
+    /**
      * 状态 1:正常 0:删除
      */
     private Byte status;
@@ -105,6 +110,14 @@ public class StockEntity implements Serializable {
         this.stock = stock;
     }
 
+    public Integer getUpdateStock() {
+        return updateStock;
+    }
+
+    public void setUpdateStock(Integer updateStock) {
+        this.updateStock = updateStock;
+    }
+
     public Byte getStatus() {
         return status;
     }
@@ -170,6 +183,7 @@ public class StockEntity implements Serializable {
             && (this.getSku() == null ? other.getSku() == null : this.getSku().equals(other.getSku()))
             && (this.getMaterialSku() == null ? other.getMaterialSku() == null : this.getMaterialSku().equals(other.getMaterialSku()))
             && (this.getStock() == null ? other.getStock() == null : this.getStock().equals(other.getStock()))
+            && (this.getUpdateStock() == null ? other.getUpdateStock() == null : this.getUpdateStock().equals(other.getUpdateStock()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -187,6 +201,7 @@ public class StockEntity implements Serializable {
         result = prime * result + ((getSku() == null) ? 0 : getSku().hashCode());
         result = prime * result + ((getMaterialSku() == null) ? 0 : getMaterialSku().hashCode());
         result = prime * result + ((getStock() == null) ? 0 : getStock().hashCode());
+        result = prime * result + ((getUpdateStock() == null) ? 0 : getUpdateStock().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -207,6 +222,7 @@ public class StockEntity implements Serializable {
         sb.append(", sku=").append(sku);
         sb.append(", materialSku=").append(materialSku);
         sb.append(", stock=").append(stock);
+        sb.append(", updateStock=").append(updateStock);
         sb.append(", status=").append(status);
         sb.append(", remark=").append(remark);
         sb.append(", createTime=").append(createTime);

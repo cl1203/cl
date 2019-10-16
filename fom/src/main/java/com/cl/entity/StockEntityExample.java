@@ -455,6 +455,66 @@ public class StockEntityExample {
             return (Criteria) this;
         }
 
+        public Criteria andUpdateStockIsNull() {
+            addCriterion("update_stock is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateStockIsNotNull() {
+            addCriterion("update_stock is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateStockEqualTo(Integer value) {
+            addCriterion("update_stock =", value, "updateStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateStockNotEqualTo(Integer value) {
+            addCriterion("update_stock <>", value, "updateStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateStockGreaterThan(Integer value) {
+            addCriterion("update_stock >", value, "updateStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateStockGreaterThanOrEqualTo(Integer value) {
+            addCriterion("update_stock >=", value, "updateStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateStockLessThan(Integer value) {
+            addCriterion("update_stock <", value, "updateStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateStockLessThanOrEqualTo(Integer value) {
+            addCriterion("update_stock <=", value, "updateStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateStockIn(List<Integer> values) {
+            addCriterion("update_stock in", values, "updateStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateStockNotIn(List<Integer> values) {
+            addCriterion("update_stock not in", values, "updateStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateStockBetween(Integer value1, Integer value2) {
+            addCriterion("update_stock between", value1, value2, "updateStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateStockNotBetween(Integer value1, Integer value2) {
+            addCriterion("update_stock not between", value1, value2, "updateStock");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("`status` is null");
             return (Criteria) this;
