@@ -20,6 +20,9 @@ public class StockReqBean implements Serializable {
 	@ApiModelProperty(value = "库存数")
 	private Integer stock;
 	
+	@ApiModelProperty(value = "修改后库存数")
+	private Integer updateStock;
+	
 	@ApiModelProperty(value = "备注")
 	private String remark;
 	
@@ -28,6 +31,14 @@ public class StockReqBean implements Serializable {
 
 	@ApiModelProperty(value = "页数")
 	private Integer pageNum;
+
+	public Integer getUpdateStock() {
+		return updateStock;
+	}
+
+	public void setUpdateStock(Integer updateStock) {
+		this.updateStock = updateStock;
+	}
 
 	public String getRemark() {
 		return remark;

@@ -16,6 +16,8 @@ public class MaterialResBean implements Serializable {
      */
     private Integer stock;
     
+    private Integer updateStock;
+    
     /**
      * 供应商名称
      */
@@ -55,6 +57,14 @@ public class MaterialResBean implements Serializable {
      * 备注
      */
     private String remark;
+
+	public Integer getUpdateStock() {
+		return updateStock;
+	}
+
+	public void setUpdateStock(Integer updateStock) {
+		this.updateStock = updateStock;
+	}
 
 	public String getRemark() {
 		return remark;

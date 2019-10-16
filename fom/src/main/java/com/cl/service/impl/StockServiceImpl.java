@@ -118,7 +118,7 @@ public class StockServiceImpl implements IStockService {
         	throw new BusinessException(Status.DUPLICATE_STOCK);
         }
         StockEntity entity = stockList.get(0);
-        entity.setStock(stockReqBean.getStock());
+        entity.setUpdateStock(stockReqBean.getUpdateStock());
         entity.setLastUpdateUser(reqBeanModel.getUsername());
         entity.setLastUpdateTime(new Date());
         entity.setRemark(stockReqBean.getRemark());
@@ -141,8 +141,8 @@ public class StockServiceImpl implements IStockService {
     	if(StringUtils.isBlank(stockReqBean.getRemark())) {
     		throw new BusinessException("备注信息不能为空！");
     	}
-    	if(stockReqBean.getStock() == null || stockReqBean.getStock() < 0) {
-    		throw new BusinessException("库存不能为空且不能小于0！");
+    	if(stockReqBean.getUpdateStock() == null || stockReqBean.getUpdateStock() < 0) {
+    		throw new BusinessException("修改后库存不能为空且不能小于0！");
     	}
 	}
 
