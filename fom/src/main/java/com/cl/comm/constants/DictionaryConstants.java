@@ -57,4 +57,6 @@ public class DictionaryConstants {
     //订单类型
     public static final String ORDER_TPYE_FOB = "FOB";
     public static final String ORDER_TPYE_CMT = "新CMT";
+
+    public static final String MAX_IMG_SIZE = "10485760";
 }

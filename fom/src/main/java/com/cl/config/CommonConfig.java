@@ -36,6 +36,72 @@ public class CommonConfig {
 	@Value("${dashboard.tailor.difference}")
 	private Integer tailorDifference;
 
+	@Value("${ftp.address}")
+	private String ftpIp;
+
+	@Value("${ftp.port}")
+	private Integer ftpPort;
+
+	@Value("${ftp.username}")
+	private String ftpUserName;
+
+	@Value("${ftp.password}")
+	private String ftpPassword;
+
+	@Value("${ftp.imageBaseUrl}")
+	private String ftpImgUrl;
+
+	@Value("${ftp.bastPath}")
+	private String ftpPosition;
+
+	public String getFtpIp() {
+		return ftpIp;
+	}
+
+	public void setFtpIp(String ftpIp) {
+		this.ftpIp = ftpIp;
+	}
+
+	public Integer getFtpPort() {
+		return ftpPort;
+	}
+
+	public void setFtpPort(Integer ftpPort) {
+		this.ftpPort = ftpPort;
+	}
+
+	public String getFtpUserName() {
+		return ftpUserName;
+	}
+
+	public void setFtpUserName(String ftpUserName) {
+		this.ftpUserName = ftpUserName;
+	}
+
+	public String getFtpPassword() {
+		return ftpPassword;
+	}
+
+	public void setFtpPassword(String ftpPassword) {
+		this.ftpPassword = ftpPassword;
+	}
+
+	public String getFtpImgUrl() {
+		return ftpImgUrl;
+	}
+
+	public void setFtpImgUrl(String ftpImgUrl) {
+		this.ftpImgUrl = ftpImgUrl;
+	}
+
+	public String getFtpPosition() {
+		return ftpPosition;
+	}
+
+	public void setFtpPosition(String ftpPosition) {
+		this.ftpPosition = ftpPosition;
+	}
+
 	public Integer getDashBoardShowDay() {
 		return dashBoardShowDay;
 	}
