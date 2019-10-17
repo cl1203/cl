@@ -98,4 +98,4 @@ ftp:
   username: ftpuser
   password: ftpuser
   bastPath: /home/www/site/img
-  imageBaseUrl: http://120.24.207.170/images
+  imageBaseUrl: http://120.24.207.170/img
