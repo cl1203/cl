@@ -90,3 +90,12 @@ logging:
   file: log/fom.log
   # 默认日志路径
   #path: ./log
+
+
+ftp:
+  address: 120.24.207.170
+  port: 21
+  username: ftpuser
+  password: ftpuser
+  bastPath: /home/www/site/img
+  imageBaseUrl: http://120.24.207.170/images
