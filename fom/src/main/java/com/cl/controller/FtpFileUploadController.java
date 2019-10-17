@@ -23,9 +23,6 @@ import java.io.InputStream;
 public class FtpFileUploadController {
 
 
-    @Resource
-    private CommonConfig config;
-
     @PostMapping("/uploadImg")
     @ApiOperation(value = "上传图片" , notes = "上传图片")
     public ResponseBeanModel<ImgResBean> uploadImgs(@RequestParam("file")MultipartFile file)throws IOException{
@@ -50,7 +47,7 @@ public class FtpFileUploadController {
         }
         ImgResBean imgResBean = new ImgResBean();
         imgResBean.setImgPath(filePath);
-        imgResBean.setImgPrefix(config.getFtpImgUrl());
+        imgResBean.setImgPrefix(DictionaryConstants.URL);
         return new ResponseBeanModel<>(imgResBean);  //该路径图片名称，前端框架可用ngnix指定的路径+filePath,即可访问到ngnix图片服务器中的图片
     }
 }

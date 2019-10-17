@@ -59,4 +59,5 @@ public class DictionaryConstants {
     public static final String ORDER_TPYE_CMT = "新CMT";
 
     public static final String MAX_IMG_SIZE = "10485760";
+    public static final String URL = "http://120.24.207.170/img";
 }
