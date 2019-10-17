@@ -63,7 +63,7 @@
 	</select>
 
 	<select id="selectByParams" parameterType="java.util.Map" resultMap="stockResBeanResultMap">
-		select s.sku,s.material_sku,s.stock,s.update_stock,s.remark
+		select s.order_no,s.sku,s.material_sku,s.stock,s.update_stock,s.remark
 		from stock s
 		where s.status = 1
 		<if test="orderNo != null and orderNo != ''">
