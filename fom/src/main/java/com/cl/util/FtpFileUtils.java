@@ -5,11 +5,15 @@ import com.cl.comm.exception.BusinessException;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class FtpFileUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(FtpFileUtils.class);
 
     //ftp服务器ip地址
     private static final String FTP_ADDRESS = "120.24.207.170";
@@ -20,7 +24,7 @@ public class FtpFileUtils {
     //密码
     private static final String FTP_PASSWORD = "ftpuser";
     //图片路径
-    private static final String FTP_BASEPATH = "site/img";
+    private static final String FTP_BASEPATH = "/img";
 
     public  static boolean uploadFile(String originFileName,InputStream input){
         boolean success = false;
@@ -36,8 +40,11 @@ public class FtpFileUtils {
                 return success;
             }
             ftp.setFileType(FTPClient.BINARY_FILE_TYPE);
-            ftp.makeDirectory(FTP_BASEPATH );// 不存在才会执行这行代码
-            ftp.changeWorkingDirectory(FTP_BASEPATH );//切换到path下的文件夹下
+            ftp.makeDirectory(FTP_BASEPATH );// 不存在才会执行这行代码 创建
+            success = ftp.changeWorkingDirectory(FTP_BASEPATH );//切换到path下的文件夹下
+            if(!success){
+                throw new BusinessException("切换目录失败!");
+            }
             ftp.storeFile(originFileName,input);
             input.close();
             ftp.logout();
