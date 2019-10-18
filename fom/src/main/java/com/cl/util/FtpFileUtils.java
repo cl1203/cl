@@ -20,7 +20,7 @@ public class FtpFileUtils {
     //密码
     private static final String FTP_PASSWORD = "ftpuser";
     //图片路径
-    private static final String FTP_BASEPATH = "/site/img";
+    private static final String FTP_BASEPATH = "site/img";
 
     public  static boolean uploadFile(String originFileName,InputStream input){
         boolean success = false;
@@ -36,16 +36,8 @@ public class FtpFileUtils {
                 return success;
             }
             ftp.setFileType(FTPClient.BINARY_FILE_TYPE);
-            FTPFile[] ftpFiles = ftp.listFiles(FTP_BASEPATH);//判断文件夹是否存在
-            int length = ftpFiles.length;
-            if(DictionaryConstants.ALL_BUSINESS_ZERO == length){
-                System.out.println("目录不存在!");
-            }
-            success = ftp.makeDirectory(FTP_BASEPATH );// 不存在才会执行这行代码
-            success = ftp.changeWorkingDirectory(FTP_BASEPATH );//切换到path下的文件夹下
-            if(!success){
-                throw new BusinessException("切换目录失败!");
-            }
+            ftp.makeDirectory(FTP_BASEPATH );// 不存在才会执行这行代码
+            ftp.changeWorkingDirectory(FTP_BASEPATH );//切换到path下的文件夹下
             ftp.storeFile(originFileName,input);
             input.close();
             ftp.logout();

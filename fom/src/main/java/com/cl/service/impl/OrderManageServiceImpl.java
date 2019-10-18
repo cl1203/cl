@@ -163,6 +163,13 @@ public class OrderManageServiceImpl implements IOrderManageService {
 
     private void insertPurchase(List<PurchaseInsertReqBean> purchaseInsertReqBeanList , String orderNo , String userId , String sku , String orderQuantity){
         for(PurchaseInsertReqBean purchaseInsertReqBean : purchaseInsertReqBeanList){
+            PurchaseEntityExample purchaseEntityExample = new PurchaseEntityExample();
+            PurchaseEntityExample.Criteria criteria = purchaseEntityExample.createCriteria();
+            criteria.andPurchaseNoEqualTo(purchaseInsertReqBean.getPurchaseNo());
+            List<PurchaseEntity> purchaseEntityList = this.purchaseMapper.selectByExample(purchaseEntityExample);
+            if(purchaseEntityList.size() >DictionaryConstants.ALL_BUSINESS_ZERO){
+                throw new BusinessException("采购单号已经存在 , 请修改!");
+            }
             PurchaseEntity purchaseEntity = new PurchaseEntity();
             purchaseEntity.setPurchaseNo(purchaseInsertReqBean.getPurchaseNo());
             purchaseEntity.setOrderNo(orderNo);
@@ -263,6 +270,13 @@ public class OrderManageServiceImpl implements IOrderManageService {
      * @param orderManageInsertReqBean
      */
     private void checkParameter(OrderManageInsertReqBean orderManageInsertReqBean){
+        OrderManageEntityExample orderManageEntityExample = new OrderManageEntityExample();
+        OrderManageEntityExample.Criteria orderCriteria = orderManageEntityExample.createCriteria();
+        orderCriteria.andOrderNoEqualTo(orderManageInsertReqBean.getOrderNo());
+        List<OrderManageEntity> orderManageEntityList = this.orderManageMapper.selectByExample(orderManageEntityExample);
+        if(orderManageEntityList.size() > DictionaryConstants.ALL_BUSINESS_ZERO){
+            throw new BusinessException("订单号已经存在,请修改!");
+        }
         String orderQuantity = orderManageInsertReqBean.getOrderQuantity();//订单件数
         String orderQuantityRegexp = "^[1-9][0-9]{0,8}$";
         if(match(orderQuantityRegexp , orderQuantity)) {
