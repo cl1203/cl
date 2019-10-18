@@ -14,8 +14,8 @@ import com.cl.entity.SysUserEntity;
 import com.cl.entity.SysUserEntityExample;
 import com.cl.service.ILoginService;
 import com.cl.service.IPulldownMenuService;
-import com.cl.util.MD5Util;
-import com.cl.util.UUIDUtils;
+import com.cl.utils.MD5Util;
+import com.cl.utils.UUIDUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -57,7 +57,7 @@ public class LoginServiceImpl implements ILoginService{
         this.pulldownMenuService.queryPermissionByParentId(sysPermissionResBeanList);
         loginResBean.setSysUserResBean(sysUserResBean);
         loginResBean.setSysPermissionResBeanList(sysPermissionResBeanList);
-        String token = UUIDUtils.getUUID();
+        String token = UUIDUtil.getUUID();
         // token存入缓存中
         String userId = sysUserEntity.getId().toString();
         TokenInfo tokenInfo = new TokenInfo();

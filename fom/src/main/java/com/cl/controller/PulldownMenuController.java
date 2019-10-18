@@ -37,7 +37,7 @@ public class PulldownMenuController {
      * @Description 获取组织下拉菜单 或者根据条件查询
      * @Date 20:13 2019/7/20
      * @Param []
-     * @return com.cl.comm.model.ResponseBeanModel<java.util.List<com.cl.bean.res.PulldownMenuResBean>>
+     * @return com.cl.comm.model.ResponseBeanModel<java.utils.List<com.cl.bean.res.PulldownMenuResBean>>
      **/
     @PostMapping("/queryOrgPulldownMenu")
     @ApiOperation(value = "查询组织下拉菜单,或者根据条件查询" , notes = "查询所有组织下拉菜单,或者根据条件查询")
@@ -52,7 +52,7 @@ public class PulldownMenuController {
      * @Description 获取菜单权限下拉菜单 或者根据条件查询
      * @Date 0:03 2019/7/30
      * @Param [requestBeanModel]
-     * @return com.cl.comm.model.ResponseBeanModel<java.util.List<com.cl.bean.res.PulldownMenuResBean>>
+     * @return com.cl.comm.model.ResponseBeanModel<java.utils.List<com.cl.bean.res.PulldownMenuResBean>>
      **/
     @PostMapping("/queryPermissionPulldownMenu")
     @ApiOperation(value = "获取菜单权限下拉菜单,或者根据条件查询" , notes = "获取菜单权限下拉菜单,或者根据条件查询")
@@ -67,7 +67,7 @@ public class PulldownMenuController {
      * @Description 获取菜单权限下拉菜单 或者根据条件查询
      * @Date 0:03 2019/7/30
      * @Param [requestBeanModel]
-     * @return com.cl.comm.model.ResponseBeanModel<java.util.List<com.cl.bean.res.PulldownMenuResBean>>
+     * @return com.cl.comm.model.ResponseBeanModel<java.utils.List<com.cl.bean.res.PulldownMenuResBean>>
      **/
     @PostMapping("/queryDepartmentPulldownMenu")
     @ApiOperation(value = "获取部门下拉菜单,或者根据条件查询" , notes = "获取部门下拉菜单,或者根据条件查询")
@@ -82,7 +82,7 @@ public class PulldownMenuController {
      * @Description 获取菜单权限下拉菜单 或者根据条件查询
      * @Date 0:03 2019/7/30
      * @Param [requestBeanModel]
-     * @return com.cl.comm.model.ResponseBeanModel<java.util.List<com.cl.bean.res.PulldownMenuResBean>>
+     * @return com.cl.comm.model.ResponseBeanModel<java.utils.List<com.cl.bean.res.PulldownMenuResBean>>
      **/
     @PostMapping("/queryDepartmentPulldownMenuByGrade")
     @ApiOperation(value = "根据等级获取部门下拉菜单" , notes = "根据等级获取部门下拉菜单")
@@ -97,7 +97,7 @@ public class PulldownMenuController {
      * @Description 获取角色下拉菜单 或者根据条件查询
      * @Date 0:03 2019/7/30
      * @Param [requestBeanModel]
-     * @return com.cl.comm.model.ResponseBeanModel<java.util.List<com.cl.bean.res.PulldownMenuResBean>>
+     * @return com.cl.comm.model.ResponseBeanModel<java.utils.List<com.cl.bean.res.PulldownMenuResBean>>
      **/
     @PostMapping("/queryRolePulldownMenu")
     @ApiOperation(value = "获取角色下拉菜单,或者根据条件查询" , notes = "获取角色下拉菜单,或者根据条件查询")
@@ -112,7 +112,7 @@ public class PulldownMenuController {
      * @Description 获取用户下拉菜单 或者根据条件查询
      * @Date 0:03 2019/7/30
      * @Param [requestBeanModel]
-     * @return com.cl.comm.model.ResponseBeanModel<java.util.List<com.cl.bean.res.PulldownMenuResBean>>
+     * @return com.cl.comm.model.ResponseBeanModel<java.utils.List<com.cl.bean.res.PulldownMenuResBean>>
      **/
     @PostMapping("/queryUserPulldownMenu")
     @ApiOperation(value = "查询用户下拉菜单,或者根据条件查询" , notes = "查询用户下拉菜单,或者根据条件查询")
@@ -127,7 +127,7 @@ public class PulldownMenuController {
      * @Description 查询供应商名称下拉菜单
      * @Date 12:10 2019/7/22
      * @Param [supplierName]
-     * @return java.util.List<java.lang.String>
+     * @return java.utils.List<java.lang.String>
      **/
     @PostMapping("/queryInputSupplierName")
     @ApiOperation(value = "查询供应商名称下拉菜单" , notes = "查询供应商名称下拉菜单")
@@ -143,7 +143,7 @@ public class PulldownMenuController {
      * @Description 查询字典表数据
      * @Date 12:10 2019/7/22
      * @Param [supplierName]
-     * @return java.util.List<java.lang.String>
+     * @return java.utils.List<java.lang.String>
      **/
     @PostMapping("/queryDictItemList")
     @ApiOperation(value = "查询字典表数据(订单状态:order_status, 采购状态:purchase_status , 裁剪状态:tailoring_status , 物料分类:materiel_type)" , notes = "查询字典表数据")
@@ -158,7 +158,7 @@ public class PulldownMenuController {
      * @Description 查询所有菜单包括对应的所有子菜单
      * @Date 18:26 2019/8/19
      * @Param []
-     * @return com.cl.comm.model.ResponseBeanModel<java.util.List<com.cl.bean.res.SysPermissionResBean>>
+     * @return com.cl.comm.model.ResponseBeanModel<java.utils.List<com.cl.bean.res.SysPermissionResBean>>
      **/
     @PostMapping("/queryPermissionAll")
     @ApiOperation(value = "查询所有菜单包括对应的所有子菜单" , notes = "查询所有菜单包括对应的所有子菜单")

@@ -1,20 +1,15 @@
 package com.cl.controller;
 
-import com.cl.aop.LoggerManage;
 import com.cl.bean.res.ImgResBean;
 import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.ResponseBeanModel;
-import com.cl.config.CommonConfig;
-import com.cl.util.FtpFileUtils;
+import com.cl.utils.FtpFileUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
-import java.io.IOException;
-import java.io.InputStream;
 
 @RestController
 @RequestMapping("/ftpFile")
@@ -25,7 +20,7 @@ public class FtpFileUploadController {
 
     @PostMapping("/uploadImg")
     @ApiOperation(value = "上传图片" , notes = "上传图片")
-    public ResponseBeanModel<ImgResBean> uploadImgs(@RequestParam("file")MultipartFile file)throws IOException{
+    public ResponseBeanModel<ImgResBean> uploadImgs(@RequestParam("file")MultipartFile file) {
         //判断导入文件是否为空
         if(file.isEmpty()) {
             return new ResponseBeanModel<>("上传图片不能为空！");
@@ -38,11 +33,9 @@ public class FtpFileUploadController {
         if (fileName.indexOf(" ") > 0) {
             throw new BusinessException("文件名不能包含空格！请修改图片名称后重新上传！");
         }
-        InputStream inputStream=file.getInputStream();
         String filePath = null;
-
-        Boolean flag= FtpFileUtils.uploadFile(fileName,inputStream);
-        if(flag == true){
+        Boolean flag= FtpFileUtil.uploadFile(file , fileName);
+        if(flag){
             filePath = fileName;
         }
         ImgResBean imgResBean = new ImgResBean();

@@ -10,7 +10,7 @@ import com.cl.comm.constants.DictionaryConstants;
 import com.cl.entity.OrderManageEntity;
 import com.cl.entity.OrderManageEntityExample;
 import com.cl.entity.SysOrgEntity;
-import com.cl.util.DateUtils;
+import com.cl.utils.DateUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -51,8 +51,8 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
             criteria.andOrderStatusNotEqualTo(DictionaryConstants.ORDER_STATUS_DELETED);
         }
         if(StringUtils.isNotBlank(orderManageReqBean.getStartDate()) && StringUtils.isNotBlank(orderManageReqBean.getEndDate())){
-            Date startDate = DateUtils.getDateToString(orderManageReqBean.getStartDate() , DateUtils.DATESHOWFORMAT);
-            Date endDate = DateUtils.getDateToString(orderManageReqBean.getEndDate() , DateUtils.DATESHOWFORMAT);
+            Date startDate = DateUtil.getDateToString(orderManageReqBean.getStartDate() , DateUtil.DATESHOWFORMAT);
+            Date endDate = DateUtil.getDateToString(orderManageReqBean.getEndDate() , DateUtil.DATESHOWFORMAT);
             criteria.andOrderTimeBetween(startDate , endDate);
         }
         if(StringUtils.isNotBlank(orderManageReqBean.getProducer())){
@@ -84,7 +84,7 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
      * @Description 根据订单号查询下单数量信息
      * @Date 16:49 2019/7/24
      * @Param [orderNo]
-     * @return java.util.List<com.cl.bean.res.OrderQuantityResBean>
+     * @return java.utils.List<com.cl.bean.res.OrderQuantityResBean>
      **/
     List<OrderQuantityResBean> selectOrderQuantityByOrderNo(String orderNo);
 
@@ -93,7 +93,7 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
      * @Description 根据订单号查询二次工艺信息
      * @Date 16:50 2019/7/24
      * @Param [orderNo]
-     * @return java.util.List<com.cl.bean.res.SecondaryProcessResBean>
+     * @return java.utils.List<com.cl.bean.res.SecondaryProcessResBean>
      **/
     List<SecondaryProcessResBean> selectSecondaryProcessByOrderNo(String orderNo);
 

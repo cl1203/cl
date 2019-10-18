@@ -1,4 +1,4 @@
-package com.cl.util;
+package com.cl.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public class ZipUtils
+public class ZipUtil
 {
     private static final int  BUFFER_SIZE = 2 * 1024;
 
@@ -32,7 +32,7 @@ public class ZipUtils
             long end = System.currentTimeMillis();
             System.out.println("压缩完成，耗时：" + (end - start) +" ms");
         } catch (Exception e) {
-            throw new RuntimeException("zip error from ZipUtils",e);
+            throw new RuntimeException("zip error from ZipUtil",e);
         }finally{
             if(zos != null){
                 try {

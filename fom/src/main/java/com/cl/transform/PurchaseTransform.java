@@ -7,7 +7,7 @@ import com.cl.comm.model.RequestBeanModel;
 import com.cl.comm.transformer.AbstractObjectTransformer;
 import com.cl.entity.PurchaseEntity;
 import com.cl.service.IPulldownMenuService;
-import com.cl.util.DateUtils;
+import com.cl.utils.DateUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -35,7 +35,7 @@ public class PurchaseTransform extends AbstractObjectTransformer<PurchaseEntity 
         purchaseResBean.setId(purchaseEntity.getId());//id
         purchaseResBean.setPurchaseNo(purchaseEntity.getPurchaseNo());//采购单号
         purchaseResBean.setOrderNo(purchaseEntity.getOrderNo());//订单号
-        purchaseResBean.setPurchaseTime(DateUtils.getDateString(purchaseEntity.getPurchaseTime() , DateUtils.DATESHOWFORMAT));
+        purchaseResBean.setPurchaseTime(DateUtil.getDateString(purchaseEntity.getPurchaseTime() , DateUtil.DATESHOWFORMAT));
         if(null != purchaseEntity.getPurchaseStatus()){//采购单状态
             RequestBeanModel requestBeanModel = new RequestBeanModel();
             DictItem dictItem = new DictItem();

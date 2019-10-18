@@ -1,4 +1,4 @@
-package com.cl.util;
+package com.cl.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,9 +35,9 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
-public final class HttpClientUtils {
+public final class HttpClientUtil {
 
-	private static Logger log = LoggerFactory.getLogger(HttpClientUtils.class);
+	private static Logger log = LoggerFactory.getLogger(HttpClientUtil.class);
 
 	private final static boolean alwaysClose = true;
 	
@@ -58,7 +58,7 @@ public final class HttpClientUtils {
 //		String sign = RsaUtil.executeSignature(privateKey, content);
 //		headerParams.put("sign", sign);
 //		headerParams.put("uri", uri);
-//		String result = HttpClientUtils.httpPostWithJSON("https://www.020mes.com" + uri, params,headerParams);
+//		String result = HttpClientUtil.httpPostWithJSON("https://www.020mes.com" + uri, params,headerParams);
 //		System.out.println("result:" + result);
 //		InfResBean resBean = JSONObject.parseObject(result, InfResBean.class);
 //		List<OrderResBean> orderList = resBean.getInfo();

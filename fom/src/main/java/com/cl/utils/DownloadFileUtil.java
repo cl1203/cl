@@ -1,9 +1,9 @@
-package com.cl.util;
+package com.cl.utils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
-public class DownloadFileUtils {
+public class DownloadFileUtil {
 
 
     public static HttpServletResponse download(String path, HttpServletResponse response) {

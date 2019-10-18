@@ -135,7 +135,7 @@ public class MD5Util {
 
 }
 */
-package com.cl.util;
+package com.cl.utils;
 
 import java.security.MessageDigest;
 

@@ -14,8 +14,8 @@ import com.cl.entity.SysOrgEntity;
 import com.cl.entity.SysUserEntity;
 import com.cl.service.IFinanceService;
 import com.cl.service.IPulldownMenuService;
-import com.cl.util.DateUtils;
-import com.cl.util.ExcelUtils;
+import com.cl.utils.DateUtil;
+import com.cl.utils.ExcelUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -117,7 +117,7 @@ public class FinanceServiceImpl implements IFinanceService {
                 "打边单价(edgersPrice)" , "大烫单价(greatIroningPrice)", "查货单价(checkGoodsPrice)" , "剪线单价(trimmingPrice)",
                 "包装单价(packagingPrice)" , "返工单价(reworkPrice)", "其他(otherPrice)" , "采购总价(purchaseTotalPrice)",
                 "裁剪总价(tailorTotalPrice)" , "工序总价(workingTotalPrice)", "总价(totalPrice)" , "备注(remarks)" };
-        ExcelUtils.exportExcel("财务列表信息" , headers , financeResBeanList , response , DateUtils.DATESHOWFORMAT);
+        ExcelUtils.exportExcel("财务列表信息" , headers , financeResBeanList , response , DateUtil.DATESHOWFORMAT);
     }
 
     private FinanceReqBean decodeTailorReqBean(FinanceReqBean financeReqBean) {

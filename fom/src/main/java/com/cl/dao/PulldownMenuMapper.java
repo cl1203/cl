@@ -23,7 +23,7 @@ public interface PulldownMenuMapper {
      * @Description 获取组织下拉菜单 或者根据条件查询
      * @Date 14:16 2019/7/22
      * @Param []
-     * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
+     * @return java.utils.List<com.cl.bean.res.PulldownMenuResBean>
      **/
     List<PulldownMenuResBean> queryOrgPulldownMenu(PulldownMenuReqBean pulldownMenuReqBean);
 
@@ -32,7 +32,7 @@ public interface PulldownMenuMapper {
      * @Description 获取用户下拉菜单 或者根据条件查询
      * @Date 14:16 2019/7/22
      * @Param []
-     * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
+     * @return java.utils.List<com.cl.bean.res.PulldownMenuResBean>
      **/
     List<PulldownMenuResBean> queryUserPulldownMenu(PulldownMenuReqBean pulldownMenuReqBean);
 
@@ -41,7 +41,7 @@ public interface PulldownMenuMapper {
      * @Description 获取菜单权限下拉菜单 或者根据条件查询
      * @Date 14:16 2019/7/22
      * @Param []
-     * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
+     * @return java.utils.List<com.cl.bean.res.PulldownMenuResBean>
      **/
     List<PulldownMenuResBean> queryPermissionPulldownMenu(PulldownMenuReqBean pulldownMenuReqBean);
 
@@ -50,7 +50,7 @@ public interface PulldownMenuMapper {
      * @Description 获取角色下拉菜单 或者根据条件查询
      * @Date 14:16 2019/7/22
      * @Param []
-     * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
+     * @return java.utils.List<com.cl.bean.res.PulldownMenuResBean>
      **/
     List<PulldownMenuResBean> queryRolePulldownMenu(PulldownMenuReqBean pulldownMenuReqBean);
 
@@ -59,7 +59,7 @@ public interface PulldownMenuMapper {
      * @Description 获取部门下拉菜单 或者根据条件查询
      * @Date 14:16 2019/7/22
      * @Param []
-     * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
+     * @return java.utils.List<com.cl.bean.res.PulldownMenuResBean>
      **/
     List<PulldownMenuResBean> queryDepartmentPulldownMenu(PulldownMenuReqBean pulldownMenuReqBean);
 
@@ -68,7 +68,7 @@ public interface PulldownMenuMapper {
      * @Description 根据等级获取部门下拉菜单
      * @Date 14:16 2019/7/22
      * @Param []
-     * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
+     * @return java.utils.List<com.cl.bean.res.PulldownMenuResBean>
      **/
     List<PulldownMenuResBean> queryDepartmentPulldownMenuByGrade(PulldownMenuReqBean pulldownMenuReqBean);
 
@@ -77,7 +77,7 @@ public interface PulldownMenuMapper {
      * @Description 查询供应商名称下拉菜单
      * @Date 14:20 2019/7/22
      * @Param [supplierName]
-     * @return java.util.List<java.lang.String>
+     * @return java.utils.List<java.lang.String>
      **/
     List<SingleParam> queryInputSupplierName(String name);
 
@@ -86,7 +86,7 @@ public interface PulldownMenuMapper {
      * @Description 字典数据查询
      * @Date 14:20 2019/7/22
      * @Param [supplierName]
-     * @return java.util.List<java.lang.String>
+     * @return java.utils.List<java.lang.String>
      **/
     List<DictItem> queryDictItemList(DictItem dictItem);
 }

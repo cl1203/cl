@@ -13,7 +13,7 @@ import com.cl.dao.SysUserRoleMapper;
 import com.cl.entity.*;
 import com.cl.service.IPulldownMenuService;
 import com.cl.service.ISysUserService;
-import com.cl.util.MD5Util;
+import com.cl.utils.MD5Util;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

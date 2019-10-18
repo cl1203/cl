@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.cl.utils.DateUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -39,7 +40,6 @@ import com.cl.entity.OrderManageEntity;
 import com.cl.entity.SysOrgEntity;
 import com.cl.entity.SysOrgEntityExample;
 import com.cl.service.IDashBoardService;
-import com.cl.util.DateUtils;
 import com.github.pagehelper.PageInfo;
 
 @Service("dashBoardService")
@@ -77,15 +77,15 @@ public class DashBoardServiceImpl implements IDashBoardService {
 			//计算表头显示时间
 			String date = bean.getDate();
 			if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
-				bean.setDate(sdf.format(DateUtils.addDays(sdf.parse(date), config.getPurchaseDifference())));
+				bean.setDate(sdf.format(DateUtil.addDays(sdf.parse(date), config.getPurchaseDifference())));
 			}else {
-				bean.setDate(sdf.format(DateUtils.addDays(sdf.parse(date), config.getTailorDifference())));
+				bean.setDate(sdf.format(DateUtil.addDays(sdf.parse(date), config.getTailorDifference())));
 			}
 			//计算星期几
 			if(bean.getDate().equals(today)) {
 				bean.setDayOfWeek(DashBoardConstants.TODAY);
 			}else {
-				String week = DateUtils.dateToWeek(bean.getDate());
+				String week = DateUtil.dateToWeek(bean.getDate());
 				bean.setDayOfWeek(week);
 			}
 			Map<String,Object> params = new HashMap<>();
@@ -127,15 +127,15 @@ public class DashBoardServiceImpl implements IDashBoardService {
 				date = sdf.format(c.getTime());
 			}
 //			if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
-//				bean.setDate(sdf.format(DateUtils.addDays(sdf.parse(date), config.getPurchaseDifference())));
+//				bean.setDate(sdf.format(DateUtil.addDays(sdf.parse(date), config.getPurchaseDifference())));
 //			}else {
-//				bean.setDate(sdf.format(DateUtils.addDays(sdf.parse(date), config.getTailorDifference())));
+//				bean.setDate(sdf.format(DateUtil.addDays(sdf.parse(date), config.getTailorDifference())));
 //			}
 			bean.setDate(date);
 			if(bean.getDate().equals(today)) {
 				bean.setDayOfWeek(DashBoardConstants.TODAY);
 			}else {
-				String week = DateUtils.dateToWeek(bean.getDate());
+				String week = DateUtil.dateToWeek(bean.getDate());
 				bean.setDayOfWeek(week);
 			}
 			bean.setOrderQuantity(DashBoardConstants.DEFAULT_ORDER_QUANTITY);
@@ -234,8 +234,8 @@ public class DashBoardServiceImpl implements IDashBoardService {
 			if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
 				c.add(Calendar.DAY_OF_MONTH, config.getPurchaseDifference());
 				long endTime = c.getTimeInMillis();
-				long day = DateUtils.dayDifference(currentTime, endTime);
-				long hour = DateUtils.hourDifference(currentTime, endTime);
+				long day = DateUtil.dayDifference(currentTime, endTime);
+				long hour = DateUtil.hourDifference(currentTime, endTime);
 				if(day < 0 || hour < 0) {
 					detail.setIsExceed(DashBoardConstants.IS_EXCEED);
 				}else {
@@ -260,8 +260,8 @@ public class DashBoardServiceImpl implements IDashBoardService {
 				}else {
 					detail.setIsExceed(DashBoardConstants.IS_NOT_EXCEED);
 				}
-				long day = DateUtils.dayDifference(c.getTimeInMillis(), currentTime);
-				long hour = DateUtils.hourDifference(c.getTimeInMillis(), currentTime);
+				long day = DateUtil.dayDifference(c.getTimeInMillis(), currentTime);
+				long hour = DateUtil.hourDifference(c.getTimeInMillis(), currentTime);
 				detail.setDeliveryDay(Integer.valueOf(day + ""));
 				detail.setDeliveryHour(Integer.valueOf(hour + ""));
 			}

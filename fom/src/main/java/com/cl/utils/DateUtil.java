@@ -1,4 +1,4 @@
-package com.cl.util;
+package com.cl.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -12,13 +12,13 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * @ClassName DateUtils
+ * @ClassName DateUtil
  * @Description 时间工具类
  * @Author 陈龙
  * @Date 2019/6/24 15:21
  * @Version 1.0
  **/
-public class DateUtils {
+public class DateUtil {
     /**
      * <p>Field DATEYEAR: yyyy</p>
      */
@@ -611,7 +611,7 @@ public class DateUtils {
      */
     public static int getDay(String date) {
         Calendar ca = Calendar.getInstance();
-        ca.setTime(DateUtils.getDateToString(date, DATESHOWFORMAT));
+        ca.setTime(DateUtil.getDateToString(date, DATESHOWFORMAT));
         return ca.get(Calendar.DATE);
     }
 
@@ -727,7 +727,7 @@ public class DateUtils {
      */
     public static int getMonth(String date) {
         Calendar ca = Calendar.getInstance();
-        ca.setTime(DateUtils.getDateToString(date, DATESHOWFORMAT));
+        ca.setTime(DateUtil.getDateToString(date, DATESHOWFORMAT));
         return ca.get(Calendar.MONTH) + 1;
     }
 
@@ -872,7 +872,7 @@ public class DateUtils {
      */
     public static Date getUpMouth(String date) {
         Calendar ca = Calendar.getInstance();
-        ca.setTime(DateUtils.getDateToString(date, DATESHOWFORMAT));
+        ca.setTime(DateUtil.getDateToString(date, DATESHOWFORMAT));
         ca.add(Calendar.MONTH, -1);
         return ca.getTime();
     }
@@ -901,7 +901,7 @@ public class DateUtils {
      */
     public static int getWeek(String date) {
         Calendar ca = Calendar.getInstance();
-        ca.setTime(DateUtils.getDateToString(date, DATESHOWFORMAT));
+        ca.setTime(DateUtil.getDateToString(date, DATESHOWFORMAT));
         return ca.get(Calendar.DAY_OF_WEEK);
     }
 
@@ -929,7 +929,7 @@ public class DateUtils {
      */
     public static int getYear(String date) {
         Calendar ca = Calendar.getInstance();
-        ca.setTime(DateUtils.getDateToString(date, DATESHOWFORMAT));
+        ca.setTime(DateUtil.getDateToString(date, DATESHOWFORMAT));
         return ca.get(Calendar.YEAR);
     }
 
@@ -1114,10 +1114,10 @@ public class DateUtils {
 
     /**
      * <p>
-     * Description:java.util.Date对象转换为java.sql.Date对象.
+     * Description:java.utils.Date对象转换为java.sql.Date对象.
      * </p>
      *
-     * @param date java.util.Date对象
+     * @param date java.utils.Date对象
      * @return Date java.sql.Date对象
      */
     public static java.sql.Date utilDateToSqlDate(Date date) {

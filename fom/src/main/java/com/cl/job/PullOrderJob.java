@@ -56,8 +56,8 @@ import com.cl.entity.StockEntityExample;
 import com.cl.entity.SysParameterEntity;
 import com.cl.entity.SysParameterEntityExample;
 import com.cl.entity.TbLogEntity;
-import com.cl.util.HttpClientUtils;
-import com.cl.util.RsaUtil;
+import com.cl.utils.HttpClientUtil;
+import com.cl.utils.RsaUtil;
 
 @Component
 @EnableScheduling
@@ -117,7 +117,7 @@ public class PullOrderJob {
 		params.put("startTime", startTime);
 		params.put("endTime", endTime);
 		Map<String,String> headerParams = getHeaderParams(now);
-		String result = HttpClientUtils.httpPostWithJSON(config.getUrlPrefix() + config.getUri(), params,headerParams);
+		String result = HttpClientUtil.httpPostWithJSON(config.getUrlPrefix() + config.getUri(), params,headerParams);
 		if(StringUtils.isBlank(result)) {
 			log.info("startTime:" + startTime + ",endTime:" + endTime + "无订单！");
 			c.add(Calendar.MINUTE, 20);

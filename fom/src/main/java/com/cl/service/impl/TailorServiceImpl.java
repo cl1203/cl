@@ -10,8 +10,8 @@ import com.cl.entity.*;
 import com.cl.service.IFinanceService;
 import com.cl.service.IPulldownMenuService;
 import com.cl.service.ITailorService;
-import com.cl.util.DateUtils;
-import com.cl.util.ExcelUtils;
+import com.cl.utils.DateUtil;
+import com.cl.utils.ExcelUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -244,7 +244,7 @@ public class TailorServiceImpl implements ITailorService {
         //表头
         String[] headers = {"订单编号(orderNo)" , "SKU(sku)" , "生产方(producer)" , "应裁数量(answerCutQuantity)" ,"实裁数量(actualCutQuantity)",
                             "裁剪小组名(tailorName)" , "裁剪单价(monovalent)"};
-        ExcelUtils.exportExcel("裁床列表信息" , headers , tailorResBeanList , response , DateUtils.DATESHOWFORMAT);
+        ExcelUtils.exportExcel("裁床列表信息" , headers , tailorResBeanList , response , DateUtil.DATESHOWFORMAT);
     }
 
     private TailorReqBean decodeTailorReqBean(TailorReqBean tailorReqBean) {

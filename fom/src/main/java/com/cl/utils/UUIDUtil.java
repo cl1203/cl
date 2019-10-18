@@ -1,9 +1,9 @@
-package com.cl.util;
+package com.cl.utils;
 
 
 import java.util.UUID;
 
-public class UUIDUtils {
+public class UUIDUtil {
 
     private  static int generateShortUuidLength = 8;
 

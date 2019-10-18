@@ -23,7 +23,7 @@ public interface IPulldownMenuService {
      * @Description 获取组织下拉菜单 或者根据条件查询
      * @Date 20:14 2019/7/20
      * @Param []
-     * @return java.util.List<com.cl.bean.res.PulldownMenuResBean>
+     * @return java.utils.List<com.cl.bean.res.PulldownMenuResBean>
      **/
     List<PulldownMenuResBean> queryOrgPulldownMenu(RequestBeanModel<PulldownMenuReqBean> requestBeanModel);
 
@@ -66,7 +66,7 @@ public interface IPulldownMenuService {
      * @Description 供应商名称的下拉菜单
      * @Date 12:10 2019/7/22
      * @Param [supplierName]
-     * @return java.util.List<java.lang.String>
+     * @return java.utils.List<java.lang.String>
      **/
     List<SingleParam> queryInputSupplierName(RequestBeanModel<SingleParam> requestBeanModel);
 
@@ -75,7 +75,7 @@ public interface IPulldownMenuService {
      * @Description 字典表数据查询
      * @Date 15:56 2019/7/24
      * @Param []
-     * @return java.util.List<java.lang.String>
+     * @return java.utils.List<java.lang.String>
      **/
     List<DictItem> queryDictItemList(RequestBeanModel<DictItem> requestBeanModel);
 

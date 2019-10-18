@@ -13,7 +13,7 @@ import com.cl.dao.*;
 import com.cl.entity.*;
 import com.cl.service.IOrderManageService;
 import com.cl.service.IPulldownMenuService;
-import com.cl.util.DateUtils;
+import com.cl.utils.DateUtil;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -251,7 +251,7 @@ public class OrderManageServiceImpl implements IOrderManageService {
         orderManageEntity.setOrderNo(orderManageInsertReqBean.getOrderNo());//订单编号
         orderManageEntity.setOrderQuantity(Integer.valueOf(orderManageInsertReqBean.getOrderQuantity()));//下单件数
         orderManageEntity.setOrderType(orderManageInsertReqBean.getOrderType());//订单类型
-        orderManageEntity.setOrderTime(DateUtils.getDateToString(orderManageInsertReqBean.getOrderTime() , DateUtils.DATESHOWFORMAT));//下单时间
+        orderManageEntity.setOrderTime(DateUtil.getDateToString(orderManageInsertReqBean.getOrderTime() , DateUtil.DATESHOWFORMAT));//下单时间
         orderManageEntity.setOrderImgUrl(orderManageInsertReqBean.getOrderImgUrl());//订单图片
         orderManageEntity.setSku(orderManageInsertReqBean.getSku());//sku
         orderManageEntity.setIsFirst(Byte.valueOf(orderManageInsertReqBean.getIsFirst()));//是否首单
