@@ -162,8 +162,8 @@ public class PurchaseServiceImpl implements IPurchaseService {
         List<StockEntity> stockEntityList = this.stockMapper.selectByExample(stockEntityExample);
         Assert.notEmpty(stockEntityList , "此采购单对应的物料sku没有对应的库存数据,无法更新!");
         StockEntity stockEntity = stockEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
-        Integer stock = stockEntity.getStock();
-        stock = stock + Integer.valueOf(actualPickQuantity);
+        //Integer stock = stockEntity.getStock();
+        Integer stock = Integer.valueOf(actualPickQuantity);
         stockEntity.setStock(stock);
         int i = this.stockMapper.updateByPrimaryKeySelective(stockEntity);
         Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "修改库存失败!");

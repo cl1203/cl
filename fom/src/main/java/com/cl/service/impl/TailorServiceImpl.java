@@ -96,13 +96,14 @@ public class TailorServiceImpl implements ITailorService {
         TailorEntity tailorEntity = this.checkParameter(tailorReqBean);
         tailorEntity.setLastUpdateUser(reqBeanModel.getUsername());//最后修改人
         tailorEntity.setLastUpdateTime(new Date());//最后修改时间
+        TailorEntity tailorEntityById = this.tailorMapper.selectByPrimaryKey(tailorReqBean.getId());
         //修改裁剪数据
         int i = this.tailorMapper.updateByPrimaryKeySelective(tailorEntity);
         Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE  , "修改裁剪数据失败!");
         //根据订单编号获取对应的订单对象
         OrderManageEntity orderManageEntity = this.purchaseMapper.selectOrder(tailorReqBean.getOrderNo());
         //扣除库存
-        this.updateStock(orderManageEntity , tailorReqBean.getActualCutQuantity());
+        this.updateStock(orderManageEntity , tailorReqBean.getActualCutQuantity() , tailorEntityById.getActualCutQuantity());
         if(StringUtils.isNotBlank(tailorReqBean.getActualCutQuantity())){
             if(!orderManageEntity.getOrderStatus().equals(DictionaryConstants.ORDER_STATUS_ALREADY_TAILOR)){
                 //修改订单状态
@@ -132,7 +133,7 @@ public class TailorServiceImpl implements ITailorService {
      * 扣除库存
      * @param orderManageEntity
      */
-    private void updateStock(OrderManageEntity orderManageEntity , String actualCutQuantity){
+    private void updateStock(OrderManageEntity orderManageEntity , String actualCutQuantity ,Integer oldActualCutQuantity){
         StockEntityExample stockEntityExample = new StockEntityExample();
         StockEntityExample.Criteria criteria = stockEntityExample.createCriteria();
         criteria.andOrderNoEqualTo(orderManageEntity.getOrderNo());
@@ -151,18 +152,19 @@ public class TailorServiceImpl implements ITailorService {
             Assert.notEmpty(purchaseEntityList , "此订单号和对应的库存物料sku未找到采购单号,无法获取单件用量!");
             PurchaseEntity purchaseEntity = purchaseEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
             Assert.notNull(purchaseEntity.getSimpleUse() , "此订单号和物料sku获取的采购单号对应的单件用量为空!");
+            if(!oldActualCutQuantity.equals(DictionaryConstants.ALL_BUSINESS_ZERO)) {
+                actualCutQuantity = String.valueOf(Integer.valueOf(actualCutQuantity) - oldActualCutQuantity);
+            }
             //单件用量*实裁数
             Integer tailorStock = purchaseEntity.getSimpleUse().multiply(new BigDecimal(actualCutQuantity)).setScale(DictionaryConstants.ALL_BUSINESS_ZERO , BigDecimal.ROUND_UP).intValue();
             Integer stock = stockEntity.getStock();
-            if(stock - tailorStock < 0){
-                throw new BusinessException("实裁录入错误, 录入后库存小于0!");
-            }else{
-                stockEntity.setStock(stock - tailorStock);
-                int i = this.stockMapper.updateByPrimaryKeySelective(stockEntity);
-                Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "修改库存失败!");
-            }
+            stockEntity.setStock(stock - tailorStock);
+            int i = this.stockMapper.updateByPrimaryKeySelective(stockEntity);
+            Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "修改库存失败!");
         }
     }
+
+
     /**
      * @param regex
      * 正则表达式字符串
