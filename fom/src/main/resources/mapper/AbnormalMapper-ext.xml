@@ -10,7 +10,7 @@
 			 inner join purchase p on a.order_no = p.order_no and a.purchase_no = p.purchase_no
 			 inner join order_manage om on om.order_no = p.order_no
 		where 1 = 1
-		<if test="orderNo != null">
+		<if test="orderNo != null and orderNo != ''">
 			and a.order_no = #{orderNo}
 		</if>
 		<if test="queryType != null">
