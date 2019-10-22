@@ -25,7 +25,7 @@ public class AbnormalResBean implements Serializable {
 	
 	private Integer actualCutQuantity;                      //实裁数
 	
-	private String tailor_name;                             //裁剪人
+	private String tailorName;                             //裁剪人
 	
 	private String remark;                                  //备注
 
@@ -101,12 +101,12 @@ public class AbnormalResBean implements Serializable {
 		this.actualCutQuantity = actualCutQuantity;
 	}
 
-	public String getTailor_name() {
-		return tailor_name;
+	public String getTailorName() {
+		return tailorName;
 	}
 
-	public void setTailor_name(String tailor_name) {
-		this.tailor_name = tailor_name;
+	public void setTailorName(String tailorName) {
+		this.tailorName = tailorName;
 	}
 
 	public String getRemark() {
