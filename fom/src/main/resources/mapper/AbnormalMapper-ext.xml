@@ -31,7 +31,7 @@
 		from abnormal a
 			 inner join tailor t on a.order_no = t.order_no
 		where 1 = 1
-		<if test="orderNo != null">
+		<if test="orderNo != null and orderNo != ''">
 			and a.order_no = #{orderNo}
 		</if>
 		<if test="queryType != null">
