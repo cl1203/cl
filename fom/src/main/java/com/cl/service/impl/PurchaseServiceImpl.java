@@ -19,6 +19,7 @@ import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -163,12 +164,11 @@ public class PurchaseServiceImpl implements IPurchaseService {
         Assert.notEmpty(stockEntityList , "此采购单对应的物料sku没有对应的库存数据,无法更新!");
         StockEntity stockEntity = stockEntityList.get(DictionaryConstants.ALL_BUSINESS_ZERO);
         //Integer stock = stockEntity.getStock();
-        Integer stock = Integer.valueOf(actualPickQuantity);
+        Integer stock = BigDecimal.valueOf(Double.valueOf(actualPickQuantity)).setScale(0, RoundingMode.HALF_UP).intValue();
         stockEntity.setStock(stock);
         int i = this.stockMapper.updateByPrimaryKeySelective(stockEntity);
         Assert.isTrue(i == DictionaryConstants.ALL_BUSINESS_ONE , "修改库存失败!");
     }
-
 
 
     /**
@@ -213,7 +213,6 @@ public class PurchaseServiceImpl implements IPurchaseService {
         BigDecimal answerCutQuantity = (actualPickQuantity.divide(singleUse , DictionaryConstants.ALL_BUSINESS_ZERO , BigDecimal.ROUND_HALF_UP));//应裁数量
         return answerCutQuantity;
     }
-
 
     /**
      *  校验 编辑时带过来的参数并转换成entity
