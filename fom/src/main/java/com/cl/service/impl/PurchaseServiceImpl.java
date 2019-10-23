@@ -99,6 +99,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
         PurchaseReqBean purchaseReqBean = reqBeanModel.getReqData();
         //根据订单编号获取对应的订单对象
         OrderManageEntity orderManageEntity = this.purchaseMapper.selectOrder(purchaseReqBean.getOrderNo());
+        Assert.notNull(orderManageEntity , "订单不存在!");
         //校验修改的参数
         PurchaseEntity purchaseEntity = this.checkParameter(purchaseReqBean , orderManageEntity);
         PurchaseEntity purchaseEntityById = this.purchaseMapper.selectByPrimaryKey(purchaseReqBean.getId());
