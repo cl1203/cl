@@ -23,7 +23,7 @@
 	<select id="selectSkuCountByParams" parameterType="java.util.Map" resultType="java.lang.Long">
 		select count(1)
 		from stock s 
-		where s.status = 1
+		where s.status = 1 and s.stock != 0
 		<if test="orderNo != null and orderNo != ''">
 			and s.order_no = #{orderNo}
 		</if>
@@ -65,7 +65,7 @@
 	<select id="selectByParams" parameterType="java.util.Map" resultMap="stockResBeanResultMap">
 		select s.order_no,s.sku,s.material_sku,s.stock,s.update_stock,s.remark
 		from stock s
-		where s.status = 1
+		where s.status = 1 and s.stock != 0
 		<if test="orderNo != null and orderNo != ''">
 			and s.order_no = #{orderNo}
 		</if>
