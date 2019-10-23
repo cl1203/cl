@@ -51,8 +51,8 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
             criteria.andOrderStatusNotEqualTo(DictionaryConstants.ORDER_STATUS_DELETED);
         }
         if(StringUtils.isNotBlank(orderManageReqBean.getStartDate()) && StringUtils.isNotBlank(orderManageReqBean.getEndDate())){
-            Date startDate = DateUtil.getDateToString(orderManageReqBean.getStartDate() , DateUtil.DATESHOWFORMAT);
-            Date endDate = DateUtil.getDateToString(orderManageReqBean.getEndDate() , DateUtil.DATESHOWFORMAT);
+            Date startDate = DateUtil.getDateToString(orderManageReqBean.getStartDate() , DateUtil.DATETIMESHOWFORMAT);
+            Date endDate = DateUtil.getDateToString(orderManageReqBean.getEndDate() , DateUtil.DATETIMESHOWFORMAT);
             criteria.andOrderTimeBetween(startDate , endDate);
         }
         if(StringUtils.isNotBlank(orderManageReqBean.getProducer())){
