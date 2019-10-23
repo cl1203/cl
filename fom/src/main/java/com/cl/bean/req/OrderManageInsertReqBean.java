@@ -69,10 +69,10 @@ public class OrderManageInsertReqBean implements Serializable {
     private String producer;
 
     /**
-     * 剩余时间
+     * 目标交期
      */
-    @ApiModelProperty(value = "剩余时间")
-    @NotBlank(message = "剩余时间不能为空!")
+    @ApiModelProperty(value = "目标交期")
+    @NotBlank(message = "目标交期不能为空!")
     private String surplusTime;
 
     /**

@@ -256,7 +256,7 @@ public class OrderManageServiceImpl implements IOrderManageService {
         orderManageEntity.setSku(orderManageInsertReqBean.getSku());//sku
         orderManageEntity.setIsFirst(Byte.valueOf(orderManageInsertReqBean.getIsFirst()));//是否首单
         orderManageEntity.setProducer(orderManageInsertReqBean.getProducer());//生产方
-        orderManageEntity.setSurplusTime(orderManageInsertReqBean.getSurplusTime());//剩余时间
+        orderManageEntity.setSurplusTime(DateUtil.getDateString(orderManageInsertReqBean.getSurplusTime() , DateUtil.DATESHOWFORMAT));//剩余时间
         orderManageEntity.setOrderStatus(DictionaryConstants.AVAILABLE);//订单状态 默认待采购
         orderManageEntity.setRemarks(orderManageInsertReqBean.getRemarks());//备注
         orderManageEntity.setCreateUser(userId);
