@@ -31,6 +31,11 @@ public class AbnormalEntity implements Serializable {
     private Byte isApproval;
 
     /**
+     * 是否超期异常
+     */
+    private Byte isExceed;
+
+    /**
      * 异常备注
      */
     private String abnormalRemarks;
@@ -97,6 +102,14 @@ public class AbnormalEntity implements Serializable {
         this.isApproval = isApproval;
     }
 
+    public Byte getIsExceed() {
+        return isExceed;
+    }
+
+    public void setIsExceed(Byte isExceed) {
+        this.isExceed = isExceed;
+    }
+
     public String getAbnormalRemarks() {
         return abnormalRemarks;
     }
@@ -154,6 +167,7 @@ public class AbnormalEntity implements Serializable {
             && (this.getPurchaseNo() == null ? other.getPurchaseNo() == null : this.getPurchaseNo().equals(other.getPurchaseNo()))
             && (this.getAbnormalType() == null ? other.getAbnormalType() == null : this.getAbnormalType().equals(other.getAbnormalType()))
             && (this.getIsApproval() == null ? other.getIsApproval() == null : this.getIsApproval().equals(other.getIsApproval()))
+            && (this.getIsExceed() == null ? other.getIsExceed() == null : this.getIsExceed().equals(other.getIsExceed()))
             && (this.getAbnormalRemarks() == null ? other.getAbnormalRemarks() == null : this.getAbnormalRemarks().equals(other.getAbnormalRemarks()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
@@ -170,6 +184,7 @@ public class AbnormalEntity implements Serializable {
         result = prime * result + ((getPurchaseNo() == null) ? 0 : getPurchaseNo().hashCode());
         result = prime * result + ((getAbnormalType() == null) ? 0 : getAbnormalType().hashCode());
         result = prime * result + ((getIsApproval() == null) ? 0 : getIsApproval().hashCode());
+        result = prime * result + ((getIsExceed() == null) ? 0 : getIsExceed().hashCode());
         result = prime * result + ((getAbnormalRemarks() == null) ? 0 : getAbnormalRemarks().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
@@ -189,6 +204,7 @@ public class AbnormalEntity implements Serializable {
         sb.append(", purchaseNo=").append(purchaseNo);
         sb.append(", abnormalType=").append(abnormalType);
         sb.append(", isApproval=").append(isApproval);
+        sb.append(", isExceed=").append(isExceed);
         sb.append(", abnormalRemarks=").append(abnormalRemarks);
         sb.append(", createTime=").append(createTime);
         sb.append(", createUser=").append(createUser);

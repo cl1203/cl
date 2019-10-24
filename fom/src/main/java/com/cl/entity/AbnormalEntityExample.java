@@ -445,6 +445,66 @@ public class AbnormalEntityExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsExceedIsNull() {
+            addCriterion("is_exceed is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExceedIsNotNull() {
+            addCriterion("is_exceed is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExceedEqualTo(Byte value) {
+            addCriterion("is_exceed =", value, "isExceed");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExceedNotEqualTo(Byte value) {
+            addCriterion("is_exceed <>", value, "isExceed");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExceedGreaterThan(Byte value) {
+            addCriterion("is_exceed >", value, "isExceed");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExceedGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_exceed >=", value, "isExceed");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExceedLessThan(Byte value) {
+            addCriterion("is_exceed <", value, "isExceed");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExceedLessThanOrEqualTo(Byte value) {
+            addCriterion("is_exceed <=", value, "isExceed");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExceedIn(List<Byte> values) {
+            addCriterion("is_exceed in", values, "isExceed");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExceedNotIn(List<Byte> values) {
+            addCriterion("is_exceed not in", values, "isExceed");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExceedBetween(Byte value1, Byte value2) {
+            addCriterion("is_exceed between", value1, value2, "isExceed");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExceedNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_exceed not between", value1, value2, "isExceed");
+            return (Criteria) this;
+        }
+
         public Criteria andAbnormalRemarksIsNull() {
             addCriterion("abnormal_remarks is null");
             return (Criteria) this;

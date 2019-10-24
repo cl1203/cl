@@ -7,6 +7,7 @@
     <result column="purchase_no" jdbcType="VARCHAR" property="purchaseNo" />
     <result column="abnormal_type" jdbcType="TINYINT" property="abnormalType" />
     <result column="is_approval" jdbcType="TINYINT" property="isApproval" />
+    <result column="is_exceed" jdbcType="TINYINT" property="isExceed" />
     <result column="abnormal_remarks" jdbcType="VARCHAR" property="abnormalRemarks" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
@@ -72,8 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_no, purchase_no, abnormal_type, is_approval, abnormal_remarks, create_time, 
-    create_user, last_update_time, last_update_user
+    id, order_no, purchase_no, abnormal_type, is_approval, is_exceed, abnormal_remarks, 
+    create_time, create_user, last_update_time, last_update_user
   </sql>
   <select id="selectByExample" parameterType="com.cl.entity.AbnormalEntityExample" resultMap="BaseResultMap">
     select
@@ -115,13 +116,13 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.AbnormalEntity" useGeneratedKeys="true">
     insert into abnormal (order_no, purchase_no, abnormal_type, 
-      is_approval, abnormal_remarks, create_time, 
-      create_user, last_update_time, last_update_user
-      )
+      is_approval, is_exceed, abnormal_remarks, 
+      create_time, create_user, last_update_time, 
+      last_update_user)
     values (#{orderNo,jdbcType=VARCHAR}, #{purchaseNo,jdbcType=VARCHAR}, #{abnormalType,jdbcType=TINYINT}, 
-      #{isApproval,jdbcType=TINYINT}, #{abnormalRemarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
-      )
+      #{isApproval,jdbcType=TINYINT}, #{isExceed,jdbcType=TINYINT}, #{abnormalRemarks,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateUser,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cl.entity.AbnormalEntity" useGeneratedKeys="true">
     insert into abnormal
@@ -137,6 +138,9 @@
       </if>
       <if test="isApproval != null">
         is_approval,
+      </if>
+      <if test="isExceed != null">
+        is_exceed,
       </if>
       <if test="abnormalRemarks != null">
         abnormal_remarks,
@@ -166,6 +170,9 @@
       </if>
       <if test="isApproval != null">
         #{isApproval,jdbcType=TINYINT},
+      </if>
+      <if test="isExceed != null">
+        #{isExceed,jdbcType=TINYINT},
       </if>
       <if test="abnormalRemarks != null">
         #{abnormalRemarks,jdbcType=VARCHAR},
@@ -208,6 +215,9 @@
       <if test="record.isApproval != null">
         is_approval = #{record.isApproval,jdbcType=TINYINT},
       </if>
+      <if test="record.isExceed != null">
+        is_exceed = #{record.isExceed,jdbcType=TINYINT},
+      </if>
       <if test="record.abnormalRemarks != null">
         abnormal_remarks = #{record.abnormalRemarks,jdbcType=VARCHAR},
       </if>
@@ -235,6 +245,7 @@
       purchase_no = #{record.purchaseNo,jdbcType=VARCHAR},
       abnormal_type = #{record.abnormalType,jdbcType=TINYINT},
       is_approval = #{record.isApproval,jdbcType=TINYINT},
+      is_exceed = #{record.isExceed,jdbcType=TINYINT},
       abnormal_remarks = #{record.abnormalRemarks,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_user = #{record.createUser,jdbcType=VARCHAR},
@@ -258,6 +269,9 @@
       </if>
       <if test="isApproval != null">
         is_approval = #{isApproval,jdbcType=TINYINT},
+      </if>
+      <if test="isExceed != null">
+        is_exceed = #{isExceed,jdbcType=TINYINT},
       </if>
       <if test="abnormalRemarks != null">
         abnormal_remarks = #{abnormalRemarks,jdbcType=VARCHAR},
@@ -283,6 +297,7 @@
       purchase_no = #{purchaseNo,jdbcType=VARCHAR},
       abnormal_type = #{abnormalType,jdbcType=TINYINT},
       is_approval = #{isApproval,jdbcType=TINYINT},
+      is_exceed = #{isExceed,jdbcType=TINYINT},
       abnormal_remarks = #{abnormalRemarks,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=VARCHAR},
