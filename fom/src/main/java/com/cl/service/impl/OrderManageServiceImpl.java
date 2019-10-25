@@ -166,6 +166,7 @@ public class OrderManageServiceImpl implements IOrderManageService {
             PurchaseEntityExample purchaseEntityExample = new PurchaseEntityExample();
             PurchaseEntityExample.Criteria criteria = purchaseEntityExample.createCriteria();
             criteria.andPurchaseNoEqualTo(purchaseInsertReqBean.getPurchaseNo());
+            criteria.andPurchaseStatusNotEqualTo(DictionaryConstants.ORDER_STATUS_DELETED);
             List<PurchaseEntity> purchaseEntityList = this.purchaseMapper.selectByExample(purchaseEntityExample);
             if(purchaseEntityList.size() >DictionaryConstants.ALL_BUSINESS_ZERO){
                 throw new BusinessException("采购单号已经存在 , 请修改!");
@@ -273,6 +274,7 @@ public class OrderManageServiceImpl implements IOrderManageService {
         OrderManageEntityExample orderManageEntityExample = new OrderManageEntityExample();
         OrderManageEntityExample.Criteria orderCriteria = orderManageEntityExample.createCriteria();
         orderCriteria.andOrderNoEqualTo(orderManageInsertReqBean.getOrderNo());
+        orderCriteria.andOrderStatusNotEqualTo(DictionaryConstants.ORDER_STATUS_DELETED);
         List<OrderManageEntity> orderManageEntityList = this.orderManageMapper.selectByExample(orderManageEntityExample);
         if(orderManageEntityList.size() > DictionaryConstants.ALL_BUSINESS_ZERO){
             throw new BusinessException("订单号已经存在,请修改!");
