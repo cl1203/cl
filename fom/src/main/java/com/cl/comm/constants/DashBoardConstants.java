@@ -35,4 +35,5 @@ public class DashBoardConstants {
 	
 	//默认裁剪数量
 	public static final Integer DEFAULT_TAILOR_QUANTITY = 0;
+	
 }

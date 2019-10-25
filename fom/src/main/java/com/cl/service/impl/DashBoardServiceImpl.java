@@ -61,7 +61,7 @@ public class DashBoardServiceImpl implements IDashBoardService {
 	public PageInfo<DashBoardResBean> queryForecastInfo(RequestBeanModel<DashBoardReqBean> reqBeanModel) throws Exception {
 		DashBoardReqBean reqBean = reqBeanModel.getReqData();
 		validateParams(reqBean);
-		//初始化订单数据，数量为0
+		//初始化订单数据，显示的天数为配置文件中DashBoardShowDay值，数量初始化为0
 		List<DashBoardResBean> initResBeanList = init(reqBean);
 		//数据库查询订单数据
 		List<DashBoardResBean> resBeanList = orderManageMapper.selectDashBoardByParams(reqBean);
@@ -122,15 +122,13 @@ public class DashBoardServiceImpl implements IDashBoardService {
 			DashBoardResBean bean = new DashBoardResBean();
 			String date = "";
 			if(i == 1) {
-				date = sdf.format(now);
-			}else {
-				date = sdf.format(c.getTime());
+				if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
+					c.add(Calendar.DAY_OF_MONTH, -config.getPurchaseStartDate());
+				}else {
+					c.add(Calendar.DAY_OF_MONTH, -config.getTailorStartDate());
+				}
 			}
-//			if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
-//				bean.setDate(sdf.format(DateUtil.addDays(sdf.parse(date), config.getPurchaseDifference())));
-//			}else {
-//				bean.setDate(sdf.format(DateUtil.addDays(sdf.parse(date), config.getTailorDifference())));
-//			}
+			date = sdf.format(c.getTime());
 			bean.setDate(date);
 			if(bean.getDate().equals(today)) {
 				bean.setDayOfWeek(DashBoardConstants.TODAY);
@@ -231,12 +229,16 @@ public class DashBoardServiceImpl implements IDashBoardService {
 			orderDate += " 00:00:00";
 			c.setTime(sdf.parse(orderDate));
 			long currentTime = System.currentTimeMillis();
+			AbnormalEntity entity = null;
 			if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
 				c.add(Calendar.DAY_OF_MONTH, config.getPurchaseDifference());
 				long endTime = c.getTimeInMillis();
 				long day = DateUtil.dayDifference(currentTime, endTime);
 				long hour = DateUtil.hourDifference(currentTime, endTime);
 				if(day < 0 || hour < 0) {
+					//如果超期，则新建异常实体
+					entity = new AbnormalEntity();
+					entity.setAbnormalType(DashBoardConstants.QUERY_PURCHASE);
 					detail.setIsExceed(DashBoardConstants.IS_EXCEED);
 				}else {
 					detail.setIsExceed(DashBoardConstants.IS_NOT_EXCEED);
@@ -256,6 +258,9 @@ public class DashBoardServiceImpl implements IDashBoardService {
 					c.add(Calendar.DAY_OF_MONTH, config.getTailorDifference());
 				}
 				if(currentTime - c.getTimeInMillis() > 0) {
+					//如果超期，则新建异常实体
+					entity = new AbnormalEntity();
+					entity.setAbnormalType(DashBoardConstants.QUERY_TAILOR);
 					detail.setIsExceed(DashBoardConstants.IS_EXCEED);
 				}else {
 					detail.setIsExceed(DashBoardConstants.IS_NOT_EXCEED);
@@ -265,7 +270,25 @@ public class DashBoardServiceImpl implements IDashBoardService {
 				detail.setDeliveryDay(Integer.valueOf(day + ""));
 				detail.setDeliveryHour(Integer.valueOf(hour + ""));
 			}
-			
+			//如果超期，则插入异常表
+			if(entity != null) {
+				entity.setOrderNo(detail.getOrderNo());
+				entity.setIsExceed(DashBoardConstants.IS_EXCEED);
+				//判断数据库中是否存在当前数据，不存在则插入
+				AbnormalEntityExample example = new AbnormalEntityExample();
+				Criteria criteria = example.createCriteria();
+				criteria.andOrderNoEqualTo(entity.getOrderNo());
+				criteria.andAbnormalTypeEqualTo(entity.getAbnormalType());
+				criteria.andIsExceedEqualTo(entity.getIsExceed());
+				List<AbnormalEntity> existEntityList = abnormalMapper.selectByExample(example);
+				if(CollectionUtils.isNotEmpty(existEntityList)) {
+					continue;
+				}
+				entity.setIsApproval(DashBoardConstants.REQ_IS_NOT_APPROVAL);
+				entity.setCreateUser(ApiConstants.API_USER);
+				entity.setLastUpdateUser(ApiConstants.API_USER);
+				abnormalMapper.insertSelective(entity);
+			}
 		}
 	}
 
@@ -288,14 +311,18 @@ public class DashBoardServiceImpl implements IDashBoardService {
     	if(StringUtils.isBlank(reqBean.getStartDate())) {
         	Date now = new Date();
         	c.setTime(now);
-        	//计算列表订单的开始时间
+        	//计算订单的开始时间
+        	//采购开始时间为当前时间之前2天，加上超期2天，从4天之前开始查询订单
+        	//裁减开始时间为当前时间之前2天，加上超期4天，从6天之前开始查询订单
         	if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
-        		c.add(Calendar.DAY_OF_MONTH, -config.getDashBoardPurchaseDay());
+        		c.add(Calendar.DAY_OF_MONTH, -(config.getPurchaseStartDate() + config.getPurchaseDifference()));
         	}else {
-        		c.add(Calendar.DAY_OF_MONTH, -config.getDashBoardTailorDay());
+        		c.add(Calendar.DAY_OF_MONTH, -(config.getTailorStartDate() + config.getTailorDifference()));
         	}
         	reqBean.setStartDate(sdf.format(c.getTime()));
-        	//计算列表订单的结束时间
+        	//计算订单的结束时间
+        	//采购和裁减都是显示5天的数据，所以当前天数加4天为查询订单结束时间
+        	//由于SQL使用between，所以加5天
         	if(reqBean.getStatus() == DashBoardConstants.REQ_STATUS_PURCHASE) {
         		c.add(Calendar.DAY_OF_MONTH, config.getDashBoardShowDay());
         	}else {
@@ -345,13 +372,17 @@ public class DashBoardServiceImpl implements IDashBoardService {
 	public PageInfo<AbnormalResBean> queryAbnormalList(RequestBeanModel<AbnormalReqBean> reqBeanModel) {
 		AbnormalReqBean reqBean = reqBeanModel.getReqData();
 		validateReqBean(reqBean);
+		int count = 0;
 		List<AbnormalResBean> abnormalList;
 		if(reqBean.getQueryType().equals(DashBoardConstants.QUERY_PURCHASE)){
+			count = abnormalMapper.selectAbnormalPurchaseCount(reqBean);
 			abnormalList = abnormalMapper.selectAbnormalPurchaseList(reqBean);
 		}else {
+			count = abnormalMapper.selectAbnormalTailorCount(reqBean);
 			abnormalList = abnormalMapper.selectAbnormalTailorList(reqBean);
 		}
 		PageInfo<AbnormalResBean> resBean = new PageInfo<>(abnormalList);
+		resBean.setTotal(count);
 		return resBean;
 	}
 

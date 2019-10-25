@@ -77,11 +77,11 @@ dashboard:
   show:
     day: 5
   purchase:
-    show: 5
-    difference: 3
+    start_date: 2
+    difference: 2
   tailor:
-    show: 8
-    difference: 8
+    start_date: 2
+    difference: 4
 
 
 logging:

@@ -15,7 +15,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AbnormalMapper extends MyBatisBaseDao<AbnormalEntity, Long, AbnormalEntityExample> {
 
+	int selectAbnormalPurchaseCount(AbnormalReqBean reqBean);
+	
 	List<AbnormalResBean> selectAbnormalPurchaseList(AbnormalReqBean reqBean);
 
+	int selectAbnormalTailorCount(AbnormalReqBean reqBean);
+	
 	List<AbnormalResBean> selectAbnormalTailorList(AbnormalReqBean reqBean);
+
 }
