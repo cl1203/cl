@@ -239,6 +239,7 @@ public class DashBoardServiceImpl implements IDashBoardService {
 					//如果超期，则新建异常实体
 					entity = new AbnormalEntity();
 					entity.setAbnormalType(DashBoardConstants.QUERY_PURCHASE);
+					entity.setAbnormalRemarks("采购超期");
 					detail.setIsExceed(DashBoardConstants.IS_EXCEED);
 				}else {
 					detail.setIsExceed(DashBoardConstants.IS_NOT_EXCEED);
@@ -261,6 +262,7 @@ public class DashBoardServiceImpl implements IDashBoardService {
 					//如果超期，则新建异常实体
 					entity = new AbnormalEntity();
 					entity.setAbnormalType(DashBoardConstants.QUERY_TAILOR);
+					entity.setAbnormalRemarks("裁剪超期");
 					detail.setIsExceed(DashBoardConstants.IS_EXCEED);
 				}else {
 					detail.setIsExceed(DashBoardConstants.IS_NOT_EXCEED);
@@ -285,6 +287,7 @@ public class DashBoardServiceImpl implements IDashBoardService {
 					continue;
 				}
 				entity.setIsApproval(DashBoardConstants.REQ_IS_NOT_APPROVAL);
+				entity.setIsApproval(DashBoardConstants.REQ_IS_APPROVAL);
 				entity.setCreateUser(ApiConstants.API_USER);
 				entity.setLastUpdateUser(ApiConstants.API_USER);
 				abnormalMapper.insertSelective(entity);
