@@ -21,6 +21,8 @@ public class AbnormalResBean implements Serializable {
 	
 	private Byte isApproval;                                //0:未审批 1: 已审批 
 	
+	private Byte isExceed;                                  //超期
+	
 	private Integer answerCutQuantity;                      //应裁数
 	
 	private Integer actualCutQuantity;                      //实裁数
@@ -28,6 +30,14 @@ public class AbnormalResBean implements Serializable {
 	private String tailorName;                             //裁剪人
 	
 	private String remark;                                  //备注
+
+	public Byte getIsExceed() {
+		return isExceed;
+	}
+
+	public void setIsExceed(Byte isExceed) {
+		this.isExceed = isExceed;
+	}
 
 	public String getPurchaseNo() {
 		return purchaseNo;

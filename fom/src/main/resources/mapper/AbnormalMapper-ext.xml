@@ -5,8 +5,8 @@
 	<select id="selectAbnormalPurchaseCount" parameterType="com.cl.bean.req.AbnormalReqBean" resultType="java.lang.Integer">
 		select count(1)
 			from abnormal a
-				 inner join purchase p on a.order_no = p.order_no and a.purchase_no = p.purchase_no
-				 inner join order_manage om on om.order_no = p.order_no
+				 left join purchase p on a.order_no = p.order_no and a.purchase_no = p.purchase_no
+				 left join order_manage om on om.order_no = a.order_no
 			where 1 = 1
 			<if test="orderNo != null and orderNo != ''">
 				and a.order_no = #{orderNo}
@@ -20,12 +20,12 @@
 	</select>
 
 	<select id="selectAbnormalPurchaseList" parameterType="com.cl.bean.req.AbnormalReqBean" resultType="com.cl.bean.res.AbnormalResBean">
-		select a.order_no as orderNo,om.sku as sku,a.purchase_no as purchaseNo,a.is_approval as isApproval,
+		select a.order_no as orderNo,om.sku as sku,a.purchase_no as purchaseNo,a.is_approval as isApproval,a.is_exceed as isExceed,
 			   p.materiel_color as materialColor,p.answer_pick_monovalent as answerPickMonovalent,
 			   p.actual_pick_monovalent as actualPickMonovalent,a.abnormal_remarks as remark
 		from abnormal a
-			 inner join purchase p on a.order_no = p.order_no and a.purchase_no = p.purchase_no
-			 inner join order_manage om on om.order_no = p.order_no
+			 left join purchase p on a.order_no = p.order_no and a.purchase_no = p.purchase_no
+			 left join order_manage om on om.order_no = a.order_no
 		where 1 = 1
 		<if test="orderNo != null and orderNo != ''">
 			and a.order_no = #{orderNo}
@@ -60,7 +60,7 @@
 	
 	<select id="selectAbnormalTailorList" parameterType="com.cl.bean.req.AbnormalReqBean" resultType="com.cl.bean.res.AbnormalResBean">
 		select a.order_no orderNo,t.answer_cut_quantity as answerCutQuantity,t.actual_cut_quantity actualCutQuantity,
-			   tailor_name as tailorName,a.abnormal_remarks as remark,a.is_approval as isApproval
+			   tailor_name as tailorName,a.abnormal_remarks as remark,a.is_approval as isApproval,a.is_exceed as isExceed
 		from abnormal a
 			 inner join tailor t on a.order_no = t.order_no
 		where 1 = 1
