@@ -2,14 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cl.dao.PurchaseMapper">
 
-  <select id="selectPurchaseList" parameterType="com.cl.bean.req.PurchaseReqBean" resultMap="BaseResultMap">
+
+  <resultMap id="PurchaseBaseResultMap" type="com.cl.bean.res.PurchaseResBean">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="purchase_no" jdbcType="VARCHAR" property="purchaseNo" />
+    <result column="purchase_time" jdbcType="VARCHAR" property="purchaseTime" />
+    <result column="purchase_type" jdbcType="VARCHAR" property="purchaseType" />
+    <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
+    <result column="materiel_name" jdbcType="VARCHAR" property="materielName" />
+    <result column="materiel_color" jdbcType="VARCHAR" property="materielColor" />
+    <result column="answer_pick_quantity" jdbcType="DECIMAL" property="answerPickQuantity" />
+    <result column="answer_pick_monovalent" jdbcType="DECIMAL" property="answerPickMonovalent" />
+    <result column="answer_pick_total" jdbcType="DECIMAL" property="answerPickTotal" />
+    <result column="actual_pick_quantity" jdbcType="DECIMAL" property="actualPickQuantity" />
+    <result column="actual_pick_monovalent" jdbcType="DECIMAL" property="actualPickMonovalent" />
+    <result column="actual_pick_total" jdbcType="DECIMAL" property="actualPickTotal" />
+    <result column="consuming_time" jdbcType="DECIMAL" property="consumingTime" />
+    <result column="purchase_status" jdbcType="TINYINT" property="purchaseStatus" />
+  </resultMap>
+  <select id="selectPurchaseList" parameterType="com.cl.bean.req.PurchaseReqBean" resultMap="PurchaseBaseResultMap">
     select
     p.id id,
-    p.purchase_no purchase_no,
-    p.purchase_status purchase_status,
     p.order_no order_no,
+    p.purchase_no purchase_no,
     p.purchase_time purchase_time,
     p.purchase_type purchase_type,
+    p.supplier_name supplier_name,
     p.materiel_name materiel_name,
     p.materiel_color materiel_color,
     p.answer_pick_quantity answer_pick_quantity,
@@ -18,13 +37,8 @@
     p.answer_pick_total answer_pick_total,
     p.actual_pick_monovalent actual_pick_monovalent,
     p.actual_pick_total actual_pick_total,
-    p.supplier_name supplier_name,
     p.consuming_time consuming_time,
-    p.remarks remarks,
-    p.create_time create_time,
-    p.create_user create_user,
-    p.last_update_time last_update_time,
-    p.last_update_user last_update_user
+    p.purchase_status purchase_status
     from purchase p
     left join order_manage o on p.order_no = o.order_no
     where p.purchase_status in (1 , 2 , 3)

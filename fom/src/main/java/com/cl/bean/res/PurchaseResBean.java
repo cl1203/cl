@@ -35,16 +35,11 @@ public class PurchaseResBean implements Serializable {
     private String orderNo;
 
     /**
-     * 采购单状态1:待采购 2:采购中 0:已删除
+     * 采购单状态1:待采购 2:采购中 3:已完成
      */
-    @ApiModelProperty(value = "采购单状态1:待采购 2:采购中 0:已删除")
+    @ApiModelProperty(value = "采购单状态1:待采购 2:采购中 3:已完成")
     private Byte purchaseStatus;
 
-    /**
-     * 订单状态名称
-     */
-    @ApiModelProperty(value = "订单状态名称")
-    private String purchaseStatusName;
 
     /**
      * 物料名称
@@ -140,14 +135,6 @@ public class PurchaseResBean implements Serializable {
 
     public void setPurchaseStatus(Byte purchaseStatus) {
         this.purchaseStatus = purchaseStatus;
-    }
-
-    public String getPurchaseStatusName() {
-        return purchaseStatusName;
-    }
-
-    public void setPurchaseStatusName(String purchaseStatusName) {
-        this.purchaseStatusName = purchaseStatusName;
     }
 
     public Long getId() {

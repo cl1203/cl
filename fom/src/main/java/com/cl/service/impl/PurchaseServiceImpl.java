@@ -5,7 +5,6 @@ import com.cl.bean.res.PurchaseResBean;
 import com.cl.comm.constants.DictionaryConstants;
 import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.RequestBeanModel;
-import com.cl.comm.transformer.IObjectTransformer;
 import com.cl.dao.*;
 import com.cl.entity.*;
 import com.cl.service.IPulldownMenuService;
@@ -46,9 +45,6 @@ public class PurchaseServiceImpl implements IPurchaseService {
     private ITailorService iTailorService;
 
     @Resource
-    private IObjectTransformer<PurchaseEntity , PurchaseResBean> purchaseTransformer;
-
-    @Resource
     private IPulldownMenuService pulldownMenuService;
 
     @Resource
@@ -76,8 +72,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
             purchaseReqBean.setOrgName(null);
         }
         PageHelper.startPage(purchaseReqBean.getPageNum() , purchaseReqBean.getPageSize() , "p.last_update_time desc");
-        List<PurchaseEntity> purchaseEntityList = this.purchaseMapper.selectPurchaseList(purchaseReqBean);
-        List<PurchaseResBean> purchaseResBeanList = this.purchaseTransformer.transform(purchaseEntityList);
+        List<PurchaseResBean> purchaseResBeanList = this.purchaseMapper.selectPurchaseList(purchaseReqBean);
         return new PageInfo<>(purchaseResBeanList);
     }
 

@@ -16,6 +16,7 @@ import com.cl.service.IFinanceService;
 import com.cl.service.IPulldownMenuService;
 import com.cl.utils.DateUtil;
 import com.cl.utils.ExcelUtils;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -70,7 +71,9 @@ public class FinanceServiceImpl implements IFinanceService {
         PageHelper.startPage(financeReqBean.getPageNum() , financeReqBean.getPageSize() , "f.last_update_time desc");
         List<FinanceEntity> financeEntityList = this.financeMapper.selectFinanceList(financeReqBean);
         List<FinanceResBean> financeResBeanList = this.financeTransformer.transform(financeEntityList);
-        return new PageInfo<>(financeResBeanList);
+        PageInfo<FinanceResBean> financeResBeanPageInfo = new PageInfo<>(financeResBeanList);
+        financeResBeanPageInfo.setTotal(this.financeMapper.selectFinanceListTotal(financeReqBean));
+        return financeResBeanPageInfo;
     }
 
     @Override

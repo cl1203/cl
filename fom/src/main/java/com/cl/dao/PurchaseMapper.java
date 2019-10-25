@@ -1,6 +1,7 @@
 package com.cl.dao;
 
 import com.cl.bean.req.PurchaseReqBean;
+import com.cl.bean.res.PurchaseResBean;
 import com.cl.entity.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -21,7 +22,7 @@ public interface PurchaseMapper extends MyBatisBaseDao<PurchaseEntity, Long, Pur
      * @param purchaseReqBean
      * @return
      */
-    List<PurchaseEntity> selectPurchaseList(PurchaseReqBean purchaseReqBean);
+    List<PurchaseResBean> selectPurchaseList(PurchaseReqBean purchaseReqBean);
 
     /**
      * 查询不同状态的采购单数量

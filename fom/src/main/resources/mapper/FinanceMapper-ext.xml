@@ -31,4 +31,21 @@
     </if>
   </select>
 
+
+  <select id="selectFinanceListTotal" resultType="long" parameterType="com.cl.bean.req.FinanceReqBean">
+    select
+      count(1)
+    from finance f
+    left join order_manage o on f.order_no = o.order_no
+    where o.order_status = 4
+    <if test="orgName != null and orgName != ''">
+      and o.producer = #{orgName}
+    </if>
+    <if test="orderNo != null and orderNo !='' ">
+      and o.order_no = #{orderNo}
+    </if>
+    <if test="status != null">
+      and f.status = #{status}
+    </if>
+  </select>
 </mapper>

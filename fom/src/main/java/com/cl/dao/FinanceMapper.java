@@ -14,4 +14,6 @@ import java.util.List;
 public interface FinanceMapper extends MyBatisBaseDao<FinanceEntity, Long, FinanceEntityExample> {
 
     List<FinanceEntity> selectFinanceList(FinanceReqBean financeReqBean);
+
+    Long selectFinanceListTotal(FinanceReqBean financeReqBean);
 }
