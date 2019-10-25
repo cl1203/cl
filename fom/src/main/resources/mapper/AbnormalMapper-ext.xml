@@ -45,7 +45,7 @@
 	<select id="selectAbnormalTailorCount" parameterType="com.cl.bean.req.AbnormalReqBean" resultType="java.lang.Integer">
 		select count(1)
 		from abnormal a
-			 inner join tailor t on a.order_no = t.order_no
+			 left join tailor t on a.order_no = t.order_no
 		where 1 = 1
 		<if test="orderNo != null and orderNo != ''">
 			and a.order_no = #{orderNo}
