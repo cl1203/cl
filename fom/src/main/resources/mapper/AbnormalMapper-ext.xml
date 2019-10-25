@@ -62,7 +62,7 @@
 		select a.order_no orderNo,t.answer_cut_quantity as answerCutQuantity,t.actual_cut_quantity actualCutQuantity,
 			   tailor_name as tailorName,a.abnormal_remarks as remark,a.is_approval as isApproval,a.is_exceed as isExceed
 		from abnormal a
-			 inner join tailor t on a.order_no = t.order_no
+			 left join tailor t on a.order_no = t.order_no
 		where 1 = 1
 		<if test="orderNo != null and orderNo != ''">
 			and a.order_no = #{orderNo}
