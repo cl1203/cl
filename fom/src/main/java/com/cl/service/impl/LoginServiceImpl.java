@@ -87,9 +87,10 @@ public class LoginServiceImpl implements ILoginService{
         List<SysUserEntity> sysUserEntityList = this.checkUser(loginReqBean);
         String newPassword = loginReqBean.getNewPassword();
         Assert.hasText(newPassword , "新密码不能为空!");
+        /*int j = newPassword.length();
         if(!(newPassword.length() >= DictionaryConstants.PASSWORD_MIN && newPassword.length() <= DictionaryConstants.PASSWORD_MAX)){
             throw new BusinessException("新密码长度必须在8-20之间!");
-        }
+        }*/
         boolean flag = this.pulldownMenuService.checkBlankSpace(newPassword);
         Assert.isTrue(flag , "新密码不能包含空格!");
         String regex = "^[a-z0-9A-Z]+$";
