@@ -241,8 +241,16 @@ public class PullOrderJob {
 		entity.setPurchaseType(pb.getPurchaseType());
 		entity.setMaterielName(pb.getMaterialName());
 		entity.setMaterielColor(pb.getMaterialColor());
-		//应采数量 = 单件用量 * 订单件数
-		entity.setAnswerPickQuantity(pb.getSimpleUse().multiply(BigDecimal.valueOf(Double.valueOf(order.getQuantity() + ""))).setScale(0, BigDecimal.ROUND_HALF_UP));
+		//如果是面料% 的物料项目 都加百分之八损耗
+		String purchaseType = pb.getPurchaseType();
+		int index = purchaseType.indexOf("面料");
+		if(index == -1){
+			//应采数量 = 单件用量 * 订单件数
+			entity.setAnswerPickQuantity(pb.getSimpleUse().multiply(BigDecimal.valueOf(Double.valueOf(order.getQuantity() + ""))).setScale(0, BigDecimal.ROUND_HALF_UP));
+		}else{
+			//应采数量 = 单件用量 * 订单件数 * 1.08
+			entity.setAnswerPickQuantity(pb.getSimpleUse().multiply(BigDecimal.valueOf(Double.valueOf(order.getQuantity() + ""))).multiply(new BigDecimal("1.08")).setScale(0, BigDecimal.ROUND_HALF_UP));
+		}
 		entity.setAnswerPickMonovalent(pb.getPrice());
 		entity.setAnswerPickTotal(entity.getAnswerPickQuantity().multiply(entity.getAnswerPickMonovalent()));
 		entity.setSimpleUse(pb.getSimpleUse());

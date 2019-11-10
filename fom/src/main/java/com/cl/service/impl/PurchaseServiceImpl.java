@@ -205,6 +205,7 @@ public class PurchaseServiceImpl implements IPurchaseService {
         }
         BigDecimal singleUse = purchaseEntityByOrderNo.getSimpleUse();//单件用量
         Assert.notNull(singleUse , "单件用量为空!无法计算应裁数量!");
+        singleUse = singleUse.multiply(new BigDecimal("1.08")).setScale(DictionaryConstants.ORDER_STATUS_ALREADY_PURCHASE , BigDecimal.ROUND_HALF_UP);
         BigDecimal actualPickQuantity = purchaseEntityByOrderNo.getActualPickQuantity();//实采数量
         BigDecimal answerCutQuantity = (actualPickQuantity.divide(singleUse , DictionaryConstants.ALL_BUSINESS_ZERO , BigDecimal.ROUND_HALF_UP));//应裁数量
         return answerCutQuantity;
