@@ -7,9 +7,6 @@ spring:
       name: fom
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://10.108.11.132:3306/fom?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
-#    username: anji-plus
-#    password: anji-plus
     url: jdbc:mysql://localhost:3306/fom?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
@@ -20,25 +17,6 @@ spring:
   jackson:
       time-zone: GMT+8
       date-format: yyyy-MM-dd HH:mm:ss
-#  redis:
-#    database: 1
-#    host: 127.0.0.1
-#    port: 6379
-#    timeout: 2000ms
-#    password:
-#  jedis:
-#    pool:
-#      max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
-#      max-wait: -1ms      # 连接池最大阻塞等待时间（使用负值表示没有限制）
-#      max-idle: 10      # 连接池中的最大空闲连接
-#      min-idle: 5       # 连接池中的最小空闲连接
-#mybatis:
-#  dao-locations: classpath:mapper/*.xml
-#  type-aliases-package: com.cl.entity
-#showSql
-#logging:
-#  level:
-#    com.cl.dao: debug
 
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
@@ -56,14 +34,6 @@ mybatis-plus:
     logic-not-delete-value: 1
 
 interface:
-#  app:
-#    id: F0005mauBUF
-#    secure: nuX8Vj6ZcY
-#    uri : /platform/order/queryProduceOrderInfo
-#  private: 
-#    key: MIIBVgIBADANBgkqhkiG9w0BAQEFAASCAUAwggE8AgEAAkEApJ5OxE1EpZVq9bz6BHzsbBEsgIv4Kmn1Ana5jDY3S4ClQvKM3I2eWPP5AlMGg7SsMH8890xjxS9hchGAk5T0jwIDAQABAkEAnV08HMlkewmX4uvQ8SNeenv8V7H1/M2nSsCl5RQazc/XGs4v1YZMgYohVGA/rI6ing7nLut9sMtzLK+VjOHzgQIhANF15Itiqy0eLMEMXnakT/K7nZFBWsYnU3vuKFynwUJBAiEAyTHLz1KS/jj3I4C9F0FYCTBbX/fzUj2HaMDJ7KcT4s8CIQCK/zL0lDuHqziDuxOMo6kyKPJ9C+OTD1HFMduy8Ne8gQIhAJ0uSguudyglWO5jpVaFtkF3hetzyqR1bVRpSVeZL/ABAiBh4S6+k9oInL9TXZcv6lH2pKeovA1zkN/bZZSlcDWEEg==
-#  url: 
-#    prefix: http://mes-sit01.020mes.com
   app:
     id: 'F0005FqG*bC'
     secure: 'vvjfBa#8XR'
