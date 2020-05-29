@@ -18,6 +18,7 @@ spring:
       time-zone: GMT+8
       date-format: yyyy-MM-dd HH:mm:ss
 
+
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.cl.entity
@@ -34,6 +35,14 @@ mybatis-plus:
     logic-not-delete-value: 1
 
 interface:
+#  app:
+#    id: F0005mauBUF
+#    secure: nuX8Vj6ZcY
+#    uri : /platform/order/queryProduceOrderInfo
+#  private: 
+#    key: MIIBVgIBADANBgkqhkiG9w0BAQEFAASCAUAwggE8AgEAAkEApJ5OxE1EpZVq9bz6BHzsbBEsgIv4Kmn1Ana5jDY3S4ClQvKM3I2eWPP5AlMGg7SsMH8890xjxS9hchGAk5T0jwIDAQABAkEAnV08HMlkewmX4uvQ8SNeenv8V7H1/M2nSsCl5RQazc/XGs4v1YZMgYohVGA/rI6ing7nLut9sMtzLK+VjOHzgQIhANF15Itiqy0eLMEMXnakT/K7nZFBWsYnU3vuKFynwUJBAiEAyTHLz1KS/jj3I4C9F0FYCTBbX/fzUj2HaMDJ7KcT4s8CIQCK/zL0lDuHqziDuxOMo6kyKPJ9C+OTD1HFMduy8Ne8gQIhAJ0uSguudyglWO5jpVaFtkF3hetzyqR1bVRpSVeZL/ABAiBh4S6+k9oInL9TXZcv6lH2pKeovA1zkN/bZZSlcDWEEg==
+#  url: 
+#    prefix: http://mes-sit01.020mes.com
   app:
     id: 'F0005FqG*bC'
     secure: 'vvjfBa#8XR'
