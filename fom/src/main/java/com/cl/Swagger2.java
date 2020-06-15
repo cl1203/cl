@@ -16,9 +16,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @Date 2019/6/28 15:34
  * @Version 1.0
  **/
-@Configuration
-@EnableSwagger2
-public class Swagger2 {
+//@Configuration
+//@EnableSwagger2
+/*public class Swagger2 {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -37,4 +37,4 @@ public class Swagger2 {
                 .version("1.0")
                 .build();
     }
-}
+}*/

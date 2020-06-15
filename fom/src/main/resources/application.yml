@@ -7,9 +7,9 @@ spring:
       name: fom
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/fom?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/zl?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
     username: root
-    password: 123456
+    password: Chen1203!
     type: com.alibaba.druid.pool.DruidDataSource
     max-wait: 10000
     min-idle: 5
@@ -36,11 +36,11 @@ mybatis-plus:
 
 interface:
   app:
-    id: 'F0005FqG*bC'
-    secure: 'vvjfBa#8XR'
+    id: 'F0021XXbckE'
+    secure: 'cifDBnrI9g'
     uri : /platform/order/queryProduceOrderInfo
   private: 
-    key: MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAoctb4JxWViUVUdTBRH2WE1vLmBqo/tcayUcbG2jwGKNvVfty6SuOEer8onYz2m/SV2HnMkX0i4/1XZCo5t6GTwIDAQABAkAUQOzDdU6pggLlN4jqFf6PddJKvCujmzHTOH+AMua7bqcespYx+FD4C3/xcz9BMJdNaut5nVMdWf5V3FNpNXGhAiEA1p+4x/n88iPzJAApUdjQICL3Xvn1cVQiX7nuDhxsyA0CIQDA/Fq6xMpp/c4oXM1sKlGrhtnXVl7YAjir/GwFFk50ywIgcuUWepetfcMZCpC7jgFPiaSuYL3XU1ADBtP2SL+WzJECICcewLGdlL6ZoYHTFh04EugnZN9e9cjp4l0SxT7ev7azAiEAt09Yog0VBI0OjpF/basZhyqWPPU3iPb//M18rR3He6k=
+    key: MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEAmXIqBJmSThV/RDteVjNnH06xHceFR7C/z/2RStNbgLS6qTo0rThqBn/zFkNmj92Sipcd6YRQGgxr1l7SEAtnNQIDAQABAkAtW12oNmzUv+36kUH1YQRecLhSASQYaNqJ9H36DDfD9y9/j3i5UvkJfAK6cKJRo/ew8X97cwIMeydx91/Lx/6RAiEA/LoYxuqpYqbqCw5cqjpgd7wCY7/DbUwTg+Y9rNZpkusCIQCbbugE7bJBTTq4bLafjFOyqT8JLQz7+Pv5DL4Cj20mXwIhAI5mUVWrnVuPzyoBoqbsE7UDg5ku0O/BwPE+BxxfB8eXAiBKuYf8DpY7BLjtPv6RN7JpWyp969WpMatZsUGME44C+wIhAORGeGLp8EgdcXnrU8nKc5kZbheHp/+VOm2EldmUFQ+w
   url: 
     prefix: https://www.020mes.com
     
