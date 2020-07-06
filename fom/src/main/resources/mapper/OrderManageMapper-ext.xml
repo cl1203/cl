@@ -115,5 +115,36 @@
 	order by om.order_time
 	limit #{offset},#{limit}
   </select>
-  
+
+	<delete id="deleteOrderByOrderNo" parameterType="string">
+		delete from order_manage where order_no = #{orderNo}
+	</delete>
+
+	<delete id="deleteQuantityByOrderNo" parameterType="string">
+		delete from order_quantity where order_no = #{orderNo}
+	</delete>
+
+	<delete id="deleteAbnormalByOrderNo" parameterType="string">
+		delete from abnormal where order_no =#{orderNo}
+	</delete>
+
+	<delete id="deleteFinanceByOrderNo" parameterType="string">
+		delete from finance where order_no =#{orderNo}
+	</delete>
+
+	<delete id="deletePurchaseByOrderNo" parameterType="string">
+		delete from purchase where order_no =#{orderNo}
+	</delete>
+
+	<delete id="deleteSecondaryByOrderNo" parameterType="string">
+		delete from secondary_process where order_no =#{orderNo}
+	</delete>
+
+	<delete id="deleteStockByOrderNo" parameterType="string">
+		delete from stock where order_no =#{orderNo}
+	</delete>
+
+	<delete id="deleteTailorByOrderNo" parameterType="string">
+		delete from tailor where order_no =#{orderNo}
+	</delete>
 </mapper>

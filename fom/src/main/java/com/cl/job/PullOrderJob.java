@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.cl.dao.*;
+import com.cl.entity.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -37,27 +39,11 @@ import com.cl.comm.constants.ApiConstants;
 import com.cl.comm.exception.BusinessException;
 import com.cl.comm.model.Status;
 import com.cl.config.CommonConfig;
-import com.cl.dao.OrderManageMapper;
-import com.cl.dao.OrderQuantityMapper;
-import com.cl.dao.PurchaseMapper;
-import com.cl.dao.SecondaryProcessMapper;
-import com.cl.dao.StockMapper;
-import com.cl.dao.SysParameterMapper;
-import com.cl.dao.TbLogMapper;
-import com.cl.entity.OrderManageEntity;
-import com.cl.entity.OrderQuantityEntity;
-import com.cl.entity.OrderQuantityEntityExample;
 import com.cl.entity.OrderQuantityEntityExample.Criteria;
-import com.cl.entity.PurchaseEntity;
-import com.cl.entity.PurchaseEntityExample;
-import com.cl.entity.SecondaryProcessEntity;
-import com.cl.entity.StockEntity;
-import com.cl.entity.StockEntityExample;
-import com.cl.entity.SysParameterEntity;
-import com.cl.entity.SysParameterEntityExample;
-import com.cl.entity.TbLogEntity;
 import com.cl.utils.HttpClientUtil;
 import com.cl.utils.RsaUtil;
+
+import javax.annotation.Resource;
 
 @Component
 @EnableScheduling
@@ -89,6 +75,16 @@ public class PullOrderJob {
 	
 	@Autowired
 	private CommonConfig config;
+
+	@Resource
+	private AbnormalMapper abnormalMapper;
+
+	@Resource
+	private FinanceMapper financeMapper;
+
+	@Resource
+	private TailorMapper tailorMapper;
+
 	
 	@Scheduled(cron = "0 */10 * * * *")
 	@Transactional(rollbackFor = Exception.class)
@@ -156,10 +152,21 @@ public class PullOrderJob {
 			orderParams.put("orderNo", order.getProduceOrderId());
 			List<OrderManageEntity> existsOrderList = orderManageMapper.selectByParams(orderParams);
 			if(CollectionUtils.isNotEmpty(existsOrderList)) {
-				tbLog.setIsSuccess(ApiConstants.INTERFACE_SAVE_FAILED);
+				/*tbLog.setIsSuccess(ApiConstants.INTERFACE_SAVE_FAILED);
 				tbLog.setErrMsg("订单编号：" + order.getProduceOrderId() + "已存在");
 				tbLogMapper.insertSelective(tbLog);
-				continue;
+				continue;*/
+				String orderNo = order.getProduceOrderId();
+				//如果订单存在 删除关于订单的所有信息  重新同步
+				orderManageMapper.deleteOrderByOrderNo(orderNo);
+				orderManageMapper.deleteQuantityByOrderNo(orderNo);
+				orderManageMapper.deleteAbnormalByOrderNo(orderNo);
+				orderManageMapper.deleteFinanceByOrderNo(orderNo);
+				orderManageMapper.deletePurchaseByOrderNo(orderNo);
+				orderManageMapper.deleteSecondaryByOrderNo(orderNo);
+				orderManageMapper.deleteStockByOrderNo(orderNo);
+				orderManageMapper.deleteTailorByOrderNo(orderNo);
+				tbLog.setIsSuccess(ApiConstants.ORDER_STATUS_PURCHASING);
 			}
 			OrderManageEntity entity = convertFromOrder(order, now);
 			if(entity == null) {
@@ -335,7 +342,7 @@ public class PullOrderJob {
 			sb.append("订单图片不能为空！");
 		}
 		if(StringUtils.isBlank(order.getProducer())) {
-			order.setProducer("欧丝丹");
+			order.setProducer("昭龙服饰");
 		}
 		if(order.getQuantity() <= ApiConstants.ZERO) {
 			sb.append("数量必须大于0");

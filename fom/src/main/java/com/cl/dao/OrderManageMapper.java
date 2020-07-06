@@ -102,4 +102,20 @@ public interface OrderManageMapper extends MyBatisBaseDao<OrderManageEntity, Lon
     List<DashBoardResBean> selectDashBoardByParams(DashBoardReqBean reqBean);
 
     List<DashBoardDetailResBean> selectDashBoardDetailByParams(Map<String,Object> params);
+
+    void deleteOrderByOrderNo(String orderNo);
+
+    void deleteQuantityByOrderNo(String orderNo);
+
+    void deleteAbnormalByOrderNo(String orderNo);
+
+    void deleteFinanceByOrderNo(String orderNo);
+
+    void deletePurchaseByOrderNo(String orderNo);
+
+    void deleteSecondaryByOrderNo(String orderNo);
+
+    void deleteStockByOrderNo(String orderNo);
+
+    void deleteTailorByOrderNo(String orderNo);
 }
