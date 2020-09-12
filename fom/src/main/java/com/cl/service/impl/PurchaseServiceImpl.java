@@ -241,15 +241,15 @@ public class PurchaseServiceImpl implements IPurchaseService {
         if(null == purchaseEntityById.getPurchaseTime()){
             purchaseEntity.setPurchaseTime(new Date());//采购日期
         }
-        Assert.hasText(purchaseReqBean.getActualPickMonovalent() , "实采单价不能为空!");
-        if(match(regexp , purchaseReqBean.getActualPickMonovalent())) {
+        Assert.hasText(purchaseReqBean.getActualPickTotal() , "实采总额不能为空!");
+        if(match(regexp , purchaseReqBean.getActualPickTotal())) {
             throw new BusinessException("实采单价规则:整数位最多10位,小数位最多2位! ");
         }
         //实采单价
-        purchaseEntity.setActualPickMonovalent(new BigDecimal(purchaseReqBean.getActualPickMonovalent()));
+        //purchaseEntity.setActualPickMonovalent(new BigDecimal(purchaseReqBean.getActualPickMonovalent()));
         //实采总额
-        BigDecimal actualPickTotal = new BigDecimal(purchaseReqBean.getActualPickQuantity()).multiply(new BigDecimal(purchaseReqBean.getActualPickMonovalent()));
-        purchaseEntity.setActualPickTotal(actualPickTotal.setScale(DictionaryConstants.PERMISSION_TYPE_TWO , BigDecimal.ROUND_HALF_UP));
+        //BigDecimal actualPickTotal = new BigDecimal(purchaseReqBean.getActualPickQuantity()).multiply(new BigDecimal(purchaseReqBean.getActualPickMonovalent()));
+        purchaseEntity.setActualPickTotal(new BigDecimal(purchaseReqBean.getActualPickTotal()));
         purchaseEntity.setId(purchaseReqBean.getId());//id
         purchaseEntity.setSupplierName(purchaseReqBean.getSupplierName());//供应商
         return purchaseEntity;

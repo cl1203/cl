@@ -7,9 +7,12 @@ spring:
     name: fom
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/zl?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: Chen1203!
     url: jdbc:mysql://localhost:3306/zl?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
     username: root
-    password: Chen1203!
+    password: Chen1993
     type: com.alibaba.druid.pool.DruidDataSource
     max-wait: 10000
     min-idle: 5

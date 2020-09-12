@@ -200,38 +200,42 @@ public class PullOrderJob {
 
 	private void processPurchase(List<PurchaseBean> purchaseList, OrderResBean order, Date now) {
 		for(PurchaseBean pb : purchaseList) {
-			//新增采购单
-			PurchaseEntityExample example = new PurchaseEntityExample();
-			PurchaseEntityExample.Criteria criteria = example.createCriteria();
-			criteria.andOrderNoEqualTo(order.getProduceOrderId());
-			criteria.andPurchaseNoEqualTo(pb.getPurchaseCode());
-			List<PurchaseEntity> existEntityList = purchaseMapper.selectByExample(example);
-			if(CollectionUtils.isNotEmpty(existEntityList)) {
-				throw new BusinessException(Status.EXISTS_PURCHASE);
+			String purchaseType = pb.getPurchaseType();
+			int index = purchaseType.indexOf("辅料");//辅料XXX 不生成采购单
+			if(index == -1){
+				//新增采购单
+				PurchaseEntityExample example = new PurchaseEntityExample();
+				PurchaseEntityExample.Criteria criteria = example.createCriteria();
+				criteria.andOrderNoEqualTo(order.getProduceOrderId());
+				criteria.andPurchaseNoEqualTo(pb.getPurchaseCode());
+				List<PurchaseEntity> existEntityList = purchaseMapper.selectByExample(example);
+				if(CollectionUtils.isNotEmpty(existEntityList)) {
+					throw new BusinessException(Status.EXISTS_PURCHASE);
+				}
+				PurchaseEntity entity = convertFromPurchaseBean(pb,order,now);
+				purchaseMapper.insertSelective(entity);
+
+				//新增库存
+				StockEntityExample stockExample = new StockEntityExample();
+				StockEntityExample.Criteria stockCriteria = stockExample.createCriteria();
+				stockCriteria.andOrderNoEqualTo(order.getProduceOrderId());
+				stockCriteria.andSkuEqualTo(order.getSku());
+				stockCriteria.andMaterialSkuEqualTo(pb.getMaterialSku());
+				List<StockEntity> existsStock = stockMapper.selectByExample(stockExample);
+				if(CollectionUtils.isNotEmpty(existsStock)) {
+					continue;
+				}
+				StockEntity stock = new StockEntity();
+				stock.setOrderNo(order.getProduceOrderId());
+				stock.setSku(order.getSku());
+				stock.setMaterialSku(pb.getMaterialSku());
+				stock.setStock(ApiConstants.DEFAULT_STOCK);
+				stock.setCreateUser(ApiConstants.API_USER);
+				stock.setCreateTime(now);
+				stock.setLastUpdateUser(ApiConstants.API_USER);
+				stock.setLastUpdateTime(now);
+				stockMapper.insertSelective(stock);
 			}
-			PurchaseEntity entity = convertFromPurchaseBean(pb,order,now);
-			purchaseMapper.insertSelective(entity);
-			
-			//新增库存
-			StockEntityExample stockExample = new StockEntityExample();
-			StockEntityExample.Criteria stockCriteria = stockExample.createCriteria();
-			stockCriteria.andOrderNoEqualTo(order.getProduceOrderId());
-			stockCriteria.andSkuEqualTo(order.getSku());
-			stockCriteria.andMaterialSkuEqualTo(pb.getMaterialSku());
-			List<StockEntity> existsStock = stockMapper.selectByExample(stockExample);
-			if(CollectionUtils.isNotEmpty(existsStock)) {
-				continue;
-			}
-			StockEntity stock = new StockEntity();
-			stock.setOrderNo(order.getProduceOrderId());
-			stock.setSku(order.getSku());
-			stock.setMaterialSku(pb.getMaterialSku());
-			stock.setStock(ApiConstants.DEFAULT_STOCK);
-			stock.setCreateUser(ApiConstants.API_USER);
-			stock.setCreateTime(now);
-			stock.setLastUpdateUser(ApiConstants.API_USER);
-			stock.setLastUpdateTime(now);
-			stockMapper.insertSelective(stock);
 		}
 	}
 
