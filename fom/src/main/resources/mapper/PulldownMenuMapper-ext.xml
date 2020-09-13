@@ -130,7 +130,7 @@
         <if test="name !=null and name !=''">
             supplier_name = #{name}
         </if>
-        GROUP BY supplier_name desc
+        GROUP BY supplier_name
     </select>
 
     <select id="queryDictItemList" resultType="com.cl.bean.res.DictItem" parameterType="com.cl.bean.res.DictItem">

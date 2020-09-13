@@ -2,6 +2,7 @@ package com.cl.utils;
 
 import com.cl.comm.exception.BusinessException;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPClientConfig;
 import org.apache.commons.net.ftp.FTPReply;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,13 +16,13 @@ public class FtpFileUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(FtpFileUtil.class);
 
     //ftp服务器ip地址
-    private static final String FTP_ADDRESS = "120.24.207.170";
+    private static final String FTP_ADDRESS = "39.108.52.48";
     //端口号
     private static final int FTP_PORT = 21;
     //用户名
-    private static final String FTP_USERNAME = "ftpuser";
+    private static final String FTP_USERNAME = "ftptest2";
     //密码
-    private static final String FTP_PASSWORD = "ftpuser";
+    private static final String FTP_PASSWORD = "cl1203";
     //图片路径
     private static String FTP_BASEPATH = "/home/www/site/img";
 
@@ -30,6 +31,10 @@ public class FtpFileUtil {
     public  static boolean uploadFile(MultipartFile file , String fileName ){
         boolean success = false;
         ftp = new FTPClient();
+        ftp.enterLocalPassiveMode();
+        /*FTPClientConfig config = new FTPClientConfig();
+        config.setLenientFutureDates(true);
+        ftp.configure(config);*/
         //ftp.setControlEncoding("UTF-8");
         try {
             InputStream input = file.getInputStream();
@@ -49,7 +54,7 @@ public class FtpFileUtil {
                 createDir(FTP_BASEPATH);
                 success = ftp.changeWorkingDirectory(FTP_BASEPATH);
             }*/
-            ftp.enterLocalPassiveMode();
+
             fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
             boolean flag  = ftp.storeFile(fileName,input);
             LOGGER.info("upload file: " + flag);
